@@ -23,7 +23,7 @@ const Cards = [
         title: "Sessions Today",
         icon: Activity,
         value: 847,
-        desc: "+12 compared to yesterday",
+        desc: "+12 vs yesterday",
     }
     
 ]
