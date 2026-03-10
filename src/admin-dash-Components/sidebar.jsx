@@ -7,7 +7,7 @@ import Logo2 from "../assets/image_logo.png";
 export default function Sidebar() {
 
     const main = [
-        { name: "tenants", label: "Tenants", href: "/dashboard", icon: <Building size={20} /> },
+        { name: "tenants", label: "Tenants", href: "/admin-dashboard", icon: <Building size={20} /> },
         { name: "configs", label: "Configs", href: "/configs", icon: <Settings size={20} /> },
         { name: "sessions", label: "Sessions", href:"/sessions", icon: <Phone size={20} /> },
     ];
