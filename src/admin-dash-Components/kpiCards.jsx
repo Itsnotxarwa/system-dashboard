@@ -1,4 +1,4 @@
-import Cards from "./data/cards";
+import Cards from "../data/cards";
 
 export default function KpiCards() {
     return(

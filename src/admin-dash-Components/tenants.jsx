@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
-import AllTenants from "./data/tenants"
+import AllTenants from "../data/tenants"
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    
