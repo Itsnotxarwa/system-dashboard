@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { Building, Settings, Phone, KeyRound, ChartColumn } from "lucide-react";
+import { Building, Settings, Phone, KeyRound, ChartColumn, LogOut } from "lucide-react";
 import Logo from "../assets/image.png";
 import Logo2 from "../assets/image_logo.png";
 
 
-export default function Sidebar() {
+export default function Sidebar({role}) {
 
     const main = [
         { name: "tenants", label: "Tenants", href: "/", icon: <Building size={20} /> },
@@ -20,7 +20,8 @@ export default function Sidebar() {
 
     return(
             <aside className="flex flex-col w-18 md:w-21 lg:w-55 px-4 md:px-6 h-screen
-            py-8 transition-all duration-300 ease-in-out">
+            py-8 transition-all duration-300 ease-in-out justify-between">
+                <div>
                 <div className="hidden lg:flex items-center justify-start">
                     <img src={Logo} alt="Mazia" className="w-30" />
                 </div>
@@ -75,7 +76,30 @@ export default function Sidebar() {
                         </div>
                     </div>
                 </nav>
+                </div>
                 
+                <div className="border-t border-gray-100 py-3">
+                    <div className="flex items-center gap-0.5 p-2.5 rounded-xl bg-gray-50 
+                    border border-gray-100 relative">
+                        <div className="flex-1">
+                            <p className="text-sm font-700 text-gray-900 leading-tight tracking-tight font-semibold">
+                                Mazouz Rahim
+                            </p>
+                            <p className="text-xs text-gray-400 mt-0.5 font-normal">
+                                {role}
+                            </p>
+                        </div>
+                        <button
+                        className="w-7 h-7 flex items-center justify-center rounded-lg 
+                        bg-white border border-gray-200 text-gray-300 cursor-pointer
+                        hover:bg-red-50 hover:border-red-200 hover:text-red-400 
+                        transition-all duration-300 shrink-0"
+                        >
+                            <LogOut size={14} />
+                        </button>
+                    </div>
+                </div>
+
             </aside>
 
     )
