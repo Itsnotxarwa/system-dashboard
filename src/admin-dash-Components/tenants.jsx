@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { CircleX, Edit, Search } from "lucide-react";
+import EditModal from "./EditModal";
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    
     const [filter, setFilter] = useState("All");
     const [tenants, setTenants] = useState([]);
+    const [selectedTenant, setSelectedTenant] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+
+    const handleEdit = (tenant) => {
+        setSelectedTenant(tenant);
+        setShowEditModal(true);
+    };
+
 
     const filteredTenants = tenants.filter(t => 
         (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase())) &&
@@ -34,6 +43,39 @@ export default function Tenants() {
         
         fetchTenants();
     }, []);
+
+    const updateTenant = async (tenantId, updatedData) => {
+        try {
+            const token = localStorage.getItem("token");
+            
+            const response = await fetch(`https://api.voixup.fr/admin/tenants/${tenantId}`,{
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    name: updatedData.name,
+                    email: updatedData.email,
+                    phone: updatedData.phone,
+                }),
+                }
+            );
+
+            if (!response.ok) throw new Error("Update failed");
+
+            const data = await response.json();
+            console.log(data);
+
+            setShowEditModal(false);
+
+            window.location.reload();
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
     return (
     <div className="p-4">
@@ -127,6 +169,7 @@ export default function Tenants() {
                         <th className="py-2">Statut</th>
                         <th className="py-2">Téléphone</th>
                         <th className="py-2">Créé le</th>
+                        <th></th>
                     </tr>   
                 </thead>
                 <tbody>
@@ -154,11 +197,25 @@ export default function Tenants() {
                         <td className="py-2">
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
                         </td>
+                        <td className="py-2 flex gap-2">
+                            <button className="flex items-center justify-center text-gray-500
+                            cursor-pointer"
+                            onClick={() => handleEdit(t)}>
+                                <Edit size={21} />
+                            </button>
+                            <button className="flex items-center justify-center text-red-500
+                            cursor-pointer">
+                                <CircleX size={21} />
+                            </button>
+                        </td>
                     </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+        {showEditModal && (
+            <EditModal selectedTenant={selectedTenant} setSelectedTenant={setSelectedTenant} updateTenant={updateTenant} setShowEditModal={setShowEditModal} />
+        )}
     </div>
 )
 }
