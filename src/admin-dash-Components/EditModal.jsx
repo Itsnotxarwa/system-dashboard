@@ -72,9 +72,8 @@ export default function EditModal({selectedTenant, setSelectedTenant, setShowEdi
                         }
                         />
                     </div>
-                </div>
-                
-                <div className="flex gap-2">
+
+                     <div className="flex gap-2.5 mt-6">
                     <button
                     onClick={() => setShowEditModal(false)}
                     className="flex-1 py-2.5 text-xs rounded-lg 
@@ -93,6 +92,7 @@ export default function EditModal({selectedTenant, setSelectedTenant, setShowEdi
                     >
                         Save
                     </button>
+                </div>
                 </div>
             </div>
         </div>
