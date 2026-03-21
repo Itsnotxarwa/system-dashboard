@@ -1,4 +1,4 @@
-import { Edit } from "lucide-react";
+import { Edit, X } from "lucide-react";
 
 export default function EditModal({selectedTenant, setSelectedTenant, setShowEditModal, updateTenant}) {
     return(
