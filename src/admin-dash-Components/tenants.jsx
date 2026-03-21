@@ -1,24 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import AllTenants from "../data/tenants"
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    
     const [filter, setFilter] = useState("All");
+    const [tenants, setTenants] = useState([]);
 
-    const filtered = AllTenants.filter((t) => {
-        const matchFilter =
-        filter === "All" ||
-        (filter === "Active" && t.status === "Active") ||
-        (filter === "Inactive" && t.status === "Inactive");
-        const q = search.toLowerCase();
+    const filteredTenants = tenants.filter(t => 
+        (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase())) &&
+        (filter === "All" || (filter === "Active" && t.is_active) || (filter === "Inactive" && !t.is_active))
+    );
 
-        const matchSearch =
-        !q ||
-        t.tenant.toLowerCase().includes(q) ||
-        t.accountId.toLowerCase().includes(q);
-        return matchFilter && matchSearch;
-    });
+    useEffect(() => {
+        const fetchTenants = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                
+                const response = await fetch("https://api.voixup.fr/admin/tenants", {
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                console.log(data);
+                
+                setTenants(data); 
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        
+        fetchTenants();
+    }, []);
 
     return (
     <div className="p-4">
@@ -28,7 +43,7 @@ export default function Tenants() {
             </h1>
             <p className="text-[11px] font-semibold bg-[rgba(3,44,166,0.08)] border border-[rgba(3,44,166,0.14)]
             text-[#032ca6] py-1 px-2 tracking-[-0.02em] rounded-[20px]">
-                {AllTenants.length} tenants
+                {tenants.length} tenants
             </p>
         </div>
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
@@ -38,7 +53,7 @@ export default function Tenants() {
             <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search tenants by name or account ID"
+            placeholder="Rechercher des locataires par nom ou ID de compte"
             className="text"
             style={{
                 border: "none",
@@ -107,18 +122,18 @@ export default function Tenants() {
                 <thead>
                     <tr className="text-left text-[11px] font-semibold text-[#7a8bb5] border-b border-[#e5e7eb]"></tr>
                     <tr className="text-left text-[11px] font-semibold text-[#7a8bb5] border-b border-[#e5e7eb]">
-                        <th className="py-2">Tenant</th>
-                        <th className="py-2">Account ID</th>
-                        <th className="py-2">Status</th>
-                        <th className="py-2">Config Version</th>
-                        <th className="py-2">Created</th>
+                        <th className="py-2">Nom</th>
+                        <th className="py-2">ID du compte</th>
+                        <th className="py-2">Statut</th>
+                        <th className="py-2">Téléphone</th>
+                        <th className="py-2">Créé le</th>
                     </tr>   
                 </thead>
                 <tbody>
-                    {filtered.map((t) => (
-                    <tr key={t.accountId} className="border-b border-[#e5e7eb]">
-                        <td className="py-2">{t.tenant}</td>
-                        <td className="py-2">{t.accountId}</td> 
+                    {filteredTenants.map((t) => (
+                    <tr key={t.id} className="border-b border-[#e5e7eb]">
+                        <td className="py-2">{t.name}</td>
+                        <td className="py-2">{t.id}</td> 
                         <td className="py-2">
                             <span
                                 style={{
@@ -126,17 +141,19 @@ export default function Tenants() {
                                     borderRadius: 20,
                                     fontSize: 11,   
                                     fontWeight: 500,
-                                    color: t.status === "Active" ? "#059669" : "#6b7280",
-                                    background: t.status === "Active" ? "rgba(5,150,105,0.1)" : "rgba(107,114,128,0.1)",
-                                    border: t.status === "Active" ? "1px solid rgba(5,150,105,0.2)" : "1px solid rgba(107,114,128,0.2)",
+                                    color: t.is_active ? "#059669" : "#6b7280",
+                                    background: t.is_active ? "rgba(5,150,105,0.1)" : "rgba(107,114,128,0.1)",
+                                    border: t.is_active ? "1px solid rgba(5,150,105,0.2)" : "1px solid rgba(107,114,128,0.2)",
                                     display: "inline-block",
                                 }}
                             >
-                                {t.status}
+                                {t.is_active ? "Active" : "Inactive"}
                             </span>
                         </td>
-                        <td className="py-2">{t.configVersion}</td>
-                        <td className="py-2">{t.created}</td>
+                        <td className="py-2">{t.phone}</td>
+                        <td className="py-2">
+                            {new Date(t.created_at).toLocaleDateString("fr-FR")}
+                        </td>
                     </tr>
                     ))}
                 </tbody>

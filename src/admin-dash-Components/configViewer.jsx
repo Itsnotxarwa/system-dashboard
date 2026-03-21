@@ -1,5 +1,4 @@
 import { Copy, Edit } from "lucide-react";
-import AllTenants from "../data/tenants";
 import { useState } from "react";
 import Prompt from "./prompt";
 
@@ -14,14 +13,12 @@ export default function ConfigViewer() {
                 py-2 px-4 rounded-[5px] flex justify-between items-center">
                     <div>
                         <h3 className="text-lg font-semibold tracking-[-0.02em] text-[#032ca6]">
-                            {AllTenants[0].tenant}
                         </h3> 
                         <p
                         style={{
                             fontSize: 12,
                             fontFamily: "'DM Mono', monospace",
                         }}>
-                            {AllTenants[0].accountId} {AllTenants[0].phoneNumber} {AllTenants[0].configVersion} {AllTenants[0].status} 
                         </p>
                     </div>
                     <div>
