@@ -1,7 +1,7 @@
 import { ArrowDownToLine, Plus } from "lucide-react";
 import KpiCards from "./kpiCards";
 
-export default function Overview() {
+export default function Overview({setShowModal}) {
     return (
     <div className="p-4">
         <div className="flex items-center justify-between mb-4">
@@ -16,7 +16,8 @@ export default function Overview() {
                     Export
                 </button>
                 <button className="py-2 px-4 bg-[#032ca6] text-white rounded-md
-                cursor-pointer hover:bg-[#032ca6]/90 transition-colors duration-300">
+                cursor-pointer hover:bg-[#032ca6]/90 transition-colors duration-300"
+                onClick={() => setShowModal(true)}>
                     <Plus size={16} className="inline mr-1" />
                     Add Tenant
                 </button>
