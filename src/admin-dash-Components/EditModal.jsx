@@ -77,14 +77,19 @@ export default function EditModal({selectedTenant, setSelectedTenant, setShowEdi
                 <div className="flex gap-2">
                     <button
                     onClick={() => setShowEditModal(false)}
-                    className="flex-1 bg-gray-200 p-2 rounded"
+                    className="flex-1 py-2.5 text-xs rounded-lg 
+                    border border-[rgba(3,44,166,0.14)] 
+                    bg-[rgba(3,44,166,0.04)] text-[#7a8bb5]
+                    hover:bg-[rgba(3,44,166,0.08)] transition"
                     >
                         Cancel
                     </button>
 
                     <button
                     onClick={() => updateTenant(selectedTenant.id, selectedTenant)}
-                    className="flex-1 bg-blue-600 text-white p-2 rounded"
+                    className="flex items-center justify-center flex-2 gap-1.5 py-2.5 text-xs font-bold 
+                    text-white rounded-lg border border-[#032ca6] bg-[#032ca6]
+                    shadow-md hover:bg-[#02238a] transition cursor-pointer"
                     >
                         Save
                     </button>
