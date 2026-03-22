@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CircleX, Edit, Search } from "lucide-react";
 import EditModal from "./EditModal";
+import DeleteModal from "./DeleteModal";
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    
@@ -8,6 +9,7 @@ export default function Tenants() {
     const [tenants, setTenants] = useState([]);
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const handleEdit = (tenant) => {
         setSelectedTenant(tenant);
@@ -20,6 +22,8 @@ export default function Tenants() {
         (filter === "All" || (filter === "Active" && t.is_active) || (filter === "Inactive" && !t.is_active))
     );
 
+
+    {/* GET TENANTS */}
     useEffect(() => {
         const fetchTenants = async () => {
             try {
@@ -43,7 +47,8 @@ export default function Tenants() {
         
         fetchTenants();
     }, []);
-
+    
+    {/* UPDATE TENANT */}
     const resetPassword = async (tenantId, newPassword) => {
         try {
             const token = localStorage.getItem("token");
@@ -73,6 +78,31 @@ export default function Tenants() {
                 console.error(error);
             }
         };
+
+        {/* DELETE TENANTS */}
+        const deleteTenant = async (tenantId) => {
+            try{
+                const token = localStorage.getItem("token");
+                const response = await fetch(`
+                    https://api.voixup.fr/admin/tenants/${tenantId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
+                }
+            );
+            if (!response.ok) throw new Error("Delete failed");
+
+            const data = await response.json();
+            console.log(data);
+
+            setTenants(prev => prev.filter(t => t.id !== tenantId));
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
     return (
     <div className="p-4">
@@ -200,8 +230,13 @@ export default function Tenants() {
                             onClick={() => handleEdit(t)}>
                                 <Edit size={21} />
                             </button>
-                            <button className="flex items-center justify-center text-red-500
-                            cursor-pointer">
+                            <button 
+                            className="flex items-center justify-center text-red-500
+                            cursor-pointer"
+                            onClick={() => {
+                                setSelectedTenant(t);
+                                setShowDeleteModal(true);
+                            }}>
                                 <CircleX size={21} />
                             </button>
                         </td>
@@ -211,7 +246,22 @@ export default function Tenants() {
             </table>
         </div>
         {showEditModal && (
-            <EditModal selectedTenant={selectedTenant} setSelectedTenant={setSelectedTenant} resetPassword={resetPassword} setShowEditModal={setShowEditModal} />
+            <EditModal 
+            selectedTenant={selectedTenant} 
+            setSelectedTenant={setSelectedTenant} 
+            resetPassword={resetPassword} 
+            setShowEditModal={setShowEditModal}
+            />
+        )}
+
+        {showDeleteModal && (
+            <DeleteModal 
+            selectedTenant={selectedTenant}
+            onCancel={() => setShowDeleteModal(false)}
+            onConfirm={(id) => {
+                deleteTenant(id);
+                setShowDeleteModal(false);
+            }} />
         )}
     </div>
 )

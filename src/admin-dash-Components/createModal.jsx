@@ -1,4 +1,4 @@
-import { Check, Key, Plus, X } from "lucide-react";
+import { Key, Plus, X } from "lucide-react";
 
 export default function CreateModal({setShowModal, form, setForm, handleSubmit}) {
     return(
