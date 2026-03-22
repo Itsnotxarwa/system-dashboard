@@ -7,7 +7,7 @@ export default function EditModal({ selectedTenant, setShowEditModal, resetPassw
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
             <div className="bg-white/90 border border-[rgba(3,44,166,0.15)] rounded-3xl 
-            w-full shadow-[0_24px_80px_rgba(3,44,166,0.18)] overflow-hidden">
+            w-full shadow-[0_24px_80px_rgba(3,44,166,0.18)] overflow-hidden lg:w-96">
 
                 {/* HEADER */}
                 <div className="p-[22px_26px_18px] border-b border-[rgba(3,44,166,0.08)] flex items-center justify-between">
@@ -52,11 +52,13 @@ export default function EditModal({ selectedTenant, setShowEditModal, resetPassw
                     <div>
                         <label className="text-xs uppercase">Nouveau mot de passe</label>
                         <input
-                            type="text"
-                            placeholder="Entrez le nouveau mot de passe"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-md"
+                        type="text"
+                        placeholder="Entrez le nouveau mot de passe"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="w-full px-3 py-2 text-sm border rounded-md outline-none 
+                        border-gray-300 placeholder-gray-400
+                        focus:border-[#032ca6]"
                         />
                     </div>
 
