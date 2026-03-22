@@ -44,29 +44,26 @@ export default function Tenants() {
         fetchTenants();
     }, []);
 
-    const updateTenant = async (tenantId, updatedData) => {
+    const resetPassword = async (tenantId, newPassword) => {
         try {
             const token = localStorage.getItem("token");
             
-            const response = await fetch(`https://api.voixup.fr/admin/tenants/${tenantId}`,{
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "accept": "application/json",
-                    "Authorization": `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    name: updatedData.name,
-                    email: updatedData.email,
-                    phone: updatedData.phone,
-                }),
+            const response = await fetch(`
+                https://api.voixup.fr/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
+                `,{
+                    method: "PATCH",
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
                 }
             );
 
-            if (!response.ok) throw new Error("Update failed");
+            if (!response.ok) throw new Error("Reset failed");
 
             const data = await response.json();
             console.log(data);
+            alert("Password updated ✅");
 
             setShowEditModal(false);
 
@@ -214,7 +211,7 @@ export default function Tenants() {
             </table>
         </div>
         {showEditModal && (
-            <EditModal selectedTenant={selectedTenant} setSelectedTenant={setSelectedTenant} updateTenant={updateTenant} setShowEditModal={setShowEditModal} />
+            <EditModal selectedTenant={selectedTenant} setSelectedTenant={setSelectedTenant} resetPassword={resetPassword} setShowEditModal={setShowEditModal} />
         )}
     </div>
 )
