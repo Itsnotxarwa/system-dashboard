@@ -50,7 +50,10 @@ export default function EditModal({ selectedTenant, setShowEditModal, resetPassw
 
                     {/* New password */}
                     <div>
-                        <label className="text-xs uppercase">Nouveau mot de passe</label>
+                        <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase
+                        block mb-1.5">
+                            Nouveau mot de passe
+                        </label>
                         <input
                         type="text"
                         placeholder="Entrez le nouveau mot de passe"
