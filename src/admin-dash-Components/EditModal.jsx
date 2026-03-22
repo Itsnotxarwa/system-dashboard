@@ -49,7 +49,7 @@ export default function EditModal({ selectedTenant, setShowEditModal, resetPassw
                     </div>
 
                     {/* New password */}
-                    <div>
+                    <div className="flex flex-col gap-4 mt-6">
                         <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase
                         block mb-1.5">
                             Nouveau mot de passe

@@ -18,7 +18,7 @@ export default function DeleteModal({ selectedTenant, onConfirm, onCancel }) {
                 </h2>
 
                 <p class="text-xs text-slate-400 leading-relaxed mb-1">
-                    Are you sure you want to delete this tenant <strong>{selectedTenant?.name}</strong> ?
+                    Are you sure you want to delete this tenant <strong className="text-red-500">{selectedTenant?.name}</strong> ?
                 </p>
 
                 <div class="flex items-start gap-2.5 bg-red-50 border border-red-100 rounded-xl p-3 mb-6 text-left">
