@@ -29,7 +29,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                             New Agent
                         </span>
                         <button 
-                        onclick={onClose} 
+                        onclick={onCancel} 
                         className="w-7.5 h-7.5 rounded-lg border border-[rgba(3,44,166,0.12)]
                         bg-[rgba(3,44,166,0.04)] text-[#9aabca] cursor-pointer text-[16px] flex items-center
                         justify-center" 
@@ -78,14 +78,14 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                     <div className="flex gap-2.5">
                         <button  
                         onClick={onCancel}
-                        className="px-5 py-2.5 rounded-xl text-xs font-medium text-slate-500 
+                        className="cursor-pointer px-5 py-2.5 rounded-xl text-xs font-medium text-slate-500 
                         hover:text-slate-700 transition-all border border-[rgba(3,44,166,0.13)]
                         bg-[rgba(3,44,166,0.04)]">
                             Cancel
                         </button>
                         <button 
                         onClick={onClose} 
-                        className="px-6 py-2.5 rounded-xl text-xs font-bold text-white 
+                        className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
                         transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]" 
                         style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
                             Create Agent
