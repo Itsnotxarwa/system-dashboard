@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { CircleX, Edit, Search } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
-import AgentModal from "./tenants-components/AgentModal";
+import AgentModal from "./agents-components/AgentModal";
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    

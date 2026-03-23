@@ -3,7 +3,7 @@ import ConfigViewer from "./configViewer";
 import Overview from "./overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
-import CreateModal from "./createModal";
+import CreateModal from "./tenants-components/createModal";
 
 export default function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
