@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { CircleX, Edit, Search } from "lucide-react";
-import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import EditModal from "./tenants-components/EditModal";
+import DeleteModal from "./tenants-components/DeleteModal";
+import AgentModal from "./tenants-components/AgentModal";
 
 export default function Tenants() {
     const [search, setSearch] = useState("");    
@@ -10,6 +11,7 @@ export default function Tenants() {
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showAgentModal, setShowAgentModal] = useState(false);
 
     const handleEdit = (tenant) => {
         setSelectedTenant(tenant);
@@ -201,7 +203,13 @@ export default function Tenants() {
                 </thead>
                 <tbody>
                     {filteredTenants.map((t) => (
-                    <tr key={t.id} className="border-b border-[#e5e7eb]">
+                    <tr 
+                    key={t.id} 
+                    className="border-b border-[#e5e7eb]"
+                    onClick={() => {
+                        setSelectedTenant(t);
+                        setShowAgentModal(true);
+                    }}>
                         <td className="py-2">{t.name}</td>
                         <td className="py-2">{t.id}</td> 
                         <td className="py-2">
@@ -227,13 +235,17 @@ export default function Tenants() {
                         <td className="py-2 flex gap-2">
                             <button className="flex items-center justify-center text-gray-500
                             cursor-pointer"
-                            onClick={() => handleEdit(t)}>
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(t)
+                            }}>
                                 <Edit size={21} />
                             </button>
                             <button 
                             className="flex items-center justify-center text-red-500
                             cursor-pointer"
-                            onClick={() => {
+                            onClick={(e) => {
+                                e.stopPropagation();
                                 setSelectedTenant(t);
                                 setShowDeleteModal(true);
                             }}>
@@ -262,6 +274,13 @@ export default function Tenants() {
                 deleteTenant(id);
                 setShowDeleteModal(false);
             }} />
+        )}
+
+        {showAgentModal && (
+            <AgentModal
+            selectedTenant={selectedTenant}
+            onClose={() => setShowAgentModal(false)} 
+            />
         )}
     </div>
 )
