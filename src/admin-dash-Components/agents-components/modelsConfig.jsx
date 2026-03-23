@@ -45,7 +45,7 @@ export default function ModelsConfig() {
                                 <input
                                 className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                                 border-gray-300 placeholder-gray-300 text-slate-800
-                                focus:border-[#032ca6] bg-white"
+                                focus:border-[#032ca6] bg-white/90"
                                 placeholder={field}
                                 />
                             </div>
