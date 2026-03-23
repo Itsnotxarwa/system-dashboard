@@ -4,17 +4,17 @@ export default function ModelsConfig() {
     const models = [
         { 
             key: "LLM", 
-            label: "Language Model", 
+            label: "Language Model (LLM)", 
             icon: <Cpu size={16} />, 
             fields: ["Provider", "Model Name"] },
         { 
             key: "STT", 
-            label: "Speech-to-Text", 
+            label: "Speech-to-Text (STT)", 
             icon: <Mic size={16} />, 
             fields: ["Provider", "Model Name", "Language"] },
         { 
             key: "TTS", 
-            label: "Text-to-Speech", 
+            label: "Text-to-Speech (TTS)", 
             icon: <Volume2 size={16} />, 
             fields: ["Provider", "Model Name", "Voice", "Language"] }
     ];
@@ -44,8 +44,8 @@ export default function ModelsConfig() {
                                 </label>
                                 <input
                                 className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                                border-gray-300 placeholder-gray-400
-                                focus:border-[#032ca6]"
+                                border-gray-300 placeholder-gray-300 text-slate-800
+                                focus:border-[#032ca6] bg-white"
                                 placeholder={field}
                                 />
                             </div>
