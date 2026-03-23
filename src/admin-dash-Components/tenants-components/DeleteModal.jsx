@@ -1,4 +1,4 @@
-import { X, CircleAlert, Trash2, TriangleAlert } from "lucide-react";
+import {  CircleAlert, Trash2, TriangleAlert } from "lucide-react";
 
 export default function DeleteModal({ selectedTenant, onConfirm, onCancel }) {
     return (

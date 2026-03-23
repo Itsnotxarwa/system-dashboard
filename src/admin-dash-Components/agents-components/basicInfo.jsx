@@ -10,7 +10,7 @@ export default function BasicInfo({selectedTenant}) {
                 </label>
                 <input
                 type="text"
-                value={selectedTenant.id}
+                value={selectedTenant?.id}
                 readOnly
                 className="w-full px-3.5 py-2.5 text-sm border rounded-md outline-none 
                 border-gray-300 placeholder-gray-400
@@ -100,8 +100,9 @@ export default function BasicInfo({selectedTenant}) {
                         border-gray-300 placeholder-gray-400
                         focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
                     </div>
-        </div>
+                </div>
             </div>
+
         </div>
     )
 }

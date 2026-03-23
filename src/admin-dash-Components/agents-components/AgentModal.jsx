@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import BasicInfo from "./basicInfo";
 
-export default function AgentModal({selectedTenant, onClose}) {
+export default function AgentModal({selectedTenant, onClose, onCancel}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
     return(
@@ -16,11 +16,11 @@ export default function AgentModal({selectedTenant, onClose}) {
                 bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
                     <div className="flex-1 min-w-0">
                         <div className="font-bold text-slate-900 text-base tracking-tight" 
-                        style="font-family:'Cabinet Grotesk',sans-serif;">
+                        style={{fontFamily:"'Cabinet Grotesk',sans-serif;"}}>
                             Create Agent
                         </div>
                         <div className="text-[10px] text-slate-400 mt-0.5 truncate">
-                            {selectedTenant.name} - {selectedTenant.id}
+                            {selectedTenant?.name} - {selectedTenant?.id}
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ export default function AgentModal({selectedTenant, onClose}) {
                 </div>
 
                 {/* TABS */}
-                <div class="flex border-b shrink-0 px-6 border border-[rgba(3,44,166,0.08)]">
+                <div className="flex border-b shrink-0 px-6 border border-[rgba(3,44,166,0.08)]">
                     {TABS.map((tab) => (
                         <button
                         key={tab}
@@ -69,6 +69,28 @@ export default function AgentModal({selectedTenant, onClose}) {
                     {activeTab === "Basic Info" && (
                         <BasicInfo selectedTenant={selectedTenant} />
                     )}
+                </div>
+
+                
+                {/* Footer */}
+                <div className="flex items-center justify-between px-6 py-4 border-t
+                border-[rgba(3,44,166,0.08)] bg-[rgba(3,44,166,0.015)] shrink-0">
+                    <div className="flex gap-2.5">
+                        <button  
+                        onClick={onCancel}
+                        className="px-5 py-2.5 rounded-xl text-xs font-medium text-slate-500 
+                        hover:text-slate-700 transition-all border border-[rgba(3,44,166,0.13)]
+                        bg-[rgba(3,44,166,0.04)]">
+                            Cancel
+                        </button>
+                        <button 
+                        onClick={onClose} 
+                        className="px-6 py-2.5 rounded-xl text-xs font-bold text-white 
+                        transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]" 
+                        style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
+                            Create Agent
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

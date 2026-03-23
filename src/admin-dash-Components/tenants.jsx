@@ -205,7 +205,7 @@ export default function Tenants() {
                     {filteredTenants.map((t) => (
                     <tr 
                     key={t.id} 
-                    className="border-b border-[#e5e7eb]"
+                    className="border-b border-[#e5e7eb] hover:bg-[rgba(3,44,166,0.02)] hover:cursor-pointer"
                     onClick={() => {
                         setSelectedTenant(t);
                         setShowAgentModal(true);
@@ -280,6 +280,7 @@ export default function Tenants() {
             <AgentModal
             selectedTenant={selectedTenant}
             onClose={() => setShowAgentModal(false)} 
+            onCancel={() => setShowAgentModal(false)}
             />
         )}
     </div>
