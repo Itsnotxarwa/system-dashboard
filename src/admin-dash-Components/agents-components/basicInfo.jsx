@@ -2,7 +2,7 @@ export default function BasicInfo({selectedTenant}) {
     return(
         <div className="overflow-y-auto">
             {/* Tenant name (readonly) */}
-            <div className="flex flex-col gap-4">
+            <div className="mb-3">
                 <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase
                 block mb-1.5">
                     Tenant ID {" "}
@@ -12,7 +12,7 @@ export default function BasicInfo({selectedTenant}) {
                 type="text"
                 value={selectedTenant?.id}
                 readOnly
-                className="w-full px-3.5 py-2.5 text-sm border rounded-md outline-none 
+                className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                 border-gray-300 placeholder-gray-400
                 focus:border-[#032ca6] cursor-not-allowed"
                 />
@@ -39,7 +39,7 @@ export default function BasicInfo({selectedTenant}) {
                         Type <span className="text-[#ef4444]">*</span>
                     </label>
                     <select className="w-full px-3 py-2 rounded-md text-sm text-slate-800 cursor-pointer
-                    border-gray-300">
+                    border border-gray-300">
                         <option value="inbound">Inbound</option>
                         <option value="outbound">Outbound</option>
                         <option value="both">Both</option>
@@ -60,7 +60,7 @@ export default function BasicInfo({selectedTenant}) {
                     />
                 </div>
 
-                <div className="mb-4 col-span-2">
+                <div className="col-span-2">
                     <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
                     tracking-wider mb-1.5">
                         System Prompt <span className="text-[#ef4444]">*</span>
