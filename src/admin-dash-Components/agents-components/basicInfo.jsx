@@ -60,7 +60,7 @@ export default function BasicInfo({selectedTenant}) {
                     />
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 col-span-2">
                     <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
                     tracking-wider mb-1.5">
                         System Prompt <span className="text-[#ef4444]">*</span>
