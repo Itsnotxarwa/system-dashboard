@@ -64,7 +64,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                     ))}
                 </div>
 
-                <div className="overflow-y-auto scroll-thin flex-1 px-6 py-5">
+                <div className="flex-1 px-6 py-5">
                     {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
                         <BasicInfo selectedTenant={selectedTenant} />

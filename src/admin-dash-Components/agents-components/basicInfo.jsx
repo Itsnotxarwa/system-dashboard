@@ -1,6 +1,6 @@
 export default function BasicInfo({selectedTenant}) {
     return(
-        <div>
+        <div className="overflow-y-auto">
             {/* Tenant name (readonly) */}
             <div className="flex flex-col gap-4">
                 <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase
