@@ -9,7 +9,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
         <div className="fixed inset-0 z-50 flex items-center justify-center
         bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
             <div className="bg-white/90 border border-[rgba(3,44,166,0.15)] rounded-3xl  
-            shadow-[0_24px_80px_rgba(3,44,166,0.18)] overflow-y-auto w-full lg:max-w-2xl
+            shadow-[0_24px_80px_rgba(3,44,166,0.18)] overflow-y-auto w-full lg:max-w-md
             animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both]">
                 {/* Header */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b shrink-0 border border-[rgba(3,44,166,0.08)]
@@ -29,7 +29,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                             New Agent
                         </span>
                         <button 
-                        onclick={onCancel} 
+                        onclick={onClose} 
                         className="w-7.5 h-7.5 rounded-lg border border-[rgba(3,44,166,0.12)]
                         bg-[rgba(3,44,166,0.04)] text-[#9aabca] cursor-pointer text-[16px] flex items-center
                         justify-center" 
