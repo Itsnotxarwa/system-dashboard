@@ -1,6 +1,6 @@
 export default function BasicInfo({selectedTenant}) {
     return(
-        <div className="overflow-y-auto">
+        <div>
             {/* Tenant name (readonly) */}
             <div className="mb-3">
                 <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase

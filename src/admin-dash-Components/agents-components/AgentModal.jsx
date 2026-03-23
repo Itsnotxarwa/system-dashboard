@@ -10,7 +10,8 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
         bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
             <div className="bg-white/90 border border-[rgba(3,44,166,0.15)] rounded-3xl  
             shadow-[0_24px_80px_rgba(3,44,166,0.18)] w-full lg:max-w-md overflow-hidden
-            animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both] max-h-[90vh]">
+            animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both] max-h-[90vh]
+            flex flex-col">
                 {/* Header */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b shrink-0 border border-[rgba(3,44,166,0.08)]
                 bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
@@ -64,7 +65,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                     ))}
                 </div>
 
-                <div className="flex-1 px-6 py-5 overflow-y-auto w-[70vh]">
+                <div className="flex-1 px-6 py-5 overflow-y-auto">
                     {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
                         <BasicInfo selectedTenant={selectedTenant} />
@@ -73,7 +74,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
 
                 
                 {/* Footer */}
-                <div className="flex items-center justify-between px-6 py-4 border-t
+                <div className="flex items-center justify-end px-6 py-4 border-t
                 border-[rgba(3,44,166,0.08)] bg-[rgba(3,44,166,0.015)] shrink-0">
                     <div className="flex gap-2.5">
                         <button  
