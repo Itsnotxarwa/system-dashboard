@@ -46,7 +46,8 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit})
 
                     {/* Name */}
                     <div>
-                        <label className="block mb-1.5 text-[10px] text-[#7a8bb5] tracking-wider uppercase">
+                        <label className="block mb-1.5 text-[10px] text-[#7a8bb5] tracking-wider 
+                        uppercase">
                             Name <span className="text-[#ef4444]">*</span>
                         </label>
                         <input

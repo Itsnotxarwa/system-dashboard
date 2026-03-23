@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import { useState } from "react";
-import BasicInfo from "./agents-components/basicInfo";
+import BasicInfo from "./basicInfo";
 
 export default function AgentModal({selectedTenant, onClose}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
