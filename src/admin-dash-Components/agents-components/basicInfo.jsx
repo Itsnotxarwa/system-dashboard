@@ -75,31 +75,29 @@ export default function BasicInfo({selectedTenant}) {
                     </textarea>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                    <div>
-                        <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
-                        tracking-wider mb-1.5">
-                            Greeting Message <span className="text-[#ef4444]">*</span>
-                        </label>
-                        <textarea 
-                        rows="3" 
-                        placeholder="Hello! How can I help you today?" 
-                        className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                        border-gray-300 placeholder-gray-400
-                        focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
-                    </div>
-                    <div>
-                        <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
-                        tracking-wider mb-1.5">
-                            End Call Message <span className="text-[#ef4444]">*</span>
-                        </label>
-                        <textarea 
-                        rows="3" 
-                        placeholder="Thank you for calling. Goodbye!" 
-                        className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                        border-gray-300 placeholder-gray-400
-                        focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
-                    </div>
+                <div>
+                    <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                    tracking-wider mb-1.5">
+                        Greeting Message <span className="text-[#ef4444]">*</span>
+                    </label>
+                    <textarea 
+                    rows="3" 
+                    placeholder="Hello! How can I help you today?" 
+                    className="w-full px-3 py-2 text-sm border rounded-md outline-none 
+                    border-gray-300 placeholder-gray-400
+                    focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
+                </div>
+                <div>
+                    <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                    tracking-wider mb-1.5">
+                        End Call Message <span className="text-[#ef4444]">*</span>
+                    </label>
+                    <textarea 
+                    rows="3" 
+                    placeholder="Thank you for calling. Goodbye!" 
+                    className="w-full px-3 py-2 text-sm border rounded-md outline-none 
+                    border-gray-300 placeholder-gray-400
+                    focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
                 </div>
             </div>
 
