@@ -1,6 +1,9 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 import BasicInfo from "./basicInfo";
+import ModelsConfig from "./modelsConfig";
+import Tools from "./Tools";
+import VoiceMail from "./VoiceMail";
 
 export default function AgentModal({selectedTenant, onClose, onCancel}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
@@ -69,6 +72,18 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                     {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
                         <BasicInfo selectedTenant={selectedTenant} />
+                    )}
+                    {/* MODELS CONFIG */}
+                    {activeTab === "Models Config" && (
+                        <ModelsConfig selectedTenant={selectedTenant} />
+                    )}
+                    {/* Tools */}
+                    {activeTab === "Tools" && (
+                        <Tools selectedTenant={selectedTenant} />
+                    )}
+                    {/* Voicemail */}
+                    {activeTab === "Voicemail" && (
+                        <VoiceMail selectedTenant={selectedTenant} />
                     )}
                 </div>
 
