@@ -1,15 +1,34 @@
 import { Plus, X } from "lucide-react";
+import { useState } from "react";
 
 export default function Tools() {
+    const [tools, setTools] = useState([]);
 
+    const addTool = () => {
+        setTools(prev => [
+            ...prev,
+            {
+                id: Date.now(),
+                name: "",
+                url: "",
+                provider: "custom",
+                is_enabled: true
+            }
+        ]);
+        };
+
+    const removeTool = (id) => {
+        setTools(prev => prev.filter(tool => tool.id !== id));
+    }
     return(
         <div>
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <p className="text-xs font-bold text-slate-700" style="font-family:'Cabinet Grotesk',sans-serif">External Tools</p>
+                    <p className="text-xs font-bold text-slate-700">External Tools</p>
                     <p className="text-[10px] text-slate-400 mt-0.5">Add webhook tools the agent can call during conversations.</p>
                 </div>
                 <button 
+                onClick={addTool}
                 className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all bg-[rgba(3,44,166,0.08)]
                 text-[#032ca6] border-[rgba(3,44,166,0.16)]">
                     <Plus />
@@ -17,19 +36,24 @@ export default function Tools() {
                 </button>
             </div>
 
+            {tools.length === 0 ? (
                 <div className="py-10 text-center text-[11px] text-slate-300 rounded-xl border-dashed border-[rgba(3,44,166,0.15)]">
                     No tools added yet. Click "Add Tool" to get started.
                 </div>
+                ) : (
                 <div className="flex flex-col gap-3">
+                    {tools.map((tool, index) => (
                         <div
+                        key={tool.id}
                         className="p-4 rounded-xl relative bg-[rgba(3,44,166,0.03)]
                         border border-[rgba(3,44,166,0.10)]">
 
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                                    Tool 
+                                    Tool #{index + 1}
                                 </span>
                                 <button
+                                onClick={() => removeTool(tool.id)}
                                 className="text-slate-300 hover:text-red-400 transition-colors text-base"
                                 >
                                     <X />
@@ -87,7 +111,9 @@ export default function Tools() {
                                 </div>
                             </div>
                         </div>
+                    ))}
                 </div>
+            )}
         </div>
     )
 }
