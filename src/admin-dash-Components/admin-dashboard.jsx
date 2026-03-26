@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ConfigViewer from "./configViewer";
 import Overview from "./overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
@@ -72,7 +71,6 @@ export default function AdminDashboard() {
         <CreateModal setShowModal={setShowModal} form={form} setForm={setForm} handleSubmit={handleSubmit} />
         }
         <Tenants />
-        <ConfigViewer />
       </main>
     </div>
   )
