@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Voicemail } from "lucide-react";
+import { AudioLines } from "lucide-react";
 
 export default function VoiceMail() {
     const [vmEnabled, setVmEnabled] = useState(false);
@@ -8,8 +8,8 @@ export default function VoiceMail() {
         <div className="p-4 rounded-xl mb-4 bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.09)]">
             
             <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                    <Voicemail />
+                <div className="flex justify-center text-[#032ca6]">
+                    <AudioLines />
                 <div>
                 <p className="text-xs font-bold text-slate-700">
                     Leave Voicemail
