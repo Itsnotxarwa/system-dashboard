@@ -43,7 +43,7 @@ export default function Sidebar({role}) {
                                 }
                                 >
                                     {link.icon}
-                                    <span className="transition-all duration-300 ease-in-out hidden lg:block">{link.label}</span>
+                                    <span className="transition-all duration-300 ease-in-out">{link.label}</span>
                                 </NavLink>
                             ))}
                         </div>
@@ -55,8 +55,7 @@ export default function Sidebar({role}) {
                                 <NavLink
                                 to={link.href}
                                 key={link.name}
-                                className={({ isActive }) => `flex items-center lg:items-start justify-center
-                                lg:justify-start text-left transition-all duration-300 transform cursor-pointer
+                                className={({ isActive }) => `flex items-start justify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-4 py-2 text-nowrap text-sm
                                 ${isActive
                                     ? "text-black font-medium bg-gray-100"
