@@ -96,7 +96,7 @@ export default function Tools() {
                                     </label>
                                     <input 
                                     type="text" 
-                                    placeholder="https://api.example.com/" 
+                                    placeholder="" 
                                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                                     border-gray-300 placeholder-gray-400
                                     focus:border-[#032ca6]"
