@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Building, Settings, Phone, KeyRound, ChartColumn, LogOut } from "lucide-react";
 import Logo from "../assets/image.png";
-import Logo2 from "../assets/image_logo.png";
 
 
 export default function Sidebar({role}) {
@@ -19,15 +18,11 @@ export default function Sidebar({role}) {
 
 
     return(
-            <aside className="flex flex-col w-18 md:w-21 lg:w-55 px-4 md:px-6 h-screen
+            <aside className="flex flex-col  w-55 px-6 h-screen
             py-8 transition-all duration-300 ease-in-out justify-between">
                 <div>
-                <div className="hidden lg:flex items-center justify-start">
+                <div className="flex items-center justify-start">
                     <img src={Logo} alt="Mazia" className="w-30" />
-                </div>
-
-                <div className="flex lg:hidden items-center justify-center">
-                    <img src={Logo2} alt="Mazia" className="w-12 md:w-18" />
                 </div>
                 
                 <nav className="space-y-8 mt-12">
@@ -38,8 +33,8 @@ export default function Sidebar({role}) {
                                 <NavLink
                                 to={link.href}
                                 key={link.name}
-                                className={({ isActive }) => `flex items-center lg:items-start justify-center
-                                lg:justify-start text-left transition-all duration-300 transform cursor-pointer
+                                className={({ isActive }) => `flex items-start 
+                                ljustify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
                                 ${isActive
                                     ? "text-black font-medium bg-gray-100"
@@ -62,7 +57,7 @@ export default function Sidebar({role}) {
                                 key={link.name}
                                 className={({ isActive }) => `flex items-center lg:items-start justify-center
                                 lg:justify-start text-left transition-all duration-300 transform cursor-pointer
-                                gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
+                                gap-3 px-4 py-2 text-nowrap text-sm
                                 ${isActive
                                     ? "text-black font-medium bg-gray-100"
                                     : "text-gray-500 hover:bg-gray-100 hover:scale-105"
@@ -70,7 +65,7 @@ export default function Sidebar({role}) {
                                 }
                                 >
                                     {link.icon}
-                                    <span className="transition-all duration-300 ease-in-out hidden lg:block">{link.label}</span>
+                                    <span className="transition-all duration-300 ease-in-out">{link.label}</span>
                                 </NavLink>
                             ))}
                         </div>
@@ -82,8 +77,7 @@ export default function Sidebar({role}) {
                     <div className="flex items-center gap-0.5 p-2.5 rounded-xl bg-gray-50 
                     border border-gray-100 relative">
                         <div className="flex-1">
-                            <p className="text-sm font-700 text-gray-900 leading-tight tracking-tight font-semibold">
-                                Mazouz Rahim
+                            <p className="hidden text-sm font-700 text-gray-900 leading-tight tracking-tight font-semibold">
                             </p>
                             <p className="text-xs text-gray-400 mt-0.5 font-normal">
                                 {role}
