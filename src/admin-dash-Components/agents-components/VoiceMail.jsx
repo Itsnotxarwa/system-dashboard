@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { AudioLines } from "lucide-react";
 
-export default function VoiceMail() {
-    const [vmEnabled, setVmEnabled] = useState(false);
-    const [vmMessage, setVmMessage] = useState("");
+export default function VoiceMail({ agentData, setAgentData }) {
+    const vmEnabled = agentData?.voicemail?.leave_message || false;
+    const vmMessage = agentData?.voicemail?.message || "";
+
     return(
         <div className="p-4 rounded-xl mb-4 bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.09)]">
             
@@ -22,7 +22,16 @@ export default function VoiceMail() {
 
           {/* TOGGLE */}
             <div
-                onClick={() => setVmEnabled(!vmEnabled)}
+                onClick={() =>
+                setAgentData(prev => ({
+                    ...prev,
+                    voicemail: {
+                    ...prev.voicemail,
+                        leave_message: !prev?.voicemail?.leave_message,
+                        message: prev?.voicemail?.message || ""
+                    }
+                }))
+                }
                 className={`w-10 h-5 rounded-full cursor-pointer transition-all relative shrink-0 ${
                 vmEnabled ? "bg-[#032ca6]" : "bg-[#e2e8f0]"
                 }`}
@@ -43,7 +52,15 @@ export default function VoiceMail() {
                 <textarea
                 rows="4"
                 value={vmMessage}
-                onChange={(e) => setVmMessage(e.target.value)}
+                onChange={(e) =>
+                    setAgentData(prev => ({
+                    ...prev,
+                    voicemail: {
+                        ...prev.voicemail,
+                        message: e.target.value
+                    }
+                    }))
+                }
                 placeholder="Hi, you've reached our service. Please leave a message..."
                 className="w-full px-3.5 py-2.5 rounded-xl text-xs text-slate-800 resize-none leading-relaxed border border-[rgba(3,44,166,0.14)]"
                 />

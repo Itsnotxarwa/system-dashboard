@@ -1,4 +1,4 @@
-export default function BasicInfo({selectedTenant}) {
+export default function BasicInfo({selectedTenant, agentData, setAgentData}) {
     return(
         <div>
             {/* Tenant name (readonly) */}
@@ -10,10 +10,10 @@ export default function BasicInfo({selectedTenant}) {
                 </label>
                 <input
                 type="text"
-                value={selectedTenant?.id}
+                value={selectedTenant?.id || ""}
                 readOnly
                 className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                border-gray-300 placeholder-gray-400
+                border-gray-300 placeholder-gray-400 bg-gray-50
                 focus:border-[#032ca6] cursor-not-allowed"
                 />
             </div>
@@ -26,6 +26,13 @@ export default function BasicInfo({selectedTenant}) {
                     </label>
                     <input 
                     type="text" 
+                    value={agentData.name || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        name: e.target.value
+                        }))
+                    }
                     placeholder="e.g. Support Agent FR" 
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
@@ -38,7 +45,15 @@ export default function BasicInfo({selectedTenant}) {
                     tracking-wider mb-1.5">
                         Type <span className="text-[#ef4444]">*</span>
                     </label>
-                    <select className="w-full px-3 py-2 rounded-md text-sm text-slate-800 cursor-pointer
+                    <select 
+                    value={agentData.type || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        type: e.target.value
+                        }))
+                    }
+                    className="w-full px-3 py-2 rounded-md text-sm text-slate-800 cursor-pointer
                     border border-gray-300">
                         <option value="inbound">Inbound</option>
                         <option value="outbound">Outbound</option>
@@ -53,6 +68,13 @@ export default function BasicInfo({selectedTenant}) {
                     </label>
                     <input 
                     type="text" 
+                    value={agentData.sip_number || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        sip_number: e.target.value
+                        }))
+                    }
                     placeholder="+33 1 23 45 67 89" 
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
@@ -66,8 +88,14 @@ export default function BasicInfo({selectedTenant}) {
                         System Prompt <span className="text-[#ef4444]">*</span>
                     </label>
                     <textarea 
+                    value={agentData.system_prompt || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        system_prompt: e.target.value
+                        }))
+                    }
                     rows="4" 
-                    placeholder="You are a helpful assistant for..." 
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
                     focus:border-[#032ca6] resize-none leading-relaxed" 
@@ -81,8 +109,14 @@ export default function BasicInfo({selectedTenant}) {
                         Greeting Message <span className="text-[#ef4444]">*</span>
                     </label>
                     <textarea 
+                    value={agentData.greeting_message || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        greeting_message: e.target.value
+                        }))
+                    }
                     rows="3" 
-                    placeholder="Hello! How can I help you today?" 
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
                     focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
@@ -93,8 +127,14 @@ export default function BasicInfo({selectedTenant}) {
                         End Call Message <span className="text-[#ef4444]">*</span>
                     </label>
                     <textarea 
+                    value={agentData.end_call_message || ""}
+                    onChange={(e) =>
+                        setAgentData(prev => ({
+                        ...prev,
+                        end_call_message: e.target.value
+                        }))
+                    }
                     rows="3" 
-                    placeholder="Thank you for calling. Goodbye!" 
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
                     focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>

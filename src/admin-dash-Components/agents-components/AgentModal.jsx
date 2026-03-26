@@ -8,6 +8,73 @@ import VoiceMail from "./VoiceMail";
 export default function AgentModal({selectedTenant, onClose, onCancel}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
+
+    const [loading, setLoading] = useState(false);
+
+    const [agentData, setAgentData] = useState({
+        name: "",
+        type: "inbound",
+        sip_number: "",
+        system_prompt: "",
+        greeting_message: "",
+        end_call_message: "",
+        
+        tools: [],
+        
+        models_config: {
+            llm: { provider: "", model_name: "" },
+            stt: { provider: "", model_name: "", language: "" },
+            tts: { provider: "", model_name: "", voice: "", language: "" }
+        },
+
+        voicemail: {
+            leave_message: false,
+            message: ""
+        }
+    });
+
+    const payload = {
+        ...agentData,
+        tools: agentData.tools || []
+    };
+
+    const createAgent = async () => {
+        if (loading) return;
+        try {
+            setLoading(true);
+
+            const token = localStorage.getItem("token");
+            const tenantId = selectedTenant?.id;
+            
+            const response = await fetch(
+                `https://api.voixup.fr/admin/tenants/${tenantId}/agents`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(payload)
+                }
+            );
+            
+            const data = await response.json();
+            
+            console.log(data);
+            
+            if (!response.ok) throw new Error("Creation failed");
+
+            alert("Agent created ✅");
+            onClose();
+
+        } catch (error) {
+            console.error(error);
+            alert("Error creating agent");
+        }finally {
+            setLoading(false)
+        }
+};
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
         bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
@@ -71,19 +138,22 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                 <div className="flex-1 px-6 py-5 overflow-y-auto">
                     {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
-                        <BasicInfo selectedTenant={selectedTenant} />
+                        <BasicInfo 
+                        selectedTenant={selectedTenant}
+                        agentData={agentData} setAgentData={setAgentData}
+                        />
                     )}
                     {/* MODELS CONFIG */}
                     {activeTab === "Models Config" && (
-                        <ModelsConfig selectedTenant={selectedTenant} />
+                        <ModelsConfig agentData={agentData} setAgentData={setAgentData} />
                     )}
                     {/* Tools */}
                     {activeTab === "Tools" && (
-                        <Tools selectedTenant={selectedTenant} />
+                        <Tools agentData={agentData} setAgentData={setAgentData} />
                     )}
                     {/* Voicemail */}
                     {activeTab === "Voicemail" && (
-                        <VoiceMail selectedTenant={selectedTenant} />
+                        <VoiceMail agentData={agentData} setAgentData={setAgentData} />
                     )}
                 </div>
 
@@ -100,11 +170,12 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                             Cancel
                         </button>
                         <button 
-                        onClick={onClose} 
-                        className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
-                        transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]" 
+                        onClick={createAgent} 
+                        disabled={loading}
+                        className={`cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
+                        transition-all flex items-center gap-1.5 ${loading ? "opacity-50 cursor-not-allowed" : "bg-[#032ca6] border border-[#032ca6]"}`}
                         style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
-                            Create Agent
+                            {loading ? "Creating" : "Create Agent"}
                         </button>
                     </div>
                 </div>
