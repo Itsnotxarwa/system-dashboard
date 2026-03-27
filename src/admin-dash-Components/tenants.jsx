@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { CircleX, Edit, Search } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 import AgentModal from "./agents-components/AgentModal";
 
 export default function Tenants() {
+    const navigate = useNavigate();
     const [search, setSearch] = useState("");    
     const [filter, setFilter] = useState("All");
     const [tenants, setTenants] = useState([]);
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showAgentModal, setShowAgentModal] = useState(false);
+    
 
     const handleEdit = (tenant) => {
         setSelectedTenant(tenant);
@@ -207,8 +209,7 @@ export default function Tenants() {
                     key={t.id} 
                     className="border-b border-[#e5e7eb] hover:bg-[rgba(3,44,166,0.02)] hover:cursor-pointer"
                     onClick={() => {
-                        setSelectedTenant(t);
-                        setShowAgentModal(true);
+                        navigate(`/tenants/${t.id}`)
                     }}>
                         <td className="py-2">{t.name}</td>
                         <td className="py-2">{t.id}</td> 
@@ -247,7 +248,6 @@ export default function Tenants() {
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedTenant(t);
-                                setShowDeleteModal(true);
                             }}>
                                 <CircleX size={21} />
                             </button>
@@ -274,14 +274,6 @@ export default function Tenants() {
                 deleteTenant(id);
                 setShowDeleteModal(false);
             }} />
-        )}
-
-        {showAgentModal && (
-            <AgentModal
-            selectedTenant={selectedTenant}
-            onClose={() => setShowAgentModal(false)} 
-            onCancel={() => setShowAgentModal(false)}
-            />
         )}
     </div>
 )
