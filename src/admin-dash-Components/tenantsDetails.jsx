@@ -2,6 +2,7 @@ import { MoveLeft, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AgentModal from "./agents-components/AgentModal";
+import AgentsList from "./agents-components/AgentsList";
 
 export default function TenantsDetails() {
     const {id} = useParams();
@@ -10,6 +11,7 @@ export default function TenantsDetails() {
     const [showAgentModal, setShowAgentModal] = useState(false);
     const TABS = ["Agents", "Call Records"];
     const [activeTab, setActiveTab] = useState(TABS[0])
+    const [agents, setAgents] = useState([]);
 
     useEffect(() => {
         const fetchTenant = async () => {
@@ -28,9 +30,38 @@ export default function TenantsDetails() {
 
         fetchTenant();
     }, [id]);
+
+        const fetchAgents = async () => {
+            try {
+            const token = localStorage.getItem("token");
+
+        const res = await fetch(
+            `https://api.voixup.fr/admin/agents?tenant_id=${id}`,
+            {
+                headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        const data = await res.json();
+
+        console.log("agents:", data);
+
+        setAgents(data); 
+        } catch (err) {
+        console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        if (id) fetchAgents;
+    },[id])
+
     return(
         <div>
-            <div className="max-w-6xl mx-auto p-8">
+            <div className="max-w-7xl mx-auto p-8">
                 
                 {/* bBACK TO TENANTS */}
                 <a 
@@ -111,7 +142,7 @@ export default function TenantsDetails() {
 
                 <div className="flex-1 px-6 py-5 overflow-y-auto">
                     {activeTab === "Agents" && (
-                        <div></div>
+                        <AgentsList agents={agents} />
                     )}
                     {activeTab === "Call Records" && (
                         <div></div>
