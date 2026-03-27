@@ -48,7 +48,7 @@ export default function TenantsDetails() {
 
             const data = await res.json();
 
-            console.log("agents:", data);
+            setAgents(Array.isArray(data) ? data: data.data || data.agents || [])
 
             setAgents(data); 
             } catch (err) {
