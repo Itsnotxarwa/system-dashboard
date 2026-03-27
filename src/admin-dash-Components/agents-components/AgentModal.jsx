@@ -33,10 +33,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
         }
     });
 
-    const payload = {
-        ...agentData,
-        tools: agentData.tools || []
-    };
+    
 
     const createAgent = async () => {
         if (loading) return;
@@ -45,6 +42,11 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
 
             const token = localStorage.getItem("token");
             const tenantId = selectedTenant?.id;
+
+            const payload = {
+                ...agentData,
+                tools: agentData.tools || []
+            };
             
             const response = await fetch(
                 `https://api.voixup.fr/admin/tenants/${tenantId}/agents`,
@@ -63,11 +65,13 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
             
             console.log(data);
             
-            if (!response.ok) throw new Error("Creation failed");
+            if (!response.ok) {
+                throw new Error(data?.detail || "Creation failed");
+            }
 
-            alert("Agent created ✅");
             onClose();
-
+            alert("Agent created ✅");
+            
         } catch (error) {
             console.error(error);
             alert("Error creating agent");
@@ -175,7 +179,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                         className={`cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
                         transition-all flex items-center gap-1.5 ${loading ? "opacity-50 cursor-not-allowed" : "bg-[#032ca6] border border-[#032ca6]"}`}
                         style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
-                            {loading ? "Creating" : "Create Agent"}
+                            {loading ? "Creating..." : "Create Agent"}
                         </button>
                     </div>
                 </div>

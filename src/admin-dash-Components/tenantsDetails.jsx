@@ -1,4 +1,4 @@
-import { MoveLeft } from "lucide-react";
+import { MoveLeft, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 
@@ -43,15 +43,17 @@ export default function TenantsDetails() {
                 {/* TENANT INFO */}
                 <div className="flex items-start justify-between mb-6">
                     {tenant && (
-                        <div
-                        className="flex items-center gap-3">
-                            <h1 className="text-xl font-black text-slate-900 tracking-tight">
-                                {tenant.name}
-                            </h1>
-                            <span className="text-[10px] font-medium px-2.5 py-1 rounded-full 
-                            inline-flex items-center gap-1.5">
-                                {tenant.status}
-                            </span>
+                        <div>
+                            <div
+                            className="flex items-center gap-3">
+                                <h1 className="text-xl font-black text-slate-900 tracking-tight">
+                                    {tenant.name}
+                                </h1>
+                                <span className="text-[10px] font-medium px-2.5 py-1 rounded-full 
+                                inline-flex items-center gap-1.5">
+                                    {tenant.is_active ? "Active" : "Inactive"}
+                                </span>
+                            </div>
                             <div className="text-[10px] text-slate-400 mt-1 font-mono">
                                 {tenant.id}
                             </div>
@@ -66,7 +68,10 @@ export default function TenantsDetails() {
                     border border-[#032ca6] shadow-[0_4px_14px_rgba(3,44,166,0.25)]"
                     onClick={() => {
                         setShowAgentModal(true)
-                    }}></button>
+                    }}>
+                        <Plus />
+                        Add Agent
+                    </button>
                 </div>
                 
                 {/* TABS: AGENTS/CALLS */}
@@ -106,6 +111,7 @@ export default function TenantsDetails() {
 
             {showAgentModal && (
             <AgentModal
+            selectedTenant={tenant}
             onClose={() => setShowAgentModal(false)} 
             onCancel={() => setShowAgentModal(false)}
             />

@@ -190,6 +190,9 @@ export default function Tenants() {
               );
             })}
         </div>
+        <p className="text-xs text-slate-400 mt-1">
+            Click a tenant to view its agents and call records
+        </p>
         <div className="py-2">
             <table className="w-full border-collapse">
                 <thead>
