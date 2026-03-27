@@ -37,7 +37,7 @@ export default function TenantsDetails() {
             const token = localStorage.getItem("token");
 
         const res = await fetch(
-            `https://api.voixup.fr/admin/agents?tenant_id=${id}`,
+            `https://api.voixup.fr/admin/agents`,
             {
                 headers: {
                 accept: "application/json",
@@ -57,7 +57,7 @@ export default function TenantsDetails() {
         };
 
         fetchAgents();
-    },[id]);
+    },[]);
 
 
     return(
