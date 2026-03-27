@@ -40,12 +40,14 @@ export default function AgentsList({agents}) {
                     </tr>
                 </thead>
                 <tbody>
-                        {agents.map((a) => (
-                        <tr className="border-t border-[rgba(3,44,166,0.06)]">
+                        {agents.map((a, i) => (
+                        <tr 
+                        key={i}
+                        className="border-t border-[rgba(3,44,166,0.06)]">
                             <td className="px-4 py-3">
                                 <div className="flex items-center gap-2.5">
                                     <span className="text-xs font-semibold text-slate-700">
-                                        ${a.name}
+                                        {a.name}
                                     </span>
                                 </div>
                             </td>
@@ -65,7 +67,7 @@ export default function AgentsList({agents}) {
 
                                     border:
                                     a.type==='inbound' ?  '1px solid rgba(3,44,166,0.16)'
-                                    : a.type==='outbound' ? 'border:1px solid rgba(124,58,237,0.16)'
+                                    : a.type==='outbound' ? '1px solid rgba(124,58,237,0.16)'
                                     : '1px solid rgba(5,150,105,0.16)',
 
                                 }}>

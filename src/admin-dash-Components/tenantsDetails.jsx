@@ -50,14 +50,13 @@ export default function TenantsDetails() {
 
             setAgents(Array.isArray(data) ? data: data.data || data.agents || [])
 
-            setAgents(data); 
             } catch (err) {
             console.error(err);
             }
         };
 
         fetchAgents();
-    },[]);
+    },[id]);
 
 
     return(
