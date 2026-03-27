@@ -31,6 +31,7 @@ export default function TenantsDetails() {
         fetchTenant();
     }, [id]);
 
+    useEffect(() => {
         const fetchAgents = async () => {
             try {
             const token = localStorage.getItem("token");
@@ -45,19 +46,19 @@ export default function TenantsDetails() {
             }
         );
 
-        const data = await res.json();
+            const data = await res.json();
 
-        console.log("agents:", data);
+            console.log("agents:", data);
 
-        setAgents(data); 
-        } catch (err) {
-        console.error(err);
-        }
-    };
+            setAgents(data); 
+            } catch (err) {
+            console.error(err);
+            }
+        };
 
-    useEffect(() => {
-        if (id) fetchAgents;
-    },[id])
+        fetchAgents();
+    },[id]);
+
 
     return(
         <div>
