@@ -2,7 +2,7 @@ import { MoveLeft, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AgentModal from "./agents-components/AgentModal";
-import AgentsList from "./agents-components/AgentsList";
+
 
 export default function TenantsDetails() {
     const {id} = useParams();
@@ -11,7 +11,7 @@ export default function TenantsDetails() {
     const [showAgentModal, setShowAgentModal] = useState(false);
     const TABS = ["Agents", "Call Records"];
     const [activeTab, setActiveTab] = useState(TABS[0])
-    const [agents, setAgents] = useState([]);
+    //const [agents, setAgents] = useState([]);
 
     useEffect(() => {
         const fetchTenant = async () => {
@@ -49,7 +49,7 @@ export default function TenantsDetails() {
             const data = await res.json();
             console.log(data)
 
-            setAgents(data);
+            //setAgents(data);
 
             } catch (err) {
             console.error(err);
@@ -143,7 +143,7 @@ export default function TenantsDetails() {
 
                 <div className="flex-1 px-6 py-5 overflow-y-auto">
                     {activeTab === "Agents" && (
-                        <AgentsList agents={agents} />
+                        <div></div>
                     )}
                     {activeTab === "Call Records" && (
                         <div></div>
