@@ -34,7 +34,7 @@ export default function Sidebar({role}) {
                                 to={link.href}
                                 key={link.name}
                                 className={({ isActive }) => `flex items-start 
-                                ljustify-start text-left transition-all duration-300 transform cursor-pointer
+                                justify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
                                 ${isActive
                                     ? "text-black font-medium bg-gray-100"
