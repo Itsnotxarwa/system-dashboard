@@ -15,7 +15,7 @@ export default function AgentsList({agents}) {
         <div className="rounded-xl overflow-hidden border border-[rgba(3,44,166,0.10)]">
             <table className="w-full border-collapse">
                 <thead>
-                    <tr className="rgba(3,44,166,0.04)">
+                    <tr className="bg-[rgba(3,44,166,0.04)]">
                         <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             Agent Name

@@ -28,7 +28,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                     <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl
                     bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.10)]">
                         <div className="min-w-0">
-                            <div className="ext-xs font-bold text-slate-800 truncate">
+                            <div className="text-xs font-bold text-slate-800 truncate">
                                 {tenant?.name || ""}
                             </div>
                             <div className="text-[9px] text-slate-400 truncate font-mono mt-0.5">
@@ -56,7 +56,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                                 justify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
                                 ${
-                                    activeNav === item.name
+                                    activeNav.name === item.name
                                     ? "text-black font-medium bg-gray-100"
                                     : "text-gray-500 hover:bg-gray-100 hover:scale-105"
                                 }`}>

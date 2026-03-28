@@ -13,7 +13,7 @@ export default function TenantContent({tenant, agents, activeNav, setShowAgentMo
                     <span className="text-slate-700 font-medium">{tenant?.name || ""}</span>
                     <ChevronRight size={14} />
                     <span className="text-slate-500">
-                        {activeNav}
+                        {activeNav.name}
                     </span>
                 </div>
 
@@ -26,7 +26,7 @@ export default function TenantContent({tenant, agents, activeNav, setShowAgentMo
                 </div>
 
                 <div className="ml-auto flex items-center gap-2.5">
-                    {activeNav === "Agents" && (
+                    {activeNav.name === "Agents" && (
                     <button
                     className="flex items-center gap-2 px-5 py-2.5 rounded-xl 
                     text-xs font-bold text-white transition-all bg-[#032ca6]
@@ -41,10 +41,10 @@ export default function TenantContent({tenant, agents, activeNav, setShowAgentMo
                 </div>
             </div>
             <div className="flex-1 px-6 py-5 overflow-y-auto">
-                {activeNav === "Agents" && (
+                {activeNav.name === "Agents" && (
                     <AgentsList agents={agents} />
                 )}
-                {activeNav === "Call Records" && (
+                {activeNav.name === "Call Records" && (
                     <div></div>
                 )}
             </div>
