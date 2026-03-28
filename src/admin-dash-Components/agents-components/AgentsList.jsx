@@ -75,16 +75,10 @@ export default function AgentsList({agents}) {
                                 </span>
                             </td>
                             <td className="px-4 py-3 text-[11px] text-slate-400">
-                                {a.sip || ''}
-                            </td>
-                            <td className="px-4 py-3">
-                                <span className="text-[10px] px-2 py-0.5 rounded-md bg-[rgba(3,44,166,0.05)] border
-                                border-[rgba(3,44,166,0.09)]">
-                                    {a.llm || ""}
-                                </span>
+                                {a.sip_number || ''}
                             </td>
                             <td className="px-4 py-3 text-[11px] text-slate-400">
-                                {a.created || ""}
+                                {new Date(a.created_at).toLocaleDateString("fr-FR")}
                             </td>
 
                         </tr>

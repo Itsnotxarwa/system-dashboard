@@ -10,7 +10,7 @@ export default function TenantsDetails() {
     const [showAgentModal, setShowAgentModal] = useState(false);
     const TABS = ["Agents", "Call Records"];
     const [activeTab, setActiveTab] = useState(TABS[0])
-    //const [agents, setAgents] = useState([]);
+    const [agents, setAgents] = useState([]);
 
     useEffect(() => {
         const fetchTenant = async () => {
@@ -36,7 +36,7 @@ export default function TenantsDetails() {
             const token = localStorage.getItem("token");
 
         const res = await fetch(
-            `https://api.voixup.fr/admin/agents`,
+            `https://api.voixup.fr/admin/tenants/${id}/agents`,
             {
                 headers: {
                 accept: "application/json",
@@ -48,7 +48,7 @@ export default function TenantsDetails() {
             const data = await res.json();
             console.log(data)
 
-            //setAgents(Array.isArray(data) ? data: data.data || data.agents || [])
+            setAgents(data);
 
             } catch (err) {
             console.error(err);
@@ -142,7 +142,7 @@ export default function TenantsDetails() {
 
                 <div className="flex-1 px-6 py-5 overflow-y-auto">
                     {activeTab === "Agents" && (
-                        <div></div>
+                        <AgentsList agents={agents} />
                     )}
                     {activeTab === "Call Records" && (
                         <div></div>
