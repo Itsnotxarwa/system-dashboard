@@ -1,3 +1,4 @@
+import { MoveLeft } from "lucide-react";
 import Logo from "../../assets/image.png";
 
 export default function TenantSidebar({activeNav, setActiveNav, tenant}) {
