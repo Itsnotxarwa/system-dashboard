@@ -2,7 +2,7 @@ import Logo from "../../assets/image.png";
 
 export default function TenantSidebar({activeNav, setActiveNav, tenant}) {
     return(
-        <Aside className="flex flex-col w-55 px-6 h-screen
+        <aside className="flex flex-col w-55 px-6 h-screen
         py-8 transition-all duration-300 ease-in-out justify-between">
             <div>
                 <div className="flex items-center justify-start border-b border-[rgba(3,44,166,.07)] pb-4">
@@ -65,6 +65,6 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant}) {
                     </div>
                 </nav>
             </div>
-        </Aside>
+        </aside>
     )
 }
