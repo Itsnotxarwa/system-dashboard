@@ -46,7 +46,9 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                             Navigation
                         </h3>
                         <div className="space-y-2">
-                            {navigation.map((item) => (
+                            {navigation.map((item) => {
+                                const Icon = item.icon
+                                return(
                                 <button
                                 key={item.name}
                                 onClick={() => setActiveNav(item.name)}
@@ -58,10 +60,10 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                                     ? "text-black font-medium bg-gray-100"
                                     : "text-gray-500 hover:bg-gray-100 hover:scale-105"
                                 }`}>
-                                    <item.icon className="w-5 h-5" />
+                                    <Icon size={14} />
                                     <span>{item.name}</span>
                                 </button>
-                            ))}
+                            )})}
                         </div>
                     </div>
                 </nav>

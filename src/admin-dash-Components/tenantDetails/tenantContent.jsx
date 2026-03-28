@@ -10,7 +10,7 @@ export default function TenantContent({tenant, agents, activeNav, setShowAgentMo
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                     <a href="/" className="hover:text-slate-600">Tenants</a>
                     <ChevronRight size={14} />
-                    <span className="text-slate-700 font-medium">{tenant?.name}</span>
+                    <span className="text-slate-700 font-medium">{tenant?.name || ""}</span>
                     <ChevronRight size={14} />
                     <span className="text-slate-500">
                         {activeNav}
