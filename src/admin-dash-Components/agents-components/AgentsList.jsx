@@ -3,7 +3,8 @@ export default function AgentsList({agents}) {
     <div className="py-3 pr-6">
         {agents.length === 0
         ? (
-        <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl" style="border:1px dashed rgba(3,44,166,0.12)">
+        <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
+        border-dashed border-[rgba(3,44,166,0.12)]">
             No agents yet — click 
             <strong className="text-blue-700">+ Add Agent</strong> 
             to create one.
@@ -26,10 +27,6 @@ export default function AgentsList({agents}) {
                         <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             SIP Number
-                        </th>
-                        <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            LLM
                         </th>
  
                         <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
