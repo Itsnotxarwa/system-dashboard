@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Bot, CassetteTape } from "lucide-react";
 import { useParams } from "react-router-dom";
 import TenantContent from "./tenantContent";
-import AgentModal from "./agents-components/AgentModal";
+import AgentModal from "../agents-components/AgentModal";
 
 
 export default function TenantDetails() {
@@ -75,7 +75,7 @@ export default function TenantDetails() {
                 setShowAgentModal={setShowAgentModal}
                 showAgentModal={showAgentModal} />
             </main>
-            
+
             {showAgentModal && (
                 <AgentModal 
                 selectedTenant={tenant}
