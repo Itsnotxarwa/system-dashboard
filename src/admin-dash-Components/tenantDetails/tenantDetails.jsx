@@ -34,7 +34,7 @@ export default function TenantDetails() {
         }
         fetchTenant();
     }, [id]);
-     useEffect(() => {
+    useEffect(() => {
         const fetchAgents = async () => {
             try {
             const token = localStorage.getItem("token");
@@ -66,7 +66,8 @@ export default function TenantDetails() {
             <TenantSidebar 
             activeNav={activeNav} 
             setActiveNav={setActiveNav}
-            tenant={tenant} />
+            tenant={tenant}
+            navigation={navigation} />
             <main className="bg-gray-50 flex-1">
                 <TenantContent 
                 tenant={tenant} 

@@ -1,7 +1,7 @@
 import { MoveLeft } from "lucide-react";
 import Logo from "../../assets/image.png";
 
-export default function TenantSidebar({activeNav, setActiveNav, tenant}) {
+export default function TenantSidebar({activeNav, setActiveNav, tenant, navigation}) {
     return(
         <aside className="flex flex-col w-55 px-6 h-screen
         py-8 transition-all duration-300 ease-in-out justify-between">
@@ -29,10 +29,10 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant}) {
                     bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.10)]">
                         <div className="min-w-0">
                             <div className="ext-xs font-bold text-slate-800 truncate">
-                                {tenant.name}
+                                {tenant?.name || ""}
                             </div>
                             <div className="text-[9px] text-slate-400 truncate font-mono mt-0.5">
-                                {tenant.id}
+                                {tenant?.id || ""}
                             </div>
                         </div>
                     </div>
