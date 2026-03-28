@@ -2,6 +2,7 @@ import { MoveLeft, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import AgentModal from "./agents-components/AgentModal";
+import AgentsList from "./agents-components/AgentsList";
 
 export default function TenantsDetails() {
     const {id} = useParams();
