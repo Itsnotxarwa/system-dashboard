@@ -8,8 +8,8 @@ import AgentModal from "../agents-components/AgentModal";
 
 export default function TenantDetails() {
     const navigation =[
-        { name: "Agents", icon: Bot },
-        { name: "Call Records", icon: CassetteTape },
+        { name: "Agents", icon: Bot, href: "/agents" },
+        { name: "Call Records", icon: CassetteTape, href: "/call-records" },
     ];
     const [activeNav, setActiveNav] = useState(navigation[0]);
 
