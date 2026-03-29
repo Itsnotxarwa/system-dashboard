@@ -211,7 +211,7 @@ export default function Tenants() {
                     key={t.id} 
                     className="border-b border-[#e5e7eb] hover:bg-[rgba(3,44,166,0.02)] hover:cursor-pointer"
                     onClick={() => {
-                        navigate(`/tenants/${t.id}/agents`)
+                        navigate(`/tenant/${t.id}/agents`)
                     }}>
                         <td className="py-2">{t.name}</td>
                         <td className="py-2">{t.id}</td> 
