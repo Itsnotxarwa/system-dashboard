@@ -6,8 +6,8 @@ import { Bot, CassetteTape } from "lucide-react";
 export default function TenantSidebar({tenant}) {
     const {id} = useParams();
     const navigation =[
-        { name: "Agents", icon: Bot, href: "/agents" },
-        { name: "Call Records", icon: CassetteTape, href: "/call-records" },
+        { name: "Agents", icon: Bot, href: "agents" },
+        { name: "Call Records", icon: CassetteTape, href: "call-records" },
     ];
 
     return(
@@ -61,7 +61,7 @@ export default function TenantSidebar({tenant}) {
                                 const Icon = item.icon
                                 return(
                                 <NavLink
-                                to={`tenant/${id}${item.href}`}
+                                to={`/tenant/${id}/${item.href}`}
                                 key={item.name}
                                 className={({ isActive }) => `flex items-start justify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-4 py-2 text-nowrap text-sm
