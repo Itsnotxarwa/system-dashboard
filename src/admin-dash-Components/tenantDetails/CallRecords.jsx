@@ -24,10 +24,30 @@ export default function CallRecords() {
         }
         fetchTenant();
     }, [id]);
+
+    useEffect(() => {
+        const fetchCalls = async () => {
+            const token = localStorage.getItem("token");
+    
+            const res = await fetch(`https://api.voixup.fr/admin/calls`,{
+                headers: 
+                {
+                    accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = await res.json();
+            console.log(data);
+            
+        }
+
+        fetchCalls();
+    },[]);
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
-            <main className="bg-gray-50 flex-1 flex flex-col p-6 min-h-screen">
+            <main className="bg-[rgba(3,44,166,.03)] flex-1 flex flex-col p-6 min-h-screen">
                 <TopBar tenant={tenant} activeNav={{name: "Call Records"}} />
             </main>
         </div>

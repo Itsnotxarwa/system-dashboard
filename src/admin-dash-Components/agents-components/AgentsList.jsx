@@ -1,6 +1,6 @@
 export default function AgentsList({agents}) {
     return (
-    <div className="py-3 pr-6">
+    <div className="py-3 px-4">
         {agents.length === 0
         ? (
         <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
