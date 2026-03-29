@@ -5,7 +5,7 @@ export default function TenantContent({tenant, agents, activeNav, setShowAgentMo
     return(
         <div className="flex-1 flex flex-col min-h-screen">
             {/* TOP BAR */}
-            <div className="h-14 bg-white border-b flex items-center px-7 gap-4 shrink-0
+            <div className="h-14 bg-white border-b flex items-center px-7 py-2 gap-4 shrink-0
             border-[rgba(3,44,166,.08)]">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                     <a href="/" className="hover:text-slate-600">Tenants</a>

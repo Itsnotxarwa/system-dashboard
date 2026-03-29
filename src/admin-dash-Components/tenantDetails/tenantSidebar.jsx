@@ -6,7 +6,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
         <aside className="flex flex-col w-55 px-6 h-screen
         py-8 transition-all duration-300 ease-in-out justify-between">
             <div>
-                <div className="flex items-center justify-start border-b border-[rgba(3,44,166,.10)] pb-4">
+                <div className="flex items-center justify-start border-b border-[rgba(3,44,166,.10)] pb-8">
                     <img src={Logo} alt="Mazia" className="w-30" />
                 </div>
 
@@ -14,7 +14,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                 <div className="border-b border-[rgba(3,44,166,.10)] py-4">
                     <a 
                     href="/"
-                    className="mb-6 group w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs 
+                    className="group w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs 
                     text-slate-500 hover:text-slate-800 transition-all group 
                     bg-[rgba(3,44,166,.03)]">
                         <MoveLeft />
@@ -40,7 +40,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                     </div>
                 </div>
 
-                <nav className="space-y-8 mt-6">
+                <nav className="space-y-8 py-4">
                     <div className="space-y-2">
                         <h3 className="uppercase text-xs font-semibold text-gray-500 tracking-wider">
                             Navigation
@@ -52,7 +52,7 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                                 <a
                                 href={item.href}
                                 key={item.name}
-                                onClick={() => setActiveNav(item.name)}
+                                onClick={() => setActiveNav(item)}
                                 className={`flex items-start w-full
                                 justify-start text-left transition-all duration-300 transform cursor-pointer
                                 gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
