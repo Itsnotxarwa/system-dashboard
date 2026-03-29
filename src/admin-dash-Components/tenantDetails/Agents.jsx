@@ -103,10 +103,10 @@ export default function Agents() {
                             </span>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-6">
                         {/* Total */}
                         <div className="text-center px-4 py-3 rounded-xl bg-[rgba(3,44,166,.05)]
-                        border border[rgba(3,44,166,.09)]">
+                        border border-[rgba(3,44,166,.09)]">
                             <div 
                             className="text-base font-black"
                             style={{ fontFamily: "'Cabinet Grotesk', sans-serif", color: "#032ca6" }}>
