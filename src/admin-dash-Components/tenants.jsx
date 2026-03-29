@@ -213,7 +213,19 @@ export default function Tenants() {
                     onClick={() => {
                         navigate(`/tenant/${t.id}/agents`)
                     }}>
-                        <td className="py-2">{t.name}</td>
+                        <td className="py-2 flex gap-2 items-center">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
+                            text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
+                            shadow-[0_6px_18px_rgba(3,44,166,.22)]">
+                                {t?.name ? t.name
+                                .split(" ")
+                                .map(word => word.charAt(0).toUpperCase())
+                                .slice(0,2)
+                                .join("") 
+                                : ""}
+                            </div>
+                            {t.name}
+                        </td>
                         <td className="py-2">{t.id}</td> 
                         <td className="py-2">
                             <span
