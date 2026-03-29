@@ -38,9 +38,10 @@ export default function TenantSidebar({tenant}) {
                     <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl
                     bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.10)]">
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
-                        text-[11px] font-black shrink-0 bg-linear-to-br from-[#032ca6] to-[#1e40af]">
+                        text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
+                        shadow-[0_6px_18px_rgba(3,44,166,.22)]">
                             {tenant?.name ? tenant.name
-                            .split("")
+                            .split(" ")
                             .map(word => word.charAt(0).toUpperCase())
                             .slice(0,2)
                             .join("") 
