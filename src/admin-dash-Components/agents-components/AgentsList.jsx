@@ -22,6 +22,10 @@ export default function AgentsList({agents}) {
                         </th>
                         <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
                         uppercase text-slate-400">
+                            Status
+                        </th>
+                        <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
+                        uppercase text-slate-400">
                             Type
                         </th>
                         <th className="text-left px-4 py-2.5 text-[9px] font-medium tracking-widest 
@@ -47,6 +51,22 @@ export default function AgentsList({agents}) {
                                         {a.name}
                                     </span>
                                 </div>
+                            </td>
+                            <td className="py-2">
+                                <span
+                                style={{
+                                    padding: "4px 12px",
+                                    borderRadius: 20,
+                                    fontSize: 11,   
+                                    fontWeight: 500,
+                                    color: a.is_active ? "#059669" : "#6b7280",
+                                    background: a.is_active ? "rgba(5,150,105,0.1)" : "rgba(107,114,128,0.1)",
+                                    border: a.is_active ? "1px solid rgba(5,150,105,0.2)" : "1px solid rgba(107,114,128,0.2)",
+                                    display: "inline-block",
+                                }}
+                                >
+                                    {a.is_active ? "Active" : "Inactive"}
+                                </span>
                             </td>
                             <td className="px-4 py-3">
                                 <span className="text-[10px] font-medium px-2 py-0.5 rounded-md capitalize" 
