@@ -31,18 +31,6 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit})
             {/* FORM STEP */}
             <div className="px-6 py-6.5">
                 <div className="flex flex-col gap-4">
-                    {/* Tenant ID (auto) */}
-                    <div>
-                        <label className="text-xs text-[#7a8bb5] tracking-[0.08em] uppercase
-                        block mb-1.5">
-                            Tenant ID {" "}
-                            <span className="text-[#b0bcd4] font-normal">(auto-generated)</span>
-                        </label>
-                        <div className="p-[10px_14px] rounded-[10px] border border-[rgba(3,44,166,0.10)]
-                        bg-[rgba(3,44,166,0.025)] text-[#9aabca] text-xs tracking-[0.03em]">
-                            3fa85f64-5717-4562-b3fc-2c963f66afa6
-                        </div>
-                    </div>
 
                     {/* Name */}
                     <div>
