@@ -56,13 +56,19 @@ export default function Agents() {
 
         fetchAgents();
     },[id]);
+
+    const totalAgents = agents?.length || 0;
+    const activeAgents = agents?.filter(
+        (a) => a.is_active === true
+    ).length || 0;
+    const inactiveAgents = totalAgents - activeAgents;
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
             <main className="bg-gray-50 flex-1 flex flex-col">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} setShowAgentModal={setShowAgentModal} />
 
-                <div className="flex items-center gap-4 mb-6 card-anim">
+                <div className="flex items-center gap-4 py-6 card-anim">
                     <div className="w-12 h-12 rounded-2xl flex items-center 
                     justify-center text-white text-sm font-black shrink-0 
                     bg-linear-to-br from-[#0366a6] to-[#1e40af] 
@@ -95,6 +101,57 @@ export default function Agents() {
                             <span className="text-[10px] text-slate-400">
                                 {tenant?.email}
                             </span>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                        {/* Total */}
+                        <div className="text-center px-4 py-3 rounded-xl bg-[rgba(3,44,166,.05)]
+                        border border[rgba(3,44,166,.09)]">
+                            <div 
+                            className="text-base font-black"
+                            style={{ fontFamily: "'Cabinet Grotesk', sans-serif", color: "#032ca6" }}>
+                                {totalAgents}
+                            </div>
+                            <div className="text-[9px] text-slate-400 mt-0.5 uppercase tracking-widest">
+                                Total
+                            </div>
+                        </div>
+
+                        <div
+                        className="text-center px-4 py-3 rounded-xl"
+                        style={{
+                            background: "rgba(5,150,105,.06)",
+                            border: "1px solid rgba(5,150,105,.14)",
+                        }}
+                        >
+                            <div
+                            className="text-base font-black"
+                            style={{ fontFamily: "'Cabinet Grotesk', sans-serif", color: "#059669" }}
+                            >
+                                {activeAgents}
+                            </div>
+                            <div className="text-[9px] text-slate-400 mt-0.5 uppercase tracking-widest">
+                                Active
+                            </div>
+                        </div>
+                        
+                        {/* Inactive */}
+                        <div
+                        className="text-center px-4 py-3 rounded-xl"
+                        style={{
+                            background: "rgba(124,58,237,.06)",
+                            border: "1px solid rgba(124,58,237,.14)",
+                        }}
+                        >
+                            <div
+                            className="text-base font-black"
+                            style={{ fontFamily: "'Cabinet Grotesk', sans-serif", color: "#7c3aed" }}
+                            >
+                                {inactiveAgents}
+                            </div>
+                            <div className="text-[9px] text-slate-400 mt-0.5 uppercase tracking-widest">
+                                Inactive
+                            </div>
                         </div>
                     </div>
                 </div>
