@@ -1,7 +1,15 @@
 import { MoveLeft } from "lucide-react";
 import Logo from "../../assets/image.png";
+import { NavLink, useParams } from "react-router-dom";
+import { Bot, CassetteTape } from "lucide-react";
 
-export default function TenantSidebar({activeNav, setActiveNav, tenant, navigation}) {
+export default function TenantSidebar({tenant}) {
+    const {id} = useParams();
+    const navigation =[
+        { name: "Agents", icon: Bot, href: "/agents" },
+        { name: "Call Records", icon: CassetteTape, href: "/call-records" },
+    ];
+
     return(
         <aside className="flex flex-col w-55 px-6 h-screen
         py-8 transition-all duration-300 ease-in-out justify-between">
@@ -30,6 +38,9 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                     <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl
                     bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.10)]">
                         <div className="min-w-0">
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[11px] font-black shrink-0">
+                                {tenant?.name ? tenant.name.charAt(0).toUpperCase() : ""}
+                            </div>
                             <div className="text-sm font-bold text-slate-800 truncate">
                                 {tenant?.name || ""}
                             </div>
@@ -49,21 +60,19 @@ export default function TenantSidebar({activeNav, setActiveNav, tenant, navigati
                             {navigation.map((item) => {
                                 const Icon = item.icon
                                 return(
-                                <a
-                                href={item.href}
+                                <NavLink
+                                to={`tenant/${id}${item.href}`}
                                 key={item.name}
-                                onClick={() => setActiveNav(item)}
-                                className={`flex items-start w-full
-                                justify-start text-left transition-all duration-300 transform cursor-pointer
-                                gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
-                                ${
-                                    activeNav.name === item.name
+                                className={({ isActive }) => `flex items-start justify-start text-left transition-all duration-300 transform cursor-pointer
+                                gap-3 px-4 py-2 text-nowrap text-sm
+                                ${isActive
                                     ? "text-black font-medium bg-gray-100"
                                     : "text-gray-500 hover:bg-gray-100 hover:scale-105"
-                                }`}>
+                                }`
+                                }>
                                     <Icon size={14} />
                                     <span>{item.name}</span>
-                                </a>
+                                </NavLink>
                             )})}
                         </div>
                     </div>

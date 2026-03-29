@@ -7,7 +7,7 @@ export default function VoiceMail({ agentData, setAgentData }) {
     return(
         <div className="p-4 rounded-xl mb-4 bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.09)]">
             
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex gap-2 items-center justify-between mb-4">
                 <div className="flex justify-center text-[#032ca6]">
                     <AudioLines />
                 <div>

@@ -1,19 +1,13 @@
-import TenantSidebar from "./tenantSidebar";
 import { useState, useEffect } from "react";
-import { Bot, CassetteTape } from "lucide-react";
 import { useParams } from "react-router-dom";
-import TenantContent from "./tenantContent";
+import TenantSidebar from "./tenantSidebar";
+import AgentsList from "../agents-components/AgentsList";
 import AgentModal from "../agents-components/AgentModal";
+import TopBar from "./TopBar";
 
-
-export default function TenantDetails() {
-    const navigation =[
-        { name: "Agents", icon: Bot, href: "/agents" },
-        { name: "Call Records", icon: CassetteTape, href: "/call-records" },
-    ];
-    const [activeNav, setActiveNav] = useState(navigation[0]);
-
+export default function Agents() {
     const {id} = useParams();
+
     const [tenant, setTenant] = useState(null);
     const [agents, setAgents] = useState([]);
     const [showAgentModal, setShowAgentModal] = useState(false);
@@ -34,6 +28,7 @@ export default function TenantDetails() {
         }
         fetchTenant();
     }, [id]);
+
     useEffect(() => {
         const fetchAgents = async () => {
             try {
@@ -63,18 +58,10 @@ export default function TenantDetails() {
     },[id]);
     return(
         <div className="flex min-h-screen bg-white text-black">
-            <TenantSidebar 
-            activeNav={activeNav} 
-            setActiveNav={setActiveNav}
-            tenant={tenant}
-            navigation={navigation} />
-            <main className="bg-gray-50 flex-1">
-                <TenantContent 
-                tenant={tenant} 
-                activeNav={activeNav} 
-                agents={agents}
-                setShowAgentModal={setShowAgentModal}
-                showAgentModal={showAgentModal} />
+            <TenantSidebar tenant={tenant} />
+            <main className="bg-gray-50 flex-1 flex flex-col p-6 min-h-screen">
+                <TopBar tenant={tenant} activeNav={{name: "Agents"}} setShowAgentModal={setShowAgentModal} />
+                <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
             </main>
 
             {showAgentModal && (
