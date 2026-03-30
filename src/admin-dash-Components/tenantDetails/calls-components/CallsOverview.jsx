@@ -68,7 +68,9 @@ export default function CallsOverview({tenant, calls}) {
                 </div>
 
                 {/* Summary */}
-                <CallSummary calls={calls} />
+                {calls && 
+                    <CallSummary calls={calls} />
+                }
                 </div>
             </div>
         </div>
