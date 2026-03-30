@@ -3,8 +3,9 @@ import Logo from "../../../assets/image.png";
 import CallsBarChart from "./CallsBarChart";
 import KpiCards from "./KpiCards";
 import CallSummary from "./CallSummary";
+import CallSession from "./CallSession";
 
-export default function CallsOverview({tenant, calls}) {
+export default function CallsOverview({tenant, calls, callSessions}) {
     const [range, setRange] = useState("30");
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
@@ -77,6 +78,10 @@ export default function CallsOverview({tenant, calls}) {
                 {calls && 
                     <CallSummary calls={calls} />
                 }
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+                    <CallSession callSessions={callSessions} />
                 </div>
             </div>
         </div>
