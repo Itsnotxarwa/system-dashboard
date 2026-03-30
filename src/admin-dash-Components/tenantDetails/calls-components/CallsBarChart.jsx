@@ -3,9 +3,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } fro
 
 export default function CallsBarChart({ last7Days, last30Days, range }) {
     const data = useMemo(() => {
-        const source = range === "30" ? last30Days : last7Days;
+        const source = (range === "30" ? last30Days : last7Days) || [];
         
-        return source.map((item) => ({
+        return (source || []).map((item) => ({
             day: item.date,      
             calls: item.count,   
         }));

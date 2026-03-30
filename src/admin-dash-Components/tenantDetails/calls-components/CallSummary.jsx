@@ -1,6 +1,6 @@
 export default function CallSummary({calls}) {
     if (!calls) return null;
-    
+
     const summary = [
         {
             title: "Answered",
@@ -51,7 +51,7 @@ export default function CallSummary({calls}) {
             title: "Human",
             value: calls.termination.human_ended,
             text: "#475569",
-            background: "gba(3,44,166,.04)",
+            background: "rgba(3,44,166,.04)",
             border: "rgba(3,44,166,.10)"
         }
     ]
@@ -90,7 +90,7 @@ export default function CallSummary({calls}) {
                 ))}
             </div>
 
-            <div class="border-t my-4" style="border-color:rgba(3,44,166,.07)"></div>
+            <div className="border-t my-4 border border-[rgba(3,44,166,.07)]"></div>
             
             {/* Call Type */}
             <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-3">
