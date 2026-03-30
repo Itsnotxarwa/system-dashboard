@@ -6,19 +6,19 @@ export default function CallSummary({calls}) {
             title: "Answered",
             value: calls.call_status.answered,
             rate: calls.rates.answer_rate,
-            background: "bg-[#032ca6]",
+            background: "#032ca6",
         },
         {
             title: "Voicemail",
             value: calls.call_status.voicemail,
             rate: calls.rates.voicemail_rate,
-            background: "bg-[#d97706]",
+            background: "#d97706",
         },
         {
             title: "Failed",
             value: calls.call_status.failed,
             rate: calls.rates.failed_rate,
-            background: "bg-[#ef4444]",
+            background: "#ef4444",
         }
     ]
 
@@ -75,7 +75,7 @@ export default function CallSummary({calls}) {
                         <span className="font-semibold text-slate-700">
                             {item.value}
                             <span className="text-slate-400 font-normal">
-                                {"("} {item.rate} % {")"}
+                                {" ("} {item.rate} % {")"}
                             </span>
                         </span>
                     </div>
@@ -112,8 +112,11 @@ export default function CallSummary({calls}) {
                 </div>
                 ))}
             </div>
+
+            <div className="border-t my-4 border border-[rgba(3,44,166,.07)]"></div>
             
-            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest py-3">
+            {/* Call Termination */}
+            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-3">
                 Ended by
             </div>
 
