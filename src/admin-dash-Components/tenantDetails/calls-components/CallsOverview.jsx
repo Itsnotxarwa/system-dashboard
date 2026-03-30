@@ -55,17 +55,19 @@ export default function CallsOverview({tenant, calls}) {
                         <div className="text-[10px] text-slate-400 mt-0.5">
                             Last {range} days
                         </div>
+                        {calls &&
                         <span className="text-[10px] px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,.07)]
                         text-[#032ca6] border border-[rgba(3,44,166,.14)]">
                             {range === "7" ? calls?.volume.last_7_days : calls?.volume.last_30_days} calls
                         </span>
+}
                     </div>
                     {calls && 
                         <CallsBarChart 
                         last7Days={calls.volume.last_7_days} 
                         last30Days={calls.volume.last_30_days}
                         range={range}
-                        />
+                        /> 
                     }
                 </div>
 
