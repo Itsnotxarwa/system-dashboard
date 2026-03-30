@@ -1,4 +1,6 @@
 export default function CallSummary({calls}) {
+    if (!calls) return null;
+    
     const summary = [
         {
             title: "Answered",

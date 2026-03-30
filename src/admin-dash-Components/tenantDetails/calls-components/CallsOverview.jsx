@@ -34,7 +34,7 @@ export default function CallsOverview({tenant, calls}) {
                         border-[rgba(3,44,166,.14)] text-[#374152]"
                         style={{fontFamily: "'DM Mono',monospace"}}>
                             <option value="7">Last 7 days</option>
-                            <option value="30" selected>Last 30 days</option>
+                            <option value="30">Last 30 days</option>
                         </select>
                     </div>
                 </div>
@@ -60,11 +60,13 @@ export default function CallsOverview({tenant, calls}) {
                             {range === "7" ? calls?.volume.last_7_days : calls?.volume.last_30_days} calls
                         </span>
                     </div>
-                    <CallsBarChart 
-                    last7Days={calls.volume.last_7_days} 
-                    last30Days={calls.volume.last_30_days}
-                    range={range}
-                    />
+                    {calls && 
+                        <CallsBarChart 
+                        last7Days={calls.volume.last_7_days} 
+                        last30Days={calls.volume.last_30_days}
+                        range={range}
+                        />
+                    }
                 </div>
 
                 {/* Summary */}
