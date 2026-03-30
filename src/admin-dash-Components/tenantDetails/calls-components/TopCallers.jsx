@@ -1,11 +1,30 @@
 export default function TopCallers({calls}) {
-    const colors = [
-        { main: "#032ca6", bg: "rgba(3,44,166,.08)" },
-        { main: "#7c3aed", bg: "rgba(124,58,237,.08)" },
-        { main: "#059669", bg: "rgba(5,150,105,.08)" }
-    ];
-    const topCallers = calls?.top_callers || [];
-    const maxCalls = topCallers[0]?.call_count || 1;
+    const topCallers = [
+        {
+            id: 1,
+            number: calls.top_callers[0].from_number,
+            callCount: calls.topCallers[0].call_count,
+            background: "#032ca6",
+        },
+        {
+            id: 2,
+            number: calls.top_callers[1].from_number,
+            callCount: calls.topCallers[1].call_count,
+            background: "#7c3aed",
+        },
+        {
+            id: 3, 
+            number: calls.top_callers[2].from_number,
+            callCount: calls.topCallers[2].call_count,
+            background: "#059669",
+        },
+        {
+            id: 4,
+            number: calls.top_callers[3].from_number,
+            callCount: calls.topCallers[3].call_count,
+            background: "#d97706",
+        }
+    ]
 
     return(
         <div className="flex flex-col gap-4">
@@ -17,13 +36,12 @@ export default function TopCallers({calls}) {
                 </div>
                 <div className="space-y-2.5">
                     {topCallers.map((caller, i) => {
-                        const percent = (caller.call_count / maxCalls) * 100;
                         return (
                         <div key={i} className="flex items-center gap-3">
                             {/* Rank circle */}
                             <div
                             className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[9px] font-bold shrink-0"
-                            style={{ background: colors[i].main }}
+                            style={{ background: caller.background }}
                             >
                                 {i + 1}
                             </div>
@@ -35,13 +53,12 @@ export default function TopCallers({calls}) {
                                 </div>
                                 <div
                                 className="h-1 rounded-full mt-1"
-                                style={{ background: colors[i].bg }}
+                                style={{ background: caller.background, width: `${(caller.call_count / calls.top_callers[0].call_count) * 100}%` }}
                                 >
                                     <div
                                     className="h-full rounded-full"
                                     style={{
-                                        width: `${percent}%`,
-                                        background: colors[i].main,
+                                        background: caller.background,
                                         minWidth: "6px"
                                     }}
                                     />
@@ -51,7 +68,7 @@ export default function TopCallers({calls}) {
                             {/* Count */}
                             <span
                             className="text-[11px] font-bold shrink-0"
-                            style={{ color: colors[i].main }}
+                            style={{ color: caller.background }}
                             >
                                 {caller.call_count}
                             </span>
