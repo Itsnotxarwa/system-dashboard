@@ -7,7 +7,7 @@ export default function CallSessions({CallSession}) {
     };
     
     return(
-        <div className="col-span-3 bg-white rounded-2xl border border-[rgba(3,44,166,.09)]
+        <div className=" bg-white rounded-2xl border border-[rgba(3,44,166,.09)]
         shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3.5 border-b

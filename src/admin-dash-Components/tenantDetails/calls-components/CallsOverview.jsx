@@ -4,7 +4,6 @@ import CallsBarChart from "./CallsBarChart";
 import KpiCards from "./KpiCards";
 import CallSummary from "./CallSummary";
 import CallSessions from "./CallSession";
-import TopCallers from "./TopCallers";
 
 export default function CallsOverview({tenant, calls, callSessions}) {
     const [range, setRange] = useState("30");
@@ -81,9 +80,8 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 }
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+                <div className="grid grid-cols-1 mb-5">
                     <CallSessions callSessions={callSessions} />
-                    <TopCallers calls={calls} />
                 </div>
             </div>
         </div>
