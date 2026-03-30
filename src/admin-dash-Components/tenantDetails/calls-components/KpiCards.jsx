@@ -1,4 +1,4 @@
-import { Check, CheckCircle, Clock, Forward, Phone } from "lucide-react"
+import { CheckCircle, Clock, Forward, Phone } from "lucide-react"
 
 export default function KpiCards({ calls }) {
     const Cards = [

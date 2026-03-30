@@ -40,7 +40,7 @@ export default function CallRecords() {
             });
 
             const data = await res.json();
-            console.log(data);
+            console.log("calls:", data);
             setCalls(data);
             
         }
