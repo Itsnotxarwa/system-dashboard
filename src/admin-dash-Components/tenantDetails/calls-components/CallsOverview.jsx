@@ -64,8 +64,8 @@ export default function CallsOverview({tenant, calls}) {
                     </div>
                     {calls && 
                         <CallsBarChart 
-                        last7Days={calls.volume.last_7_days} 
-                        last30Days={calls.volume.last_30_days}
+                        last7Days={calls.daily_counts.last_7_days} 
+                        last30Days={calls.daily_counts.last_30_days}
                         range={range}
                         /> 
                     }
