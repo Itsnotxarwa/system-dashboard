@@ -3,7 +3,8 @@ import Logo from "../../../assets/image.png";
 import CallsBarChart from "./CallsBarChart";
 import KpiCards from "./KpiCards";
 import CallSummary from "./CallSummary";
-import CallSession from "./CallSession";
+import CallSessions from "./CallSession";
+import TopCallers from "./TopCallers";
 
 export default function CallsOverview({tenant, calls, callSessions}) {
     const [range, setRange] = useState("30");
@@ -44,9 +45,9 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                     <KpiCards calls={calls} />
                 }
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
                 {/* Chart */}
-                <div className="col-span-2 bg-white rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
+                <div className="col-span-3 bg-white rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
                 shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
                     <div className="flex items-center justify-between mb-4">
                         <div>
@@ -81,7 +82,8 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
-                    <CallSession callSessions={callSessions} />
+                    <CallSessions callSessions={callSessions} />
+                    <TopCallers calls={calls} />
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-export default function CallSession({CallSession}) {
+export default function CallSessions({CallSession}) {
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
         const min = Math.floor(seconds / 60);
