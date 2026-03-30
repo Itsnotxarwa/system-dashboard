@@ -35,7 +35,9 @@ export default function CallsOverview({tenant, calls}) {
                     </div>
                 </div>
 
-                <KpiCards calls={calls} />
+                {calls && 
+                    <KpiCards calls={calls} />
+                }
             </div>
         </div>
     )

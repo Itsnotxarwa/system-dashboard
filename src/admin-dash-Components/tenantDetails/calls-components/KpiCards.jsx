@@ -1,6 +1,8 @@
 import { CheckCircle, Clock, Forward, Phone } from "lucide-react"
 
 export default function KpiCards({ calls }) {
+    if (!calls) return null;
+    
     const Cards = [
         {
             title: "Total Calls",
