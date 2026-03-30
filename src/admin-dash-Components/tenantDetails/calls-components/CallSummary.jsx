@@ -6,19 +6,19 @@ export default function CallSummary({calls}) {
             title: "Answered",
             value: calls.call_status.answered,
             rate: calls.rates.answer_rate,
-            background: "#032ca6",
+            background: "bg-[#032ca6]",
         },
         {
             title: "Voicemail",
             value: calls.call_status.voicemail,
             rate: calls.rates.voicemail_rate,
-            background: "#d97706",
+            background: "bg-[#d97706]",
         },
         {
             title: "Failed",
             value: calls.call_status.failed,
             rate: calls.rates.failed_rate,
-            background: "#ef4444",
+            background: "bg-[#ef4444]",
         }
     ]
 
@@ -26,16 +26,16 @@ export default function CallSummary({calls}) {
         {
             title: "Outbound",
             value: calls.call_type.outbound,
-            text: "#032ca6",
-            background: "background:rgba(3,44,166,.06)",
-            border: "rgba(3,44,166,.14)"
+            text: "text-[#032ca6]",
+            background: "bg-[rgba(3,44,166,.06)]",
+            border: "border-[rgba(3,44,166,.14)]"
         },
         {
             title: "Inbound",
             value: calls.call_type.inbound,
-            text: "#059669",
-            background: "background:rgba(5,150,105,.06)",
-            border: "rgba(5,150,105,.14)"
+            text: "text-[#059669]",
+            background: "bg-[rgba(5,150,105,.06)]",
+            border: "border-[rgba(5,150,105,.14)]"
         }
     ]
 
@@ -43,16 +43,16 @@ export default function CallSummary({calls}) {
         {
             title: "Agent",
             value: calls.termination.agent_ended,
-            text: "#7c3aed",
-            background: "rgba(124,58,237,.06)",
-            border: "rgba(124,58,237,.14)"
+            text: "text-[#7c3aed]",
+            background: "bg-[rgba(124,58,237,.06)]",
+            border: "border-[rgba(124,58,237,.14)]"
         },
         {
             title: "Human",
             value: calls.termination.human_ended,
-            text: "#475569",
-            background: "rgba(3,44,166,.04)",
-            border: "rgba(3,44,166,.10)"
+            text: "text-[#475569]",
+            background: "bg-[rgba(3,44,166,.04)]",
+            border: "border-[rgba(3,44,166,.10)]"
         }
     ]
     return(
@@ -103,8 +103,7 @@ export default function CallSummary({calls}) {
                 key={i}
                 className={`flex-1 text-center py-2.5 rounded-xl ${item.background} border
                 ${item.border}`}>
-                    <div className="text-base font-black text-[#032ca6]"
-                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                    <div className="text-base font-black text-[#032ca6]">
                         {item.value}
                     </div>
                     <div className="text-[9px] text-slate-400 mt-0.5">
@@ -114,7 +113,7 @@ export default function CallSummary({calls}) {
                 ))}
             </div>
             
-            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-3">
+            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest py-3">
                 Ended by
             </div>
 
@@ -124,8 +123,7 @@ export default function CallSummary({calls}) {
                 key={i}
                 className={`flex-1 text-center py-2.5 rounded-xl ${item.background} border
                 ${item.border}`}>
-                    <div className="text-base font-black text-[#032ca6]"
-                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                    <div className="text-base font-black text-[#032ca6]">
                         {item.value}
                     </div>
                     <div className="text-[9px] text-slate-400 mt-0.5">
