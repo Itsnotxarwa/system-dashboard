@@ -2,31 +2,31 @@ import { CheckCircle, Clock, Forward, Phone } from "lucide-react"
 
 export default function KpiCards({ calls }) {
     if (!calls) return null;
-    
+
     const Cards = [
         {
             title: "Total Calls",
             icon: Phone,
             value: calls.volume.total_calls,
-            desc: calls.volume.calls_last_30_days + "last 30 days"
+            desc: calls.volume.calls_last_30_days + " last 30 days"
         },
         {
             title: "Answer Rate",
             icon: CheckCircle,
             value: calls.rates.answer_rate + "%",
-            desc: calls.call_status.answered + "answered" + "-" + calls.call_status.voicemail + "voicemail",
+            desc: calls.call_status.answered + " answered " + " - " + calls.call_status.voicemail + " voicemail",
         },
         {
             title: "Avg Duration",
             icon: Clock,
-            value: (calls.time.avg_duration_seconds / 60).toFixed(2) + " m",
-            desc: "Total:" + (calls.time.total_duration_seconds / 60).toFixed(2) + " m",
+            value: (calls.time.avg_duration_seconds / 60).toFixed(2),
+            desc: "Total: " + (calls.time.total_duration_seconds / 60).toFixed(2),
         },
         {
             title: "Outbound",
             icon: Forward,
             value: calls.call_type.outbound,
-            desc: "vs" + calls.call_type.inbound + " inbound",
+            desc: "vs " + calls.call_type.inbound + " inbound",
         }
     ]
     return(

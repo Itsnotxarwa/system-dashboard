@@ -9,7 +9,7 @@ export default function CallsOverview({tenant, calls}) {
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <img src={Logo} alt="Logo" className="w-8" />
+                            <img src={Logo} alt="Logo" className="w-12" />
                             <span className="text-[10px] text-slate-400 tracking-widest uppercase">
                                 {tenant?.name}
                             </span>
