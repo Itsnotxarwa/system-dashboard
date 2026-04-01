@@ -1,7 +1,9 @@
 export default function AgentsList({agents}) {
+    const safeAgents = agents || [];
+
     return (
     <div className="py-3 px-4">
-        {agents.length === 0
+        {safeAgents.length === 0
         ? (
         <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
         border-dashed border-[rgba(3,44,166,0.12)]">
@@ -41,7 +43,14 @@ export default function AgentsList({agents}) {
                     </tr>
                 </thead>
                 <tbody>
-                        {agents.map((a, i) => (
+                        {agents.length === 0 ? (
+                        <tr>
+                            <td colSpan="7" className="text-center py-6 text-sm text-slate-500">
+                                No agents for this tenant
+                            </td>
+                        </tr>
+                        ) : (
+                        agents.map((a, i) => (
                         <tr 
                         key={i}
                         className="border-t border-[rgba(3,44,166,0.06)]">
@@ -99,7 +108,7 @@ export default function AgentsList({agents}) {
                             </td>
 
                         </tr>
-                        ))}
+                        )))}
                     </tbody>
                 </table>
             </div>)

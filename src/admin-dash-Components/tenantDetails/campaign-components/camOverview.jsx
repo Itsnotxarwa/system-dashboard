@@ -1,6 +1,7 @@
 import Logo from "../../../assets/image.png";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
+import UploadRecipient from "./UploadRecipient";
 
 export default function CampaignOverview({tenant, campaigns}) {
     const [filter, setFilter] = useState("ALL");
@@ -72,6 +73,9 @@ export default function CampaignOverview({tenant, campaigns}) {
                 </div>
 
                 <CampaignTable filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
+
+                {/* UPLOAD RECIPIENT BAR */}
+                <UploadRecipient />
             </div>
         </div>
     )
