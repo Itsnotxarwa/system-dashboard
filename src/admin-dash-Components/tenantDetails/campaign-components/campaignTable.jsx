@@ -74,6 +74,10 @@ export default function CampaignTable({campaigns, updateStatus}) {
                                     day: "numeric",
                                 }) : ""}
                             </td>
+                            <td className="p-[13px_20px] text-xs font-semibold text-[#0a1628]"
+                            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                                {c.batch_size}
+                            </td>
                             <td className="p-[13px_20px] text-xs text-[#7a8bb5] max-w-40">
                                 <div className="flex-nowrap overflow-hidden text-ellipsis">
                                     {c.time_slots?.map((slot, index) => (
