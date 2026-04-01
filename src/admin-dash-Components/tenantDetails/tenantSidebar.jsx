@@ -1,4 +1,4 @@
-import { MoveLeft } from "lucide-react";
+import { MoveLeft, Target } from "lucide-react";
 import Logo from "../../assets/image.png";
 import { NavLink, useParams } from "react-router-dom";
 import { Bot, CassetteTape } from "lucide-react";
@@ -8,6 +8,7 @@ export default function TenantSidebar({tenant}) {
     const navigation =[
         { name: "Agents", icon: Bot, href: "agents" },
         { name: "Call Records", icon: CassetteTape, href: "call-records" },
+        { name: "Campaign", icon: Target, href: "campaign" },
     ];
 
     return(

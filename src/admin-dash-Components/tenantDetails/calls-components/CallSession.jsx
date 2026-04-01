@@ -1,4 +1,4 @@
-export default function CallSession({CallSessions}) {
+export default function CallSession({callSessions}) {
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
         const min = Math.floor(seconds / 60);
@@ -17,7 +17,7 @@ export default function CallSession({CallSessions}) {
                     Call Sessions
                 </span>
                 <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
-                    {CallSessions?.length} sessions
+                    {callSessions?.length} sessions
                 </span>
             </div>
 
@@ -50,7 +50,14 @@ export default function CallSession({CallSessions}) {
                         </tr>
                     </thead>
                     <tbody>
-                        {CallSessions?.map((session) => (
+                        {callSessions?.length === 0 ? (
+                            <tr>
+                                <td colSpan="7" className="text-center py-4 text-slate-400">
+                                    No call sessions found.
+                                </td>
+                            </tr>
+                        ) : (
+                        callSessions?.map((session) => (
                             <tr key={session.id} className="border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] cursor-pointer">
                                 <td className="px-5 py-2.5 text-[10px] text-slate-400">
                                     {session.from_number}
@@ -74,7 +81,7 @@ export default function CallSession({CallSessions}) {
                                     {formatDate(session.created_at)}
                                 </td>
                             </tr>
-                        ))}
+                        )))}
                     </tbody>
                 </table>
             </div>
