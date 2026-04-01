@@ -1,4 +1,4 @@
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/image.png";
 
 export default function CampaignOverview({tenant}) {
     return(
