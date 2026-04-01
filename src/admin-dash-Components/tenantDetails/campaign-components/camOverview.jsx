@@ -1,4 +1,5 @@
 import Logo from "../../../assets/image.png";
+import CampaignTable from "./campaignTable";
 
 export default function CampaignOverview({tenant}) {
     return(
@@ -25,6 +26,8 @@ export default function CampaignOverview({tenant}) {
                         </p>
                     </div>
                 </div>
+
+                <CampaignTable />
             </div>
         </div>
     )
