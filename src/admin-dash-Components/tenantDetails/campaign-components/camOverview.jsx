@@ -1,7 +1,7 @@
 import Logo from "../../../assets/image.png";
 import CampaignTable from "./campaignTable";
 
-export default function CampaignOverview({tenant}) {
+export default function CampaignOverview({tenant, campaigns}) {
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
             <div className="max-w-7xl mx-auto p-6">
@@ -27,7 +27,7 @@ export default function CampaignOverview({tenant}) {
                     </div>
                 </div>
 
-                <CampaignTable />
+                <CampaignTable campaigns={campaigns} />
             </div>
         </div>
     )

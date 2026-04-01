@@ -7,6 +7,7 @@ import CampaignOverview from "./campaign-components/camOverview";
 export default function Campaign() {
     const {id} = useParams();
     const [tenant, setTenant] = useState(null);
+    const [campaigns, setCampaigns] = useState([]);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -40,9 +41,18 @@ export default function Campaign() {
 
             const data = await res.json();
             console.log("Campaigns:", data);
+            setCampaigns(data);
         }
         fetchCampaigns();
     }, [id]);
+
+    const updateStatus = (id, status) => {
+        setCampaigns(prev =>
+            prev.map(c =>
+                c.id === id ? { ...c, status } : c
+            )
+        );
+    };
 
     return(
         <div className="flex min-h-screen bg-white text-black">
@@ -51,6 +61,8 @@ export default function Campaign() {
                 <TopBar tenant={tenant} activeNav={{name: "Campaign"}} />
                 <CampaignOverview 
                 tenant={tenant}
+                campaigns={campaigns}
+                updateStatus={updateStatus}
                 />
             </main>
         </div>
