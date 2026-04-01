@@ -43,7 +43,10 @@ export default function Agents() {
                 },
             }
         );
-
+        if (res.status === 404) {
+            setAgents([]);
+            return;
+        }
             const data = await res.json();
             console.log(data)
 
@@ -51,6 +54,7 @@ export default function Agents() {
 
             } catch (err) {
             console.error(err);
+            setAgents([]);
             }
         };
 

@@ -1,9 +1,9 @@
 export default function AgentsList({agents}) {
-    const safeAgents = agents || [];
+    
 
     return (
     <div className="py-3 px-4">
-        {safeAgents.length === 0
+        {agents.length === 0
         ? (
         <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
         border-dashed border-[rgba(3,44,166,0.12)]">
