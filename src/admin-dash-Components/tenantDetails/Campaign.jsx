@@ -7,7 +7,6 @@ import CampaignOverview from "./campaign-components/camOverview";
 export default function Campaign() {
     const {id} = useParams();
     const [tenant, setTenant] = useState(null);
-    const [campaigns, setCampaigns] = useState([]);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -41,7 +40,6 @@ export default function Campaign() {
 
             const data = await res.json();
             console.log("Campaigns:", data);
-            setCampaigns(data);
         }
         fetchCampaigns();
     }, [id]);
@@ -53,7 +51,6 @@ export default function Campaign() {
                 <TopBar tenant={tenant} activeNav={{name: "Campaign"}} />
                 <CampaignOverview 
                 tenant={tenant}
-                campaigns={campaigns}
                 />
             </main>
         </div>
