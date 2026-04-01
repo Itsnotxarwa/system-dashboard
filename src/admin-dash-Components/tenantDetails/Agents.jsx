@@ -65,7 +65,7 @@ export default function Agents() {
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
-            <main className="bg-[rgba(3,44,166,.03)] flex-1 flex flex-col">
+            <main className="bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex-1 flex flex-col">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} setShowAgentModal={setShowAgentModal} />
 
                 <div className="flex items-center gap-4 py-6 px-4 card-anim">

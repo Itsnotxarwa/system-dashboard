@@ -1,6 +1,6 @@
 import { Edit, Pause, Play, RotateCcw, Trash } from "lucide-react";
 
-export default function CampaignTable({campaigns, updateStatus}) {
+export default function CampaignTable({filteredcampaigns, updateStatus, campaigns}) {
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
@@ -37,7 +37,7 @@ export default function CampaignTable({campaigns, updateStatus}) {
                             <td colSpan="10" className="text-center py-6 text-sm text-slate-500"></td>
                         </tr>
                         ) : (
-                        campaigns.map((c) => (
+                        filteredcampaigns.map((c) => (
                         <tr
                         key={c.id}>
                             <td className="p-[13px_20px]">
@@ -53,16 +53,16 @@ export default function CampaignTable({campaigns, updateStatus}) {
                             </td>
                             <td className="p-[13px_20px]">
                                 <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
-                                ${c.status === "ACTIVE" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
+                                ${c.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
                                 ${c.status === "COMPLETED" ? "bg-[rgba(124,58,237,.08)] text-[#7c3aed] border-[rgba(3,44,166,.20)]" : ""}
-                                ${c.status === "SCHEDULED" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
+                                ${c.status === "DRAFT" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
                                 `}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                    ${c.status === "ACTIVE" ? "bg-[#22c55e]" : ""}
+                                    ${c.status === "READY" ? "bg-[#22c55e]" : ""}
                                     ${c.status === "PAUSED" ? "bg-[#f59e0b]" : ""}
                                     ${c.status === "COMPLETED" ? "bg-[#a78bfa]" : ""}
-                                    ${c.status === "SCHEDULED" ? "bg-[#6b8fef]" : ""}
+                                    ${c.status === "DRAFT" ? "bg-[#6b8fef]" : ""}
                                     `}></span>
                                     {c?.status || ""}
                                 </span>
@@ -89,10 +89,10 @@ export default function CampaignTable({campaigns, updateStatus}) {
                             </td>
                             <td className="p-[13px_20px]">
                                 <div className="flex gap-1 flex-wrap">
-                                    {c.status !== "ACTIVE" && c.status !== 'PAUSED' && (
+                                    {c.status !== "READY" && c.status !== 'PAUSED' && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'ACTIVE')
+                                            updateStatus(c.id, 'READY')
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669]
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs 
@@ -102,7 +102,7 @@ export default function CampaignTable({campaigns, updateStatus}) {
                                         </button>
                                     )}
 
-                                    {c.status === "ACTIVE" && (
+                                    {c.status === "READY" && (
                                         <button 
                                         onClick={() => {
                                             updateStatus(c.id, 'PAUSED')
@@ -118,7 +118,7 @@ export default function CampaignTable({campaigns, updateStatus}) {
                                     {c.status === "PAUSED" && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'ACTIVE')
+                                            updateStatus(c.id, 'READY')
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669]
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
@@ -128,10 +128,10 @@ export default function CampaignTable({campaigns, updateStatus}) {
                                         </button>
                                     )}
 
-                                    {c.status !== "SCHEDULED" && (
+                                    {c.status !== "DRAFT" && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'SCHEDULED')
+                                            updateStatus(c.id, 'DRAFT')
                                         }}
                                         className="bg-[rgba(3,44,166,.07)] text-[#032ca6]
                                         border border-[rgba(3,44,166,.18)] flex items-center gap-1 text-xs
@@ -146,11 +146,11 @@ export default function CampaignTable({campaigns, updateStatus}) {
                                 <div className="flex gap-1">
                                     <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border
                                     border-[rgba(3,44,166,.14)]">
-                                        <Edit />
+                                        <Edit size={21} />
                                     </button>
                                     <button className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border
                                     border-[rgba(220,38,38,.16)]">
-                                        <Trash />
+                                        <Trash size={21} />
                                     </button>
                                 </div>
                             </td>

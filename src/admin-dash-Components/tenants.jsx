@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { CircleX, Edit, Search } from "lucide-react";
+import { CircleX, Edit, Search, Trash } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 
@@ -189,7 +189,7 @@ export default function Tenants() {
               );
             })}
         </div>
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-sm text-slate-400 py-1">
             Click a tenant to view its agents and call records
         </p>
         <div className="py-2">
@@ -248,7 +248,7 @@ export default function Tenants() {
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
                         </td>
                         <td className="py-2 flex gap-2">
-                            <button className="flex items-center justify-center text-gray-500
+                            <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border border-[rgba(3,44,166,.14)]
                             cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -257,13 +257,13 @@ export default function Tenants() {
                                 <Edit size={21} />
                             </button>
                             <button 
-                            className="flex items-center justify-center text-red-500
+                            className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border border-[rgba(220,38,38,.16)]
                             cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedTenant(t);
                             }}>
-                                <CircleX size={21} />
+                                <Trash size={21} />
                             </button>
                         </td>
                     </tr>
