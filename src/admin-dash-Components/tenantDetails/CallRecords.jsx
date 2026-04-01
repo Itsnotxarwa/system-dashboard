@@ -54,6 +54,7 @@ export default function CallRecords() {
     {/* fetch call sessions */}
     useEffect(() => {
         const fetchCallSessions = async () => {
+            try {
             const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}/calls/sessions`,{
@@ -68,6 +69,11 @@ export default function CallRecords() {
             (Array.isArray(data)) ? console.log("call sessions:", data) : console.log("call sessions error:", data);
             console.log("call sessions:", data);
             setCallSessions(data);
+        } catch (err) {
+            console.error(err)
+            setCallSessions([])
+        }
+
         }
         fetchCallSessions();
     }, [id]);

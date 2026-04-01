@@ -4,17 +4,16 @@ import { useState } from "react";
 import UploadRecipient from "./UploadRecipient";
 
 export default function CampaignOverview({tenant, campaigns}) {
-    const [filter, setFilter] = useState("ALL");
-
-    const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
-
     const getBtnClass = (value) => {
-        `px-3 py-1.5 rounded-lg text-xs transition-all ${
+        `px-3 py-1.5 text-xs transition-all ${
             filter === value
             ? "bg-[#032ca6] text-white font-medium"
             : "text-slate-500 hover:bg-white"
         }`
     }
+
+    const [filter, setFilter] = useState("ALL");
+    const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
 
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">

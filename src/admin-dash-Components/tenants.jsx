@@ -45,6 +45,7 @@ export default function Tenants() {
                 setTenants(data); 
             } catch (error) {
                 console.error(error);
+                setTenants([]);
             }
         };
         
