@@ -1,6 +1,6 @@
 export default function CampaignTable() {
     return(
-        <div className="bg-white rounded-2xl overflow-hidden mb-6" style="border:1px solid rgba(3,44,166,.09);box-shadow:0 2px 12px rgba(3,44,166,.06);animation-delay:.14s">
+        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
             <table className="w-full border-collapse">
                 <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
                     <tr>
