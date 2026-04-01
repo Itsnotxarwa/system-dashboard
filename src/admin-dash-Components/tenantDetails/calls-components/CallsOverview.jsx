@@ -3,7 +3,7 @@ import Logo from "../../../assets/image.png";
 import CallsBarChart from "./CallsBarChart";
 import KpiCards from "./KpiCards";
 import CallSummary from "./CallSummary";
-import CallSessions from "./CallSession";
+import CallSession from "./CallSession";
 
 export default function CallsOverview({tenant, calls, callSessions}) {
     const [range, setRange] = useState("30");
@@ -81,7 +81,7 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 </div>
 
                 <div className="grid grid-cols-1 mb-5">
-                    <CallSessions callSessions={callSessions} />
+                    <CallSession callSessions={callSessions} />
                 </div>
             </div>
         </div>

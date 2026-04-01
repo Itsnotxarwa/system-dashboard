@@ -65,6 +65,7 @@ export default function CallRecords() {
             });
 
             const data = await res.json();
+            (Array.isArray(data));
             console.log("call sessions:", data);
             setCallSessions(data);
         }
