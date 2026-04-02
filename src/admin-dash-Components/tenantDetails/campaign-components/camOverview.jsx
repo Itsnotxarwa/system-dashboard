@@ -29,13 +29,6 @@ export default function CampaignOverview({tenant, campaigns}) {
                     </div>
                 </div>
 
-                <p className="text-sm text-slate-400 mt-0.5">
-                    Manage outbound call campaigns
-                    <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
-                        {campaigns?.length} campaigns
-                    </span>
-                </p>
-
                 <div className="flex items-center gap-3 my-4">
                     <div className="flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
                     border-[rgba(3,44,166,.10)]">
@@ -57,6 +50,15 @@ export default function CampaignOverview({tenant, campaigns}) {
                         })}
                     </div>
                 </div>
+
+                {campaigns && (
+                <p className="text-sm text-slate-400 mt-0.5">
+                    Manage outbound call campaigns
+                    <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
+                        {campaigns?.length} campaigns
+                    </span>
+                </p>
+                )}
 
                 <CampaignTable filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
 

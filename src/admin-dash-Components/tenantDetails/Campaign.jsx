@@ -65,7 +65,11 @@ export default function Campaign() {
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
             <main className="bg-[rgba(3,44,166,.03)] flex-1 flex flex-col min-h-screen">
-                <TopBar tenant={tenant} activeNav={{name: "Campaign"}} setShowAgentModal={setShowCreateModal} />
+                <TopBar 
+                tenant={tenant} 
+                activeNav={{name: "Campaign"}} 
+                setShowCreateModal={setShowCreateModal} 
+                setShowAgentModal={setShowCreateModal} />
                 <CampaignOverview 
                 tenant={tenant}
                 campaigns={campaigns}

@@ -127,6 +127,20 @@ export default function CreateCampaign({onClose, onCancel}) {
                     )}
                 </div>
 
+                <div className="flex items-center gap-3 py-1">
+                    <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
+                    <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest">
+                        Recipients
+                    </span>
+                    <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
+                </div>
+
+                <div>
+                    <div className="flex items-center justify-between mb-2">
+                        <label>Upload Recipients</label>
+                    </div>
+                </div>
+
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t
                 border-[rgba(3,44,166,0.08)] bg-[rgba(3,44,166,0.015)] shrink-0">
