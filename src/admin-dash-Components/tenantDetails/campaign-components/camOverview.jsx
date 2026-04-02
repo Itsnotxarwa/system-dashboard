@@ -51,8 +51,8 @@ export default function CampaignOverview({tenant, campaigns}) {
                     </div>
                 </div>
 
-                {campaigns && (
-                <p className="text-sm text-slate-400 mt-0.5">
+                {campaigns.length === 0 ? null :(
+                <p className="text-sm text-slate-400 my-4">
                     Manage outbound call campaigns
                     <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
                         {campaigns?.length} campaigns
