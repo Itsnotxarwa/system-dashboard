@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import TenantSidebar from "./tenantSidebar";
 import TopBar from "./TopBar";
 import CampaignOverview from "./campaign-components/camOverview";
+import CreateCampaign from "./campaign-components/CreateCampaign";
 
 export default function Campaign() {
     const {id} = useParams();
     const [tenant, setTenant] = useState(null);
     const [campaigns, setCampaigns] = useState([]);
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -30,6 +32,7 @@ export default function Campaign() {
     {/* fetch Campaigns */}
     useEffect(() => {
         const fetchCampaigns = async () => {
+            try {
             const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/tenants/${id}/campaigns`,{
@@ -42,7 +45,11 @@ export default function Campaign() {
             const data = await res.json();
             console.log("Campaigns:", data);
             setCampaigns(data);
+        } catch (error) {
+            console.error("Error fetching campaigns:", error);
+            setCampaigns([]);
         }
+    }
         fetchCampaigns();
     }, [id]);
 
@@ -58,13 +65,14 @@ export default function Campaign() {
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
             <main className="bg-[rgba(3,44,166,.03)] flex-1 flex flex-col min-h-screen">
-                <TopBar tenant={tenant} activeNav={{name: "Campaign"}} />
+                <TopBar tenant={tenant} activeNav={{name: "Campaign"}} setShowAgentModal={setShowCreateModal} />
                 <CampaignOverview 
                 tenant={tenant}
                 campaigns={campaigns}
                 updateStatus={updateStatus}
                 />
             </main>
+            {showCreateModal && <CreateCampaign onClose={() => setShowCreateModal(false)} onCancel={() => setShowCreateModal(false)} />}
         </div>
     )
 }

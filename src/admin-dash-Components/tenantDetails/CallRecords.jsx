@@ -32,6 +32,7 @@ export default function CallRecords() {
     {/* fetch calls overview */}
     useEffect(() => {
         const fetchCalls = async () => {
+            try {
             const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}/calls/overview`,{
@@ -45,9 +46,11 @@ export default function CallRecords() {
             const data = await res.json();
             console.log("calls:", data);
             setCalls(data);
-            
+        } catch (err) {
+            console.error(err)
+            setCalls(null)
         }
-
+    }
         fetchCalls();
     },[id]);
 

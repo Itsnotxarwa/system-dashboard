@@ -4,6 +4,14 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
+            {campaigns.length === 0 ? (
+                <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
+                border-dashed border-[rgba(3,44,166,0.12)]">
+                    No campaigns yet — click 
+                    <strong className="text-blue-700">+ Add Campaign</strong> 
+                    to create one.
+                </div>
+            ) : (
             <table className="w-full border-collapse">
                 <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
                     <tr>
@@ -34,7 +42,9 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                 <tbody>
                     {campaigns.length === 0 ? (
                         <tr>
-                            <td colSpan="10" className="text-center py-6 text-sm text-slate-500"></td>
+                            <td colSpan="10" className="text-center py-6 text-sm text-slate-500">
+                                No campaigns for this tenant
+                            </td>
                         </tr>
                         ) : (
                         filteredcampaigns.map((c) => (
@@ -159,6 +169,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                     )}
                 </tbody>
             </table>
+            )}
         </div>
     )
 }

@@ -1,16 +1,8 @@
 import Logo from "../../../assets/image.png";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
-import UploadRecipient from "./UploadRecipient";
 
 export default function CampaignOverview({tenant, campaigns}) {
-    const getBtnClass = (value) => {
-        `px-3 py-1.5 text-xs transition-all ${
-            filter === value
-            ? "bg-[#032ca6] text-white font-medium"
-            : "text-slate-500 hover:bg-white"
-        }`
-    }
 
     const [filter, setFilter] = useState("ALL");
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
@@ -47,34 +39,27 @@ export default function CampaignOverview({tenant, campaigns}) {
                 <div className="flex items-center gap-3 mb-4">
                     <div className="flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
                     border-[rgba(3,44,166,.10)]">
-                        <button className={getBtnClass("ALL")}
-                        onClick={() => setFilter("ALL")}>
-                            All
-                        </button>
-                        <button 
-                        className={getBtnClass("READY")}
-                        onClick={() => setFilter("READY")}>
-                            Ready
-                        </button>
-                        <button className={getBtnClass("PAUSED")}
-                        onClick={() => setFilter("PAUSED")}>
-                            Paused
-                        </button>
-                        <button className={getBtnClass("COMPLETED")}
-                        onClick={() => setFilter("COMPLETED")}>
-                            Completed
-                        </button>
-                        <button className={getBtnClass("DRAFT")}
-                        onClick={() => setFilter("DRAFT")}>
-                            Draft
-                        </button>
+                        {["ALL", "READY", "PAUSED", "COMPLETED", "DRAFT"].map((status) => {
+                            const isActive = filter === status;
+                            return (
+                                <button
+                                    key={status}
+                                    className={`px-3 py-1.5 text-xs transition-all 
+                                        ${isActive ? "bg-[#032ca6] text-white font-medium" 
+                                            : "text-slate-500 hover:bg-white"
+                                        }
+                                    `}
+                                    onClick={() => setFilter(status)}
+                                >
+                                    {status}
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
 
                 <CampaignTable filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
 
-                {/* UPLOAD RECIPIENT BAR */}
-                <UploadRecipient />
             </div>
         </div>
     )

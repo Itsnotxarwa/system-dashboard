@@ -13,11 +13,13 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit})
                         <div className="w-9 h-9 rounded-xl flex items-center justify-center">
                             <Plus />
                         </div>
-                        <div className="font-extrabold text-[16px] text-[#0a1628] tracking-tight">
-                            Add New Tenant
-                        </div>
-                        <div className="mt-0.5 text-[#9aabca] text-xs">
-                            Fill in the tenant details below
+                        <div>
+                            <div className="font-extrabold text-[16px] text-[#0a1628] tracking-tight">
+                                Add New Tenant
+                            </div>
+                            <div className="mt-0.5 text-[#9aabca] text-xs">
+                                Fill in the tenant details below
+                            </div>
                         </div>
                     </div>
                     <button className="w-7.5 h-7.5 rounded-lg border border-[rgba(3,44,166,0.12)]
