@@ -11,7 +11,7 @@ export default function CampaignOverview({tenant, campaigns}) {
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
             <div className="max-w-7xl mx-auto p-6">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-4">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <img src={Logo} alt="Logo" className="w-12" />
@@ -36,7 +36,7 @@ export default function CampaignOverview({tenant, campaigns}) {
                     </span>
                 </p>
 
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 my-4">
                     <div className="flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
                     border-[rgba(3,44,166,.10)]">
                         {["ALL", "READY", "PAUSED", "COMPLETED", "DRAFT"].map((status) => {
@@ -44,7 +44,7 @@ export default function CampaignOverview({tenant, campaigns}) {
                             return (
                                 <button
                                     key={status}
-                                    className={`px-3 py-1.5 text-xs transition-all 
+                                    className={`px-3 py-1.5 text-xs transition-all rounded-xl
                                         ${isActive ? "bg-[#032ca6] text-white font-medium" 
                                             : "text-slate-500 hover:bg-white"
                                         }
