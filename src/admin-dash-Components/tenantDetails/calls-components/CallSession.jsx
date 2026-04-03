@@ -35,6 +35,7 @@ export default function CallSession({callSessions}) {
                 <table className="w-full border-collapse text-xs">
                     <thead className="sticky top-0 bg-[#fafafa]">
                         <tr className="border-b border-[rgba(3,44,166,.07)]">
+                            <th className="p-[10px_5px_10px_16px] w-7"></th>
                             <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
                                 From
                             </th>
@@ -90,10 +91,10 @@ export default function CallSession({callSessions}) {
                             className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
                             cursor-pointer ${isOpen ? "bg-[rgba(3,44,166,.02)]" : ""}`}>
                                 <td className="p-[10px_5px_10px_16px] w-7">
-                                    <div className={`h-4.5 w-4.5 rounded-[5px] border shrink-0
+                                    <div className={`h-4.5 w-4.5 rounded-[5px] border shrink-0 flex justify-center
                                         ${hasTranscription ? 
-                                        "#032ca6 bg-[rgba(3,44,166,.07)] border-[rgba(3,44,166,.14)]" 
-                                        : "#d1d5db bg-transparent border-[rgba(3,44,166,.06)]"}
+                                        "text-[#032ca6] bg-[rgba(3,44,166,.07)] border-[rgba(3,44,166,.14)]" 
+                                        : "text-[#d1d5db] bg-transparent border-[rgba(3,44,166,.06)]"}
                                         `}>
                                             {hasTranscription && (
                                                 <ChevronDown className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
