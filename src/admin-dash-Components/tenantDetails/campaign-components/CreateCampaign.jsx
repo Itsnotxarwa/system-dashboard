@@ -81,6 +81,7 @@ export default function CreateCampaign({onClose, onCancel}) {
                         uppercase">
                             Batch Size <span className="text-[#ef4444]">*</span>
                         </label>
+                        <input type="number" min={1} max={500} value={10} />
                     </div>
                     <div className="flex items-center justify-between mb-2">
                         <label className="block mb-1.5 text-[10px] text-[#7a8bb5] tracking-wider 
@@ -88,7 +89,8 @@ export default function CreateCampaign({onClose, onCancel}) {
                             Time Slots <span className="text-[#ef4444]">*</span>
                         </label>
                         <button className="text-[10px] px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1
-                        bg-[rgba(3,44,166,.08)] text-[#032ca6] border border-[rgba(3,44,166,.16)]">
+                        bg-[rgba(3,44,166,.08)] text-[#032ca6] border border-[rgba(3,44,166,.16)]"
+                        onClick={() => setShowSlot(true)}>
                             <Plus size={12} />
                             Add Slot
                         </button>
@@ -118,7 +120,7 @@ export default function CreateCampaign({onClose, onCancel}) {
                             bg-[rgba(220,38,38,.06)] text-[#dc2626] text-sm cursor-pointer flex items-center
                             justify-center"
                             onClick={() => {
-                                setShowSlot(true);
+                                setShowSlot(false);
                                 setSlot({start: "", end: ""});
                             }}>
                                 <X size={14} />
