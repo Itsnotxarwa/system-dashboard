@@ -1,4 +1,4 @@
-import { Plus, X } from "lucide-react";
+import { Paperclip, Plus, X } from "lucide-react";
 import { useState } from "react";
 
 export default function CreateCampaign({onClose, onCancel}) {
@@ -116,15 +116,17 @@ export default function CreateCampaign({onClose, onCancel}) {
                             className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                             border-gray-300 placeholder-gray-400
                             focus:border-[#032ca6]" />
-                            <button className="w-6 h-6 rounded-md border border-[rgba(220,38,38,.18)]
-                            bg-[rgba(220,38,38,.06)] text-[#dc2626] text-sm cursor-pointer flex items-center
-                            justify-center"
-                            onClick={() => {
-                                setShowSlot(false);
-                                setSlot({start: "", end: ""});
-                            }}>
-                                <X size={14} />
-                            </button>
+                            <div className="flex justify-center items-center">
+                                <button className="w-6 h-6 rounded-md border border-[rgba(220,38,38,.18)]
+                                bg-[rgba(220,38,38,.06)] text-[#dc2626] text-sm cursor-pointer flex items-center
+                                justify-center"
+                                onClick={() => {
+                                    setShowSlot(false);
+                                    setSlot({start: "", end: ""});
+                                }}>
+                                    <X size={14} />
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
@@ -139,7 +141,22 @@ export default function CreateCampaign({onClose, onCancel}) {
 
                 <div>
                     <div className="flex items-center justify-between mb-2">
-                        <label>Upload Recipients</label>
+                        <div>Upload Recipients</div>
+                    </div>
+                    {/* DROP ZONE */}
+                    <div className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
+                    text-center cursor-pointer p-[20px_16px] transition-all duration-200">
+                        <div>
+                            <div className="flex justify-center items-center mb-1.5">
+                                <Paperclip />
+                            </div>
+                            <p className="text-xs font-semibold text-[#374151] mb-1">
+                                Drop your file here or
+                                <span className="text-[#032ca6]">
+                                    browse
+                                </span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
