@@ -78,8 +78,9 @@ export default function CallSession({callSessions}) {
                                 parsedTranscription = [];
                             }
                             return(
-                            <React.Fragment key={session.id}>
+                            <>
                             <tr  
+                            key={session.id}
                             onClick={() => toggleRow(session.id)}
                             className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
                             cursor-pointer ${isOpen ? "bg-[rgba(3,44,166,.02)]" : ""}`}>
@@ -163,7 +164,7 @@ export default function CallSession({callSessions}) {
                                     </td>
                                 </tr>
                             )}
-                            </React.Fragment>
+                            </>
                         )}))}
                     </tbody>
                 </table>
