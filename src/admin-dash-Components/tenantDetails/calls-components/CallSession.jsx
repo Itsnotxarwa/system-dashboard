@@ -1,4 +1,4 @@
-import { Bot, User } from "lucide-react";
+import { Bot, ChevronDown, User } from "lucide-react";
 import { useState } from "react";
 
 export default function CallSession({callSessions}) {
@@ -77,6 +77,11 @@ export default function CallSession({callSessions}) {
                                 } catch {
                                 parsedTranscription = [];
                             }
+                            const hasTranscription =
+                                session.transcription &&
+                                session.transcription !== "null" &&
+                                session.transcription !== "[]";
+
                             return(
                             <>
                             <tr  
@@ -84,6 +89,17 @@ export default function CallSession({callSessions}) {
                             onClick={() => toggleRow(session.id)}
                             className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
                             cursor-pointer ${isOpen ? "bg-[rgba(3,44,166,.02)]" : ""}`}>
+                                <td className="p-[10px_5px_10px_16px] w-7">
+                                    <div className={`h-4.5 w-4.5 rounded-[5px] border shrink-0
+                                        ${hasTranscription ? 
+                                        "#032ca6 bg-[rgba(3,44,166,.07)] border-[rgba(3,44,166,.14)]" 
+                                        : "#d1d5db bg-transparent border-[rgba(3,44,166,.06)]"}
+                                        `}>
+                                            {hasTranscription && (
+                                                <ChevronDown className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+                                            )}
+                                        </div>
+                                </td>
                                 <td className="px-5 py-2.5 text-[10px] text-slate-400">
                                     {session.from_number}
                                 </td>
