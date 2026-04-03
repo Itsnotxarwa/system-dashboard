@@ -103,10 +103,9 @@ export default function AgentsOverview({tenant, agents, setShowAgentModal}) {
                                 Inactive
                             </div>
                         </div>
-                    </div>
-
-                    <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
+                    </div>                   
                 </div>
+                <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
             </div>
         </div>
     )
