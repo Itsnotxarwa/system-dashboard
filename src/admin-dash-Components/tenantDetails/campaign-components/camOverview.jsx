@@ -29,6 +29,7 @@ export default function CampaignOverview({tenant, campaigns}) {
                     </div>
                 </div>
 
+                {campaigns.length === 0 ? null : (
                 <div className="flex items-center gap-3 my-4">
                     <div className="flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
                     border-[rgba(3,44,166,.10)]">
@@ -50,6 +51,7 @@ export default function CampaignOverview({tenant, campaigns}) {
                         })}
                     </div>
                 </div>
+                )}
 
                 {campaigns.length === 0 ? null :(
                 <p className="text-sm text-slate-400 my-4">

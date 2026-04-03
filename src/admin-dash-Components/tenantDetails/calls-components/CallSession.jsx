@@ -1,10 +1,19 @@
+import { Bot, User } from "lucide-react";
+import { useState } from "react";
+
 export default function CallSession({callSessions}) {
+    const [openRow, setOpenRow] = useState(null);
+
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
         const min = Math.floor(seconds / 60);
         const sec = seconds % 60;
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
+
+    const toggleRow = (id) => {
+        setOpenRow(openRow === id ? null : id)
+    }
     
     return(
         <div className=" bg-white rounded-2xl border border-[rgba(3,44,166,.09)]
@@ -57,8 +66,15 @@ export default function CallSession({callSessions}) {
                                 </td>
                             </tr>
                         ) : (
-                        callSessions?.map((session) => (
-                            <tr key={session.id} className="border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] cursor-pointer">
+                        callSessions?.map((session) => {
+                            const isOpen = openRow === session.id;
+                            const parsedTranscription = JSON.parse(session.transcription)
+                            return(
+                            <React.Fragment key={session.id}>
+                            <tr  
+                            onClick={() => toggleRow(session.id)}
+                            className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
+                            cursor-pointer ${isOpen ? "bg-[rgba(3,44,166,.02)]" : ""}`}>
                                 <td className="px-5 py-2.5 text-[10px] text-slate-400">
                                     {session.from_number}
                                 </td>
@@ -81,7 +97,66 @@ export default function CallSession({callSessions}) {
                                     {formatDate(session.created_at)}
                                 </td>
                             </tr>
-                        )))}
+                            {isOpen && (
+                                <tr className="bg-[rgba(3,44,166,.02)]">
+                                    <td colSpan={7} className="px-5 py-3 text-xs text-slate-600">
+                                        {parsedTranscription && parsedTranscription.length > 0 ? (
+                                            <div className="space-y-3">
+                                            {parsedTranscription.map((item,i) => {
+                                                const isAI = item.role === "assistant"
+                                                return(
+                                                <div
+                                                key={i}
+                                                className={`flex items-start gap-2 ${
+                                                    isAI ? "" : "flex-row-reverse"
+                                                    }`}>
+                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-white mt-0.5 shrink-0
+                                                    ${
+                                                        isAI
+                                                        ? "bg-linear-to-br from-[#032ca6] to-[#1a6bff]"
+                                                        : "bg-linear-to-br from-slate-600 to-slate-400"
+                                                    }`}>
+                                                        {isAI ? "AI" : (<User />)}
+                                                    </div>
+                                                    <div className={`max-w-[78%] px-3 py-2 text-[11px] leading-relaxed transition-all duration-200 wrap-break-word
+                                                    ${
+                                                        isAI
+                                                        ? "bg-[rgba(3,44,166,.06)] border border-[rgba(3,44,166,.12)] text-[#0a1628] rounded-[4px_14px_14px_14px]"
+                                                        : "bg-slate-50 border border-[rgba(100,116,139,.15)] text-slate-700 rounded-[14px_4px_14px_14px]"
+                                                    }`}>
+                                                        <div className={`text-[8px] font-semibold tracking-wider uppercase mb-1
+                                                            ${isAI ? "text-[#032ca6]" : "text-slate-500"}`}>
+                                                                {isAI ? 
+                                                                <>
+                                                                <Bot className="inline w-3 h-3 mr-1" />
+                                                                AI agent
+                                                                </> 
+                                                                : (
+                                                                    <>
+                                                                        <User className="inline w-3 h-3 mr-1" />
+                                                                        Client
+                                                                    </>
+                                                                )}
+                                                        </div>
+                                                        <div>
+                                                            {item.content}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )})}
+                                            </div>
+                                        )
+                                        : 
+                                        (
+                                            <p className="text-center text-[#9aabca] text-xs p-5">
+                                                No transcription available for this call.
+                                            </p>
+                                        )}
+                                    </td>
+                                </tr>
+                            )}
+                            </React.Fragment>
+                        )}))}
                     </tbody>
                 </table>
             </div>

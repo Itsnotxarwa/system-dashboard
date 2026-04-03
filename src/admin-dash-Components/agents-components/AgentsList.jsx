@@ -2,7 +2,8 @@ export default function AgentsList({agents}) {
     
 
     return (
-    <div className="py-3 px-4">
+    <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
+        shadow-[0_2px_12px_rgba(3,44,166,.06)]">
         {agents.length === 0
         ? (
         <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
@@ -14,7 +15,6 @@ export default function AgentsList({agents}) {
         )
         :  
         (
-        <div className="rounded-xl overflow-hidden border border-[rgba(3,44,166,0.10)]">
             <table className="w-full border-collapse">
                 <thead>
                     <tr className="bg-[rgba(3,44,166,0.04)]">
@@ -111,7 +111,7 @@ export default function AgentsList({agents}) {
                         )))}
                     </tbody>
                 </table>
-            </div>)
+        )
             }
         </div>
     )

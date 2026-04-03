@@ -7,9 +7,9 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
             {campaigns.length === 0 ? (
                 <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
                 border-dashed border-[rgba(3,44,166,0.12)]">
-                    No campaigns yet — click 
+                    No campaigns yet — click {" "}
                     <strong className="text-blue-700">+ Add Campaign</strong> 
-                    to create one.
+                    {" "}to create one.
                 </div>
             ) : (
             <table className="w-full border-collapse">
