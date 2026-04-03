@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "./tenantSidebar";
-import AgentsList from "../agents-components/AgentsList";
 import AgentModal from "../agents-components/AgentModal";
 import TopBar from "./TopBar";
 import AgentsOverview from "../agents-components/AgentsOverview";
@@ -67,10 +66,7 @@ export default function Agents() {
             <TenantSidebar tenant={tenant} />
             <main className="bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex-1 flex flex-col">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} setShowAgentModal={setShowAgentModal} />
-
-                <AgentsOverview tenant={tenant} agents={agents} />
-
-                <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
+                <AgentsOverview tenant={tenant} agents={agents} setShowAgentModal={setShowAgentModal} />
             </main>
 
             {showAgentModal && (

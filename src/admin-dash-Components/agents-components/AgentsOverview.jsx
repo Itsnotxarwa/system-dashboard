@@ -1,6 +1,7 @@
 import Logo from "../../assets/image.png"
+import AgentsList from "./AgentsList";
 
-export default function AgentsOverview({tenant, agents}) {
+export default function AgentsOverview({tenant, agents, setShowAgentModal}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
@@ -16,7 +17,7 @@ export default function AgentsOverview({tenant, agents}) {
                         {tenant?.name}
                     </span>
                 </div>
-                <div className="flex items-center gap-4 py-6 px-4 card-anim">
+                <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl flex items-center 
                     justify-center text-white text-sm font-black shrink-0 
                     bg-linear-to-br from-[#0366a6] to-[#1e40af] 
@@ -52,7 +53,7 @@ export default function AgentsOverview({tenant, agents}) {
                         </div>
                     </div>
                     {/* KPIs cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                         {/* Total */}
                         <div className="text-center px-4 py-3 rounded-xl bg-[rgba(3,44,166,.05)]
                         border border-[rgba(3,44,166,.09)]">
@@ -103,6 +104,8 @@ export default function AgentsOverview({tenant, agents}) {
                             </div>
                         </div>
                     </div>
+
+                    <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
                 </div>
             </div>
         </div>
