@@ -17,7 +17,7 @@ export default function AgentsOverview({tenant, agents, setShowAgentModal}) {
                         {tenant?.name}
                     </span>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 rounded-2xl flex items-center 
                     justify-center text-white text-sm font-black shrink-0 
                     bg-linear-to-br from-[#0366a6] to-[#1e40af] 
