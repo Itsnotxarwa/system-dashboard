@@ -62,13 +62,21 @@ export default function CallSession({callSessions}) {
                         {callSessions?.length === 0 ? (
                             <tr>
                                 <td colSpan="7" className="text-center py-4 text-slate-400">
-                                    No call sessions found.
+                                    No call sessions found for this call.
                                 </td>
                             </tr>
                         ) : (
                         callSessions?.map((session) => {
                             const isOpen = openRow === session.id;
-                            const parsedTranscription = JSON.parse(session.transcription)
+                            let parsedTranscription = [];
+
+                            try {
+                                parsedTranscription = session.transcription
+                                    ? JSON.parse(session.transcription)
+                                    : [];
+                                } catch {
+                                parsedTranscription = [];
+                            }
                             return(
                             <React.Fragment key={session.id}>
                             <tr  
@@ -116,7 +124,7 @@ export default function CallSession({callSessions}) {
                                                         ? "bg-linear-to-br from-[#032ca6] to-[#1a6bff]"
                                                         : "bg-linear-to-br from-slate-600 to-slate-400"
                                                     }`}>
-                                                        {isAI ? "AI" : (<User />)}
+                                                        {isAI ? "AI" : "CL"}
                                                     </div>
                                                     <div className={`max-w-[78%] px-3 py-2 text-[11px] leading-relaxed transition-all duration-200 wrap-break-word
                                                     ${
