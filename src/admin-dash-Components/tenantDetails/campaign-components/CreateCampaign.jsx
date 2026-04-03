@@ -129,36 +129,35 @@ export default function CreateCampaign({onClose, onCancel}) {
                             </div>
                         </div>
                     )}
-                </div>
-
-                <div className="flex items-center gap-3 py-1">
-                    <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
-                    <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest">
-                        Recipients
-                    </span>
-                    <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
-                </div>
-
-                <div>
-                    <div className="flex items-center justify-between mb-2">
-                        <div>Upload Recipients</div>
+                    <div className="flex items-center gap-3 py-1">
+                        <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
+                        <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest">
+                            Recipients
+                        </span>
+                        <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
                     </div>
-                    {/* DROP ZONE */}
-                    <div className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
-                    text-center cursor-pointer p-[20px_16px] transition-all duration-200">
-                        <div>
-                            <div className="flex justify-center items-center mb-1.5">
-                                <Paperclip />
+
+                    <div>
+                        <div className="flex items-center justify-between mb-2">
+                            <label className="text-[#9aabca] font-semibold text-sm">Upload Recipients</label>
+                        </div>
+                        {/* DROP ZONE */}
+                        <div className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
+                        text-center cursor-pointer p-[20px_16px] transition-all duration-200">
+                            <div>
+                                <div className="flex justify-center items-center mb-1.5">
+                                    <Paperclip />
+                                </div>
+                                <p className="text-xs font-semibold text-[#374151] mb-1">
+                                    Drop your file here or
+                                    <span className="text-[#032ca6]">
+                                        browse
+                                    </span>
+                                </p>
                             </div>
-                            <p className="text-xs font-semibold text-[#374151] mb-1">
-                                Drop your file here or
-                                <span className="text-[#032ca6]">
-                                    browse
-                                </span>
-                            </p>
                         </div>
                     </div>
-                </div>
+                    </div>
 
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t
