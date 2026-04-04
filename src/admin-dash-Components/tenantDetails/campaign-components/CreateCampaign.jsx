@@ -1,9 +1,10 @@
-import { Paperclip, Plus, X } from "lucide-react";
+import { File, Paperclip, Plus, X } from "lucide-react";
 import { useState } from "react";
 
 export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
+    const [file, setFile] = useState(null);
 
     const [campaignData, setCampaignData] = useState({
         name: "",
@@ -23,6 +24,25 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
         ...campaignData,
         time_slots: updatedSlots
         });
+    };
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFile(selectedFile);
+        }
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const droppedFile = e.dataTransfer.files[0];
+        if (droppedFile) {
+            setFile(droppedFile);
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
     };
 
     const createCampaign = async () => {
@@ -220,23 +240,74 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
 
                     <div>
                         <div className="flex items-center justify-between mb-2">
-                            <label className="text-[#9aabca] font-semibold text-sm">Upload Recipients</label>
+                            <label className="text-[#9aabca] font-semibold text-xs">
+                                Upload Recipients {" "}
+                                <span className="text-[#9aabc] font-normal">(optional)</span>
+                            </label>
+                            <span className="text-[9px] px-2 py-0.5 rounded-md bg-[rgba(3,44,166,.06)]
+                            text-[#7a8bb5] border border-[rgba(3,44,166,.10)]">
+                                CSV 
+                            </span>
                         </div>
                         {/* DROP ZONE */}
-                        <div className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
+                        <div 
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                        className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
                         text-center cursor-pointer p-[20px_16px] transition-all duration-200">
-                            <div>
-                                <div className="flex justify-center items-center mb-1.5">
+                            <div className="cursor-pointer block">
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    onChange={handleFileChange}
+                                />
+                                {file ? (
+                                    <div className="flex justify-center items-center mb-1.5">
                                     <Paperclip />
                                 </div>
-                                <p className="text-xs font-semibold text-[#374151] mb-1">
+                                ) : (
+                                    <div className="flex justify-center items-center text-[#059669]">
+                                        <FileCheckCorner />
+                                    </div>
+                                )}
+                                {file ? (
+                                    <p className="text-xs font-semibold text-[#374151] mb-1">
                                     Drop your file here or {" "}
                                     <span className="text-[#032ca6]">
                                         browse
                                     </span>
-                                </p>
+                                    </p>
+                                ) : (
+                                    <div>
+                                    <p id="filename" className="text-xs font-semibold text-[#059669] mb-1"></p>
+                                    <p id='filesize' className="text-xs text-[#9aabca]"></p>
+                                    </div>
+                                )}
                             </div>
                         </div>
+
+                        {/* FILE INFO */}
+                        {file &&
+                        <div className="mt-2 flex items-center justify-between px-3 py-2 rounded-lg
+                        bg-[rgba(5,150,105,.06)] border border-[rgba(5,150,105,.18)]">
+                            <div className="flex items-center gap-2">
+                                <div className="flex justify-center items-center">
+                                    <File />
+                                </div>
+                                <div className="text-[11px] font-semibold text-[#059669]">
+                                    {file.name}
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setFile(null)}
+                                className="text-[16px] text-[#9aabca] bg-transparent border-none 
+                                cursor-pointer p-0 flex items-center justify-center"
+                            >
+                                <X />
+                            </button>
+                        </div>
+                        }
                     </div>
                     </div>
 
