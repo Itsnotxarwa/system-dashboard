@@ -134,7 +134,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, uploa
                                 ?.filter((agent) => agent.type === "outbound")
                                     .map((agent) => (
                                     <option key={agent.id} value={agent.id}>
-                                        {agent.id}
+                                        {agent.name}
                                     </option>
                                 ))}
                         </select>
