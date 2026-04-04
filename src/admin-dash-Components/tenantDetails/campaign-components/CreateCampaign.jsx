@@ -1,4 +1,4 @@
-import { File, Paperclip, Plus, X } from "lucide-react";
+import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
 
 export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
