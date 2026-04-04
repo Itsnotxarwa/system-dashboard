@@ -2,7 +2,7 @@ import Logo from "../../../assets/image.png";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
 
-export default function CampaignOverview({tenant, campaigns, recipients}) {
+export default function CampaignOverview({tenant, campaigns, file}) {
 
     const [filter, setFilter] = useState("ALL");
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
@@ -62,7 +62,7 @@ export default function CampaignOverview({tenant, campaigns, recipients}) {
                 </p>
                 )}
 
-                <CampaignTable recipients={recipients} filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
+                <CampaignTable file={file} filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
 
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { Edit, Pause, Play, RotateCcw, Trash, Upload } from "lucide-react";
 
-export default function CampaignTable({filteredcampaigns, updateStatus, campaigns, recipients}) {
+export default function CampaignTable({filteredcampaigns, updateStatus, campaigns, file}) {
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
@@ -162,7 +162,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                                     border-[rgba(220,38,38,.16)]">
                                         <Trash size={21} />
                                     </button>
-                                    {recipients?.total_recipients === 0 && (
+                                    {!file && (
                                         <button className="bg-[#032ca6] text-white">
                                             <Upload size={21} />
                                         </button>
