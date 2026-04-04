@@ -12,6 +12,7 @@ export default function Campaign() {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [agents, setAgents] = useState([]);
     const [file, setFile] = useState(null);
+    const [recipients, setRecipients] = useState([])
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -136,13 +137,8 @@ export default function Campaign() {
 
                 const data = await res.json();
                 console.log("UPLOAD RESPONSE:", data);
-                setCampaigns((prev) =>
-                    prev.map((c) =>
-                        c.id === campaignId
-                        ? { ...c, total_recipients: data.total_recipients }
-                        : c
-                    )
-                    );
+                setRecipients(data);
+
         } catch (error) {
             console.log("error", error)
         } 
@@ -162,7 +158,7 @@ export default function Campaign() {
                 tenant={tenant}
                 campaigns={campaigns}
                 updateStatus={updateStatus}
-
+                recipients={recipients}
                 />
             </main>
             {showCreateModal && 
