@@ -255,35 +255,35 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                         onDragOver={handleDragOver}
                         className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
                         text-center cursor-pointer p-[20px_16px] transition-all duration-200">
-                            <div className="cursor-pointer block">
+                            <label className="cursor-pointer block">
                                 <input
                                     type="file"
                                     className="hidden"
                                     onChange={handleFileChange}
                                 />
                                 {file ? (
-                                    <div className="flex justify-center items-center mb-1.5">
-                                    <Paperclip />
-                                </div>
-                                ) : (
                                     <div className="flex justify-center items-center text-[#059669]">
                                         <FileCheckCorner />
                                     </div>
+                                ) : (
+                                    <div className="flex justify-center items-center mb-1.5">
+                                        <Paperclip />
+                                    </div>
                                 )}
                                 {file ? (
+                                    <div>
+                                    <p id="filename" className="text-xs font-semibold text-[#059669] mb-1"></p>
+                                    <p id='filesize' className="text-xs text-[#9aabca]"></p>
+                                    </div>
+                                ) : (
                                     <p className="text-xs font-semibold text-[#374151] mb-1">
                                     Drop your file here or {" "}
                                     <span className="text-[#032ca6]">
                                         browse
                                     </span>
                                     </p>
-                                ) : (
-                                    <div>
-                                    <p id="filename" className="text-xs font-semibold text-[#059669] mb-1"></p>
-                                    <p id='filesize' className="text-xs text-[#9aabca]"></p>
-                                    </div>
                                 )}
-                            </div>
+                            </label>
                         </div>
 
                         {/* FILE INFO */}
