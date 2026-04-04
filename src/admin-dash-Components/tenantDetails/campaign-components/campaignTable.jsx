@@ -16,10 +16,15 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 },
             }
         );
+        if (!res.ok) {
+            const err = await res.json();
+            console.error(err);
+            alert("Failed to start campaign");
+            return;
+        }
 
-        if (!res.ok) throw new Error("Failed to start campaign");
-
-        updateStatus(campaignId, "READY");
+        const data = await res.json();
+        updateStatus(campaignId, data.status);
     } catch (err) {
         console.error(err);
         alert("Failed to start campaign");
@@ -34,7 +39,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
         if (!res.ok) throw new Error();
-        updateStatus(campaignId, "PAUSED");
+        const data = await res.json();
+        updateStatus(campaignId, data.status);
     } catch { alert("Failed to pause campaign"); }
     };
 
@@ -47,7 +53,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
         if (!res.ok) throw new Error();
-        updateStatus(campaignId, "READY");
+        const data = await res.json();
+        updateStatus(campaignId, data.status);
     } catch { alert("Failed to resume campaign"); }
     };
 
@@ -60,7 +67,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
         if (!res.ok) throw new Error();
-        updateStatus(campaignId, "DRAFT");
+        const data = await res.json();
+        updateStatus(campaignId, data.status);
     } catch { alert("Failed to reset campaign"); }
     };
 
@@ -166,7 +174,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         onClick={() => {
                                             startCampaign(c.id)
                                         }}
-                                        className="bg-[rgba(5,150,105,.08)] text-[#059669]
+                                        className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs 
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Play size={12} />
@@ -180,7 +188,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                             pauseCampaign(c.id)
                                         }}
                                         className="bg-[rgba(245,158,11,.08)] border border-[rgba(245,158,11,.25)]
-                                        text-[#d97706] flex items-center gap-1 text-xs 
+                                        text-[#d97706] flex items-center gap-1 text-xs cursor-pointer
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Pause size={12} />
                                             Pause
@@ -192,7 +200,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         onClick={() => {
                                             resumeCampaign(c.id)
                                         }}
-                                        className="bg-[rgba(5,150,105,.08)] text-[#059669]
+                                        className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Play size={12} />
@@ -205,7 +213,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         onClick={() => {
                                             resetCampaign(c.id)
                                         }}
-                                        className="bg-[rgba(3,44,166,.07)] text-[#032ca6]
+                                        className="bg-[rgba(3,44,166,.07)] text-[#032ca6] cursor-pointer
                                         border border-[rgba(3,44,166,.18)] flex items-center gap-1 text-xs
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <RotateCcw size={12} />
