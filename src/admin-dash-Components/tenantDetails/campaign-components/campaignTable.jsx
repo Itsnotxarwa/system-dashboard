@@ -1,6 +1,68 @@
 import { Edit, Pause, Play, RotateCcw, Trash, Upload } from "lucide-react";
 
-export default function CampaignTable({filteredcampaigns, updateStatus, campaigns, file}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, file}) {
+    {/* START */}
+    const startCampaign = async (campaignId) => {
+    try {
+        const token = localStorage.getItem("token");
+        const tenantId = tenant?.id;
+        const res = await fetch(
+            `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/start`,
+            {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        if (!res.ok) throw new Error("Failed to start campaign");
+
+        updateStatus(campaignId, "READY");
+    } catch (err) {
+        console.error(err);
+        alert("Failed to start campaign");
+    }
+    };
+    {/* PAUSE */}
+    const pauseCampaign = async (campaignId) => {
+    try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/pause`,
+            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error();
+        updateStatus(campaignId, "PAUSED");
+    } catch { alert("Failed to pause campaign"); }
+    };
+
+    {/* RESUME */}
+    const resumeCampaign = async (campaignId) => {
+    try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/resume`,
+            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error();
+        updateStatus(campaignId, "READY");
+    } catch { alert("Failed to resume campaign"); }
+    };
+
+    {/* RESET */}
+    const resetCampaign = async (campaignId) => {
+    try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/reset`,
+            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) throw new Error();
+        updateStatus(campaignId, "DRAFT");
+    } catch { alert("Failed to reset campaign"); }
+    };
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
@@ -102,7 +164,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                                     {c.status !== "READY" && c.status !== 'PAUSED' && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'READY')
+                                            startCampaign(c.id)
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669]
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs 
@@ -115,7 +177,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                                     {c.status === "READY" && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'PAUSED')
+                                            pauseCampaign(c.id)
                                         }}
                                         className="bg-[rgba(245,158,11,.08)] border border-[rgba(245,158,11,.25)]
                                         text-[#d97706] flex items-center gap-1 text-xs 
@@ -128,7 +190,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                                     {c.status === "PAUSED" && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'READY')
+                                            resumeCampaign(c.id)
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669]
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
@@ -141,7 +203,7 @@ export default function CampaignTable({filteredcampaigns, updateStatus, campaign
                                     {c.status !== "DRAFT" && (
                                         <button 
                                         onClick={() => {
-                                            updateStatus(c.id, 'DRAFT')
+                                            resetCampaign(c.id)
                                         }}
                                         className="bg-[rgba(3,44,166,.07)] text-[#032ca6]
                                         border border-[rgba(3,44,166,.18)] flex items-center gap-1 text-xs

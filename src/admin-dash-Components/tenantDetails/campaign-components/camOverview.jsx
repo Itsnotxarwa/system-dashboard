@@ -62,7 +62,11 @@ export default function CampaignOverview({tenant, campaigns, file}) {
                 </p>
                 )}
 
-                <CampaignTable file={file} filteredcampaigns={filteredCampaigns} campaigns={campaigns} />
+                <CampaignTable 
+                tenant={tenant} 
+                file={file} 
+                filteredcampaigns={filteredCampaigns} 
+                campaigns={campaigns} />
 
             </div>
         </div>
