@@ -1,9 +1,63 @@
 import { Paperclip, Plus, X } from "lucide-react";
 import { useState } from "react";
 
-export default function CreateCampaign({onClose, onCancel}) {
-    const [slot, setSlot] = useState({start: "", end: ""});
+export default function CreateCampaign({tenant, onClose, onCancel}) {
     const [showSlot, setShowSlot] = useState(false);
+    const [loading, setLoading] = useState(false)
+
+    const [campaignData, setCampaignData] = useState({
+        name: "",
+        agent_id: "",
+        start_date: "",
+        batch_size: 1,
+        time_slots: [{
+            start_time: "",
+            end_time: "",
+        }]
+    })
+    const handleTimeSlotChange = (index, field, value) => {
+        const updatedSlots = [...campaignData.time_slots];
+        updatedSlots[index][field] = value;
+
+        setCampaignData({
+        ...campaignData,
+        time_slots: updatedSlots
+        });
+    };
+
+    const createCampaign = async () => {
+        if (loading) return;
+        try {
+            setLoading(true);
+            const token = localStorage.getItem("token");
+            const tenantId = tenant?.id;
+
+            const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaigns`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    accept: "application/json",
+                    authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(campaignData),
+            });
+
+            const data = await res.json();
+        console.log(data);
+        if (!res.ok) {
+                throw new Error(data?.detail || "Creation failed");
+            }
+
+        onClose();
+        alert("campaign created ✅");
+
+        } catch (error) {
+            console.error(error);
+            alert("Error creating agent");
+        }finally {
+            setLoading(false)
+        }
+    }
 
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
@@ -48,6 +102,8 @@ export default function CreateCampaign({onClose, onCancel}) {
                             Campaign Name <span className="text-[#ef4444]">*</span>
                         </label>
                         <input
+                        value={campaignData.name}
+                        onChange={(e) => setCampaignData({...campaignData, name: e.target.value})}
                         placeholder="My campaign"
                         className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                         border-gray-300 placeholder-gray-400
@@ -60,6 +116,8 @@ export default function CreateCampaign({onClose, onCancel}) {
                             Agent ID <span className="text-[#ef4444]">*</span>
                         </label>
                         <select
+                        value={campaignData.agent_id}
+                        onChange={(e) => setCampaignData({...campaignData, agent_id: e.target.value})}
                         className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                         border-gray-300 placeholder-gray-400
                         focus:border-[#032ca6]"
@@ -74,14 +132,20 @@ export default function CreateCampaign({onClose, onCancel}) {
                         uppercase">
                             Start Date <span className="text-[#ef4444]">*</span>
                         </label>
-                        <input type="date" />
+                        <input
+                        value={campaignData.start_date}
+                        onChange={(e) => setCampaignData({...campaignData, start_date: e.target.value})}
+                        type="date" />
                     </div>
                     <div>
                         <label className="block mb-1.5 text-[10px] text-[#7a8bb5] tracking-wider 
                         uppercase">
                             Batch Size <span className="text-[#ef4444]">*</span>
                         </label>
-                        <input type="number" min={1} max={500} value={10} />
+                        <input 
+                        value={campaignData.batch_size}
+                        onChange={(e) => setCampaignData({...campaignData, batch_size: Number(e.target.value)})}
+                        type="number" min={1} max={500} />
                     </div>
                     <div className="flex items-center justify-between mb-2">
                         <label className="block mb-1.5 text-[10px] text-[#7a8bb5] tracking-wider 
@@ -103,7 +167,10 @@ export default function CreateCampaign({onClose, onCancel}) {
                             </span>
                             <input 
                             type="time"
-                            value={slot.start}
+                            value={campaignData.time_slots[0].start_time}
+                            onChange={(e) =>
+                                handleTimeSlotChange(0, "start_time", e.target.value)
+                            }
                             className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                             border-gray-300 placeholder-gray-400
                             focus:border-[#032ca6]" />
@@ -112,7 +179,10 @@ export default function CreateCampaign({onClose, onCancel}) {
                             </span>
                             <input 
                             type="time"
-                            value={slot.end}
+                            value={campaignData.time_slots[0].end_time}
+                            onChange={(e) =>
+                                handleTimeSlotChange(0, "end_time", e.target.value)
+                            }
                             className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                             border-gray-300 placeholder-gray-400
                             focus:border-[#032ca6]" />
@@ -122,8 +192,14 @@ export default function CreateCampaign({onClose, onCancel}) {
                                 justify-center"
                                 onClick={() => {
                                     setShowSlot(false);
-                                    setSlot({start: "", end: ""});
-                                }}>
+                                    setCampaignData({
+                                        ...campaignData,
+                                        time_slots: [
+                                            { start_time: "", end_time: "" }
+                                        ]
+                                    });
+                                    }
+                                }>
                                     <X size={14} />
                                 </button>
                             </div>
@@ -149,7 +225,7 @@ export default function CreateCampaign({onClose, onCancel}) {
                                     <Paperclip />
                                 </div>
                                 <p className="text-xs font-semibold text-[#374151] mb-1">
-                                    Drop your file here or
+                                    Drop your file here or {" "}
                                     <span className="text-[#032ca6]">
                                         browse
                                     </span>
@@ -171,10 +247,13 @@ export default function CreateCampaign({onClose, onCancel}) {
                             Cancel
                         </button>
                         <button 
+                        disabled={loading}
+                        onClick={createCampaign}
                         className={`cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
-                        transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]`}
+                            ${loading ? "opacity-50 cursor-not-allowed" : "bg-[#032ca6] border border-[#032ca6]"}
+                        transition-all flex items-center gap-1.5`}
                         style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
-                            Create Campaign
+                            {loading ? "Creating..." : "Create Campaign"}
                         </button>
                     </div>
                 </div>

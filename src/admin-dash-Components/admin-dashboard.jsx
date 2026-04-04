@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         headers: {
           "Content-Type": "application/json",
           "accept": "application/json",
-          "Authorization": `Bearer ${token}`  // ✅ using state directly
+          "Authorization": `Bearer ${token}`  
         },
         body: JSON.stringify(form)
       });

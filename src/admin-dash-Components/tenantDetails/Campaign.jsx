@@ -76,7 +76,12 @@ export default function Campaign() {
                 updateStatus={updateStatus}
                 />
             </main>
-            {showCreateModal && <CreateCampaign onClose={() => setShowCreateModal(false)} onCancel={() => setShowCreateModal(false)} />}
+            {showCreateModal && 
+            <CreateCampaign 
+            tenant={tenant}
+            onClose={() => setShowCreateModal(false)} 
+            onCancel={() => setShowCreateModal(false)} 
+            />}
         </div>
     )
 }
