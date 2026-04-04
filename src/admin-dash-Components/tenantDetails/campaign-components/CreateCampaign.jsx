@@ -28,9 +28,11 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile) {
-            setFile(selectedFile);
+        if (selectedFile && selectedFile.type !== "text/csv") {
+            alert("Only CSV files allowed");
+            return;
         }
+        setFile(selectedFile);
     };
 
     const handleDrop = (e) => {
@@ -44,6 +46,31 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
     const handleDragOver = (e) => {
         e.preventDefault();
     };
+
+    const uploadRecipients = async (campaignId) => {
+        if (!file) return;
+        try {
+            const token = localStorage.getItem("token");
+            const tenantId = tenant?.id;
+
+            const formData = new FormData();
+            formData.append("file", file);
+            const res = await fetch(
+                `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/recipients/upload`, {
+                    method: "POST",
+                    headers: {
+                        accept: "application/json",
+                        authorization: `Bearer ${token}`,
+                    },
+                    body: formData,
+                })
+
+                const data = await res.json();
+                console.log("UPLOAD RESPONSE:", data);
+        } catch (error) {
+            console.log("error", error)
+        } 
+    }
 
     const createCampaign = async () => {
         if (loading) return;
@@ -63,21 +90,26 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
             });
 
             const data = await res.json();
-        console.log(data);
-        if (!res.ok) {
+            console.log(data);
+            if (!res.ok) {
                 throw new Error(data?.detail || "Creation failed");
             }
 
-        onClose();
-        alert("campaign created ✅");
+            if (file) {
+                await uploadRecipients(data.id);
+            }
 
-        } catch (error) {
-            console.error(error);
-            alert("Error creating agent");
-        }finally {
-            setLoading(false)
-        }
+            onClose();
+            alert("campaign created");
+
+            } catch (error) {
+                console.error(error);
+                alert("Error creating agent");
+            }finally {
+                setLoading(false)
+            }
     }
+
 
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
@@ -242,7 +274,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                         <div className="flex items-center justify-between mb-2">
                             <label className="text-[#9aabca] font-semibold text-xs">
                                 Upload Recipients {" "}
-                                <span className="text-[#9aabc] font-normal">(optional)</span>
+                                <span className="text-[#9aabca] font-normal">(optional)</span>
                             </label>
                             <span className="text-[9px] px-2 py-0.5 rounded-md bg-[rgba(3,44,166,.06)]
                             text-[#7a8bb5] border border-[rgba(3,44,166,.10)]">
@@ -276,7 +308,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                                         {file.name}
                                     </p>
                                     <p className="text-[11px] text-[#9aabca]">
-                                        {file.size}
+                                        {(file.size / 1024).toFixed(1) + " KB"}
                                     </p>
                                     </div>
                                 ) : (
@@ -295,7 +327,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                         <div className="mt-2 flex items-center justify-between px-3 py-2 rounded-lg
                         bg-[rgba(5,150,105,.06)] border border-[rgba(5,150,105,.18)]">
                             <div className="flex items-center gap-2">
-                                <div className="flex justify-center items-center">
+                                <div className="flex justify-center items-center text-[#059669]">
                                     <File />
                                 </div>
                                 <div>
@@ -303,14 +335,14 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                                         {file.name}
                                     </div>
                                     <div className="mt-0.5 text-[#9aabca] text-[11px]">
-                                        {file.size}
+                                        {(file.size / 1024).toFixed(1) + " KB"}
                                     </div>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => setFile(null)}
-                                className="text-[16px] text-[#9aabca] bg-transparent border-none 
+                                className="text-[16px] text-[#dc2626] bg-transparent border-none 
                                 cursor-pointer p-0 flex items-center justify-center"
                             >
                                 <X />
