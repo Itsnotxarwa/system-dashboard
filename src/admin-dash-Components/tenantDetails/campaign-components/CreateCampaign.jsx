@@ -1,7 +1,7 @@
 import { Paperclip, Plus, X } from "lucide-react";
 import { useState } from "react";
 
-export default function CreateCampaign({tenant, onClose, onCancel}) {
+export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
 
@@ -123,8 +123,13 @@ export default function CreateCampaign({tenant, onClose, onCancel}) {
                         focus:border-[#032ca6]"
                         >
                             <option value="">Select an agent</option>
-                            <option value="agent1">Agent 1</option>
-                            <option value="agent2">Agent 2</option>
+                            {agents
+                                ?.filter((agent) => agent.type === "outbound")
+                                    .map((agent) => (
+                                    <option key={agent.id} value={agent.id}>
+                                        {agent.name}
+                                    </option>
+                                ))}
                         </select>
                     </div>
                     <div>

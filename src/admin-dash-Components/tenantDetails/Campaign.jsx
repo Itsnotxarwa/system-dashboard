@@ -10,6 +10,7 @@ export default function Campaign() {
     const [tenant, setTenant] = useState(null);
     const [campaigns, setCampaigns] = useState([]);
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [agents, setAgents] = useState([]);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -61,6 +62,38 @@ export default function Campaign() {
         );
     };
 
+    useEffect(() => {
+        const fetchAgents = async () => {
+            try {
+            const token = localStorage.getItem("token");
+
+        const res = await fetch(
+            `https://api.voixup.fr/admin/tenants/${id}/agents`,
+            {
+                headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        if (res.status === 404) {
+            setAgents([]);
+            return;
+        }
+            const data = await res.json();
+            console.log(data)
+
+            setAgents(data);
+
+            } catch (err) {
+            console.error(err);
+            setAgents([]);
+            }
+        };
+
+        fetchAgents();
+    },[id]);
+
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
@@ -78,6 +111,7 @@ export default function Campaign() {
             </main>
             {showCreateModal && 
             <CreateCampaign 
+            agents={agents}
             tenant={tenant}
             onClose={() => setShowCreateModal(false)} 
             onCancel={() => setShowCreateModal(false)} 
