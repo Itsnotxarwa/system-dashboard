@@ -11,6 +11,7 @@ export default function Campaign() {
     const [campaigns, setCampaigns] = useState([]);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [agents, setAgents] = useState([]);
+    const [file, setFile] = useState(null);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -94,6 +95,53 @@ export default function Campaign() {
         fetchAgents();
     },[id]);
 
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && selectedFile.type !== "text/csv") {
+            alert("Only CSV files allowed");
+            return;
+        }
+        setFile(selectedFile);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const droppedFile = e.dataTransfer.files[0];
+        if (droppedFile) {
+            setFile(droppedFile);
+        }
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
+
+    const uploadRecipients = async (campaignId) => {
+        if (!file) return;
+        try {
+            const token = localStorage.getItem("token");
+            const tenantId = tenant?.id;
+
+            const formData = new FormData();
+            formData.append("file", file);
+            const res = await fetch(
+                `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/recipients/upload`, {
+                    method: "POST",
+                    headers: {
+                        accept: "application/json",
+                        authorization: `Bearer ${token}`,
+                    },
+                    body: formData,
+                })
+
+                const data = await res.json();
+                console.log("UPLOAD RESPONSE:", data);
+        } catch (error) {
+            console.log("error", error)
+        } 
+    }
+
+
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
@@ -115,6 +163,12 @@ export default function Campaign() {
             tenant={tenant}
             onClose={() => setShowCreateModal(false)} 
             onCancel={() => setShowCreateModal(false)} 
+            handleFileChange={handleFileChange}
+            handleDrop={handleDrop}
+            uploadRecipients={uploadRecipients}
+            handleDragOver={handleDragOver}
+            file={file}
+            setFile={setFile}
             />}
         </div>
     )

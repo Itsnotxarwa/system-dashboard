@@ -1,10 +1,10 @@
 import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
 
-export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
+export default function CreateCampaign({tenant, onClose, onCancel, agents, uploadRecipients, handleDrop, handleDragOver, handleFileChange, file, setFile}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
-    const [file, setFile] = useState(null);
+    
 
     const [campaignData, setCampaignData] = useState({
         name: "",
@@ -26,52 +26,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
         });
     };
 
-    const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type !== "text/csv") {
-            alert("Only CSV files allowed");
-            return;
-        }
-        setFile(selectedFile);
-    };
-
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const droppedFile = e.dataTransfer.files[0];
-        if (droppedFile) {
-            setFile(droppedFile);
-        }
-    };
-
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
-
-    const uploadRecipients = async (campaignId) => {
-        if (!file) return;
-        try {
-            const token = localStorage.getItem("token");
-            const tenantId = tenant?.id;
-
-            const formData = new FormData();
-            formData.append("file", file);
-            const res = await fetch(
-                `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/recipients/upload`, {
-                    method: "POST",
-                    headers: {
-                        accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                    body: formData,
-                })
-
-                const data = await res.json();
-                console.log("UPLOAD RESPONSE:", data);
-        } catch (error) {
-            console.log("error", error)
-        } 
-    }
-
+    
     const createCampaign = async () => {
         if (loading) return;
         try {
@@ -179,7 +134,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                                 ?.filter((agent) => agent.type === "outbound")
                                     .map((agent) => (
                                     <option key={agent.id} value={agent.id}>
-                                        {agent.name}
+                                        {agent.id}
                                     </option>
                                 ))}
                         </select>
