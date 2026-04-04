@@ -272,8 +272,12 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                                 )}
                                 {file ? (
                                     <div>
-                                    <p id="filename" className="text-xs font-semibold text-[#059669] mb-1"></p>
-                                    <p id='filesize' className="text-xs text-[#9aabca]"></p>
+                                    <p className="text-xs font-semibold text-[#059669] mb-1">
+                                        {file.name}
+                                    </p>
+                                    <p className="text-[11px] text-[#9aabca]">
+                                        {file.size}
+                                    </p>
                                     </div>
                                 ) : (
                                     <p className="text-xs font-semibold text-[#374151] mb-1">
@@ -294,8 +298,13 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents}) {
                                 <div className="flex justify-center items-center">
                                     <File />
                                 </div>
-                                <div className="text-[11px] font-semibold text-[#059669]">
-                                    {file.name}
+                                <div>
+                                    <div className="text-xs font-semibold text-[#059669]">
+                                        {file.name}
+                                    </div>
+                                    <div className="mt-0.5 text-[#9aabca] text-[11px]">
+                                        {file.size}
+                                    </div>
                                 </div>
                             </div>
 
