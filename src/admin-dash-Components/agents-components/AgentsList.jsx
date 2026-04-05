@@ -1,4 +1,4 @@
-export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails}) {
+export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails, selectedAgent}) {
     
     return (
     <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
@@ -63,7 +63,8 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                             setSelectedAgent(a);
                             setShowAgentDetails(true);
                         }} 
-                        className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]">
+                        className={`${selectedAgent ? "bg-[rgba(3,44,166,.02)]" : ""} border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
+                        cursor-pointer`}>
                             <td className="p-[13px_20px]">
                                 <div className="flex items-center gap-2.5">
                                     <div className={`w-8.5 h-8.5 rounded-[10px] flex items-center justify-center
