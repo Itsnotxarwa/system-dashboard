@@ -13,7 +13,7 @@ export default function AgentsOverview({tenant, agents}) {
     const [selectedAgent, setSelectedAgent] = useState(null)
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex">
-            <div className="max-w-7xl mx-auto p-6">
+            <div className="max-w-7xl mx-auto p-6 flex-1">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
                     <img src={Logo} alt="Logo" className="w-12" />
@@ -114,7 +114,7 @@ export default function AgentsOverview({tenant, agents}) {
                     style={{fontFamily: "Cabinet Grotesk',sans-serif"}}>Agents</h1>
                     <p className="text-xs text-slate-400 mt-0.5">Click any row to view full agent details</p>
                 </div>
-                <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} selectedAgent={selectedAgent} setShowAgentDetails={setShowAgentDetails}  />
+                <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
             </div>
             {showAgentDetails && (
                 <AgentDetails onClose={() => setShowAgentDetails(false)} selectedAgent={selectedAgent} />
