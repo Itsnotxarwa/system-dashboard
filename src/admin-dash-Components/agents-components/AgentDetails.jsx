@@ -8,7 +8,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
     const modelCards = mc ? [
         {
             key: "LLM",
-            icon: <Cpu size={12} />,
+            icon: <Cpu size={14} />,
             label: "Language Model (LLM)",
             fields: [
                 {
@@ -23,7 +23,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
         },
         {
             key: "STT",
-            icon: <Mic size={12} />,
+            icon: <Mic size={14} />,
             label: "Speech-to-Text (STT)",
             fields: [
                 {
@@ -42,7 +42,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
         }, 
         {
             key: "TTS",
-            icon: <Volume2 size={12} />,
+            icon: <Volume2 size={14} />,
             label: "Text-to-Speech (TTS)",
             fields: [
                 {
@@ -187,7 +187,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
                         {modelCards.filter(card => card.fields.some(f => f.value)).map((card) => (
                             <div
                             key={card.key}
-                            className="py-3 px-3.5 rounded-xl bg-[rgba(3,44,166,.04)] border border-[rgba(3,44,166,0.09)]">
+                            className="py-3 px-3.5 rounded-xl bg-[rgba(5,150,105,.05)] border border-[rgba(5,150,105,.15)]">
                                 <div className="flex items-center justify-between mb-2">
                                     <span>
                                         {card.icon}
