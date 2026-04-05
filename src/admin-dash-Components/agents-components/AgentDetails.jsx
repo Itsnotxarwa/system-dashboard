@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function AgentDetails({selectedAgent, onClose}) {
     const [showFull, setShowFull] = useState(false);
+    if (!selectedAgent) return null;
     const mc = selectedAgent?.models_config || {};
     const modelCards = [
         {
