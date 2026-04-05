@@ -163,6 +163,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
                     )}
                 </div>
                 {/* MODELS */}
+                {mc && Object.keys(mc).length > 0 && (
                 <div>
                     <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
                         Models Configuration
@@ -201,6 +202,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
                         ))}
                     </div>
                 </div>
+                )}
                 {/* TOOLS */}
                 <div>
                     <div className="flex items-center gap-2 mb-2">
