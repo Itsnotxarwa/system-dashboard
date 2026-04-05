@@ -126,11 +126,23 @@ export default function AgentDetails({selectedAgent, onClose}) {
                     <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
                         Greeting Message
                     </div>
+                    {!selectedAgent?.greeting_message ? (
+                        <div className="text-[11px] text-slate-300 italic">No greeting message</div>
+                    ) : (
                     <div className="p-3 rounded-[10px] bg-[rgba(5,150,105,.05)] border border-[rgba(5,150,105,.15)] italic text-[#0a1628] text-xs leading-relaxed">
                         {selectedAgent?.greeting_message || ""}
                     </div>
+                    )}
                 </div>
                 {/* SYSTEM PROMPT */}
+                {!selectedAgent?.system_prompt ? (
+                    <div>
+                        <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
+                            System Prompt
+                        </div>
+                        <div className="text-[11px] text-slate-300 italic">No system prompt</div>
+                    </div>
+                ) : (
                 <div>
                     <div className="flex items-center justify-between mb-1.5">
                         <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
@@ -155,33 +167,37 @@ export default function AgentDetails({selectedAgent, onClose}) {
                         </div>
                     ) : (
                         <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,.03)] border border-[rgba(3,44,166,.09)]
-                        max-h-80 overflow-y-auto">
+                        max-h-80 overflow-y-auto text-sm">
                             <pre className="leading-relaxed whitespace-pre-wrap">
                                 {selectedAgent?.system_prompt || ""}
                             </pre>
                         </div>
                     )}
                 </div>
+                )}
                 {/* MODELS */}
-                {mc && Object.keys(mc).length > 0 && (
                 <div>
                     <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
                         Models Configuration
                     </div>
+                    {!selectedAgent?.models_config ? (
+                        <div className="text-[11px] text-slate-300 italic">No models configured</div>
+                    ) : (
                     <div className="space-y-2.5">
-                        {modelCards.map((card) => (
+                        {modelCards.filter(card => card.fields.some(f => f.value)).map((card) => (
                             <div
                             key={card.key}
-                            className="py-3 px-3.5 rounded-xl bg-[rgba(3,44,166,0.06)] border border-[rgba(3,44,166,0.08)]">
+                            className="py-3 px-3.5 rounded-xl bg-[rgba(3,44,166,.04)] border border-[rgba(3,44,166,0.09)]">
                                 <div className="flex items-center justify-between mb-2">
                                     <span>
                                         {card.icon}
                                     </span>
-                                    <span className="text-xs font-bold text-[#0a1628]">
+                                    <span className="text-xs font-bold text-[#0a1628] ml-2"
+                                style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                         {card.label}
                                     </span>
-                                    <span className={`ml-auto text-[10px] font-semibold px-0.5 py-1.75 rounded-[5px] bg-[rgba(3,44,166,0.09)] 
-                                        border border-[#032ca6]`}>
+                                    <span className={`ml-auto text-[10px] font-semibold px-2 rounded-[5px] bg-[rgba(3,44,166,0.09)]
+                                        border border-[rgba(3,44,166,0.14)] text-[#032ca6]`}>
                                         {card.fields.find(f => f.label === "Provider")?.value}
                                     </span>
                                 </div>
@@ -201,8 +217,8 @@ export default function AgentDetails({selectedAgent, onClose}) {
                             </div>
                         ))}
                     </div>
+                    )}
                 </div>
-                )}
                 {/* TOOLS */}
                 <div>
                     <div className="flex items-center gap-2 mb-2">

@@ -17,7 +17,7 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
             <table className="w-full border-collapse">
                 <thead>
                     <tr
-                    className="bg-[rgba(3,44,166,0.05)] cursor-pointer hover:bg-[rgba(3,44,166,.02)] ">
+                    className="bg-[rgba(3,44,166,0.05)] cursor-pointer">
                         <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             Agent Name
@@ -63,7 +63,7 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                             setSelectedAgent(a);
                             setShowAgentDetails(true);
                         }} 
-                        className="border-t border-[rgba(3,44,166,0.06)]">
+                        className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]">
                             <td className="p-[13px_20px]">
                                 <div className="flex items-center gap-2.5">
                                     <div className={`w-8.5 h-8.5 rounded-[10px] flex items-center justify-center
