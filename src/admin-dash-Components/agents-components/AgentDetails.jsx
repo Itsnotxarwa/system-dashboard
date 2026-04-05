@@ -12,11 +12,11 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label: "Provider",
-                    value: mc.llm.provider || "",
+                    value: mc?.llm?.provider || "",
                 },
                 {
                     label: "Model Name",
-                    value: mc.llm.model_name || "",
+                    value: mc?.llm?.model_name || "",
                 }
             ]
         },
@@ -27,15 +27,15 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label:"Provider", 
-                    value: mc.stt.provider || "",
+                    value: mc?.stt?.provider || "",
                 }, 
                 {
                     label:"Model Name", 
-                    value: mc.stt.model_name || "",
+                    value: mc?.stt?.model_name || "",
                 }, 
                 {
                     label:"Language", 
-                    value: mc.stt.language || "",
+                    value: mc?.stt?.language || "",
                 }
             ] 
         }, 
@@ -46,19 +46,19 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label:"Provider", 
-                    value: mc.tts.provider || "",
+                    value: mc?.tts?.provider || "",
                 }, 
                 {
                     label:"Model Name", 
-                    value: mc.tts.model_name || "",
+                    value: mc?.tts?.model_name || "",
                 }, 
                 {
                     label:"Language", 
-                    value: mc.tts.language || "",
+                    value: mc?.tts?.language || "",
                 },
                 {
                     label: "Voice",
-                    value: mc.tts.voice || "",
+                    value: mc?.tts?.voice || "",
                 }
             ] 
         }
