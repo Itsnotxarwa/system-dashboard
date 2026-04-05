@@ -88,36 +88,36 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                             </td>
                             <td className="p-[13px_20px]">
                                 <span className="text-xs text-[#374151]">
-                                    {a.sip_number || ''}
+                                    {a?.sip_number || ''}
                                 </span>
                             </td>
                             <td className="p-[13px_20px]">
                                 <div>
                                     <span className="text-xs font-semibold text-[#032ca6]">
-                                        {a.models_config.llm.provider}
+                                        {a.models_config?.llm?.provider || ''}
                                     </span>
                                     <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config.llm.model_name}
+                                        {a.models_config?.llm?.model_name || ''}
                                     </div>
                                 </div>
                             </td>
                             <td className="p-[13px_20px]">
                                 <div>
                                     <span className="text-xs font-semibold text-[#059669]">
-                                        {a.models_config.stt.provider}
+                                        {a.models_config?.stt?.provider || ""}
                                     </span>
                                     <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config.stt.model_name} {" "} {a.models_config.stt.language}
+                                        {a.models_config?.stt?.model_name || ""} {" "} {a.models_config?.stt?.language || ""}
                                     </div>
                                 </div>
                             </td>
                             <td className="p-[13px_20px]">
                                 <div>
                                     <span className="text-xs font-semibold text-[#7c3aed]">
-                                        {a.models_config.tts.provider}
+                                        {a.models_config?.tts?.provider}
                                     </span>
                                     <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config.tts.model_name} {" "} {a.models_config.tts.language}
+                                        {a.models_config?.tts?.model_name} {" "} {a.models_config?.tts?.language}
                                     </div>
                                 </div>
                             </td>
@@ -133,10 +133,10 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                             <td className="p-[13px_20px]">
                                 <span className="text-xs font-semibold text-[#0a1628]"
                                 style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                                    {a.tools.filter(t => t.is_enabled).length}
+                                    {a?.tools?.filter(t => t.is_enabled).length}
                                 </span>
                                 <span className="text-[11px] text-[#9aabca]">
-                                    / {a.tools.length}
+                                    / {a?.tools?.length}
                                 </span>
                             </td>
                         </tr>
