@@ -4,8 +4,8 @@ import { useState } from "react";
 export default function AgentDetails({selectedAgent, onClose}) {
     const [showFull, setShowFull] = useState(false);
     if (!selectedAgent) return null;
-    const mc = selectedAgent?.models_config || {};
-    const modelCards = [
+    const mc = selectedAgent.models_config;
+    const modelCards = mc ? [
         {
             key: "LLM",
             icon: <Cpu size={12} />,
@@ -63,7 +63,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
                 }
             ] 
         }
-    ]
+    ] : []
     return(
         <div className="flex-col bg-white border-l scroll overflow-y-auto w-120 shrink-0 border-[rgba(3,44,166,.12)]
         shadow-[-4px_0_24px_rgba(3,44,166,.07)]">
