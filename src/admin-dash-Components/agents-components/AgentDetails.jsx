@@ -201,7 +201,7 @@ export default function AgentDetails({selectedAgent, onClose}) {
                                         {card.fields.find(f => f.label === "Provider")?.value}
                                     </span>
                                 </div>
-                                {card.fields.map((field,i) => (
+                                {card.fields.filter(field => field.value).map((field,i) => (
                                 <div 
                                 key={i}
                                 className="flex justify-between py-1 border-b border-[rgba(3,44,166,.05)]">
