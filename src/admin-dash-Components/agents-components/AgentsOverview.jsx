@@ -1,14 +1,18 @@
+import { useState } from "react";
 import Logo from "../../assets/image.png"
 import AgentsList from "./AgentsList";
+import AgentDetails from "./AgentDetails";
 
-export default function AgentsOverview({tenant, agents, setShowAgentModal}) {
+export default function AgentsOverview({tenant, agents}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
     ).length || 0;
     const inactiveAgents = totalAgents - activeAgents;
+    const [showAgentDetails, setShowAgentDetails] = useState(false);
+    const [selectedAgent, setSelectedAgent] = useState(null)
     return(
-        <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
+        <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex">
             <div className="max-w-7xl mx-auto p-6">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
@@ -105,8 +109,16 @@ export default function AgentsOverview({tenant, agents, setShowAgentModal}) {
                         </div>
                     </div>                   
                 </div>
-                <AgentsList agents={agents} setShowAgentModal={setShowAgentModal} />
+                <div className="mb-6">
+                    <h1 className="text-xl font-black text-slate-900 tracking-tighter"
+                    style={{fontFamily: "Cabinet Grotesk',sans-serif"}}>Agents</h1>
+                    <p className="text-xs text-slate-400 mt-0.5">Click any row to view full agent details</p>
+                </div>
+                <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
             </div>
+            {showAgentDetails && (
+                <AgentDetails onClose={() => setShowAgentDetails(false)} selectedAgent={selectedAgent} />
+            )}
         </div>
     )
 }

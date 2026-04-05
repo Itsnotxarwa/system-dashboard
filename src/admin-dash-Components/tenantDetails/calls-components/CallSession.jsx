@@ -36,25 +36,25 @@ export default function CallSession({callSessions}) {
                     <thead className="sticky top-0 bg-[#fafafa]">
                         <tr className="border-b border-[rgba(3,44,166,.07)]">
                             <th className="p-[10px_5px_10px_16px] w-7"></th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 From
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 To
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 Type
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 Duration
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 Status
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 End Raison
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
                                 Created at
                             </th>
                         </tr>
