@@ -111,7 +111,7 @@ export default function AgentsOverview({tenant, agents}) {
                 </div>
                 <div className="mb-6">
                     <h1 className="text-xl font-black text-slate-900 tracking-tighter"
-                    style={{fontFamily: "Cabinet Grotesk',sans-serif"}}>Agents</h1>
+                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Agents</h1>
                     <p className="text-xs text-slate-400 mt-0.5">Click any row to view full agent details</p>
                 </div>
                 <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
