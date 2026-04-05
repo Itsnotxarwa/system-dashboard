@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function AgentDetails({selectedAgent, onClose}) {
     const [showFull, setShowFull] = useState(false);
+    const mc = selectedAgent?.models_config || "";
     const modelCards = [
         {
             key: "LLM",
@@ -11,11 +12,11 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label: "Provider",
-                    value:(selectedAgent?.models_config.llm.provider || ""),
+                    value: mc.llm.provider || "",
                 },
                 {
                     label: "Model Name",
-                    value: (selectedAgent?.models_config.llm.model_name || ""),
+                    value: mc.llm.model_name || "",
                 }
             ]
         },
@@ -26,15 +27,15 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label:"Provider", 
-                    value: (selectedAgent?.models_config.stt.provider || ""),
+                    value: mc.stt.provider || "",
                 }, 
                 {
                     label:"Model Name", 
-                    value: (selectedAgent?.models_config.stt.model_name || ""),
+                    value: mc.stt.model_name || "",
                 }, 
                 {
                     label:"Language", 
-                    value: (selectedAgent?.models_config.stt.language || ""),
+                    value: mc.stt.language || "",
                 }
             ] 
         }, 
@@ -45,19 +46,19 @@ export default function AgentDetails({selectedAgent, onClose}) {
             fields: [
                 {
                     label:"Provider", 
-                    value: (selectedAgent?.models_config.tts.provider || ""),
+                    value: mc.tts.provider || "",
                 }, 
                 {
                     label:"Model Name", 
-                    value: (selectedAgent?.models_config.tts.model_name || ""),
+                    value: mc.tts.model_name || "",
                 }, 
                 {
                     label:"Language", 
-                    value: (selectedAgent?.models_config.tts.language || ""),
+                    value: mc.tts.language || "",
                 },
                 {
                     label: "Voice",
-                    value: (selectedAgent?.models_config.tts.voice || ""),
+                    value: mc.tts.voice || "",
                 }
             ] 
         }
@@ -197,6 +198,12 @@ export default function AgentDetails({selectedAgent, onClose}) {
                                 ))}
                             </div>
                         ))}
+                    </div>
+                </div>
+                {/* TOOLS */}
+                <div>
+                    <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
+                        Tools
                     </div>
                 </div>
             </div>
