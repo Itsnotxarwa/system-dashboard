@@ -114,7 +114,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
     };
 
     return(
-        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
+        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
+        shadow-[0_2px_12px_rgba(3,44,166,.06)]">
             <input
                 ref={uploadInputRef}
                 type="file"

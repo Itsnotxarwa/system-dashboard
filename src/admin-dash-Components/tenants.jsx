@@ -109,7 +109,7 @@ export default function Tenants() {
         }
 
     return (
-    <div className="p-4 bg-linear-to-br from-white to-[rgba(3,44,166,0.05)] border border-[rgba(3,44,166,0.10)]">
+    <div className="p-4">
         <div className="flex tenant-title justify-start items-start gap-2 mt-4">
             <h1 className=" mb-4 text-[17px] font-bold tracking-[-0.03em]"
             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
@@ -195,16 +195,16 @@ export default function Tenants() {
         <p className="text-sm text-slate-400 py-1">
             Click a tenant to view its agents and call records
         </p>
-        <div className="py-2">
+        <div className="py-2 bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
+        shadow-[0_2px_12px_rgba(3,44,166,.06)]">
             <table className="w-full border-collapse">
-                <thead>
-                    <tr className="text-left text-[11px] font-semibold text-[#7a8bb5] border-b border-[#e5e7eb]"></tr>
-                    <tr className="text-left text-[11px] font-semibold text-[#7a8bb5] border-b border-[#e5e7eb]">
-                        <th className="py-2">Nom</th>
-                        <th className="py-2">ID du compte</th>
-                        <th className="py-2">Statut</th>
-                        <th className="py-2">Téléphone</th>
-                        <th className="py-2">Créé le</th>
+                <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
+                    <tr>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">Nom</th>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">ID du compte</th>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">Statut</th>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">Téléphone</th>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">Créé le</th>
                         <th></th>
                     </tr>   
                 </thead>
@@ -212,10 +212,11 @@ export default function Tenants() {
                     {filteredTenants.map((t) => (
                     <tr 
                     key={t.id} 
-                    className="border-b border-[#e5e7eb] hover:bg-[rgba(3,44,166,0.02)] hover:cursor-pointer"
                     onClick={() => {
                         navigate(`/tenant/${t.id}/agents`)
-                    }}>
+                    }}
+                    className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
+                    cursor-pointer">
                         <td className="py-2 flex gap-2 items-center">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
                             text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
