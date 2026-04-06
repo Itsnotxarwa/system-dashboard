@@ -266,6 +266,7 @@ export default function Tenants() {
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedTenant(t);
+                                setShowDeleteModal(true)
                             }}>
                                 <Trash size={21} />
                             </button>
