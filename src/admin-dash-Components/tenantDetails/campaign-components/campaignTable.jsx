@@ -1,4 +1,4 @@
-import { Edit, Pause, Play, RotateCcw, Trash, Upload } from "lucide-react";
+import { Edit, File, FileUp, Pause, Play, RotateCcw, Trash, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
 
 export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns}) {
@@ -276,23 +276,48 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     )}
                                 </div>
                             </td>
-                            <td className="p-[13px_20px]"></td>
+                            <td className="p-[13px_20px]">
+                                {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
+                                    <div className="flex items-center gap-1.5">
+                                        <File />
+                                        <div>
+                                            <div className="text-xs font-semibold text-[#059669]">
+                                                {c.recipients || 0}
+                                            </div>
+                                            <div className="text-[10px] text-[#9aabca]">
+                                                File Uploaded
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center justify-center text-xs gap-1 font-medium
+                                    bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
+                                    border border-[rgba(245,158,11,.22)]">
+                                        <TriangleAlert />
+                                        No File
+                                    </div>
+                                )}
+                            </td>
                             <td className="p-[13px_20px]">
                                 {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
                                     <button 
                                     onClick={() => handleUploadFile(c.id)}
-                                    className="bg-[#032ca6] text-white">
-                                        <Upload size={21} />
+                                    className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border 
+                                    border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
+                                        <FileUp />
+                                        Upload
                                     </button>
                                 ) : (
                                 <div className="flex gap-1">
-                                    <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border
-                                    border-[rgba(3,44,166,.14)]">
-                                        <Edit size={21} />
+                                    <button className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border
+                                    border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
+                                        <Edit />
+                                        Edit
                                     </button>
                                     <button className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border
-                                    border-[rgba(220,38,38,.16)]">
-                                        <Trash size={21} />
+                                    border-[rgba(220,38,38,.16)] flex items-center justify-center gap-1">
+                                        <Trash />
+                                        Delete
                                     </button>
                                 </div>
                                 )}
