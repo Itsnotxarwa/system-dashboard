@@ -281,12 +281,12 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     <div className="flex items-center justify-center text-xs gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
                                     border border-[rgba(245,158,11,.22)]">
-                                        <TriangleAlert />
+                                        <TriangleAlert size={12} />
                                         No File
                                     </div>
                                 ) : (
-                                    <div className="flex items-center gap-1.5">
-                                        <File />
+                                    <div className="flex items-center text-xs gap-1 font-medium">
+                                        <File size={12} />
                                         <div>
                                             <div className="text-xs font-semibold text-[#059669]">
                                                 {c.recipients || 0}
@@ -302,21 +302,21 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                 {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
                                     <button 
                                     onClick={() => handleUploadFile(c.id)}
-                                    className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]  py-1 px-2.5
-                                    border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
-                                        <FileUp />
+                                    className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px] gap-1 
+                                    border-[rgba(3,44,166,.20)] flex items-center justify-center text-xs p-[3px_10px] font-medium">
+                                        <FileUp size={12} />
                                         Upload
                                     </button>
                                 ) : (
                                 <div className="flex gap-1">
                                     <button className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]
-                                    py-1 px-2.5
+                                    text-xs p-[3px_10px] font-medium
                                     border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
-                                        <Edit />
+                                        <Edit size={12} />
                                         Edit
                                     </button>
                                     <button className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border rounded-[20px]
-                                    py-1 px-2.5
+                                    text-xs p-[3px_10px] font-medium
                                     border-[rgba(220,38,38,.16)] flex items-center justify-center gap-1">
                                         <Trash />
                                         Delete
