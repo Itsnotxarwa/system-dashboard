@@ -24,6 +24,10 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                         </th>
                         <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
                         uppercase text-slate-400">
+                            Email
+                        </th>
+                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
+                        uppercase text-slate-400">
                             Téléphone
                         </th>
                         <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
@@ -65,6 +69,7 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                                 {t.is_active ? "Active" : "Inactive"}
                             </span>
                         </td>
+                        <td className="p-[13px_20px]">{t.email}</td>
                         <td className="p-[13px_20px]">{t.phone}</td>
                         <td className="p-[13px_20px]">
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
