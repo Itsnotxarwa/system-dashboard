@@ -16,6 +16,10 @@ export default function Tenants({tenants, setTenants}) {
         setSelectedTenant(tenant);
         setShowEditModal(true);
     };
+    const handleDelete = (tenant) => {
+        setSelectedTenant(tenant);
+        setShowDeleteModal(true);
+    };
 
     const filteredTenants = tenants.filter(t => 
         (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase())) &&
@@ -173,7 +177,7 @@ export default function Tenants({tenants, setTenants}) {
         filteredTenants={filteredTenants} 
         setSelectedTenant={selectedTenant}
         handleEdit={handleEdit}
-        setShowDeleteModal={setShowDeleteModal} />
+        handleDelete={handleDelete} />
 
         {showEditModal && (
             <EditModal 

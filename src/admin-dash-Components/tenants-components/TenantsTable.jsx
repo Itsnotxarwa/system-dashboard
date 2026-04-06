@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
 
-export default function TenantsTable({filteredTenants, handleEdit, setSelectedTenant, setShowDeleteModal}) {
+export default function TenantsTable({filteredTenants, handleEdit, handleDelete}) {
     const navigate = useNavigate();
     
     return(
@@ -83,8 +83,7 @@ export default function TenantsTable({filteredTenants, handleEdit, setSelectedTe
                             cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setSelectedTenant(t);
-                                setShowDeleteModal(true)
+                                handleDelete(t)
                             }}>
                                 <Trash size={21} />
                             </button>
