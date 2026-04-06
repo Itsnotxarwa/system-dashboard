@@ -1,56 +1,27 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Edit, Search, Trash } from "lucide-react";
+import { useState } from "react";
+import { Search } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
+import TenantsTable from "./tenants-components/TenantsTable";
 
-export default function Tenants() {
-    const navigate = useNavigate();
+export default function Tenants({tenants, setTenants}) {
     const [search, setSearch] = useState("");    
     const [filter, setFilter] = useState("All");
-    const [tenants, setTenants] = useState([]);
+    
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     
-
     const handleEdit = (tenant) => {
         setSelectedTenant(tenant);
         setShowEditModal(true);
     };
-
 
     const filteredTenants = tenants.filter(t => 
         (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase())) &&
         (filter === "All" || (filter === "Active" && t.is_active) || (filter === "Inactive" && !t.is_active))
     );
 
-
-    {/* GET TENANTS */}
-    useEffect(() => {
-        const fetchTenants = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                
-                const response = await fetch("https://api.voixup.fr/admin/tenants", {
-                    headers: {
-                        "accept": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
-                
-                const data = await response.json();
-                console.log(data);
-                
-                setTenants(data); 
-            } catch (error) {
-                console.error(error);
-                setTenants([]);
-            }
-        };
-        
-        fetchTenants();
-    }, []);
     
     {/* UPDATE TENANT */}
     const resetPassword = async (tenantId, newPassword) => {
@@ -110,6 +81,7 @@ export default function Tenants() {
 
     return (
     <div className="p-4">
+        {/* HEADER */}
         <div className="flex tenant-title justify-start items-start gap-2 mt-4">
             <h1 className=" mb-4 text-[17px] font-bold tracking-[-0.03em]"
             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
@@ -121,6 +93,7 @@ export default function Tenants() {
                 {tenants.length} tenants
             </p>
         </div>
+        {/* SEARCH & TABS */}
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
         <div className="flex items-center gap-2 pb-4 bg-[rgba(3,44,166,0.04)] border
         border-[rgba(3,44,166,0.14)] rounded-[10px] py-2 px-3.5 w-80">
@@ -141,134 +114,67 @@ export default function Tenants() {
             }}
             />
         </div>
+        {/* TABS */}
         {["All", "Active", "Inactive"].map((f) => {
-          const active = filter === f;
-          const accentMap = {
-            All: { bg: "#032ca6", txt: "white", border: "#032ca6" },
-            Active: { bg: "#059669", txt: "white", border: "#059669" },
-            Inactive: { bg: "#6b7280", txt: "white", border: "#6b7280" },
-          };
+            const active = filter === f;
+            const accentMap = {
+                All: { bg: "#032ca6", txt: "white", border: "#032ca6" },
+                Active: { bg: "#059669", txt: "white", border: "#059669" },
+                Inactive: { bg: "#6b7280", txt: "white", border: "#6b7280" },
+            };
             return (
-              <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 10,
-                    fontSize: 12,
-                    fontFamily: "'DM Mono', monospace",
-                    fontWeight: active ? 600 : 400,
-                    cursor: "pointer",
-                    border: active
-                      ? `1px solid ${accentMap[f].border}`
-                      : "1px solid rgba(3,44,166,0.12)",
-                    background: active
-                      ? accentMap[f].bg
-                      : "rgba(3,44,166,0.03)",
-                    color: active ? accentMap[f].txt : "#7a8bb5",
-                    transition: "all 0.15s",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  {f !== "All" && (
+            <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{
+            padding: "8px 16px",
+            borderRadius: 10,
+            fontSize: 12,
+            fontFamily: "'DM Mono', monospace",
+            fontWeight: active ? 600 : 400,
+            cursor: "pointer",
+            border: active
+            ? `1px solid ${accentMap[f].border}`
+                : "1px solid rgba(3,44,166,0.12)",
+            background: active
+                ? accentMap[f].bg
+                : "rgba(3,44,166,0.03)",
+            color: active ? accentMap[f].txt : "#7a8bb5",
+            transition: "all 0.15s",
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            }}
+            >
+                {f !== "All" && (
                     <span
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        background: active
-                          ? "rgba(255,255,255,0.7)"
-                          : f === "Active"
-                          ? "#22c55e"
-                          : "#d1d5db",
-                        flexShrink: 0,
-                      }}
-                    />
-                  )}
-                  {f}
-                </button>
-              );
-            })}
+                    style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: active
+                        ? "rgba(255,255,255,0.7)"
+                        : f === "Active"
+                        ? "#22c55e"
+                        : "#d1d5db",
+                    flexShrink: 0,
+                    }}
+                />
+                )}
+                {f}
+            </button>
+            );
+        })}
         </div>
-        <p className="text-sm text-slate-400 pb-2">
+        <p className="text-sm text-slate-400 pb-4">
             Click a tenant to view its agents and call records
         </p>
-        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
-        shadow-[0_2px_12px_rgba(3,44,166,.06)]">
-            <table className="w-full border-collapse">
-                <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
-                    <tr>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest uppercase text-slate-400">Nom</th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest uppercase text-slate-400">ID du compte</th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest uppercase text-slate-400">Statut</th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest uppercase text-slate-400">Téléphone</th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest uppercase text-slate-400">Créé le</th>
-                        <th></th>
-                    </tr>   
-                </thead>
-                <tbody>
-                    {filteredTenants.map((t) => (
-                    <tr 
-                    key={t.id} 
-                    onClick={() => {
-                        navigate(`/tenant/${t.id}/agents`)
-                    }}
-                    className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
-                    cursor-pointer">
-                        <td className="p-[13px_20px] flex gap-2 items-center">
-                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
-                            text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
-                            shadow-[0_6px_18px_rgba(3,44,166,.22)]">
-                                {t?.name ? t.name
-                                .split(" ")
-                                .map(word => word.charAt(0).toUpperCase())
-                                .slice(0,2)
-                                .join("") 
-                                : ""}
-                            </div>
-                            {t.name}
-                        </td>
-                        <td className="p-[13px_20px]">{t.id}</td> 
-                        <td className="p-[13px_20px]">
-                            <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
-                                ${t.is_active ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" : "text-[#9ca3af] bg-[#9ca3af34] border-[#9ca3af34]"}`}>
-                                <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                    ${t.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#d1d5db]"}`}>
-                                </span>
-                                {t.is_active ? "Active" : "Inactive"}
-                            </span>
-                        </td>
-                        <td className="p-[13px_20px]">{t.phone}</td>
-                        <td className="p-[13px_20px]">
-                            {new Date(t.created_at).toLocaleDateString("fr-FR")}
-                        </td>
-                        <td className="p-[13px_20px] flex gap-2">
-                            <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border border-[rgba(3,44,166,.14)]
-                            cursor-pointer"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleEdit(t)
-                            }}>
-                                <Edit size={21} />
-                            </button>
-                            <button 
-                            className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border border-[rgba(220,38,38,.16)]
-                            cursor-pointer"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedTenant(t);
-                                setShowDeleteModal(true)
-                            }}>
-                                <Trash size={21} />
-                            </button>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <TenantsTable 
+        filteredTenants={filteredTenants} 
+        setSelectedTenant={selectedTenant}
+        handleEdit={handleEdit}
+        setShowDeleteModal={setShowDeleteModal} />
+
         {showEditModal && (
             <EditModal 
             selectedTenant={selectedTenant} 

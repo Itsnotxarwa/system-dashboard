@@ -1,7 +1,7 @@
 import { ArrowDownToLine, Plus } from "lucide-react";
 import KpiCards from "./kpiCards";
 
-export default function Overview({setShowModal}) {
+export default function Overview({setShowModal, tenants}) {
     return (
     <div className="p-4">
         <div className="flex items-center justify-between mb-4">
@@ -24,7 +24,7 @@ export default function Overview({setShowModal}) {
             </div>
         </div>
         <div className="py-2">
-            <KpiCards />
+            <KpiCards tenants={tenants} />
         </div>
     </div>
 )
