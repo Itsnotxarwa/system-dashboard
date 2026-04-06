@@ -282,7 +282,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     border-[rgba(220,38,38,.16)]">
                                         <Trash size={21} />
                                     </button>
-                                    {(!c.recipients || c.recipients.length === 0) && (
+                                    {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") && (
                                         <button 
                                         onClick={() => handleUploadFile(c.id)}
                                         className="bg-[#032ca6] text-white">
