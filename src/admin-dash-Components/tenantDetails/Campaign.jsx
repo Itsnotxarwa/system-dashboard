@@ -115,33 +115,6 @@ export default function Campaign() {
     const handleDragOver = (e) => {
         e.preventDefault();
     };
-{/* 
-    const uploadRecipients = async (campaignId) => {
-        if (!file) return;
-        try {
-            const token = localStorage.getItem("token");
-            const tenantId = tenant?.id;
-
-            const formData = new FormData();
-            formData.append("file", file);
-            const res = await fetch(
-                `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/recipients/upload`, {
-                    method: "POST",
-                    headers: {
-                        accept: "application/json",
-                        authorization: `Bearer ${token}`,
-                    },
-                    body: formData,
-                })
-
-                const data = await res.json();
-                console.log("UPLOAD RESPONSE:", data);
-
-        } catch (error) {
-            console.log("error", error)
-        } 
-    }
-*/}
 
     return(
         <div className="flex min-h-screen bg-white text-black">

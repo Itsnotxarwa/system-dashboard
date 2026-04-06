@@ -64,7 +64,7 @@ export default function AdminDashboard() {
 
     } catch (error) {
       console.error(error);
-      alert("Server error");
+      alert(`Failed: ${error?.detail}`);
     }
   };
 
