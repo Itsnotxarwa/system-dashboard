@@ -109,13 +109,15 @@ export default function Tenants() {
         }
 
     return (
-    <div className="p-4">
+    <div className="p-4 bg-linear-to-br from-white to-[rgba(3,44,166,0.05)] border border-[rgba(3,44,166,0.10)]">
         <div className="flex tenant-title justify-start items-start gap-2 mt-4">
-            <h1 className=" mb-4 text-[17px] font-bold tracking-[-0.03em]">
+            <h1 className=" mb-4 text-[17px] font-bold tracking-[-0.03em]"
+            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                 All Tenants
             </h1>
-            <p className="text-[11px] font-semibold bg-[rgba(3,44,166,0.08)] border border-[rgba(3,44,166,0.14)]
-            text-[#032ca6] py-1 px-2 tracking-[-0.02em] rounded-[20px]">
+            <p className="text-[10px] font-medium bg-[rgba(3,44,166,0.08)] border border-[rgba(3,44,166,0.14)]
+            text-[#032ca6] py-1 px-2 tracking-[-0.02em] rounded-[20px]"
+            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                 {tenants.length} tenants
             </p>
         </div>
