@@ -1,6 +1,51 @@
-import Cards from "../data/cards";
+import { Users, CheckCircle } from "lucide-react";
 
-export default function KpiCards() {
+export default function KpiCards({tenants}) {
+    const activeTenants = tenants.filter(t => t.is_active).length;
+    const inactiveTenants = tenants.filter(t => !t.is_active).length;
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    const tenantsThisMonth = tenants.filter(t => {
+    const date = new Date(t.created_at);
+        return (
+        date.getMonth() === currentMonth &&
+        date.getFullYear() === currentYear
+        );
+    }).length;
+
+    const activationRate = tenants.length
+     ? ((activeTenants / tenants.length) * 100).toFixed(1)
+    : 0;
+
+    const Cards = [
+    {
+        title: "Total Tenants",
+        icon: Users,
+        value: tenants.length,
+        desc: `+${tenantsThisMonth} this month`,
+    },
+    {
+        title: "Active Tenants",
+        icon: CheckCircle,
+        value: activeTenants,
+        desc: `${inactiveTenants} inactive tenant${inactiveTenants !== 1 ? "s" : ""}`,
+    },
+    {
+        title: "Activation Rate",
+        icon: CheckCircle,
+        value: `${activationRate}%`,
+        desc: "Overall tenant health",
+    },
+    {
+        title: "New This Month",
+        icon: Users,
+        value: tenantsThisMonth,
+        desc: "Tenant growth",
+    }
+    
+]
     return(
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Cards.map((card, i) => {

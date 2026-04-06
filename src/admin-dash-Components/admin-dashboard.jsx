@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Overview from "./overview";
+import Overview from "./tenants-components/overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
 import CreateModal from "./tenants-components/createModal";

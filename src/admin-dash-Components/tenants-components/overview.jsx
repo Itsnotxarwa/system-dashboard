@@ -1,5 +1,5 @@
 import { ArrowDownToLine, Plus } from "lucide-react";
-import KpiCards from "./kpiCards";
+import KpiCards from "../kpiCards";
 
 export default function Overview({setShowModal, tenants}) {
     return (
