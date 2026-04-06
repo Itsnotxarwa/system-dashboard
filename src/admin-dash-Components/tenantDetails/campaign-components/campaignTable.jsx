@@ -58,7 +58,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         if (!res.ok) {
             const err = await res.json();
             console.error(err);
-            alert("Failed to start campaign");
+            alert(`Failed: ${err?.detail}`);
             return;
         }
 
@@ -66,7 +66,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         updateStatus(campaignId, data.status);
     } catch (err) {
         console.error(err);
-        alert("Failed to start campaign");
+        alert(`Failed: ${err?.detail}`);
     }
     };
     {/* PAUSE */}
@@ -80,7 +80,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         if (!res.ok) throw new Error();
         const data = await res.json();
         updateStatus(campaignId, data.status);
-    } catch { alert("Failed to pause campaign"); }
+    } catch (err) { alert(`Failed: ${err?.detail}`); }
     };
 
     {/* RESUME */}
@@ -94,7 +94,9 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         if (!res.ok) throw new Error();
         const data = await res.json();
         updateStatus(campaignId, data.status);
-    } catch { alert("Failed to resume campaign"); }
+    } catch (err) { 
+        alert(`Failed: ${err?.detail}`);
+    }
     };
 
     {/* RESET */}
@@ -108,7 +110,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         if (!res.ok) throw new Error();
         const data = await res.json();
         updateStatus(campaignId, data.status);
-    } catch { alert("Failed to reset campaign"); }
+    } catch (err) { alert(`Failed: ${err?.detail}`); }
     };
 
     return(
@@ -179,13 +181,13 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             </td>
                             <td className="p-[13px_20px]">
                                 <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
-                                ${c.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
+                                ${c.status === "RUNNING" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
                                 ${c.status === "COMPLETED" ? "bg-[rgba(124,58,237,.08)] text-[#7c3aed] border-[rgba(3,44,166,.20)]" : ""}
                                 ${c.status === "DRAFT" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
                                 `}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                    ${c.status === "READY" ? "bg-[#22c55e]" : ""}
+                                    ${c.status === "RUNNING" ? "bg-[#22c55e]" : ""}
                                     ${c.status === "PAUSED" ? "bg-[#f59e0b]" : ""}
                                     ${c.status === "COMPLETED" ? "bg-[#a78bfa]" : ""}
                                     ${c.status === "DRAFT" ? "bg-[#6b8fef]" : ""}
@@ -215,7 +217,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             </td>
                             <td className="p-[13px_20px]">
                                 <div className="flex gap-1 flex-wrap">
-                                    {c.status !== "READY" && c.status !== 'PAUSED' && (
+                                    {c.status !== "DRAFT" && (
                                         <button 
                                         onClick={() => {
                                             startCampaign(c.id)
@@ -228,7 +230,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         </button>
                                     )}
 
-                                    {c.status === "READY" && (
+                                    {c.status === "RUNNING" && (
                                         <button 
                                         onClick={() => {
                                             pauseCampaign(c.id)
@@ -254,7 +256,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         </button>
                                     )}
 
-                                    {c.status !== "DRAFT" && (
+                                    {(c.status === "RUNNING" || c.status === "PAUSED" || c.status === "COMPLETED") && (
                                         <button 
                                         onClick={() => {
                                             resetCampaign(c.id)
