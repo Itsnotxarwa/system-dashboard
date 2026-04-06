@@ -181,13 +181,13 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             </td>
                             <td className="p-[13px_20px]">
                                 <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
-                                ${c.status === "RUNNING" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
+                                ${c.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
                                 ${c.status === "COMPLETED" ? "bg-[rgba(124,58,237,.08)] text-[#7c3aed] border-[rgba(3,44,166,.20)]" : ""}
                                 ${c.status === "DRAFT" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
                                 `}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                    ${c.status === "RUNNING" ? "bg-[#22c55e]" : ""}
+                                    ${c.status === "READY" ? "bg-[#22c55e]" : ""}
                                     ${c.status === "PAUSED" ? "bg-[#f59e0b]" : ""}
                                     ${c.status === "COMPLETED" ? "bg-[#a78bfa]" : ""}
                                     ${c.status === "DRAFT" ? "bg-[#6b8fef]" : ""}
@@ -217,7 +217,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             </td>
                             <td className="p-[13px_20px]">
                                 <div className="flex gap-1 flex-wrap">
-                                    {c.status !== "DRAFT" && (
+                                    {(c.status === "READY" || c.status === "PAUSED") && (
                                         <button 
                                         onClick={() => {
                                             startCampaign(c.id)
