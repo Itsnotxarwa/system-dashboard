@@ -155,6 +155,9 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                         <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">
                             Actions
                         </th>
+                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                            Recipients
+                        </th>
                         <th className="px-5 py-3"></th>
                     </tr>
                 </thead>
@@ -273,7 +276,15 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     )}
                                 </div>
                             </td>
+                            <td className="p-[13px_20px]"></td>
                             <td className="p-[13px_20px]">
+                                {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
+                                    <button 
+                                    onClick={() => handleUploadFile(c.id)}
+                                    className="bg-[#032ca6] text-white">
+                                        <Upload size={21} />
+                                    </button>
+                                ) : (
                                 <div className="flex gap-1">
                                     <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border
                                     border-[rgba(3,44,166,.14)]">
@@ -283,14 +294,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     border-[rgba(220,38,38,.16)]">
                                         <Trash size={21} />
                                     </button>
-                                    {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") && (
-                                        <button 
-                                        onClick={() => handleUploadFile(c.id)}
-                                        className="bg-[#032ca6] text-white">
-                                            <Upload size={21} />
-                                        </button>
-                                    )}
                                 </div>
+                                )}
                             </td>
                         </tr>
                         ))
