@@ -258,7 +258,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         </button>
                                     )}
 
-                                    {(c.status === "RUNNING" || c.status === "PAUSED" || c.status === "COMPLETED") && (
+                                    {(c.status === "RUNNING" || c.status === "PAUSED" || c.status === "COMPLETED" || c.status === "DRAFT") && (
                                         <button 
                                         onClick={() => {
                                             resetCampaign(c.id)
