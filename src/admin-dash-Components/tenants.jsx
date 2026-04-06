@@ -195,7 +195,7 @@ export default function Tenants() {
         <p className="text-sm text-slate-400 py-1">
             Click a tenant to view its agents and call records
         </p>
-        <div className="py-2 bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
+        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
         shadow-[0_2px_12px_rgba(3,44,166,.06)]">
             <table className="w-full border-collapse">
                 <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
@@ -217,7 +217,7 @@ export default function Tenants() {
                     }}
                     className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
                     cursor-pointer">
-                        <td className="py-2 flex gap-2 items-center">
+                        <td className="py-2 px-2.5 flex gap-2 items-center">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
                             text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
                             shadow-[0_6px_18px_rgba(3,44,166,.22)]">
