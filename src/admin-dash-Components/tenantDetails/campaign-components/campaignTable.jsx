@@ -276,7 +276,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     )}
                                 </div>
                             </td>
-                            <td className="p-[13px_20px]">
+                            <td>
                                 {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
                                     <div className="flex items-center justify-center text-xs gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
