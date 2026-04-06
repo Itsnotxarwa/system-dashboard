@@ -38,6 +38,7 @@ export default function AdminDashboard() {
     email: "",
     phone: ""
   });
+  const [createdTenant, setCreatedTenant] = useState(null);
 
   const handleSubmit = async () => {
     try {
@@ -55,12 +56,11 @@ export default function AdminDashboard() {
       console.log(data);
 
       if (!response.ok) {
-        alert("Error creating tenant");
+        alert(`Error: ${data?.detail || "Failed to create tenant"}`);
         return;
       }
 
-      alert("Tenant created successfully ✅");
-      setShowModal(false);
+      setCreatedTenant(data);
 
     } catch (error) {
       console.error(error);
@@ -75,7 +75,13 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto">
             <Overview setShowModal={setShowModal} />
             {showModal &&
-            <CreateModal setShowModal={setShowModal} form={form} setForm={setForm} handleSubmit={handleSubmit} />
+            <CreateModal 
+            setShowModal={setShowModal} 
+            form={form} 
+            setForm={setForm} 
+            createdTenant={createdTenant}
+            setCreatedTenant={setCreatedTenant}
+            handleSubmit={handleSubmit} />
             }
             <Tenants />
         </div>

@@ -1,11 +1,53 @@
-import { Key, Plus, X } from "lucide-react";
+import { Check, Key, Plus, X } from "lucide-react";
 
-export default function CreateModal({setShowModal, form, setForm, handleSubmit}) {
+export default function CreateModal({setShowModal, form, setForm, handleSubmit, createdTenant, setCreatedTenant}) {
+    const handleClose = () => {
+        setCreatedTenant(null);
+        setShowModal(false);
+    };
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
         bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
             <div className="bg-white/90 border border-[rgba(3,44,166,0.15)] rounded-3xl w-full lg:max-w-md
             shadow-[0_24px_80px_rgba(3,44,166,0.18)] overflow-hidden animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both]">
+                {createdTenant ? (
+                    <div className="p-8 flex flex-col items-center text-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-[rgba(5,150,105,.1)] flex items-center
+                        justify-center text-[#059669]">
+                            <Check />
+                        </div>
+                        <div>
+                            <div className="font-extrabold text-[16px] text-[#0a1628]">
+                                Tenant Created!
+                            </div>
+                            <div className="text-xs text-[#9aabca] mt-1">
+                                Save this password — it won't be shown again.
+                            </div>
+                        </div>
+
+                        {/* PASSWORD BOX */}
+                        <div className="w-full px-4 py-3 rounded-xl bg-[rgba(3,44,166,.04)]
+                        border border-[rgba(3,44,166,.12)] flex items-center justify-between gap-3">
+                            <span className="font-mono text-sm font-bold text-[#032ca6] tracking-widest">
+                                {createdTenant.generated_password}
+                            </span>
+                            <button
+                                onClick={() => navigator.clipboard.writeText(createdTenant.generated_password)}
+                                className="text-[10px] text-[#032ca6] border border-[rgba(3,44,166,.2)]
+                                bg-[rgba(3,44,166,.06)] px-2 py-1 rounded-md cursor-pointer">
+                                Copy
+                            </button>
+                        </div>
+
+                        <button
+                            onClick={handleClose}
+                            className="w-full py-2.5 text-xs font-bold text-white rounded-lg
+                            bg-[#032ca6] border border-[#032ca6] cursor-pointer mt-2">
+                            Done
+                        </button>
+                    </div>
+                ) : (
+                <>
                 {/* HEADER */}
                 <div className="p-[22px_26px_18px] border-b border-[rgba(3,44,166,0.08)] flex items-center
                 gap-3 justify-between">
@@ -117,6 +159,8 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit})
                         </div>
                 </div>
             </div>
+            </>
+            )}
             </div>
         </div>
     )
