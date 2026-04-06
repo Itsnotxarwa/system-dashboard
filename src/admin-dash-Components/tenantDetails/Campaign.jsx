@@ -115,7 +115,7 @@ export default function Campaign() {
     const handleDragOver = (e) => {
         e.preventDefault();
     };
-
+{/* 
     const uploadRecipients = async (campaignId) => {
         if (!file) return;
         try {
@@ -141,7 +141,7 @@ export default function Campaign() {
             console.log("error", error)
         } 
     }
-
+*/}
 
     return(
         <div className="flex min-h-screen bg-white text-black">
@@ -167,7 +167,6 @@ export default function Campaign() {
             onCancel={() => setShowCreateModal(false)} 
             handleFileChange={handleFileChange}
             handleDrop={handleDrop}
-            uploadRecipients={uploadRecipients}
             handleDragOver={handleDragOver}
             file={file}
             setFile={setFile}

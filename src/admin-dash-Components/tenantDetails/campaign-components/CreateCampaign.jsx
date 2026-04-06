@@ -1,7 +1,7 @@
 import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
 
-export default function CreateCampaign({tenant, onClose, onCancel, agents, uploadRecipients, handleDrop, handleDragOver, handleFileChange, file, setFile}) {
+export default function CreateCampaign({tenant, onClose, onCancel, agents, handleDrop, handleDragOver, handleFileChange, file, setFile}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
     
@@ -14,6 +14,12 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, uploa
         time_slots: [{
             start_time: "",
             end_time: "",
+        }],
+        recipients: [{
+            id: "",
+            phone: "",
+            status: "",
+            call_attempts: "",
         }]
     })
     const handleTimeSlotChange = (index, field, value) => {
@@ -34,24 +40,31 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, uploa
             const token = localStorage.getItem("token");
             const tenantId = tenant?.id;
 
+            const formData = new FormData();
+
+            formData.append("name", campaignData.name);
+            formData.append("agent_id", campaignData.agent_id);
+            formData.append("start_date", campaignData.start_date);
+            formData.append("batch_size", campaignData.batch_size);
+            formData.append("time_slots", JSON.stringify(campaignData.time_slots));
+            if (file) {
+                formData.append("file", file);
+            }
+
             const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaigns`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     accept: "application/json",
                     authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(campaignData),
+                body: formData,
             });
 
             const data = await res.json();
             console.log(data);
+            
             if (!res.ok) {
                 throw new Error(data?.detail || "Creation failed");
-            }
-
-            if (file) {
-                await uploadRecipients(data.id);
             }
 
             onClose();

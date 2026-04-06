@@ -1,6 +1,45 @@
 import { Edit, Pause, Play, RotateCcw, Trash, Upload } from "lucide-react";
+import { useRef, useState } from "react";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, file}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns}) {
+    const uploadInputRef = useRef(null);
+    const [uploadingCampaignId, setUploadingCampaignId] = useState(null);
+    const handleUploadFile = (campaignId) => {
+        setUploadingCampaignId(campaignId);
+        uploadInputRef.current.click();
+    };
+    const handleUploadChange = async (e) => {
+        const selectedFile = e.target.files[0];
+        if (!selectedFile) return;
+
+        try {
+            const token = localStorage.getItem("token");
+            const formData = new FormData();
+            formData.append("file", selectedFile);
+
+            const res = await fetch(
+                `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${uploadingCampaignId}/recipients/upload`,
+                {
+                    method: "POST",
+                    headers: {
+                        accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: formData,
+                }
+            );
+
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            alert(`Uploaded successfully — ${data.valid_recipients} valid, ${data.invalid_recipients} invalid out of ${data.total_recipients} total`);
+
+        } catch {
+            alert("Failed to upload recipients");
+        } finally {
+            e.target.value = ""; 
+            setUploadingCampaignId(null);
+        }
+    }
     {/* START */}
     const startCampaign = async (campaignId) => {
     try {
@@ -74,6 +113,13 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] shadow-[0_2px_12px_rgba(3,44,166,.06)]" >
+            <input
+                ref={uploadInputRef}
+                type="file"
+                accept=".csv"
+                className="hidden"
+                onChange={handleUploadChange}
+            />
             {campaigns.length === 0 ? (
                 <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
                 border-dashed border-[rgba(3,44,166,0.12)]">
@@ -232,8 +278,10 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     border-[rgba(220,38,38,.16)]">
                                         <Trash size={21} />
                                     </button>
-                                    {!file && (
-                                        <button className="bg-[#032ca6] text-white">
+                                    {(!c.recipients || c.recipients.length === 0) && (
+                                        <button 
+                                        onClick={() => handleUploadFile(c.id)}
+                                        className="bg-[#032ca6] text-white">
                                             <Upload size={21} />
                                         </button>
                                     )}
