@@ -32,11 +32,11 @@ export default function DeleteAgent({ selectedAgent, onConfirm, onCancel}) {
 
                 <div className="flex gap-3">
                     <button
-                    classNameName="flex-1 py-3 rounded-xl border border-blue-100 bg-blue-50/60 
+                    className="flex-1 py-3 rounded-xl border border-blue-100 bg-blue-50/60 
                     text-slate-500 text-sm font-semibold hover:bg-blue-100/60 
                     hover:text-slate-700 transition-all"
                     onClick={onCancel}
-                        >
+                    >
                         No, keep it
                     </button>
                     <button
