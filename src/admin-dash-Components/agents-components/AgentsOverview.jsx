@@ -39,6 +39,15 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
         }
     }
 
+    const handleEdit = (agent) => {
+        setSelectedAgent(agent);
+        setShowEditModal(true);
+    };
+    const handleDelete = (agent) => {
+        setSelectedAgent(agent);
+        setShowDeleteAgent(true);
+    };
+
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex">
             <div className="max-w-7xl mx-auto p-6 flex-1">
@@ -149,7 +158,9 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                 setShowDeleteAgent={setShowDeleteAgent}
                 setShowEditModal={setShowEditModal}
                 onClose={() => setShowAgentDetails(false)} 
-                selectedAgent={selectedAgent} />
+                selectedAgent={selectedAgent}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete} />
             )}
             {showEditModal && (
                 <EditModal

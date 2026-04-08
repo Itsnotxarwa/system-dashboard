@@ -1,7 +1,7 @@
 import { Cpu, Delete, Edit, Mic, Volume2, X } from "lucide-react";
 import { useState } from "react";
 
-export default function AgentDetails({selectedAgent, onClose, setShowEditModal, setShowDeleteAgent}) {
+export default function AgentDetails({selectedAgent, onClose, handleDelete, handleEdit}) {
     const [showFull, setShowFull] = useState(false);
     if (!selectedAgent) return null;
     const mc = selectedAgent.models_config;
@@ -264,7 +264,7 @@ export default function AgentDetails({selectedAgent, onClose, setShowEditModal, 
 
             <div className="flex items-center gap-2 pb-1">
                 <button 
-                onClick={() => setShowEditModal(true)}
+                onClick={handleEdit}
                 className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]
                 transition-all flex items-center gap-1.5 bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.15)]"
                 style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
@@ -272,7 +272,7 @@ export default function AgentDetails({selectedAgent, onClose, setShowEditModal, 
                     Edit
                 </button>
                 <button 
-                onClick={() => setShowDeleteAgent(true)}
+                onClick={handleDelete}
                 className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
                 flex items-center gap-1.5 border border-[rgba(220,38,38,.20)] bg-[rgba(220,38,38,.05)]
                 text-[#dc2626]">
