@@ -10,7 +10,9 @@ export default function AgentsOverview({tenant, agents}) {
     ).length || 0;
     const inactiveAgents = totalAgents - activeAgents;
     const [showAgentDetails, setShowAgentDetails] = useState(false);
-    const [selectedAgent, setSelectedAgent] = useState(null)
+    const [selectedAgent, setSelectedAgent] = useState(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex">
             <div className="max-w-7xl mx-auto p-6 flex-1">
@@ -117,7 +119,16 @@ export default function AgentsOverview({tenant, agents}) {
                 <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
             </div>
             {showAgentDetails && (
-                <AgentDetails onClose={() => setShowAgentDetails(false)} selectedAgent={selectedAgent} />
+                <AgentDetails 
+                setShowEditModal={setShowEditModal}
+                onClose={() => setShowAgentDetails(false)} 
+                selectedAgent={selectedAgent} />
+            )}
+            {showEditModal && (
+                <EditModal
+                selectedAgent={selectedAgent}
+                onClose={() => setShowEditModal(false)}
+                onCancel={() => setShowEditModal(false)} />
             )}
         </div>
     )
