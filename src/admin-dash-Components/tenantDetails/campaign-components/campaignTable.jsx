@@ -298,7 +298,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     </div>
                                 )}
                             </td>
-                            <td className="p-[13px_20px]">
+                            <td className="px-2">
                                 {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
                                     <button 
                                     onClick={() => handleUploadFile(c.id)}

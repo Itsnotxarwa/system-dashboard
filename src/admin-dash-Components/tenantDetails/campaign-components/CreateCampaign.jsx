@@ -72,7 +72,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
 
             } catch (error) {
                 console.error(error);
-                alert("Error creating agent");
+                alert(`Failed: ${error?.detail}`);
             }finally {
                 setLoading(false)
             }
