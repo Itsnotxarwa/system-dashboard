@@ -66,7 +66,12 @@ export default function Agents() {
             <TenantSidebar tenant={tenant} />
             <main className="bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex-1 flex flex-col">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} setShowAgentModal={setShowAgentModal} />
-                <AgentsOverview tenant={tenant} agents={agents} setShowAgentModal={setShowAgentModal} />
+                <AgentsOverview 
+                tenant={tenant} 
+                agents={agents} 
+                setAgents={setAgents}
+                setShowAgentModal={setShowAgentModal}
+                />
             </main>
 
             {showAgentModal && (

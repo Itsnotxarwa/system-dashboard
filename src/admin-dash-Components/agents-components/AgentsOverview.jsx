@@ -2,8 +2,9 @@ import { useState } from "react";
 import Logo from "../../assets/image.png"
 import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
+import DeleteAgent from "./DeleteAgent";
 
-export default function AgentsOverview({tenant, agents}) {
+export default function AgentsOverview({tenant, agents, setAgents}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
@@ -12,6 +13,31 @@ export default function AgentsOverview({tenant, agents}) {
     const [showAgentDetails, setShowAgentDetails] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteAgent, setShowDeleteAgent] = useState(false);
+
+    const deleteAgent = async (AgentId) => {
+        try{
+            const token = localStorage.getItem("token");
+            const response = await fetch(`
+                https://api.voixup.fr/admin/tenants/${AgentId}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+        if (!response.ok) throw new Error("Delete failed");
+
+        const data = await response.json();
+        console.log(data);
+
+        setAgents(prev => prev.filter(t => t.id !== AgentId));
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
 
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)] flex">
@@ -120,6 +146,7 @@ export default function AgentsOverview({tenant, agents}) {
             </div>
             {showAgentDetails && (
                 <AgentDetails 
+                setShowDeleteAgent={setShowDeleteAgent}
                 setShowEditModal={setShowEditModal}
                 onClose={() => setShowAgentDetails(false)} 
                 selectedAgent={selectedAgent} />
@@ -129,6 +156,15 @@ export default function AgentsOverview({tenant, agents}) {
                 selectedAgent={selectedAgent}
                 onClose={() => setShowEditModal(false)}
                 onCancel={() => setShowEditModal(false)} />
+            )}
+            {showDeleteAgent && (
+                <DeleteAgent
+                selectedAgent={selectedAgent}
+                onCancel={() => setShowDeleteAgent(false)}
+                onConfirm={(id) => {
+                deleteAgent(id);
+                setShowDeleteAgent(false);
+            }} />
             )}
         </div>
     )

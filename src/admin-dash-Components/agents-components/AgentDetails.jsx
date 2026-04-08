@@ -1,7 +1,7 @@
 import { Cpu, Delete, Edit, Mic, Volume2, X } from "lucide-react";
 import { useState } from "react";
 
-export default function AgentDetails({selectedAgent, onClose, setShowEditModal}) {
+export default function AgentDetails({selectedAgent, onClose, setShowEditModal, setShowDeleteAgent}) {
     const [showFull, setShowFull] = useState(false);
     if (!selectedAgent) return null;
     const mc = selectedAgent.models_config;
@@ -271,7 +271,9 @@ export default function AgentDetails({selectedAgent, onClose, setShowEditModal})
                     <Edit size={12} />
                     Edit
                 </button>
-                <button className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
+                <button 
+                onClick={() => setShowDeleteAgent(true)}
+                className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
                 flex items-center gap-1.5 border border-[rgba(220,38,38,.20)] bg-[rgba(220,38,38,.05)]
                 text-[#dc2626]">
                     <Delete size={12} />
