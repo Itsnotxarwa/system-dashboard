@@ -1,4 +1,4 @@
-import { Cpu, Delete, Edit, Mic, Volume2, X } from "lucide-react";
+import { Cpu, Edit, Mic, Trash, Volume2, X } from "lucide-react";
 import { useState } from "react";
 
 export default function AgentDetails({selectedAgent, onClose, handleDelete, handleEdit}) {
@@ -95,7 +95,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     <X />
                 </button>
             </div>
-
+            {/* FORM */}
             <div className="p-5 space-y-5">
                 {/* SIP NUMBER & STATUS */}
                 <div className="grid grid-cols-2 gap-2.5">
@@ -260,25 +260,25 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         </div>
                     )}
                 </div>
-            </div>
 
-            <div className="flex items-center gap-2 pb-1">
-                <button 
-                onClick={handleEdit}
-                className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]
-                transition-all flex items-center gap-1.5 bg-[rgba(3,44,166,.05)] border border-[rgba(3,44,166,.15)]"
-                style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
-                    <Edit size={12} />
-                    Edit
-                </button>
-                <button 
-                onClick={handleDelete}
-                className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
-                flex items-center gap-1.5 border border-[rgba(220,38,38,.20)] bg-[rgba(220,38,38,.05)]
-                text-[#dc2626]">
-                    <Delete size={12} />
-                    Delete
-                </button>
+                <div className="flex items-center gap-2 pb-1">
+                    <button 
+                    onClick={() => handleEdit(selectedAgent)}
+                    className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]
+                    transition-all flex items-center gap-1.5 bg-[rgba(3,44,166,.05)] border 
+                    border-[rgba(3,44,166,.15)]">
+                        <Edit size={12} />
+                        Edit
+                    </button>
+                    <button 
+                    onClick={() => handleDelete(selectedAgent)}
+                    className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
+                    flex items-center gap-1.5 border border-[rgba(220,38,38,.20)] bg-[rgba(220,38,38,.05)]
+                    text-[#dc2626]">
+                        <Trash size={12} />
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     )

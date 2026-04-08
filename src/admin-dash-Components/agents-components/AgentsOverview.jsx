@@ -3,6 +3,7 @@ import Logo from "../../assets/image.png"
 import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
+import EditModal from "./EditModal";
 
 export default function AgentsOverview({tenant, agents, setAgents}) {
     const totalAgents = agents?.length || 0;
@@ -19,7 +20,7 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
         try{
             const token = localStorage.getItem("token");
             const response = await fetch(`
-                https://api.voixup.fr/admin/tenants/${AgentId}`,
+                https://api.voixup.fr/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
                 headers: {

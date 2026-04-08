@@ -1,4 +1,4 @@
-import { Edit } from "lucide-react";
+import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
 
 export default function EditModal({onClose, onCancel, selectedAgent}) {
@@ -94,12 +94,14 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
 
         console.log("SENDING:", payload);
 
+        const token = localStorage.getItem("token");
         const res = await fetch(
         `/admin/agents/${form.id}/config`,
         {
             method: "PUT",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`, 
             },
             body: JSON.stringify(payload),
         }
@@ -313,7 +315,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                 <div className="flex flex-col gap-3">
                                     {(form.tools || []).map((tool, index) => (
                                         <div
-                                        key={tool.id}
+                                        key={index}
                                         className="p-4 rounded-xl relative bg-[rgba(3,44,166,0.03)]
                                         border border-[rgba(3,44,166,0.10)]">
 
@@ -322,7 +324,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                                     Tool #{index + 1}
                                                 </span>
                                                 <button
-                                                onClick={() => removeTool(tool.id)}
+                                                onClick={() => removeTool(index)}
                                                 className="text-slate-300 hover:text-red-400 transition-colors text-base"
                                                 >
                                                     <X />
@@ -338,7 +340,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                                     <input 
                                                     type="text" 
                                                     value={tool.name}
-                                                    onChange={(e) => updateTool(tool.id, "name", e.target.value)}
+                                                    onChange={(e) => updateTool(index, "name", e.target.value)}
                                                     placeholder="" 
                                                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                                                     border-gray-300 placeholder-gray-400
@@ -358,7 +360,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                                     border-gray-300 placeholder-gray-400
                                                     focus:border-[#032ca6]"
                                                     value={tool.url}
-                                                    onChange={(e) => updateTool(tool.id, "url", e.target.value)}
+                                                    onChange={(e) => updateTool(index, "url", e.target.value)}
                                                     required />
                                                 </div>
                                 
@@ -370,7 +372,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                                     <input 
                                                     type="text" 
                                                     value={tool.provider}
-                                                    onChange={(e) => updateTool(tool.id, "provider", e.target.value)}
+                                                    onChange={(e) => updateTool(index, "provider", e.target.value)}
                                                     placeholder="" 
                                                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                                                     border-gray-300 placeholder-gray-400
@@ -383,7 +385,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                                                         <input 
                                                         type="checkbox"
                                                         checked={tool.is_enabled}
-                                                        onChange={(e) => updateTool(tool.id, "is_enabled", e.target.checked)}
+                                                        onChange={(e) => updateTool(index, "is_enabled", e.target.checked)}
                                                         />
                                                         <span className="text-[11px] text-slate-600">Enabled</span>
                                                     </label>
@@ -410,8 +412,8 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
                         <button 
                         onClick={handleSubmit}
                         className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
-                        transition-all flex items-center gap-1.5bg-[#032ca6] border border-[#032ca6]"
-                        style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
+                        transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]"
+                        >
                             Save Changes
                         </button>
                     </div>
