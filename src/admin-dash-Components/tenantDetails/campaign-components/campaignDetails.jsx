@@ -1,4 +1,4 @@
-import { Delete, Edit, Trash } from "lucide-react";
+import { X, Edit, Trash } from "lucide-react";
 
 export default function CampaignDetails({selectedCampaign, onClose}) {
     return(

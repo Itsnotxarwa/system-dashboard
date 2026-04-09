@@ -175,7 +175,9 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                         onClick={() => {
                             setSelectedCampaign(c);
                             setShowCampaignDetails(true);
-                        }}>
+                        }}
+                        className="hover:bg-[rgba(3,44,166,.02)]
+                        cursor-pointer">
                             <td className="p-[13px_20px]">
                                 <div className="text-sm font-semibold text-slate-800">
                                     {c?.name || ""}
