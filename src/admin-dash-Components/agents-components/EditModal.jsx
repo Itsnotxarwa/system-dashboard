@@ -96,7 +96,7 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
 
         const token = localStorage.getItem("token");
         const res = await fetch(
-        `/admin/agents/${form.id}/config`,
+        `https://api.voixup.fr/admin/agents/${form.id}/config`,
         {
             method: "PUT",
             headers: {

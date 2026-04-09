@@ -18,7 +18,7 @@ export default function DeleteAgent({ selectedAgent, onConfirm, onCancel}) {
                 </h2>
 
                 <p className="text-xs text-slate-400 leading-relaxed mb-1">
-                    Are you sure you want to delete this tenant <strong classNameName="text-red-500">{selectedAgent?.name}</strong> ?
+                    Are you sure you want to delete this agent <strong classNameName="text-red-500">{selectedAgent?.name}</strong> ?
                 </p>
 
                 <div className="flex items-start gap-2.5 bg-red-50 border border-red-100 rounded-xl p-3 mb-6 text-left">
@@ -26,7 +26,7 @@ export default function DeleteAgent({ selectedAgent, onConfirm, onCancel}) {
                         <TriangleAlert />
                     </span>
                     <p className="text-[11px] text-red-700 leading-relaxed">
-                        All sessions, configs and data associated with this tenant will be permanently removed.
+                        All sessions, configs and data associated with this agent will be permanently removed.
                     </p>
                 </div>
 
