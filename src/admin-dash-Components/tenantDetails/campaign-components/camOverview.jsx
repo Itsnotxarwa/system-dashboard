@@ -1,4 +1,5 @@
 import Logo from "../../../assets/image.png";
+import CampaignDetails from "./campaignDetails";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
 
@@ -6,6 +7,9 @@ export default function CampaignOverview({tenant, campaigns, file}) {
 
     const [filter, setFilter] = useState("ALL");
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
+
+    const [selectedCampaign, setSelectedCampaign] = useState(null);
+    const [showCampaignDetails, setShowCampaignDetails] = useState(false);
 
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
@@ -66,7 +70,15 @@ export default function CampaignOverview({tenant, campaigns, file}) {
                 tenant={tenant} 
                 file={file} 
                 filteredcampaigns={filteredCampaigns} 
-                campaigns={campaigns} />
+                campaigns={campaigns}
+                setSelectedCampaign={setSelectedCampaign}
+                setShowCampaignDetails={setShowCampaignDetails} />
+
+                {showCampaignDetails && (
+                    <CampaignDetails 
+                    selectedCampaign={selectedCampaign}
+                    onClose={() => setShowCampaignDetails(false)} />
+                )}
 
             </div>
         </div>

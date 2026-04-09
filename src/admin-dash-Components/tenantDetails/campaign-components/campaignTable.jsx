@@ -1,7 +1,7 @@
 import { Edit, File, FileUp, Pause, Play, RotateCcw, Trash, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setSelectedCampaign, setShowCampaignDetails}) {
     const uploadInputRef = useRef(null);
     const [uploadingCampaignId, setUploadingCampaignId] = useState(null);
     const handleUploadFile = (campaignId) => {
@@ -171,7 +171,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                         ) : (
                         filteredcampaigns.map((c) => (
                         <tr
-                        key={c.id}>
+                        key={c.id}
+                        onClick={() => {
+                            setSelectedCampaign(c);
+                            setShowCampaignDetails(true);
+                        }}>
                             <td className="p-[13px_20px]">
                                 <div className="text-sm font-semibold text-slate-800">
                                     {c?.name || ""}
