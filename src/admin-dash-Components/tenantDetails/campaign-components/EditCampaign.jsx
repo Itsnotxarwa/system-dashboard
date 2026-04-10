@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Edit } from "lucide-react";
+import { X, Edit, Plus } from "lucide-react";
 
 export default function EditCampaign({onClose, onCancel}) {
     const [showSlot, setShowSlot] = useState(false);
