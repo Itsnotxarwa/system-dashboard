@@ -1,3 +1,5 @@
+import {  CircleAlert, Trash2, TriangleAlert } from "lucide-react";
+
 export default function DeleteCampaign({selectedCampaign, onCancel, onConfirm}) {
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">

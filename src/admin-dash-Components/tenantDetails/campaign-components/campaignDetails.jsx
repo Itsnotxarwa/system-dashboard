@@ -83,7 +83,7 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
                         <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1">
                             Status
                         </div>
-                        <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
+                        <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
                         ${selectedCampaign.status === "READY" ? " text-[#059669]" : ""}
                         ${selectedCampaign.status === "RUNNING" ? " text-[#059669]" : ""}
                         ${selectedCampaign.status === "PAUSED" ? " text-[#d97706]" : ""}
@@ -165,7 +165,9 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
                 </div>
             </div>
             {showEditModal && (
-                <EditCampaign />
+                <EditCampaign
+                onCancel={() => setShowEditModal(false)}
+                onClose={() => setShowEditModal(false)} />
             )}
             {showDeleteModal && (
                 <DeleteCampaign 
