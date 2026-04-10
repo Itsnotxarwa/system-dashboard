@@ -29,11 +29,16 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
                     },
             }
             );
-            if (!response.ok) throw new Error("Delete failed");
+            if (!response.ok) {
+                const errorBody = await response.json();
+                console.error("Delete failed:", errorBody);
+                throw new Error(errorBody?.detail || "Delete failed");
+            }
 
             const data = await response.json();
             console.log(data);
             setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+            onClose;
             console.log(tenant.id, campaignId)
 
         } catch (err) {
