@@ -18,6 +18,7 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
 
     const deleteCampaign = async (campaignId) => {
         try{
+            console.log(tenant.id, campaignId)
             const token = localStorage.getItem("token");
             const response = await fetch(
                 `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/force`,
@@ -30,16 +31,15 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
             }
             );
             if (!response.ok) {
-                const errorBody = await response.json();
-                console.error("Delete failed:", errorBody);
-                throw new Error(errorBody?.detail || "Delete failed");
+                const errorText = await response.text(); // read as plain text first
+    console.error("Delete failed - status:", response.status, "body:", errorText);
+    throw new Error(errorText || "Delete failed");
             }
 
             const data = await response.json();
             console.log(data);
             setCampaigns(prev => prev.filter(t => t.id !== campaignId));
-            onClose;
-            console.log(tenant.id, campaignId)
+            onClose();
 
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)
