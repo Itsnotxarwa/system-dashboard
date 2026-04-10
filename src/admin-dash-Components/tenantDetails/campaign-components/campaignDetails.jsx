@@ -34,6 +34,7 @@ export default function CampaignDetails({selectedCampaign, onClose, setSelectedC
             const data = await response.json();
             console.log(data);
             setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+            console.log(tenant.id, campaignId)
 
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)
