@@ -128,6 +128,7 @@ export default function Campaign() {
                 <CampaignOverview 
                 tenant={tenant}
                 campaigns={campaigns}
+                setCampaigns={setCampaigns}
                 updateStatus={updateStatus}
                 file={file}
                 />

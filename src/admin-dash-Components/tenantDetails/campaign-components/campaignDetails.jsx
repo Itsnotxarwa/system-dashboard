@@ -1,6 +1,44 @@
 import { X, Edit, Trash } from "lucide-react";
+import { useState } from "react";
+import EditCampaign from "./EditCampaign";
+import DeleteCampaign from "./DeleteCampaign";
 
-export default function CampaignDetails({selectedCampaign, onClose}) {
+export default function CampaignDetails({selectedCampaign, onClose, setSelectedCampaign, tenant, setCampaigns}) {
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleEdit = (campaign) => {
+        setSelectedCampaign(campaign);
+        setShowEditModal(true);
+    };
+    const handleDelete = (campaign) => {
+        setSelectedCampaign(campaign);
+        setShowDeleteModal(true);
+    };
+
+    const deleteCampaign = async (campaignId) => {
+        try{
+            const token = localStorage.getItem("token");
+            const response = await fetch(
+                `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/force`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
+            }
+            );
+            if (!response.ok) throw new Error("Delete failed");
+
+            const data = await response.json();
+            console.log(data);
+            setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
         bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
@@ -11,8 +49,8 @@ export default function CampaignDetails({selectedCampaign, onClose}) {
                 {/* Header */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b shrink-0 border border-[rgba(3,44,166,0.08)]
                 bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
-                    <div className="w-9 h-9 rounded-[11px] bg-linear-to-br from-[#032ca6] to-[#1a6bff]
-                    flex items-center justify-centertext-white text-[11px] font-extrabold shrink-0">
+                    <div className="w-9 h-9 rounded-xs bg-linear-to-br from-[#032ca6] to-[#1a6bff]
+                    flex items-center justify-center text-white text-[11px] font-extrabold shrink-0">
                         {selectedCampaign?.name ? selectedCampaign.name
                         .split(" ")
                         .map(word => word.charAt(0).toUpperCase())
@@ -46,11 +84,11 @@ export default function CampaignDetails({selectedCampaign, onClose}) {
                             Status
                         </div>
                         <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
-                        ${selectedCampaign.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
-                        ${selectedCampaign.status === "RUNNING" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
-                        ${selectedCampaign.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
-                        ${selectedCampaign.status === "COMPLETED" ? "bg-[rgba(124,58,237,.08)] text-[#7c3aed] border-[rgba(3,44,166,.20)]" : ""}
-                        ${selectedCampaign.status === "DRAFT" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
+                        ${selectedCampaign.status === "READY" ? " text-[#059669]" : ""}
+                        ${selectedCampaign.status === "RUNNING" ? " text-[#059669]" : ""}
+                        ${selectedCampaign.status === "PAUSED" ? " text-[#d97706]" : ""}
+                        ${selectedCampaign.status === "COMPLETED" ? " text-[#7c3aed]" : ""}
+                        ${selectedCampaign.status === "DRAFT" ? " text-[#032ca6]" : ""}
                         `}>
                             <span className={`w-1.5 h-1.5 shrink-0 rounded-full
                             ${selectedCampaign.status === "READY" ? "bg-[#22c55e]" : ""}
@@ -109,14 +147,16 @@ export default function CampaignDetails({selectedCampaign, onClose}) {
 
                 <div className="flex gap-2 p-[0_22px_20px]">
                     <button
-                    className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]
+                    onClick={handleEdit}
+                    className="flex-1 cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]
                     transition-all flex items-center gap-1.5 bg-[rgba(3,44,166,.05)] border 
                     border-[rgba(3,44,166,.15)]">
                         <Edit />
                         Edit
                     </button>
                     <button
-                    className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
+                    onClick={handleDelete}
+                    className="flex-1 cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold transition-all 
                     flex items-center gap-1.5 border border-[rgba(220,38,38,.20)] bg-[rgba(220,38,38,.05)]
                     text-[#dc2626]">
                         <Trash />
@@ -124,6 +164,19 @@ export default function CampaignDetails({selectedCampaign, onClose}) {
                     </button>
                 </div>
             </div>
+            {showEditModal && (
+                <EditCampaign />
+            )}
+            {showDeleteModal && (
+                <DeleteCampaign 
+                selectedCampaign={selectedCampaign} 
+                onCancel={() => setShowDeleteModal(false)}
+                onConfirm={(id) => {
+                deleteCampaign(id);
+                setShowDeleteModal(false);
+                }} 
+                />
+            )}
         </div>
     )
 }

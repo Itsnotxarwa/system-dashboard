@@ -158,6 +158,9 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                             Start Date <span className="text-[#ef4444]">*</span>
                         </label>
                         <input
+                        className="w-full px-3 py-2 text-sm border rounded-md outline-none 
+                        border-gray-300 placeholder-gray-400
+                        focus:border-[#032ca6]"
                         value={campaignData.start_date}
                         onChange={(e) => setCampaignData({...campaignData, start_date: e.target.value})}
                         type="date" />
@@ -168,6 +171,9 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                             Batch Size <span className="text-[#ef4444]">*</span>
                         </label>
                         <input 
+                        className="w-full px-3 py-2 text-sm border rounded-md outline-none 
+                        border-gray-300 placeholder-gray-400
+                        focus:border-[#032ca6]"
                         value={campaignData.batch_size}
                         onChange={(e) => setCampaignData({...campaignData, batch_size: Number(e.target.value)})}
                         type="number" min={1} max={500} />

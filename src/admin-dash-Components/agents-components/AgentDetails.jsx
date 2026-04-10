@@ -261,7 +261,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     )}
                 </div>
 
-                <div className="flex items-center gap-2 pb-1">
+                <div className="flex items-center justify-end gap-2 pb-1">
                     <button 
                     onClick={() => handleEdit(selectedAgent)}
                     className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-[#032ca6]

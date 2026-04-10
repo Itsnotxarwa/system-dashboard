@@ -3,7 +3,7 @@ import CampaignDetails from "./campaignDetails";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
 
-export default function CampaignOverview({tenant, campaigns, file}) {
+export default function CampaignOverview({tenant, campaigns, file, setCampaigns}) {
 
     const [filter, setFilter] = useState("ALL");
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
@@ -76,7 +76,10 @@ export default function CampaignOverview({tenant, campaigns, file}) {
 
                 {showCampaignDetails && (
                     <CampaignDetails 
+                    tenant={tenant}
+                    setCampaigns={setCampaigns}
                     selectedCampaign={selectedCampaign}
+                    setSelectedCampaign={setSelectedCampaign}
                     onClose={() => setShowCampaignDetails(false)} />
                 )}
 

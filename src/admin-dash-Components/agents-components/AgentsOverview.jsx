@@ -176,7 +176,8 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                 onConfirm={(id) => {
                 deleteAgent(id);
                 setShowDeleteAgent(false);
-            }} />
+                }} 
+                />
             )}
         </div>
     )
