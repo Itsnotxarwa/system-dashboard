@@ -1,7 +1,9 @@
 import { Edit, File, FileUp, Pause, Play, RotateCcw, Trash, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setSelectedCampaign, setShowCampaignDetails}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setSelectedCampaign,
+    setShowCampaignDetails, handleDelete, handleEdit, selectedCampaign}) {
+
     const uploadInputRef = useRef(null);
     const [uploadingCampaignId, setUploadingCampaignId] = useState(null);
     const handleUploadFile = (campaignId) => {
@@ -175,6 +177,9 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                         onClick={() => {
                             setSelectedCampaign(c);
                             setShowCampaignDetails(true);
+                            if (c.recipients && c.recipients.length > 0) {
+                                setShowCampaignDetails(false);
+                            }
                         }}
                         className="hover:bg-[rgba(3,44,166,.02)]
                         cursor-pointer">
@@ -292,7 +297,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     </div>
                                 ) : (
                                     <div className="flex items-center text-xs gap-1 font-medium">
-                                        <File size={12} />
+                                        <File size={21} />
                                         <div>
                                             <div className="text-xs font-semibold text-[#059669]">
                                                 {c.recipients?.length || 0}
@@ -305,30 +310,36 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                 )}
                             </td>
                             <td className="px-2">
-                                {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
+                                <div className="flex gap-1 flex-wrap">
                                     <button 
-                                    onClick={() => handleUploadFile(c.id)}
-                                    className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px] gap-1 
-                                    border-[rgba(3,44,166,.20)] flex items-center justify-center text-xs p-[3px_10px] font-medium">
-                                        <FileUp size={12} />
-                                        Upload
-                                    </button>
-                                ) : (
-                                <div className="flex gap-1">
-                                    <button className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]
+                                    onClick={() => handleEdit(selectedCampaign)}
+                                    className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]
                                     text-xs p-[3px_10px] font-medium
                                     border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
                                         <Edit size={12} />
                                         Edit
                                     </button>
-                                    <button className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border rounded-[20px]
+                                    <button 
+                                    onClick={() => handleDelete(selectedCampaign)}
+                                    className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border rounded-[20px]
                                     text-xs p-[3px_10px] font-medium
                                     border-[rgba(220,38,38,.16)] flex items-center justify-center gap-1">
-                                        <Trash />
+                                        <Trash size={12} />
                                         Delete
                                     </button>
+                                    {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
+                                        <button 
+                                        onClick={() => {
+                                            handleUploadFile(c.id)
+                                        }}
+                                        className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px] gap-1 
+                                        border-[rgba(3,44,166,.20)] flex items-center justify-center text-xs p-[3px_10px] font-medium">
+                                            <FileUp size={12} />
+                                            Upload
+                                        </button>
+                                    ) : null
+                                    }
                                 </div>
-                                )}
                             </td>
                         </tr>
                         ))

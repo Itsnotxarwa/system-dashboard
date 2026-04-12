@@ -1,7 +1,8 @@
 import Logo from "../../../assets/image.png";
-import CampaignDetails from "./campaignDetails";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
+import EditCampaign from "./EditCampaign";
+import DeleteCampaign from "./DeleteCampaign";
 
 export default function CampaignOverview({tenant, campaigns, file, setCampaigns}) {
 
@@ -9,7 +10,47 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns}
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);
 
     const [selectedCampaign, setSelectedCampaign] = useState(null);
-    const [showCampaignDetails, setShowCampaignDetails] = useState(false);
+
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const handleEdit = (campaign) => {
+        setSelectedCampaign(campaign);
+        setShowEditModal(true);
+    };
+    const handleDelete = (campaign) => {
+        setSelectedCampaign(campaign);
+        setShowDeleteModal(true);
+    };
+
+    const deleteCampaign = async (campaignId) => {
+        try{
+            console.log(tenant.id, campaignId)
+            const token = localStorage.getItem("token");
+            const response = await fetch(
+                `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/force`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
+            }
+            );
+            if (!response.ok) {
+                const errorText = await response.text(); 
+                console.error("Delete failed - status:", response.status, "body:", errorText);
+                throw new Error(errorText || "Delete failed");
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
 
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
@@ -71,18 +112,27 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns}
                 file={file} 
                 filteredcampaigns={filteredCampaigns} 
                 campaigns={campaigns}
+                selectedCampaign={selectedCampaign}
                 setSelectedCampaign={setSelectedCampaign}
-                setShowCampaignDetails={setShowCampaignDetails} />
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                />
 
-                {showCampaignDetails && (
-                    <CampaignDetails 
-                    tenant={tenant}
-                    setCampaigns={setCampaigns}
-                    selectedCampaign={selectedCampaign}
-                    setSelectedCampaign={setSelectedCampaign}
-                    onClose={() => setShowCampaignDetails(false)} />
+                {showEditModal && (
+                    <EditCampaign
+                    onCancel={() => setShowEditModal(false)}
+                    onClose={() => setShowEditModal(false)} />
                 )}
-
+                {showDeleteModal && (
+                    <DeleteCampaign 
+                    selectedCampaign={selectedCampaign} 
+                    onCancel={() => setShowDeleteModal(false)}
+                    onConfirm={(id) => {
+                    deleteCampaign(id);
+                    setShowDeleteModal(false);
+                    }} 
+                    />
+                )}
             </div>
         </div>
     )
