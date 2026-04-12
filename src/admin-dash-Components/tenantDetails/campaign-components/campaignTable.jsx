@@ -181,8 +181,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                 setShowCampaignDetails(false);
                             }
                         }}
-                        className="hover:bg-[rgba(3,44,166,.02)]
-                        cursor-pointer">
+                        >
                             <td className="p-[13px_20px]">
                                 <div className="text-sm font-semibold text-slate-800">
                                     {c?.name || ""}
@@ -292,7 +291,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     <div className="flex items-center justify-center text-xs gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
                                     border border-[rgba(245,158,11,.22)]">
-                                        <TriangleAlert size={12} />
+                                        <TriangleAlert size={12} className="text-[#032ca6]" />
                                         No File
                                     </div>
                                 ) : (
@@ -309,7 +308,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     </div>
                                 )}
                             </td>
-                            <td className="px-2">
+                            <td className="p-[13px_20px]">
                                 <div className="flex gap-1 flex-wrap">
                                     <button 
                                     onClick={() => handleEdit(selectedCampaign)}
