@@ -295,7 +295,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         <File size={12} />
                                         <div>
                                             <div className="text-xs font-semibold text-[#059669]">
-                                                {c.recipients || 0}
+                                                {c.recipients?.length || 0}
                                             </div>
                                             <div className="text-[10px] text-[#9aabca]">
                                                 File Uploaded
