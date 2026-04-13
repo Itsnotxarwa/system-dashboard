@@ -129,12 +129,12 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns 
                     onCancel={() => setShowEditModal(false)}
                     onClose={() => setShowEditModal(false)} />
                 )}
-                {showDeleteModal && (
+                {showDeleteModal && selectedCampaign && (
                     <DeleteCampaign 
                     selectedCampaign={selectedCampaign} 
                     onCancel={() => setShowDeleteModal(false)}
-                    onConfirm={(id) => {
-                    deleteCampaign(id);
+                    onConfirm={() => {
+                    deleteCampaign(selectedCampaign.id);
                     setShowDeleteModal(false);
                     }} 
                     />

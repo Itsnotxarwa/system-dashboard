@@ -18,7 +18,7 @@ export default function DeleteCampaign({selectedCampaign, onCancel, onConfirm}) 
                 </h2>
 
                 <p className="text-xs text-slate-400 leading-relaxed mb-1">
-                    Are you sure you want to delete this Campaign <strong classNameName="text-red-500">{selectedCampaign?.name}</strong> ?
+                    Are you sure you want to delete this Campaign <strong className="text-red-500">{selectedCampaign?.name}</strong> ?
                 </p>
 
                 <div className="flex items-start gap-2.5 bg-red-50 border border-red-100 rounded-xl p-3 mb-6 text-left">
@@ -43,7 +43,7 @@ export default function DeleteCampaign({selectedCampaign, onCancel, onConfirm}) 
                     className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-700 border border-red-600 
                     text-white text-sm font-bold shadow-md shadow-red-200 hover:shadow-red-300 
                     transition-all flex items-center justify-center gap-1.5"
-                    onClick={() => onConfirm(selectedCampaign.id)}>
+                    onClick={onConfirm}>
                         <Trash2 size={16} />
                         Yes, delete
                     </button>

@@ -339,12 +339,12 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     <div className="flex items-center justify-center text-xs gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
                                     border border-[rgba(245,158,11,.22)]">
-                                        <TriangleAlert size={12} stroke="#032ca6" />
+                                        <TriangleAlert size={12} />
                                         No File
                                     </div>
                                 ) : (
                                     <div className="flex items-center text-xs gap-1 font-medium">
-                                        <File size={21} />
+                                        <File size={21} stroke="#032ca6" />
                                         <div>
                                             <div className="text-xs font-semibold text-[#059669]">
                                                 {c.recipients?.length || 0}
