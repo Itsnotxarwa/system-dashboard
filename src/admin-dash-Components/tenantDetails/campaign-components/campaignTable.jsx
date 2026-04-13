@@ -1,8 +1,46 @@
 import { Edit, File, FileUp, Pause, Play, RotateCcw, Trash, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
 import { handleUnauthorized } from "../../../utils/auth";
+import DeleteRecipients from "./DeleteRecipients";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, handleDelete, handleEdit, selectedCampaign}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, handleDelete, handleEdit, selectedCampaign, setSelectedCampaign }) {
+    const [showDeleteRecs, setShowDeleteRecs] = useState(false);
+
+    const deleteRecipient = async (recipientId) => {
+        try{
+            const token = localStorage.getItem("token");
+            const campaignId = selectedCampaign.id;
+            const response = await fetch(
+                `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/recipients/${recipientId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "accept": "application/json",
+                        "Authorization": `Bearer ${token}`,
+                    },
+            }
+            );
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+            if (!response.ok) {
+                const errorText = await response.text(); 
+                console.error("Delete failed - status:", response.status, "body:", errorText);
+                throw new Error(errorText || "Delete failed");
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setSelectedCampaign(prev => ({
+                ...prev,
+                recipients: prev.recipients.filter(r => r.id !== recipientId)
+            }));
+            
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
 
     const uploadInputRef = useRef(null);
     const [uploadingCampaignId, setUploadingCampaignId] = useState(null);
@@ -346,7 +384,23 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                             <FileUp size={12} />
                                             Upload
                                         </button>
-                                    ) : null
+                                    ) : (
+                                        <button 
+                                        onClick={() => {
+                                            setSelectedCampaign(c);
+                                            setShowDeleteRecs(true);
+                                        }}
+                                        className="bg-[rgba(245,158,11,.06)] text-[#d97706] border rounded-[20px] gap-1 
+                                        border-[rgba(245,158,11,.22)] flex items-center justify-center text-xs
+                                        p-[3px_10px] font-medium">
+                                            <Trash size={12} />
+                                            Recipients
+                                            <span className="text-[9px] p-[1px_5px] rounded-sm
+                                            bg-[rgba(245,158,11,.12)]">
+                                                {c.recipients.length}
+                                            </span>
+                                        </button>
+                                    )
                                     }
                                 </div>
                             </td>
@@ -355,6 +409,14 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                     )}
                 </tbody>
             </table>
+            )}
+            {showDeleteRecs && (
+                <DeleteRecipients
+                selectedCampaign={selectedCampaign}
+                onCancel={() => setShowDeleteRecs(false)}
+                onConfirm={(recipientId) => {
+                    deleteRecipient(recipientId);
+                }}/>
             )}
         </div>
     )

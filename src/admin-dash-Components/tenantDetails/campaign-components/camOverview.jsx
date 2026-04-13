@@ -5,7 +5,7 @@ import EditCampaign from "./EditCampaign";
 import DeleteCampaign from "./DeleteCampaign";
 import { handleUnauthorized } from "../../../utils/auth";
 
-export default function CampaignOverview({tenant, campaigns, file, setCampaigns}) {
+export default function CampaignOverview({tenant, campaigns, file, setCampaigns }) {
 
     const [filter, setFilter] = useState("ALL");
     const filteredCampaigns = filter === "ALL" ? campaigns : campaigns.filter(c => c.status === filter);

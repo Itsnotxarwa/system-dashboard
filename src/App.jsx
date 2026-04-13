@@ -3,8 +3,31 @@ import AdminDashboard from "./admin-dash-Components/admin-dashboard"
 import Agents from './admin-dash-Components/tenantDetails/Agents';
 import CallRecords from './admin-dash-Components/tenantDetails/CallRecords';
 import Campaign from './admin-dash-Components/tenantDetails/Campaign';
+import SessionExpired from './SessionExpired';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [sessionValid, setSessionValid] = useState(true);
+
+  useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            setSessionValid(false);
+            return;
+        }
+
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            if (payload.exp * 1000 < Date.now()) {
+                localStorage.removeItem("token");
+                setSessionValid(false);
+            }
+        } catch {
+            setSessionValid(false);
+        }
+    }, []);
+
+    if (!sessionValid) return <SessionExpired />;
 
   return (
     <>
