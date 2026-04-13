@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 import TenantsTable from "./tenants-components/TenantsTable";
+import { handleUnauthorized } from "../utils/auth";
 
 export default function Tenants({tenants, setTenants}) {
     const [search, setSearch] = useState("");    
@@ -43,6 +44,11 @@ export default function Tenants({tenants, setTenants}) {
                 }
             );
 
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+
             if (!response.ok) throw new Error("Reset failed");
 
             const data = await response.json();
@@ -72,6 +78,12 @@ export default function Tenants({tenants, setTenants}) {
                     },
                 }
             );
+
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+
             if (!response.ok) throw new Error("Delete failed");
 
             const data = await response.json();

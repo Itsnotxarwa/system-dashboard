@@ -4,6 +4,7 @@ import BasicInfo from "./basicInfo";
 import ModelsConfig from "./modelsConfig";
 import Tools from "./Tools";
 import VoiceMail from "./VoiceMail";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function AgentModal({selectedTenant, onClose, onCancel}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
@@ -60,6 +61,11 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                     body: JSON.stringify(payload)
                 }
             );
+
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
             
             const data = await response.json();
             

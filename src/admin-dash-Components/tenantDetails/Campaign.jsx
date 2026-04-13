@@ -4,6 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import TopBar from "./TopBar";
 import CampaignOverview from "./campaign-components/camOverview";
 import CreateCampaign from "./campaign-components/CreateCampaign";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function Campaign() {
     const {id} = useParams();
@@ -24,6 +25,11 @@ export default function Campaign() {
                 authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
             
             const data = await res.json();
             setTenant(data);
@@ -43,6 +49,11 @@ export default function Campaign() {
                 authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
 
             const data = await res.json();
             console.log("Campaigns:", data);
@@ -77,6 +88,12 @@ export default function Campaign() {
                 },
             }
         );
+
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
+        
         if (res.status === 404) {
             setAgents([]);
             return;

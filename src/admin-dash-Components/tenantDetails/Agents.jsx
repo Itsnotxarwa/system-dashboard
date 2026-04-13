@@ -4,6 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import AgentModal from "../agents-components/AgentModal";
 import TopBar from "./TopBar";
 import AgentsOverview from "../agents-components/AgentsOverview";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function Agents() {
     const {id} = useParams();
@@ -22,6 +23,11 @@ export default function Agents() {
                 authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
 
             const data = await res.json();
             setTenant(data);
@@ -43,6 +49,12 @@ export default function Agents() {
                 },
             }
         );
+
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
+
         if (res.status === 404) {
             setAgents([]);
             return;

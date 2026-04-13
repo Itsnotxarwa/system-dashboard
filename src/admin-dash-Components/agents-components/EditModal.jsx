@@ -1,5 +1,6 @@
 import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function EditModal({onClose, onCancel, selectedAgent}) {
     const models = [
@@ -106,6 +107,11 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
             body: JSON.stringify(payload),
         }
         );
+
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
 
         const data = await res.json();
         console.log("SUCCESS:", data);

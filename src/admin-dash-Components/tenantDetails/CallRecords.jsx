@@ -3,6 +3,7 @@ import TenantSidebar from "./tenantSidebar";
 import { useState, useEffect } from "react";
 import TopBar from "./TopBar";
 import CallsOverview from "./calls-components/CallsOverview";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function CallRecords() {
     const {id} = useParams();
@@ -22,6 +23,11 @@ export default function CallRecords() {
                 authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
             
             const data = await res.json();
             setTenant(data);
@@ -42,6 +48,11 @@ export default function CallRecords() {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
 
             const data = await res.json();
             console.log("calls:", data);
@@ -67,6 +78,11 @@ export default function CallRecords() {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
 
             const data = await res.json();
             (Array.isArray(data)) ? console.log("call sessions:", data) : console.log("call sessions error:", data);

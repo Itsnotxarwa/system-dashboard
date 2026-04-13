@@ -4,6 +4,7 @@ import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
 import EditModal from "./EditModal";
+import { handleUnauthorized } from "../../utils/auth";
 
 export default function AgentsOverview({tenant, agents, setAgents}) {
     const totalAgents = agents?.length || 0;
@@ -29,6 +30,12 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                 },
             }
         );
+
+        if (response.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
+
         if (!response.ok) throw new Error("Delete failed");
 
         const data = await response.json();

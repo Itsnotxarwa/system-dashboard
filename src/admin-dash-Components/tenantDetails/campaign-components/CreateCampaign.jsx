@@ -1,5 +1,6 @@
 import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
+import { handleUnauthorized } from "../../../utils/auth";
 
 export default function CreateCampaign({tenant, onClose, onCancel, agents, handleDrop, handleDragOver, handleFileChange, file, setFile}) {
     const [showSlot, setShowSlot] = useState(false);
@@ -59,6 +60,11 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                 },
                 body: formData,
             });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
 
             const data = await res.json();
             console.log(data);

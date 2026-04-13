@@ -3,6 +3,7 @@ import CampaignTable from "./campaignTable";
 import { useState } from "react";
 import EditCampaign from "./EditCampaign";
 import DeleteCampaign from "./DeleteCampaign";
+import { handleUnauthorized } from "../../../utils/auth";
 
 export default function CampaignOverview({tenant, campaigns, file, setCampaigns}) {
 
@@ -37,6 +38,10 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns}
                     },
             }
             );
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
             if (!response.ok) {
                 const errorText = await response.text(); 
                 console.error("Delete failed - status:", response.status, "body:", errorText);
@@ -46,6 +51,7 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns}
             const data = await response.json();
             console.log(data);
             setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+            
 
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)

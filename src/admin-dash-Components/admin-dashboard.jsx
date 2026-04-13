@@ -3,6 +3,7 @@ import Overview from "./tenants-components/overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
 import CreateModal from "./tenants-components/createModal";
+import { handleUnauthorized } from "../utils/auth";
 
 export default function AdminDashboard() {
 
@@ -52,6 +53,11 @@ export default function AdminDashboard() {
                         "Authorization": `Bearer ${token}`
                     }
                 });
+
+                if (response.status === 401) {
+                    handleUnauthorized(401);
+                    return;
+                }
                 
                 const data = await response.json();
                 console.log("tenants:", data);
@@ -78,6 +84,11 @@ export default function AdminDashboard() {
         },
         body: JSON.stringify(form)
       });
+
+      if (response.status === 401) {
+          handleUnauthorized(401);
+          return;
+      }
 
       const data = await response.json();
       console.log(data);

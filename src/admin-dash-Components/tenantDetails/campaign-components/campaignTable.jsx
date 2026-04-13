@@ -1,8 +1,8 @@
 import { Edit, File, FileUp, Pause, Play, RotateCcw, Trash, TriangleAlert } from "lucide-react";
 import { useRef, useState } from "react";
+import { handleUnauthorized } from "../../../utils/auth";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setSelectedCampaign,
-    setShowCampaignDetails, handleDelete, handleEdit, selectedCampaign}) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, handleDelete, handleEdit, selectedCampaign}) {
 
     const uploadInputRef = useRef(null);
     const [uploadingCampaignId, setUploadingCampaignId] = useState(null);
@@ -31,6 +31,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 }
             );
 
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+
             if (!res.ok) throw new Error();
             const data = await res.json();
             alert(`Uploaded successfully — ${data.valid_recipients} valid, ${data.invalid_recipients} invalid out of ${data.total_recipients} total`);
@@ -57,10 +62,15 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 },
             }
         );
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
+        
         if (!res.ok) {
             const err = await res.json();
             console.error(err);
-            alert(`Failed: ${err?.detail}`);
+            console.error(err);
             return;
         }
 
@@ -68,7 +78,6 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         updateStatus(campaignId, data.status);
     } catch (err) {
         console.error(err);
-        alert(`Failed: ${err?.detail}`);
     }
     };
     {/* PAUSE */}
@@ -79,10 +88,14 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/pause`,
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
         if (!res.ok) throw new Error();
         const data = await res.json();
         updateStatus(campaignId, data.status);
-    } catch (err) { alert(`Failed: ${err?.detail}`); }
+    } catch (err) { console.error(err); }
     };
 
     {/* RESUME */}
@@ -97,7 +110,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         const data = await res.json();
         updateStatus(campaignId, data.status);
     } catch (err) { 
-        alert(`Failed: ${err?.detail}`);
+        console.error(err);
     }
     };
 
@@ -109,10 +122,14 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/reset`,
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
+        if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
         if (!res.ok) throw new Error();
         const data = await res.json();
         updateStatus(campaignId, data.status);
-    } catch (err) { alert(`Failed: ${err?.detail}`); }
+    } catch (err) { console.error(err); }
     };
 
     return(
@@ -174,13 +191,6 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                         filteredcampaigns.map((c) => (
                         <tr
                         key={c.id}
-                        onClick={() => {
-                            setSelectedCampaign(c);
-                            setShowCampaignDetails(true);
-                            if (c.recipients && c.recipients.length > 0) {
-                                setShowCampaignDetails(false);
-                            }
-                        }}
                         >
                             <td className="p-[13px_20px]">
                                 <div className="text-sm font-semibold text-slate-800">
@@ -291,7 +301,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     <div className="flex items-center justify-center text-xs gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
                                     border border-[rgba(245,158,11,.22)]">
-                                        <TriangleAlert size={12} className="text-[#032ca6]" />
+                                        <TriangleAlert size={12} stroke="#032ca6" />
                                         No File
                                     </div>
                                 ) : (
