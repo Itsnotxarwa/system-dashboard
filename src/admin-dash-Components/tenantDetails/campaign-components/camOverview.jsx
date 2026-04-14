@@ -48,11 +48,11 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns 
                 throw new Error(errorText || "Delete failed");
             }
 
+            setCampaigns(prev => prev.filter(t => t.id !== campaignId));
+
             const data = await response.json();
             console.log(data);
-            setCampaigns(prev => prev.filter(t => t.id !== campaignId));
             
-
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)
         }
