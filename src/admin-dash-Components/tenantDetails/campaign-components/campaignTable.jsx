@@ -31,12 +31,13 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 throw new Error(errorText || "Delete failed");
             }
 
-            const data = await response.json();
-            console.log(data);
             setSelectedCampaign(prev => ({
                 ...prev,
                 recipients: prev.recipients.filter(r => r.id !== recipientId)
             }));
+            const data = await response.json();
+            console.log(data);
+            
             
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)
