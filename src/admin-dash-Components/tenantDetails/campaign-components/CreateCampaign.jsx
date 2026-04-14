@@ -2,7 +2,8 @@ import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
 import { handleUnauthorized } from "../../../utils/auth";
 
-export default function CreateCampaign({tenant, onClose, onCancel, agents, handleDrop, handleDragOver, handleFileChange, file, setFile}) {
+export default function CreateCampaign({tenant, onClose, onCancel, agents, handleDrop, handleDragOver, 
+    handleFileChange, file, setFile, setCampaigns}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
     
@@ -72,9 +73,8 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             if (!res.ok) {
                 throw new Error(data?.detail || "Creation failed");
             }
-
+            setCampaigns(prev => [...prev, data]);
             onClose();
-            alert("campaign created");
 
             } catch (error) {
                 console.error(error);

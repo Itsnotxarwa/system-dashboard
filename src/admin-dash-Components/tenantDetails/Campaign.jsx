@@ -152,6 +152,7 @@ export default function Campaign() {
             </main>
             {showCreateModal && 
             <CreateCampaign 
+            setCampaigns={setCampaigns}
             agents={agents}
             tenant={tenant}
             onClose={() => setShowCreateModal(false)} 
