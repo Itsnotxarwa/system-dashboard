@@ -118,6 +118,7 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns 
                 file={file} 
                 filteredcampaigns={filteredCampaigns} 
                 campaigns={campaigns}
+                setCampaigns={setCampaigns}
                 selectedCampaign={selectedCampaign}
                 setSelectedCampaign={setSelectedCampaign}
                 handleDelete={handleDelete}

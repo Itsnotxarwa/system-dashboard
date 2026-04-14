@@ -3,7 +3,8 @@ import { useRef, useState } from "react";
 import { handleUnauthorized } from "../../../utils/auth";
 import DeleteRecipients from "./DeleteRecipients";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, handleDelete, handleEdit, selectedCampaign, setSelectedCampaign }) {
+export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setCampaigns, handleDelete, 
+    handleEdit, selectedCampaign, setSelectedCampaign }) {
     const [showDeleteRecs, setShowDeleteRecs] = useState(false);
 
     const deleteRecipient = async (recipientId) => {
@@ -86,7 +87,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         }
     }
     {/* START */}
-    const startCampaign = async (campaignId) => {
+    const startCampaign = async (campaignId, recipients) => {
+        if (!recipients || recipients.length === 0) {
+            alert("No recipients");
+            return;
+        }
     try {
         const token = localStorage.getItem("token");
         const tenantId = tenant?.id;
@@ -108,12 +113,13 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
         if (!res.ok) {
             const err = await res.json();
             console.error(err);
-            console.error(err);
             return;
         }
 
         const data = await res.json();
+        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
         updateStatus(campaignId, data.status);
+
     } catch (err) {
         console.error(err);
     }
@@ -131,8 +137,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             return;
         }
         if (!res.ok) throw new Error();
+
         const data = await res.json();
+        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
         updateStatus(campaignId, data.status);
+
     } catch (err) { console.error(err); }
     };
 
@@ -145,8 +154,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
         );
         if (!res.ok) throw new Error();
+
         const data = await res.json();
+        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
         updateStatus(campaignId, data.status);
+
     } catch (err) { 
         console.error(err);
     }
@@ -165,8 +177,11 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 return;
             }
         if (!res.ok) throw new Error();
+
         const data = await res.json();
+        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
         updateStatus(campaignId, data.status);
+        
     } catch (err) { console.error(err); }
     };
 
@@ -283,12 +298,17 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                 <div className="flex gap-1 flex-wrap">
                                     {(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT") && (
                                         <button 
+                                        disabled={!c.recipients || c.recipients.length === 0}
                                         onClick={() => {
                                             startCampaign(c.id)
                                         }}
-                                        className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
-                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs 
-                                        font-medium py-1 px-2.5 rounded-[20px]">
+                                        className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
+                                        ${(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT")
+                                            ? "bg-[rgba(5,150,105,.08)] text-[#059669] border border-[rgba(5,150,105,.25)]"
+                                            : "bg-gray-100 text-gray-400 border"
+                                        }
+                                        ${(!c.recipients || c.recipients.length === 0) ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                                        `}>
                                             <Play size={12} />
                                             Start
                                         </button>
@@ -359,7 +379,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             <td className="p-[13px_20px]">
                                 <div className="flex gap-1 flex-wrap">
                                     <button 
-                                    onClick={() => handleEdit(selectedCampaign)}
+                                    onClick={() => handleEdit(c)}
                                     className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]
                                     text-xs p-[3px_10px] font-medium
                                     border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
@@ -367,7 +387,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         Edit
                                     </button>
                                     <button 
-                                    onClick={() => handleDelete(selectedCampaign)}
+                                    onClick={() => handleDelete(c)}
                                     className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border rounded-[20px]
                                     text-xs p-[3px_10px] font-medium
                                     border-[rgba(220,38,38,.16)] flex items-center justify-center gap-1">
