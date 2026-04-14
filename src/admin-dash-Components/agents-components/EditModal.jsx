@@ -2,7 +2,7 @@ import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
 import { handleUnauthorized } from "../../utils/auth";
 
-export default function EditModal({onClose, onCancel, selectedAgent}) {
+export default function EditModal({onClose, onCancel, selectedAgent, setAgents}) {
     const models = [
         { 
             key: "llm", 
@@ -114,8 +114,9 @@ export default function EditModal({onClose, onCancel, selectedAgent}) {
         }
 
         const data = await res.json();
-        console.log("SUCCESS:", data);
+        if (!res.ok) throw new Error(data?.detail || "Update failed");
 
+        setAgents(prev => prev.map(a => a.id === form.id ? {...a, ...data} : a)); 
         onClose();
     } catch (err) {
         console.error(`Failed: ${err?.detail}`);

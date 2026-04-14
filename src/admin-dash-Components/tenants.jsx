@@ -53,11 +53,10 @@ export default function Tenants({tenants, setTenants}) {
 
             const data = await response.json();
             console.log(data);
-            alert("Password updated ✅");
+            setTenants(prev => prev.map(t => t.id === tenantId ? {...t, password: newPassword} : t)); // add this
 
             setShowEditModal(false);
 
-            window.location.reload();
 
             } catch (error) {
                 console.error(error);
@@ -85,11 +84,11 @@ export default function Tenants({tenants, setTenants}) {
             }
 
             if (!response.ok) throw new Error("Delete failed");
-
+            
+            setTenants(prev => prev.filter(t => t.id !== tenantId));
             const data = await response.json();
             console.log(data);
 
-            setTenants(prev => prev.filter(t => t.id !== tenantId));
             } catch (error) {
                 console.error(error);
             }

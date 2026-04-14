@@ -98,6 +98,7 @@ export default function AdminDashboard() {
         return;
       }
 
+      setTenants(prev => [...prev, data]);
       setCreatedTenant(data);
 
     } catch (error) {

@@ -6,7 +6,7 @@ import Tools from "./Tools";
 import VoiceMail from "./VoiceMail";
 import { handleUnauthorized } from "../../utils/auth";
 
-export default function AgentModal({selectedTenant, onClose, onCancel}) {
+export default function AgentModal({selectedTenant, onClose, onCancel, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
 
@@ -75,8 +75,8 @@ export default function AgentModal({selectedTenant, onClose, onCancel}) {
                 throw new Error(data?.detail || "Creation failed");
             }
 
+            setAgents(prev => [...prev, data]);
             onClose();
-            alert("Agent created ✅");
             
         } catch (error) {
             console.error(error);

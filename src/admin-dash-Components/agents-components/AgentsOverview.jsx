@@ -37,11 +37,11 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
         }
 
         if (!response.ok) throw new Error("Delete failed");
+        setAgents(prev => prev.filter(t => t.id !== AgentId))
 
         const data = await response.json();
         console.log(data);
 
-        setAgents(prev => prev.filter(t => t.id !== AgentId));
         } catch (err) {
             console.log(`Failed: ${err?.detail}`)
         }
@@ -174,7 +174,8 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                 <EditModal
                 selectedAgent={selectedAgent}
                 onClose={() => setShowEditModal(false)}
-                onCancel={() => setShowEditModal(false)} />
+                onCancel={() => setShowEditModal(false)}
+                setAgents={setAgents} />
             )}
             {showDeleteAgent && (
                 <DeleteAgent

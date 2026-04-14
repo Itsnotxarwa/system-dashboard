@@ -89,6 +89,7 @@ export default function Agents() {
             {showAgentModal && (
                 <AgentModal 
                 selectedTenant={tenant}
+                setAgents={setAgents}
                 onClose={() => setShowAgentModal(false)} 
                 onCancel={() => setShowAgentModal(false)}
                 />
