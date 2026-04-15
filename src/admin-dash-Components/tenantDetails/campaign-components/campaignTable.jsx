@@ -365,7 +365,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     </div>
                                 ) : (
                                     <div className="flex items-center text-xs gap-1 font-medium">
-                                        <File size={21} stroke="#032ca6" />
+                                        <File size={21} stroke="#9aabca" />
                                         <div>
                                             <div className="text-xs font-semibold text-[#059669]">
                                                 {c.recipients?.length || 0}

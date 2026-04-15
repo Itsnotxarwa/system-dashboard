@@ -96,13 +96,6 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
         };
     }
-
-    const uploadData = await uploadRes.json();
-
-    newCampaign = {
-        ...data,
-        recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
-    };
 }
 
             setCampaigns(prev => [...prev, newCampaign]);
