@@ -99,7 +99,6 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
 
     const uploadData = await uploadRes.json();
 
-    // Use upload response directly — skip the separate recipients fetch
     newCampaign = {
         ...data,
         recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
@@ -107,8 +106,8 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
 }
 
             setCampaigns(prev => [...prev, newCampaign]);
-
             onClose();
+            window.location.reload();
 
             } catch (error) {
                 console.error(error);
