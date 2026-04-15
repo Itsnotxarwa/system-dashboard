@@ -68,6 +68,23 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             }
 
             const data = await res.json();
+
+            if (file) {
+                const uploadForm = new FormData();
+                uploadForm.append("file", file);
+
+                await fetch(
+                    `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients/upload`,
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: uploadForm,
+                    }
+                );
+            }
+
             console.log(data);
             
             if (!res.ok) {
