@@ -49,9 +49,6 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             formData.append("start_date", campaignData.start_date);
             formData.append("batch_size", campaignData.batch_size);
             formData.append("time_slots", JSON.stringify(campaignData.time_slots));
-            if (file) {
-                formData.append("file", file);
-            }
 
             const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaigns`, {
                 method: "POST",
@@ -91,6 +88,14 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             body: uploadForm,
         }
     );
+
+    if (uploadRes.ok) {
+        const uploadData = await uploadRes.json();
+        newCampaign = {
+            ...data,
+            recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
+        };
+    }
 
     const uploadData = await uploadRes.json();
 
