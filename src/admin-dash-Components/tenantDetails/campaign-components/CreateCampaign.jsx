@@ -77,39 +77,29 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
 
             let newCampaign = data;
 
-            if (file) {
-                const uploadForm = new FormData();
-                uploadForm.append("file", file);
+         if (file) {
+    const uploadForm = new FormData();
+    uploadForm.append("file", file);
 
-                await fetch(
-                    `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients/upload`,
-                    {
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: uploadForm,
-                    }
-                );
+    const uploadRes = await fetch(
+        `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients/upload`,
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: uploadForm,
+        }
+    );
 
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                const recRes = await fetch(
-                    `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+    const uploadData = await uploadRes.json();
 
-                const recipients = await recRes.json();
-
-                newCampaign = {
-                        ...data,
-                        recipients: Array.from({ length: recipients.valid_recipients || 0 }, (_, i) => ({ id: i }))
-                    };
-                }
+    // Use upload response directly — skip the separate recipients fetch
+    newCampaign = {
+        ...data,
+        recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
+    };
+}
 
             setCampaigns(prev => [...prev, newCampaign]);
 
