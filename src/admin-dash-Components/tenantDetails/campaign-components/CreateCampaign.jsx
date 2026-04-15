@@ -81,7 +81,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                 const uploadForm = new FormData();
                 uploadForm.append("file", file);
 
-                const uploadRes = await fetch(
+                await fetch(
                     `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients/upload`,
                     {
                         method: "POST",
@@ -92,12 +92,24 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                     }
                 );
 
-            const uploadData = await uploadRes.json();
-            newCampaign = {
-                    ...data,
-                    recipients: new Array(uploadData.valid_recipients || 1)
-                };
-            }
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const recRes = await fetch(
+                    `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                const recipients = await recRes.json();
+
+                newCampaign = {
+                        ...data,
+                        recipients: new Array(recipients.valid_recipients || 1)
+                    };
+                }
 
             setCampaigns(prev => [...prev, newCampaign]);
 
