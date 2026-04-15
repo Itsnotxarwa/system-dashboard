@@ -75,7 +75,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                 throw new Error(data?.detail || "Creation failed");
             }
 
-            setCampaigns(prev => [...prev, data]);
+            let newCampaign = data;
 
             if (file) {
                 const uploadForm = new FormData();
@@ -93,19 +93,14 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                 );
 
             const uploadData = await uploadRes.json();
+            newCampaign = {
+                    ...data,
+                    recipients: new Array(uploadData.valid_recipients || 1)
+                };
+            }
 
-            setCampaigns(prev =>
-                prev.map(c =>
-                    c.id === data.id
-                        ? {
-                            ...c,
-                            recipients: new Array(uploadData.valid_recipients || 1) 
-                        }
-                        : c
-                )
-            );
-        }
-        
+            setCampaigns(prev => [...prev, newCampaign]);
+
             onClose();
 
             } catch (error) {
