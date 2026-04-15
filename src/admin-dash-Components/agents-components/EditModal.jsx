@@ -5,6 +5,7 @@ import { handleUnauthorized } from "../../utils/auth";
 export default function EditModal({onClose, onCancel, selectedAgent, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
+    const [showFull, setShowFull] = useState(false);
 
     const models = [
         { 
@@ -243,21 +244,29 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     </div>
                     {/* System Prompt */}
                     <div>
-                        <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
-                        tracking-wider mb-1.5">
-                            System Prompt <span className="text-[#ef4444]">*</span>
-                        </label>
+                        <div className="flex items-center justify-between mb-1.5">
+                            <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                            tracking-wider">
+                                System Prompt <span className="text-[#ef4444]">*</span>
+                            </label>
+                            <button
+                            onClick={() => setShowFull(!showFull)}
+                            className="text-[9px] px-2.25 py-0.5 rounded-md border border-[rgba(3,44,166,.14)] 
+                            bg-[rgba(3,44,166,.05)] text-[#032ca6] cursor-pointer"
+                            >
+                                {showFull ? "Hide" : "Show full"}
+                            </button>
+                        </div>
                         <textarea 
                         value={form.system_prompt || ""}
                         onChange={(e) => setForm({ ...form, system_prompt: e.target.value })}
-                        rows="4" 
+                        rows={showFull ? 20 : 4}
                         className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                         border-gray-300 placeholder-gray-400
-                        focus:border-[#032ca6] resize-none leading-relaxed" 
+                        focus:border-[#032ca6] resize-y leading-relaxed" 
                         >
                         </textarea>
                     </div>
-                    <div className="flex gap-3">
                     {/* Greeting Message */}
                     <div>
                         <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
@@ -290,7 +299,6 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                     border-gray-300 placeholder-gray-400
                     focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
-                    </div>
                     </div>
                     </>
                     )}
