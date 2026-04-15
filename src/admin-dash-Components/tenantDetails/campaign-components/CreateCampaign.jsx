@@ -107,7 +107,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
 
                 newCampaign = {
                         ...data,
-                        recipients: new Array(recipients.valid_recipients || 1)
+                        recipients: Array.from({ length: recipients.valid_recipients || 0 }, (_, i) => ({ id: i }))
                     };
                 }
 
