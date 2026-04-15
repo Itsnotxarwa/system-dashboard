@@ -3,6 +3,9 @@ import { useState } from "react";
 import { handleUnauthorized } from "../../utils/auth";
 
 export default function EditModal({onClose, onCancel, selectedAgent, setAgents}) {
+    const TABS = ["Basic Info", "Models Config", "Tools"];
+    const [activeTab, setActiveTab] = useState(TABS[0]);
+
     const models = [
         { 
             key: "llm", 
@@ -156,9 +159,36 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     </button>
                 </div>
 
+                {/* TABS */}
+                <div className="flex border-b shrink-0 px-6 border border-[rgba(3,44,166,0.08)]">
+                    {TABS.map((tab) => (
+                        <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        style={{
+                            padding: "9px 18px",
+                            fontSize: 12,
+                            fontFamily: "'DM Mono', monospace",
+                            fontWeight: activeTab === tab ? 600 : 400,
+                            background: "none",
+                            border: "none",
+                            borderBottom: activeTab === tab ? "2px solid #032ca6" : "2px solid transparent",
+                            color: activeTab === tab ? "#032ca6" : "#9aabca",
+                            cursor: "pointer",
+                            marginBottom: -1,
+                            transition: "all 0.15s",
+                        }}
+                        >
+                            {tab}
+                        </button>
+                    ))}
+                </div>
+
                 {/* FORM */}
                 <div className="overflow-y-auto flex-1 py-5 px-6">
                     {/* BASIC INFO */}
+                    {activeTab === "Basic Info" && (
+                    <>
                     <div className="text-[10px] font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
                         Basic Info
                     </div>
@@ -227,6 +257,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                         >
                         </textarea>
                     </div>
+                    <div className="flex gap-3">
                     {/* Greeting Message */}
                     <div>
                         <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
@@ -260,7 +291,12 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     border-gray-300 placeholder-gray-400
                     focus:border-[#032ca6] resize-none leading-relaxed" ></textarea>
                     </div>
+                    </div>
+                    </>
+                    )}
                     {/* Models */}
+                    {activeTab === "Models Config" && (
+                    <>
                     <div className="text-[10px] font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
                         Models Configuration
                     </div>
@@ -301,7 +337,11 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                             </div>
                         ))}
                     </div>
+                    </>
+                    )}
                     {/* TOOLS */}
+                    {activeTab === "Tools" && (
+                    <>
                     <div className="flex items-center justify-between text-[10px] font-semibold text-[#9aabca] 
                     uppercase tracking-widest mb-2.5">
                         <span>Tools</span>
@@ -403,6 +443,8 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                 </div>
                             )}
                     </div>
+                    </>
+                    )}
                 </div>
 
                 {/* Footer */}
