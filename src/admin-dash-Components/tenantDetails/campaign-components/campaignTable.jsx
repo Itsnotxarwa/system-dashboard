@@ -301,7 +301,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         <button 
                                         disabled={!c.recipients || c.recipients.length === 0}
                                         onClick={() => {
-                                            startCampaign(c.id)
+                                            startCampaign(c.id, c.recipients)
                                         }}
                                         className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
                                         ${(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT")
