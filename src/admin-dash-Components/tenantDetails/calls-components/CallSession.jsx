@@ -21,11 +21,11 @@ export default function CallSession({callSessions}) {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3.5 border-b
             border-[rgba(3,44,166,.07)] bg-[rgba(3,44,166,.02)]">
-                <span className="text-sm font-bold text-slate-800"
+                <span className="text-lg font-bold text-black"
                 style={{fontFamily:"Cabinet Grotesk',sans-serif"}}>
                     Call Sessions
                 </span>
-                <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
+                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
                     {callSessions?.length} sessions
                 </span>
             </div>
@@ -36,25 +36,25 @@ export default function CallSession({callSessions}) {
                     <thead className="sticky top-0 bg-[#fafafa]">
                         <tr className="border-b border-[rgba(3,44,166,.07)]">
                             <th className="p-[10px_5px_10px_16px] w-7"></th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 From
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 To
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 Type
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 Duration
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 Status
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 End Raison
                             </th>
-                            <th className="text-left px-5 py-2.5 text-[9px] font-medium tracking-widest uppercase text-slate-800">
+                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
                                 Created at
                             </th>
                         </tr>
@@ -62,7 +62,7 @@ export default function CallSession({callSessions}) {
                     <tbody>
                         {callSessions?.length === 0 ? (
                             <tr>
-                                <td colSpan="7" className="text-center py-4 text-slate-400">
+                                <td colSpan="7" className="text-center py-4 text-slate-800">
                                     No call sessions found for this call.
                                 </td>
                             </tr>
@@ -101,25 +101,25 @@ export default function CallSession({callSessions}) {
                                             )}
                                         </div>
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.from_number}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.to_number}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.call_type}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {formatDuration(session.duration_seconds)}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.call_status}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.disconnect_reason}
                                 </td>
-                                <td className="px-5 py-2.5 text-[10px] text-slate-400">
+                                <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {formatDate(session.created_at)}
                                 </td>
                             </tr>
@@ -136,7 +136,7 @@ export default function CallSession({callSessions}) {
                                                 className={`flex items-start gap-2 ${
                                                     isAI ? "" : "flex-row-reverse"
                                                     }`}>
-                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold text-white mt-0.5 shrink-0
+                                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5 shrink-0
                                                     ${
                                                         isAI
                                                         ? "bg-linear-to-br from-[#032ca6] to-[#1a6bff]"
@@ -144,13 +144,13 @@ export default function CallSession({callSessions}) {
                                                     }`}>
                                                         {isAI ? "AI" : "CL"}
                                                     </div>
-                                                    <div className={`max-w-[78%] px-3 py-2 text-[11px] leading-relaxed transition-all duration-200 wrap-break-word
+                                                    <div className={`max-w-[78%] px-3 py-2 text-xs leading-relaxed transition-all duration-200 wrap-break-word
                                                     ${
                                                         isAI
                                                         ? "bg-[rgba(3,44,166,.06)] border border-[rgba(3,44,166,.12)] text-[#0a1628] rounded-[4px_14px_14px_14px]"
-                                                        : "bg-slate-50 border border-[rgba(100,116,139,.15)] text-slate-700 rounded-[14px_4px_14px_14px]"
+                                                        : "bg-slate-50 border border-[rgba(100,116,139,.15)] text-slate-00 rounded-[14px_4px_14px_14px]"
                                                     }`}>
-                                                        <div className={`text-[8px] font-semibold tracking-wider uppercase mb-1
+                                                        <div className={`text-xs font-semibold tracking-wider uppercase mb-1
                                                             ${isAI ? "text-[#032ca6]" : "text-slate-500"}`}>
                                                                 {isAI ? 
                                                                 <>

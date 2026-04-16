@@ -59,7 +59,7 @@ export default function CallSummary({calls}) {
         <div className="bg-white rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
         shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,.04)]">
 
-            <div className="text-sm font-bold text-slate-800 mb-4"
+            <div className="text-md font-bold text-slate-800 mb-4"
             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                 Call Summary
             </div>
@@ -69,12 +69,12 @@ export default function CallSummary({calls}) {
                 <div
                 key={i}>
                     <div className="flex justify-between text-[10px] mb-1">
-                        <span className="text-slate-500">
+                        <span className="text-slate-700">
                             {item.title}
                         </span>
-                        <span className="font-semibold text-slate-700">
+                        <span className="font-semibold text-slate-800">
                             {item.value}
-                            <span className="text-slate-400 font-normal">
+                            <span className="text-slate-600 font-normal">
                                 {" ("} {item.rate} % {")"}
                             </span>
                         </span>
@@ -93,7 +93,7 @@ export default function CallSummary({calls}) {
             <div className="border-t my-4 border border-[rgba(3,44,166,.07)]"></div>
             
             {/* Call Type */}
-            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-3">
+            <div className="text-xs font-medium text-slate-800 uppercase tracking-widest mb-3">
                 Type
             </div>
 
@@ -106,7 +106,7 @@ export default function CallSummary({calls}) {
                     <div className="text-base font-black text-[#032ca6]">
                         {item.value}
                     </div>
-                    <div className="text-[9px] text-slate-400 mt-0.5">
+                    <div className="text-xs text-slate-400 mt-0.5">
                         {item.title} calls
                     </div>
                 </div>
@@ -116,7 +116,7 @@ export default function CallSummary({calls}) {
             <div className="border-t my-4 border border-[rgba(3,44,166,.07)]"></div>
             
             {/* Call Termination */}
-            <div className="text-[10px] font-medium text-slate-400 uppercase tracking-widest mb-3">
+            <div className="text-xs font-medium text-slate-800 uppercase tracking-widest mb-3">
                 Ended by
             </div>
 
@@ -129,7 +129,7 @@ export default function CallSummary({calls}) {
                     <div className="text-base font-black text-[#032ca6]">
                         {item.value}
                     </div>
-                    <div className="text-[9px] text-slate-400 mt-0.5">
+                    <div className="text-xs text-slate-400 mt-0.5">
                         {item.title} calls
                     </div>
                 </div>

@@ -7,7 +7,7 @@ export default function SessionExpired() {
             shadow-[0_2px_12px_rgba(3,44,166,.06)] p-10 flex flex-col items-center gap-4 max-w-sm w-full">
                 <div className="w-14 h-14 rounded-full bg-[rgba(220,38,38,.08)] 
                 flex items-center justify-center">
-                    <CircleAlert size={28} />
+                    <CircleAlert size={28} stroke="red" />
                 </div>
                 <h2 className="text-lg font-bold text-[#0a1628]">Session Expired</h2>
                 <p className="text-sm text-slate-400 text-center">

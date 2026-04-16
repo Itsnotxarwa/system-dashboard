@@ -14,12 +14,12 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 <div className="flex items-center justify-between mb-6">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <img src={Logo} alt="Logo" className="w-12" />
-                            <span className="text-[10px] text-slate-400 tracking-widest uppercase">
+                            <img src={Logo} alt="Logo" className="w-14" />
+                            <span className="textxs text-slate-400 tracking-widest uppercase">
                                 {tenant?.name}
                             </span>
                         </div>
-                        <h1 className="text-xl font-black text-slate-900 tracking-tighter"
+                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
                         style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                             Call Records & Analytics
                         </h1>
@@ -50,16 +50,16 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
                     <div className="flex items-center justify-between mb-4">
                         <div>
-                            <div className="text-sm font-bold text-slate-800"
+                            <div className="text-lg font-bold text-slate-800"
                             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                 Daily Call Volume
                             </div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">
+                            <div className="text-xs text-slate-400 mt-0.5">
                                 Last {range} days
                             </div>
                         </div>
                         {calls &&
-                        <span className="text-[10px] px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,.07)]
+                        <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,.07)]
                         text-[#032ca6] border border-[rgba(3,44,166,.14)]">
                             {range === "30" ? calls?.volume.calls_last_30_days : calls?.volume.calls_last_7_days} calls
                         </span>
