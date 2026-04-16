@@ -150,7 +150,7 @@ export default function CallSession({callSessions}) {
                                                         ? "bg-[rgba(3,44,166,.06)] border border-[rgba(3,44,166,.12)] text-[#0a1628] rounded-[4px_14px_14px_14px]"
                                                         : "bg-slate-50 border border-[rgba(100,116,139,.15)] text-slate-00 rounded-[14px_4px_14px_14px]"
                                                     }`}>
-                                                        <div className={`text-xs font-semibold tracking-wider uppercase mb-1
+                                                        <div className={`text-[10px] font-semibold tracking-wider uppercase mb-1
                                                             ${isAI ? "text-[#032ca6]" : "text-slate-500"}`}>
                                                                 {isAI ? 
                                                                 <>

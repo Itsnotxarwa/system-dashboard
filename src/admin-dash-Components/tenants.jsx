@@ -181,7 +181,8 @@ export default function Tenants({tenants, setTenants}) {
             );
         })}
         </div>
-        <p className="text-sm text-slate-400 pb-4">
+        <p className="text-[16px] text-slate-500 pb-4"
+        style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
             Click a tenant to view its agents and call records
         </p>
         <TenantsTable 

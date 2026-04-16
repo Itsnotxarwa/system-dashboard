@@ -15,7 +15,7 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <img src={Logo} alt="Logo" className="w-14" />
-                            <span className="textxs text-slate-400 tracking-widest uppercase">
+                            <span className="text-xs text-slate-400 tracking-widest uppercase">
                                 {tenant?.name}
                             </span>
                         </div>

@@ -65,12 +65,12 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns 
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <img src={Logo} alt="Logo" className="w-12" />
-                            <span className="text-[10px] text-slate-400 tracking-widest uppercase">
+                            <img src={Logo} alt="Logo" className="w-14" />
+                            <span className="text-xs text-slate-400 tracking-widest uppercase">
                                 {tenant?.name}
                             </span>
                         </div>
-                        <h1 className="text-xl font-black text-slate-900 tracking-tighter"
+                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
                         style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                             Campaigns Overview
                         </h1>
@@ -105,9 +105,10 @@ export default function CampaignOverview({tenant, campaigns, file, setCampaigns 
                 )}
 
                 {campaigns.length === 0 ? null :(
-                <p className="text-sm text-slate-400 my-4">
+                <p className="text-[16px] text-slate-500 my-4"
+                style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                     Manage outbound call campaigns
-                    <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
+                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
                         {campaigns?.length} campaigns
                     </span>
                 </p>

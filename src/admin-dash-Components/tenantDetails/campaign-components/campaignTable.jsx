@@ -197,7 +197,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 onChange={handleUploadChange}
             />
             {campaigns.length === 0 ? (
-                <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
+                <div className="py-6 text-center text-xs text-slate-600 rounded-xl
                 border-dashed border-[rgba(3,44,166,0.12)]">
                     No campaigns yet — click {" "}
                     <strong className="text-blue-700">+ Add Campaign</strong> 
@@ -237,7 +237,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 <tbody>
                     {campaigns.length === 0 ? (
                         <tr>
-                            <td colSpan="10" className="text-center py-6 text-sm text-slate-500">
+                            <td colSpan="10" className="text-center py-6 text-sm text-slate-600">
                                 No campaigns for this tenant
                             </td>
                         </tr>

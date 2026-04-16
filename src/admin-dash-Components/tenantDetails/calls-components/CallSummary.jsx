@@ -68,7 +68,7 @@ export default function CallSummary({calls}) {
                 {summary.map((item, i) => (
                 <div
                 key={i}>
-                    <div className="flex justify-between text-[10px] mb-1">
+                    <div className="flex justify-between text-xs mb-1">
                         <span className="text-slate-700">
                             {item.title}
                         </span>

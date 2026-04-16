@@ -61,8 +61,8 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
             <div className="max-w-7xl mx-auto p-6 flex-1">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
-                    <img src={Logo} alt="Logo" className="w-12" />
-                    <span className="text-[10px] text-slate-400 tracking-widest uppercase">
+                    <img src={Logo} alt="Logo" className="w-14" />
+                    <span className="text-xs text-slate-400 tracking-widest uppercase">
                         {tenant?.name}
                     </span>
                 </div>
@@ -155,9 +155,10 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                     </div>                   
                 </div>
                 <div className="mb-6">
-                    <h1 className="text-xl font-black text-slate-900 tracking-tighter"
+                    <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Agents</h1>
-                    <p className="text-xs text-slate-400 mt-0.5">Click any row to view full agent details</p>
+                    <p className="text-[16px] text-slate-500 mt-0.5"
+                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Click any row to view full agent details</p>
                 </div>
                 <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
             </div>
