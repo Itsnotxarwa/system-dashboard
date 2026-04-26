@@ -25,7 +25,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
         backdrop-blur-sm p-5">
             <div className={`flex-col fixed top-0 right-0 h-full  z-50 bg-white border-l scroll overflow-y-auto w-120 shrink-0 border-[rgba(3,44,166,.12)]
             shadow-[-4px_0_24px_rgba(3,44,166,.07)] ${
-                open ? "opacity-100" : "opacity-0 pointer-events-none"
+                open ? "translate-x-0" : "translate-x-full"
             }`}>
                 {/* HEADER */}
                 <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 border-b border-[rgba(3,44,166,.08)]
@@ -57,7 +57,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                         ${selectedSession.call_status === "ANSWERED" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" 
                         : "text-[#dc2626] bg-[rgba(220,38,38,.08)] border-[rgba(220,38,38,.20)]"}`}>
                             <span className={`w-2 h-2 shrink-0 rounded-full
-                                ${selectedSession.call_status? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#f87171]"}`}>
+                                ${selectedSession.call_status === "ANSWERED" ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#f87171] shadow-[0_0_5px_#f87171]"}`}>
                             </span>
                             {selectedSession?.call_status}
                         </span>
@@ -72,7 +72,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
+                        <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
                             <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase mb-1">
                                 <Phone size={12} className="text-[#032ca6]" />
                                 De
@@ -82,7 +82,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                             </div>
                         </div>
 
-                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
+                        <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
                             <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase tracking-[0.08em] mb-1">
                                 <Phone size={12} className="text-[#032ca6]" />
                                 Vers
@@ -92,7 +92,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                             </div>
                         </div>
 
-                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
+                        <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
                             <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase tracking-[0.08em] mb-1">
                                 <Clock size={12} className="text-[#032ca6]" />
                                 Durée
@@ -102,7 +102,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                             </div>
                         </div>
 
-                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
+                        <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
                             <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase tracking-[0.08em] mb-1">
                                 <Wifi size={12} className="text-[#032ca6]" />
                                 Raison fin
@@ -112,7 +112,7 @@ export default function SessionDrawer({selectedSession, onClose, open}) {
                             </div>
                         </div>
 
-                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)] col-span-2">
+                        <div className="p-3 rounded-[10px] bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)] col-span-2">
                             <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase tracking-[0.08em] mb-1">
                                 <Calendar size={12} className="text-[#032ca6]" />
                                 Créé le
