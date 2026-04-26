@@ -19,7 +19,10 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     label: "Model Name",
                     value: mc?.llm?.model_name || "",
                 }
-            ]
+            ],
+            style: "bg-[rgba(3,44,166,0.09)] border-[rgba(3,44,166,0.14)] text-[#032ca6]",
+            background: "bg-[rgba(3,44,166,.03)]",
+            border: "border-[rgba(3,44,166,.10)]"
         },
         {
             key: "STT",
@@ -38,7 +41,10 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     label:"Language", 
                     value: mc?.stt?.language || "",
                 }
-            ] 
+            ],
+            style: "bg-[rgba(5, 150, 105, 0.0)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
+            background: "bg-[rgba(5, 150, 105,.03)]",
+            border: "border-[rgba(5, 150, 105,.10)]"
         }, 
         {
             key: "TTS",
@@ -61,7 +67,10 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     label: "Voice",
                     value: mc?.tts?.voice || "",
                 }
-            ] 
+            ],
+            style: "bg-[rgba(5, 150, 105, 0.0)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
+            background: "bg-[rgba(5, 150, 105,.03)]",
+            border: "border-[rgba(5, 150, 105,.10)]"
         }
     ] : []
     return(
@@ -127,7 +136,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         Greeting Message
                     </div>
                     {!selectedAgent?.greeting_message ? (
-                        <div className="text-[11px] text-slate-300 italic">No greeting message</div>
+                        <div className="text-xs text-slate-300 italic">No greeting message</div>
                     ) : (
                     <div className="p-3 rounded-[10px] bg-[rgba(5,150,105,.05)] border border-[rgba(5,150,105,.15)] italic text-[#0a1628] text-xs leading-relaxed">
                         {selectedAgent?.greeting_message || ""}
@@ -140,7 +149,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         <div className="text-xs text-[#9aabca] uppercase tracking-widest mb-1.5">
                             System Prompt
                         </div>
-                        <div className="text-[11px] text-slate-300 italic">No system prompt</div>
+                        <div className="text-xs text-slate-500 italic">No system prompt</div>
                     </div>
                 ) : (
                 <div>
@@ -150,7 +159,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         </div>
                         <button
                         onClick={() => setShowFull(!showFull)}
-                        className="text-[9px] px-2.25 py-0.5 rounded-md border border-[rgba(3,44,166,.14)] 
+                        className="text-xs px-2.25 py-0.5 rounded-md border border-[rgba(3,44,166,.14)] 
                         bg-[rgba(3,44,166,.05)] text-[#032ca6] cursor-pointer"
                         >
                             {showFull ? "Hide" : "Show full"}
@@ -181,13 +190,13 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         Models Configuration
                     </div>
                     {!selectedAgent?.models_config ? (
-                        <div className="text-[11px] text-slate-300 italic">No models configured</div>
+                        <div className="text-xs text-slate-500 italic">No models configured</div>
                     ) : (
                     <div className="space-y-2.5">
                         {modelCards.filter(card => card.fields.some(f => f.value)).map((card) => (
                             <div
                             key={card.key}
-                            className="py-3 px-3.5 rounded-xl bg-[rgba(5,150,105,.05)] border border-[rgba(5,150,105,.15)]">
+                            className={`py-3 px-3.5 rounded-xl ${card.background} border ${card.border}`}>
                                 <div className="flex items-center justify-between mb-2">
                                     <span>
                                         {card.icon}
@@ -196,8 +205,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                                 style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                         {card.label}
                                     </span>
-                                    <span className={`ml-auto text-[10px] font-semibold px-2 rounded-[5px] bg-[rgba(3,44,166,0.09)]
-                                        border border-[rgba(3,44,166,0.14)] text-[#032ca6]`}>
+                                    <span className={`ml-auto text-xs font-semibold px-2 rounded-[5px] border ${card.style}]`}>
                                         {card.fields.find(f => f.label === "Provider")?.value}
                                     </span>
                                 </div>
