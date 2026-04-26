@@ -168,7 +168,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                         onClick={() => setActiveTab(tab)}
                         style={{
                             padding: "9px 18px",
-                            fontSize: 12,
+                            fontSize: 14,
                             fontFamily: "'DM Mono', monospace",
                             fontWeight: activeTab === tab ? 600 : 400,
                             background: "none",
@@ -190,13 +190,13 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
                     <>
-                    <div className="text-[10px] font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
+                    <div className="text-xs font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
                         Basic Info
                     </div>
                     {/* Name and SIP Number */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
                         <div>
-                            <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                            <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                             tracking-wider mb-1.5">
                                 Agent Name <span className="text-[#ef4444]">*</span>
                             </label>
@@ -211,7 +211,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                         </div>
 
                         <div>
-                            <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                            <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                             tracking-wider mb-1.5">
                                 SIP Number <span className="text-[#ef4444]">*</span>
                             </label>
@@ -255,13 +255,13 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     {/* System Prompt */}
                     <div>
                         <div className="flex items-center justify-between mb-1.5">
-                            <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                            <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                             tracking-wider">
                                 System Prompt <span className="text-[#ef4444]">*</span>
                             </label>
                             <button
                             onClick={() => setShowFull(!showFull)}
-                            className="text-[9px] px-2.25 py-0.5 rounded-md border border-[rgba(3,44,166,.14)] 
+                            className="text-[10px] px-2.25 py-0.5 rounded-md border border-[rgba(3,44,166,.14)] 
                             bg-[rgba(3,44,166,.05)] text-[#032ca6] cursor-pointer"
                             >
                                 {showFull ? "Hide" : "Show full"}
@@ -279,7 +279,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     </div>
                     {/* Greeting Message */}
                     <div>
-                        <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                        <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                         tracking-wider mb-1.5">
                             Greeting Message <span className="text-[#ef4444]">*</span>
                         </label>
@@ -293,7 +293,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     </div>
                     {/* End Call Message */}
                     <div>
-                        <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                        <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                     tracking-wider mb-1.5">
                         End Call Message <span className="text-[#ef4444]">*</span>
                     </label>
@@ -315,7 +315,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     {/* Models */}
                     {activeTab === "Models Config" && (
                     <>
-                    <div className="text-[10px] font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
+                    <div className="text-sm font-semibold text-[#9aabca] uppercase tracking-widest mb-2.5">
                         Models Configuration
                     </div>
                     <div>
@@ -329,7 +329,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                     <span>
                                         {model.icon}
                                     </span>
-                                    <span className="text-xs font-bold text-slate-700">
+                                    <span className="text-sm font-bold text-slate-700">
                                         {model.label}
                                     </span>
                                 </div>
@@ -337,7 +337,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                     {model.fields.map((field) => (
                                         <div key={field.key}>
                                             <label 
-                                            className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                                            className="block text-xs font-medium text-[#7a8bb5] uppercase 
                                             tracking-wider mb-1.5">
                                                 {field.label} <span className="text-[#ef4444]">*</span>
                                             </label>
@@ -360,20 +360,20 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     {/* TOOLS */}
                     {activeTab === "Tools" && (
                     <>
-                    <div className="flex items-center justify-between text-[10px] font-semibold text-[#9aabca] 
+                    <div className="flex items-center justify-between text-sm font-semibold text-[#9aabca] 
                     uppercase tracking-widest mb-2.5">
                         <span>Tools</span>
                         <button 
                         onClick={addTool}
-                        className="flex items-center gap-1 text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all bg-[rgba(3,44,166,0.08)]
+                        className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg font-semibold transition-all bg-[rgba(3,44,166,0.08)]
                         text-[#032ca6] border-[rgba(3,44,166,0.16)]">
-                            <Plus />
+                            <Plus size={14} />
                             Add Tool
                         </button>
                     </div>
                     <div>
                         {form.tools.length === 0 ? (
-                            <div className="py-10 text-center text-[11px] text-slate-300 rounded-xl border-dashed border-[rgba(3,44,166,0.15)]">
+                            <div className="py-10 text-center text-sm text-slate-500 rounded-xl border-dashed border-[rgba(3,44,166,0.15)]">
                                 No tools added yet. Click "Add Tool" to get started.
                             </div>
                             ) : (
@@ -385,20 +385,20 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                         border border-[rgba(3,44,166,0.10)]">
 
                                             <div className="flex items-center justify-between mb-3">
-                                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                                <span className="text-sm font-bold text-slate-500 uppercase tracking-widest">
                                                     Tool #{index + 1}
                                                 </span>
                                                 <button
                                                 onClick={() => removeTool(index)}
-                                                className="text-slate-300 hover:text-red-400 transition-colors text-base"
+                                                className="text-slate-400 hover:text-red-400 transition-colors text-base"
                                                 >
-                                                    <X />
+                                                    <X size={21} />
                                                 </button>
                                             </div>
 
                                             <div className="grid grid-cols-2 gap-2.5">
                                                 <div>
-                                                    <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                                                    <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                                                     tracking-wider mb-1.5">
                                                         Name <span className="text-[#ef4444]">*</span>
                                                     </label>
@@ -414,7 +414,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                                 </div>
                                 
                                                 <div>
-                                                    <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                                                    <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                                                     tracking-wider mb-1.5">
                                                         URL <span className="text-[#ef4444]">*</span>
                                                     </label>
@@ -430,7 +430,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                                 </div>
                                 
                                                 <div>
-                                                    <label className="block text-[10px] font-medium text-[#7a8bb5] uppercase 
+                                                    <label className="block text-xs font-medium text-[#7a8bb5] uppercase 
                                                     tracking-wider mb-1.5">
                                                         Provider <span className="text-[#ef4444]">*</span>
                                                     </label>
@@ -452,7 +452,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                                                         checked={tool.is_enabled}
                                                         onChange={(e) => updateTool(index, "is_enabled", e.target.checked)}
                                                         />
-                                                        <span className="text-[11px] text-slate-600">Enabled</span>
+                                                        <span className="text-xs text-slate-600">Enabled</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -471,14 +471,14 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     <div className="flex gap-2.5">
                         <button  
                         onClick={onCancel}
-                        className="cursor-pointer px-5 py-2.5 rounded-xl text-xs font-medium text-slate-500 
+                        className="cursor-pointer px-5 py-2.5 rounded-xl text-sm font-medium text-slate-500 
                         hover:text-slate-700 transition-all border border-[rgba(3,44,166,0.13)]
                         bg-[rgba(3,44,166,0.04)]">
                             Cancel
                         </button>
                         <button 
                         onClick={handleSubmit}
-                        className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
+                        className="cursor-pointer px-6 py-2.5 rounded-xl text-sm font-bold text-white 
                         transition-all flex items-center gap-1.5 bg-[#032ca6] border border-[#032ca6]"
                         >
                             Save Changes
