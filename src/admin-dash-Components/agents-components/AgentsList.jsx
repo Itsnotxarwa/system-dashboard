@@ -18,31 +18,31 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                 <thead>
                     <tr
                     className="bg-[rgba(3,44,166,0.05)] cursor-pointer">
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             Agent Name
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             SIP Number
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             LLM
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             STT
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             TTS
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             Status
                         </th>
-                        <th className="text-left px-5 py-3 text-[9px] font-medium tracking-widest 
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
                             Tools
                         </th>
@@ -82,48 +82,18 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                         {a.name}
                                     </div>
-                                    <div className="text-[9px] text-[#9aabca] mt-0.5">
+                                    <div className="text-[11px] text-[#9aabca] mt-0.5">
                                         {a.id.slice(0,20)}
                                     </div>
                                 </div>
                             </td>
                             <td className="p-[13px_20px]">
-                                <span className="text-xs text-[#374151]">
+                                <span className="text-sm text-[#374151]">
                                     {a?.sip_number || ''}
                                 </span>
                             </td>
                             <td className="p-[13px_20px]">
-                                <div>
-                                    <span className="text-xs font-semibold text-[#032ca6]">
-                                        {a.models_config?.llm?.provider || ''}
-                                    </span>
-                                    <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config?.llm?.model_name || ''}
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="p-[13px_20px]">
-                                <div>
-                                    <span className="text-xs font-semibold text-[#059669]">
-                                        {a.models_config?.stt?.provider || ""}
-                                    </span>
-                                    <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config?.stt?.model_name || ""} {" "} {a.models_config?.stt?.language || ""}
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="p-[13px_20px]">
-                                <div>
-                                    <span className="text-xs font-semibold text-[#7c3aed]">
-                                        {a.models_config?.tts?.provider}
-                                    </span>
-                                    <div className="text-xs text-[#9aabca] mt-0.5">
-                                        {a.models_config?.tts?.model_name} {" "} {a.models_config?.tts?.language}
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="p-[13px_20px]">
-                                <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
+                                <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
                                     ${a.is_active ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" : "text-[#9ca3af] bg-[#9ca3af34] border-[#9ca3af34]"}`}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
                                         ${a.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#d1d5db]"}`}>
@@ -132,7 +102,7 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                                 </span>
                             </td>
                             <td className="p-[13px_20px]">
-                                <span className="text-xs font-semibold text-[#0a1628]"
+                                <span className="text-sm font-semibold text-[#0a1628]"
                                 style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                     {a?.tools?.filter(t => t.is_enabled).length}
                                 </span>

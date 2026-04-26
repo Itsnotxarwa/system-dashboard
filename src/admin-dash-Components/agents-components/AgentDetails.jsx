@@ -42,7 +42,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     value: mc?.stt?.language || "",
                 }
             ],
-            style: "bg-[rgba(5, 150, 105, 0.0)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
+            style: "bg-[rgba(5, 150, 105, 0.09)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
             background: "bg-[rgba(5, 150, 105,.03)]",
             border: "border-[rgba(5, 150, 105,.10)]"
         }, 
@@ -68,7 +68,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     value: mc?.tts?.voice || "",
                 }
             ],
-            style: "bg-[rgba(5, 150, 105, 0.0)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
+            style: "bg-[rgba(5, 150, 105, 0.09)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
             background: "bg-[rgba(5, 150, 105,.03)]",
             border: "border-[rgba(5, 150, 105,.10)]"
         }
@@ -193,7 +193,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                         <div className="text-xs text-slate-500 italic">No models configured</div>
                     ) : (
                     <div className="space-y-2.5">
-                        {modelCards.filter(card => card.fields.some(f => f.value)).map((card) => (
+                        {modelCards.filter(card => card.fields.some(f => f.value !== "")).map((card) => (
                             <div
                             key={card.key}
                             className={`py-3 px-3.5 rounded-xl ${card.background} border ${card.border}`}>
@@ -205,7 +205,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                                 style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                         {card.label}
                                     </span>
-                                    <span className={`ml-auto text-xs font-semibold px-2 rounded-[5px] border ${card.style}]`}>
+                                    <span className={`ml-auto text-xs font-semibold px-2 rounded-[5px] border ${card.style}`}>
                                         {card.fields.find(f => f.label === "Provider")?.value}
                                     </span>
                                 </div>
