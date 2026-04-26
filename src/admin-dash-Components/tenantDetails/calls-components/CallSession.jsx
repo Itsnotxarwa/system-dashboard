@@ -62,6 +62,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                             </tr>
                         ) : (
                         callSessions?.map((session) => {
+                            const hasType = session.call_type && session.call_type !== "None";
                             return(
                             <tr  
                             key={session.id}
@@ -77,6 +78,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.to_number}
                                 </td>
+                                {hasType && (
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
                                     ${session.call_type === "outbound" ? "text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
@@ -84,6 +86,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                     {session.call_type}
                                     </span>
                                 </td>
+                                )}
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {formatDuration(session.duration_seconds)}
                                 </td>
@@ -92,7 +95,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                     ${session.call_status === "ANSWERED" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" 
                                     : "text-[#dc2626] bg-[rgba(220,38,38,.08)] border-[rgba(220,38,38,.20)]"}`}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                        ${session.call_status? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#f87171]"}`}>
+                                        ${session.call_status === "ANSWERED" ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#f87171] shadow-[0_0_5px_#f87171]"}`}>
                                     </span>
                                     {session.call_status}
                                     </span>

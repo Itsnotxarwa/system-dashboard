@@ -1,6 +1,6 @@
-import { Phone, X, Clock, Wifi, Calendar, Bot, User, ArrowUpRight } from "lucide-react";
+import { Phone, X, Clock, Wifi, Bot, User, ArrowUpRight } from "lucide-react";
 
-export default function SessionDrawer(selectedSession, onClose) {
+export default function SessionDrawer({selectedSession, onClose}) {
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
         if (!seconds && seconds !== 0) return "0:00";
@@ -12,12 +12,14 @@ export default function SessionDrawer(selectedSession, onClose) {
     let parsedTranscription = [];
 
     try {
-        parsedTranscription = selectedSession.transcription
+        parsedTranscription = selectedSession?.transcription
             ? JSON.parse(selectedSession.transcription)
-                                    : [];
-        } catch {
+            : [];
+    } catch {
         parsedTranscription = [];
     }
+    
+    const hasType = selectedSession?.call_type && selectedSession?.call_type !== "None";
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(10,22,40,0.38)] 
         backdrop-blur-sm p-5">
@@ -57,20 +59,24 @@ export default function SessionDrawer(selectedSession, onClose) {
                             </span>
                             {selectedSession?.call_status}
                         </span>
+                        {hasType && (
                         <span className={`text-xs px-3 py-1 rounded-full flex items-center gap-1 border
                             ${selectedSession.call_type === "outbound" ? "text-[#032ca6] bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
                             : "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.020)]"}`}>
                                 <ArrowUpRight size={12} />
                                 {selectedSession?.call_type}
                         </span>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                        <div className="flex items-center gap-1 text-xs text-[#9aabca] uppercase tracking-[0.08em] mb-1">
-                            <Phone size={12} className="text-[#032ca6]" />
-                            De
+                        <div className="p-3 rounded-xs bg-[rgba(3,44,166,0.03)] border border-[rgba(3,44,166,0.08)]">
+                            <div className="flex items-center gap-1 text-[9px] text-[#9aabca] uppercase mb-1">
+                                <Phone size={12} className="text-[#032ca6]" />
+                                De
+                            </div>
                             <div className="text-xs font-semibold text-[#374151] font-mono break-all">
-                                {selectedSession.from_number}
+                                {selectedSession?.from_number || ""}
                             </div>
                         </div>
 
