@@ -1,4 +1,4 @@
-import { Phone, X, Clock, Wifi, Bot, User, ArrowUpRight } from "lucide-react";
+import { Phone, X, Clock, Wifi, Bot, Calender, User, ArrowUpRight } from "lucide-react";
 
 export default function SessionDrawer({selectedSession, onClose}) {
     const formatDate = (datetime) => datetime.split("T")[0];

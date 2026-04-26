@@ -78,7 +78,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {session.to_number}
                                 </td>
-                                {hasType && (
+                                {hasType ? (
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
                                     ${session.call_type === "outbound" ? "text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
@@ -86,7 +86,7 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                     {session.call_type}
                                     </span>
                                 </td>
-                                )}
+                                ) : null}
                                 <td className="px-5 py-2.5 text-xs text-slate-800">
                                     {formatDuration(session.duration_seconds)}
                                 </td>
