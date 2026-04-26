@@ -228,13 +228,23 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
                     {/* Active Toggle */}
                     <div className="flex items-center justify-center gap-2.5 py-2.5 px-3 rounded-[10px]
                     bg-[rgba(3,44,166,.03)] border border-[rgba(3,44,166,.09)] mb-4">
-                        <input 
-                        type="checkbox"
-                        checked={form.is_active} 
-                        onChange={(e) =>
-                            setForm({ ...form, is_active: e.target.checked })
-                        }
-                        className="w-3.5 h-3.5 accent-[#032ca6] shrink-0" />
+                        <label className="relative inline-block w-14 h-7 cursor-pointer">
+                            <input 
+                            type="checkbox"
+                            checked={form.is_active} 
+                            onChange={(e) =>
+                                setForm({ ...form, is_active: e.target.checked })
+                            }
+                            className="peer sr-only" />
+                            <span
+                                className="absolute inset-0 rounded-full bg-[#9fccfa]
+                                transition-all duration-300 peer-checked:bg-[#032ca6]"
+                            />
+                            <span
+                                className="absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow-lg
+                                transition-all duration-300 peer-checked:translate-x-7"
+                            />
+                        </label>
                         <label className="text-xs font-medium cursor-pointer text-[#374151]">
                             Agent is {form.is_active ? "Active" : "Inactive"}
                         </label>
