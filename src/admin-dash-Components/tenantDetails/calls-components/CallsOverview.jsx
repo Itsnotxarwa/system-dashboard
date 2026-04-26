@@ -4,9 +4,12 @@ import CallsBarChart from "./CallsBarChart";
 import KpiCards from "./KpiCards";
 import CallSummary from "./CallSummary";
 import CallSession from "./CallSession";
+import SessionDrawer from "./sessionDrawer";
 
 export default function CallsOverview({tenant, calls, callSessions}) {
     const [range, setRange] = useState("30");
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [selectedSession, setSelectedSession] = useState(null)
     return(
         <div className="min-h-screen bg-linear-to-br from-white to-[rgba(3,44,166,0.09)]">
             <div className="max-w-7xl mx-auto p-6">
@@ -81,9 +84,17 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                 </div>
 
                 <div className="grid grid-cols-1 mb-5">
-                    <CallSession callSessions={callSessions} />
+                    <CallSession 
+                    callSessions={callSessions} 
+                    setOpenDrawer={setOpenDrawer} 
+                    setSelectedSession={setSelectedSession} />
                 </div>
             </div>
+            {openDrawer && (
+                <SessionDrawer 
+                selectedSession={selectedSession} 
+                onClose={() => setOpenDrawer(false)}  />
+            )}
         </div>
     )
 }
