@@ -1,6 +1,6 @@
 import { Phone, X, Clock, Wifi, Bot, Calendar, User, ArrowUpRight } from "lucide-react";
 
-export default function SessionDrawer({selectedSession, onClose}) {
+export default function SessionDrawer({selectedSession, onClose, open}) {
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
         if (!seconds && seconds !== 0) return "0:00";
@@ -23,8 +23,10 @@ export default function SessionDrawer({selectedSession, onClose}) {
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(10,22,40,0.38)] 
         backdrop-blur-sm p-5">
-            <div className="flex-col fixed top-0 left-0 z-50 bg-white border-l scroll overflow-y-auto w-120 shrink-0 border-[rgba(3,44,166,.12)]
-            shadow-[-4px_0_24px_rgba(3,44,166,.07)]">
+            <div className={`flex-col fixed top-0 right-0 h-full  z-50 bg-white border-l scroll overflow-y-auto w-120 shrink-0 border-[rgba(3,44,166,.12)]
+            shadow-[-4px_0_24px_rgba(3,44,166,.07)] ${
+                open ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}>
                 {/* HEADER */}
                 <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 border-b border-[rgba(3,44,166,.08)]
                 bg-linear-to-br from-white to-[rgba(3,44,166,.04)]">

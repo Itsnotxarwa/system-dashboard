@@ -93,7 +93,8 @@ export default function CallsOverview({tenant, calls, callSessions}) {
             {openDrawer && (
                 <SessionDrawer 
                 selectedSession={selectedSession} 
-                onClose={() => setOpenDrawer(false)}  />
+                onClose={() => setOpenDrawer(false)}
+                open={openDrawer}  />
             )}
         </div>
     )
