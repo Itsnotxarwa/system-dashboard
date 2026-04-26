@@ -42,9 +42,9 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     value: mc?.stt?.language || "",
                 }
             ],
-            style: "bg-[rgba(5, 150, 105, 0.09)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
-            background: "bg-[rgba(5, 150, 105,.03)]",
-            border: "border-[rgba(5, 150, 105,.10)]"
+            style: "bg-[rgba(5, 150, 105, 0.09)] border-[rgba(5,150,105,0.14)] text-[#059669]",
+            background: "bg-[rgba(5,150,105,0.03)]",
+            border: "border-[rgba(5,150,105,0.10)]"
         }, 
         {
             key: "TTS",
@@ -68,9 +68,9 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
                     value: mc?.tts?.voice || "",
                 }
             ],
-            style: "bg-[rgba(5, 150, 105, 0.09)] border-[rgba(5, 150, 105, 0.14)] text-[#059669]",
-            background: "bg-[rgba(5, 150, 105,.03)]",
-            border: "border-[rgba(5, 150, 105,.10)]"
+            style: "bg-[rgba(124,58,237,0.09)] border-[rgba(124,58,237,0.14)] text-[#7c3aed]",
+            background: "bg-[rgba(124,58,237,0.03)]",
+            border: "border-[rgba(124,58,237,0.10)]"
         }
     ] : []
     return(

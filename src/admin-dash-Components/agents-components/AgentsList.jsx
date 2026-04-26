@@ -28,18 +28,6 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                         </th>
                         <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
-                            LLM
-                        </th>
-                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            STT
-                        </th>
-                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            TTS
-                        </th>
-                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
-                        uppercase text-slate-400">
                             Status
                         </th>
                         <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
