@@ -45,7 +45,7 @@ export default function Agents() {
             if (typeFilter) params.append("type", typeFilter);
 
             const url = `https://api.voixup.fr/admin/tenants/${id}/agents${
-                params.toString()
+                params.toString() ? `?${params.toString()}` : ""
             }`;
 
         const res = await fetch(
