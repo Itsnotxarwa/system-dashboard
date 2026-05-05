@@ -1,15 +1,20 @@
-export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails}) {
+export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails, typeFilter}) {
     
     return (
     <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
         shadow-[0_2px_12px_rgba(3,44,166,.06)]">
         {agents.length === 0
         ? (
-        <div className="py-6 text-center text-[11px] text-slate-300 rounded-xl
+        <div className="py-6 text-center text-[11px] text-slate-400 rounded-xl
         border-dashed border-[rgba(3,44,166,0.12)]">
-            No agents yet — click 
-            <strong className="text-blue-700">+ Add Agent</strong> 
-            to create one.
+        {typeFilter
+            ? `No ${typeFilter} agents`
+            : (
+            <>
+                No agents yet — click <strong className="text-blue-700">+ Add Agent</strong> to create one.
+            </>
+            )
+        }
         </div>
         )
         :  
