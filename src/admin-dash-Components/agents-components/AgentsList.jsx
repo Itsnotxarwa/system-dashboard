@@ -28,6 +28,10 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                         </th>
                         <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
                         uppercase text-slate-400">
+                            Agent Type
+                        </th>
+                        <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
+                        uppercase text-slate-400">
                             Status
                         </th>
                         <th className="text-left px-5 py-3 text-[11px] font-medium tracking-widest 
@@ -79,6 +83,16 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                                 <span className="text-sm text-[#374151]">
                                     {a?.sip_number || ''}
                                 </span>
+                            </td>
+                            <td className="p-[13px_20px] text-center">
+                                <div className="flex justify-center items-center">
+                                    <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
+                                        ${a.type === "Inbound" 
+                                        ? "text-[#0366a6] bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
+                                        : "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]"}`}>
+                                        {a.type}
+                                    </span>
+                                </div>
                             </td>
                             <td className="p-[13px_20px] text-center">
                                 <div className="flex justify-center items-center">
