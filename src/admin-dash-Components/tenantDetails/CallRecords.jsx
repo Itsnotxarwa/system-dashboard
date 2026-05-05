@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import TenantSidebar from "./tenantSidebar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback  } from "react";
 import TopBar from "./TopBar";
 import CallsOverview from "./calls-components/CallsOverview";
 import { handleUnauthorized } from "../../utils/auth";
@@ -66,36 +66,38 @@ export default function CallRecords() {
     },[id]);
 
     {/* fetch call sessions */}
-    useEffect(() => {
-        const fetchCallSessions = async () => {
-            try {
-            const token = localStorage.getItem("token");
-    
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}/calls/sessions`,{
-                headers: 
-                {
+    const fetchCallSessions = useCallback(async (page = 1, limit = 20) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(
+            `https://api.voixup.fr/admin/tenants/${id}/calls/sessions?page=${page}&limit=${limit}`,
+            {
+                headers: {
                     accept: "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-            });
-
-            if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
             }
+        );
 
-            const data = await res.json();
-            (Array.isArray(data)) ? console.log("call sessions:", data) : console.log("call sessions error:", data);
-            console.log("call sessions:", data);
-            setCallSessions(data);
-        } catch (err) {
-            console.error(err)
-            setCallSessions([])
+        if (res.status === 401) {
+            handleUnauthorized(401);
+            return;
         }
 
-        }
-        fetchCallSessions();
-    }, [id]);
+        const data = await res.json();
+        setCallSessions(Array.isArray(data) ? data : []);
+    } catch (err) {
+        console.error(err);
+        setCallSessions([]);
+    }
+}, [id]);
+
+    useEffect(() => {
+    (async () => {
+        await fetchCallSessions();
+    })();
+}, [fetchCallSessions]);
 
     return(
         <div className="flex min-h-screen bg-white text-black">
@@ -106,6 +108,7 @@ export default function CallRecords() {
                 calls={calls} 
                 tenant={tenant}
                 callSessions={callSessions}
+                onChange={(page, limit) => fetchCallSessions(page, limit)}
                 />
             </main>
         </div>

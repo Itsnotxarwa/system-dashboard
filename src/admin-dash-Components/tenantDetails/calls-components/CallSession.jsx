@@ -1,6 +1,7 @@
 import { Bot, User } from "lucide-react";
+import { useState } from "react";
 
-export default function CallSession({callSessions, setSelectedSession, setOpenDrawer}) {
+export default function CallSession({callSessions, setSelectedSession, setOpenDrawer, onChange}) {
 
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
@@ -9,10 +10,53 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
         const sec = seconds % 60;
         return `${min}:${sec.toString().padStart(2, "0")}`;
     };
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(20);
+
+    const handleChange = (newPage, newLimit) => {
+        setPage(newPage);
+        setLimit(newLimit);
+        onChange?.(newPage, newLimit); 
+    };
 
     return(
         <div className=" bg-white rounded-2xl border border-[rgba(3,44,166,.09)]
         shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
+            {callSessions?.length > 0 && (
+            <div className="flex items-center gap-2">
+            {/* Page */}
+            <div className="flex items-center gap-1.5">
+                <label className="text-xs text-[#9aabca]">Page</label>
+                <input
+                    type="number"
+                    min="1"
+                    value={page}
+                    onChange={(e) =>
+                    handleChange(Number(e.target.value), limit)
+                    }
+                    className="w-15 px-2 py-1 text-xs text-center rounded-lg border
+                    border-[rgba(3,44,166,.14)] outline-none
+                    focus:ring-2 focus:ring-[#032ca6]"
+                />
+            </div>
+            {/* Limit */}
+            <div className="flex items-center gap-1.5">
+                <label className="text-xs text-[#9aabca]">Limit</label>
+                <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={limit}
+                    onChange={(e) =>
+                    handleChange(page, Number(e.target.value))
+                    }
+                    className="w-15 px-2 py-1 text-xs text-center rounded-lg border
+                    border-[rgba(3,44,166,.14)] outline-none
+                    focus:ring-2 focus:ring-[#032ca6]"
+                />
+            </div>
+            </div>
+            )}
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3.5 border-b
             border-[rgba(3,44,166,.07)] bg-[rgba(3,44,166,.02)]">

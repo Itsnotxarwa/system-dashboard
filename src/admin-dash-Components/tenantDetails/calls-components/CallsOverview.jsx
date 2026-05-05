@@ -6,7 +6,7 @@ import CallSummary from "./CallSummary";
 import CallSession from "./CallSession";
 import SessionDrawer from "./sessionDrawer";
 
-export default function CallsOverview({tenant, calls, callSessions}) {
+export default function CallsOverview({tenant, calls, callSessions, onChange}) {
     const [range, setRange] = useState("30");
     const [openDrawer, setOpenDrawer] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null)
@@ -87,7 +87,8 @@ export default function CallsOverview({tenant, calls, callSessions}) {
                     <CallSession 
                     callSessions={callSessions} 
                     setOpenDrawer={setOpenDrawer} 
-                    setSelectedSession={setSelectedSession} />
+                    setSelectedSession={setSelectedSession}
+                    onChange={onChange} />
                 </div>
             </div>
             {openDrawer && (
