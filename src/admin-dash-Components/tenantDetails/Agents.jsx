@@ -12,6 +12,7 @@ export default function Agents() {
     const [tenant, setTenant] = useState(null);
     const [agents, setAgents] = useState([]);
     const [showAgentModal, setShowAgentModal] = useState(false);
+    const [typeFilter, setTypeFilter] = useState("");
 
     useEffect(() => {
         const fetchTenant = async () => {
@@ -40,8 +41,12 @@ export default function Agents() {
             try {
             const token = localStorage.getItem("token");
 
+            const url = `https://api.voixup.fr/admin/tenants/${id}/agents${
+                typeFilter ? `?type=${typeFilter}` : ""
+            }`;
+
         const res = await fetch(
-            `https://api.voixup.fr/admin/tenants/${id}/agents`,
+            url,
             {
                 headers: {
                 accept: "application/json",
@@ -83,6 +88,8 @@ export default function Agents() {
                 agents={agents} 
                 setAgents={setAgents}
                 setShowAgentModal={setShowAgentModal}
+                typeFilter={typeFilter}
+                setTypeFilter={setTypeFilter}
                 />
             </main>
 

@@ -80,14 +80,16 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                                     {a?.sip_number || ''}
                                 </span>
                             </td>
-                            <td className="p-[13px_20px]">
-                                <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
-                                    ${a.is_active ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" : "text-[#9ca3af] bg-[#9ca3af34] border-[#9ca3af34]"}`}>
-                                    <span className={`w-1.5 h-1.5 shrink-0 rounded-full
-                                        ${a.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#d1d5db]"}`}>
+                            <td className="p-[13px_20px] text-center">
+                                <div className="flex justify-center items-center">
+                                    <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
+                                        ${a.is_active ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" : "text-[#9ca3af] bg-[#9ca3af34] border-[#9ca3af34]"}`}>
+                                        <span className={`w-1.5 h-1.5 shrink-0 rounded-full
+                                            ${a.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#d1d5db]"}`}>
+                                        </span>
+                                        {a.is_active ? "Active" : "Inactive"}
                                     </span>
-                                    {a.is_active ? "Active" : "Inactive"}
-                                </span>
+                                </div>
                             </td>
                             <td className="p-[13px_20px]">
                                 <span className="text-sm font-semibold text-[#0a1628]"

@@ -257,7 +257,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                             <td className="p-[13px_20px] text-[#374151] text-xs">
                                 {c.agent_id}
                             </td>
-                            <td className="p-[13px_20px]">
+                            <td className="p-[13px_20px] text-center">
+                                <div className="flex justify-center items-center">
                                 <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
                                 ${c.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "RUNNING" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
@@ -274,6 +275,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     `}></span>
                                     {c?.status || ""}
                                 </span>
+                                </div>
                             </td>
                             <td className="p-[13px_20px] text-xs text-[#374151]">
                                 {c.start_date ? new Date(c.start_date).toLocaleDateString("fr-FR", {

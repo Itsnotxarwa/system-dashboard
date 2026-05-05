@@ -6,7 +6,7 @@ import DeleteAgent from "./DeleteAgent";
 import EditModal from "./EditModal";
 import { handleUnauthorized } from "../../utils/auth";
 
-export default function AgentsOverview({tenant, agents, setAgents}) {
+export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
@@ -160,6 +160,24 @@ export default function AgentsOverview({tenant, agents, setAgents}) {
                     <p className="text-[16px] text-slate-500 mt-0.5"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Click any row to view full agent details</p>
                 </div>
+                {agents.length === 0 ? null : (
+                    <div className="mb-6 flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
+                        border-[rgba(3,44,166,.10)]">
+                        {["", "inbound", "outbound"].map((type) => (
+                            <button 
+                            key={type}                        
+                        onClick={() => setTypeFilter(type)}
+                        className={`px-3 py-1.5 text-xs transition-all rounded-xl ${
+                        typeFilter === type
+                            ? "bg-[#032ca6] text-white font-medium"
+                            : "text-slate-500 hover:bg-white"
+                        }`}
+                        >
+                            {type === "" ? "All" : type}
+                        </button>
+                    ))}
+                </div>
+                )}
                 <AgentsList agents={agents} setSelectedAgent={setSelectedAgent} setShowAgentDetails={setShowAgentDetails}  />
             </div>
             {showAgentDetails && (
