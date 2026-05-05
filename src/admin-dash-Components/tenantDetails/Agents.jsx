@@ -40,9 +40,12 @@ export default function Agents() {
         const fetchAgents = async () => {
             try {
             const token = localStorage.getItem("token");
+            const params = new URLSearchParams();
+
+            if (typeFilter) params.append("type", typeFilter);
 
             const url = `https://api.voixup.fr/admin/tenants/${id}/agents${
-                typeFilter ? `?type=${typeFilter}` : ""
+                params.toString()
             }`;
 
         const res = await fetch(
@@ -76,7 +79,7 @@ export default function Agents() {
         };
 
         fetchAgents();
-    },[id]);
+    },[id, typeFilter]);
 
     return(
         <div className="flex min-h-screen bg-white text-black">
