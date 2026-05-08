@@ -125,10 +125,10 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                 </td>
                                 <td className="px-5 py-2.5 text-xs text-slate-800 text-center">
                                     <div className="flex justify-center items-center">
-                                        <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
-                                        ${session.call_type === "outbound" ? "text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
+                                        <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px]
+                                        ${session.call_type === "outbound" ? "border text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
                                         : ""}
-                                        ${session.call_type === "inbound" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.020)]" 
+                                        ${session.call_type === "inbound" ? "border text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.020)]" 
                                         : ""}`}>
                                             {session.call_type}
                                         </span>
