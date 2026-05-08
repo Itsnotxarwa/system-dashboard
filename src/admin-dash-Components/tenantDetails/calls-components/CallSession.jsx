@@ -20,10 +20,21 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
     };
 
     return(
-        <div className=" bg-white rounded-2xl border border-[rgba(3,44,166,.09)]
-        shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
-            {callSessions?.length > 0 && (
-            <div className="flex items-center gap-2">
+        <div className=" rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
+        shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white
+        to-[rgba(3,44,166,0.04)]">
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-3.5">
+                <span className="text-lg font-bold text-black flex items-center gap-2"
+                style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
+                    Call Sessions
+                    <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
+                        {callSessions?.length} sessions
+                    </span>
+                </ span>
+
+                {callSessions?.length > 0 && (
+            <div className="ml-2 flex items-end p-4 justify-end gap-2">
             {/* Page */}
             <div className="flex items-center gap-1.5">
                 <label className="text-xs text-[#9aabca]">Page</label>
@@ -57,21 +68,12 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
             </div>
             </div>
             )}
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3.5 border-b
-            border-[rgba(3,44,166,.07)] bg-[rgba(3,44,166,.02)]">
-                <span className="text-lg font-bold text-black"
-                style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
-                    Call Sessions
-                </span>
-                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
-                    {callSessions?.length} sessions
-                </span>
             </div>
 
+
             {/* Table */}
-            <div className="overflow-y-auto scroll max-h-96">
-                <table className="w-full border-collapse text-xs">
+            <div className="overflow-y-auto scroll bg-white rounded-lg shadow-md">
+                <table className="w-full border-collapse text-xs roumded-lg">
                     <thead className="sticky top-0 bg-[#fafafa]">
                         <tr className="border-b border-[rgba(3,44,166,.07)]">
                             <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
