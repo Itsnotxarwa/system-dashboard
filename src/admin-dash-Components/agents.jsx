@@ -75,31 +75,25 @@ export default function Agents() {
                         placeholder="Tenant ID"
                         value={tenantId}
                         onChange={(e) => setTenantId(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 
-                        focus:ring-[#032ca6] w-65" />
+                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
+                        w-65 text-[#0a1628]" />
                         <input 
                         type="text" 
                         placeholder="SIP number" 
                         value={sipNumber}
                         onChange={(e) => setSipNumber(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 
-                        focus:ring-[#032ca6] w-50"
+                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
+                        w-50 text-[#0a1628]"
                         />
                         <select 
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 
-                        focus:outline-none focus:ring-2 focus:ring-[#032ca6]">
+                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
+                        w-65 text-[#0a1628] cursor-pointer">
                             <option value="">All types</option>
                             <option value="active">inbound</option>
                             <option value="inactive">outbound</option>
                         </select>
-                        <button className="border border-[032ca6] rounded px-3 py-2 
-                        bg-[#032ca6] text-white text-sm font-medium hover:bg-[#032ca6]/90 
-                        focus:outline-none focus:ring-2"
-                        onClick={fetchAgents}>
-                            Apply
-                        </button>
                     </div>
                     {/* Agents Table */}
                     <div className="overflow-x-auto bg-white rounded shadow">
@@ -133,12 +127,14 @@ export default function Agents() {
                                 {loading ? (
                                     <tr>
                                         <td
-                                            colSpan="4"
-                                            className="text-center py-6 text-slate-500"
+                                            colSpan="5"
+                                            className="text-center py-6"
                                         >
-                                            <svg viewBox="25 25 50 50">
-                                                <circle r="20" cy="50" cx="50"></circle>
-                                            </svg>
+                                            <div className="flex items-center justify-center">
+                                                <svg className="circle-svg" viewBox="25 25 50 50">
+                                                    <circle r="20" cy="50" cx="50"></circle>
+                                                </svg>
+                                            </div>
                                         </td>
                                     </tr>
                                 ) : agents.length === 0 ? (
