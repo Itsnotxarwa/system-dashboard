@@ -1,6 +1,6 @@
 import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
-import { handleUnauthorized } from "../../utils/auth";
+import { handleUnauthorized } from "../../../utils/auth";
 
 export default function EditModal({onClose, onCancel, selectedAgent, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools"];

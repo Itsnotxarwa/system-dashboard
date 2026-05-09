@@ -4,7 +4,7 @@ import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
 import EditModal from "./EditModal";
-import { handleUnauthorized } from "../../utils/auth";
+import { handleUnauthorized } from "../../../utils/auth";
 
 export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter}) {
     const totalAgents = agents?.length || 0;

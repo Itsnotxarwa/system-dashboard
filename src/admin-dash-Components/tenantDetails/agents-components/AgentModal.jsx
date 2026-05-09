@@ -4,7 +4,7 @@ import BasicInfo from "./basicInfo";
 import ModelsConfig from "./modelsConfig";
 import Tools from "./Tools";
 import VoiceMail from "./VoiceMail";
-import { handleUnauthorized } from "../../utils/auth";
+import { handleUnauthorized } from "../../../utils/auth";
 
 export default function AgentModal({selectedTenant, onClose, onCancel, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];

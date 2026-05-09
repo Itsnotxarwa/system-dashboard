@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "./tenantSidebar";
-import AgentModal from "../agents-components/AgentModal";
+import AgentModal from "./agents-components/AgentModal";
 import TopBar from "./TopBar";
-import AgentsOverview from "../agents-components/AgentsOverview";
+import AgentsOverview from "./agents-components/AgentsOverview";
 import { handleUnauthorized } from "../../utils/auth";
 
 export default function Agents() {
