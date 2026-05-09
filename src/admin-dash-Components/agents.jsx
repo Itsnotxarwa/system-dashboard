@@ -23,7 +23,11 @@ export default function Agents() {
             if (type) params.append("type", type);
             if (sipNumber) params.append("sip_number", sipNumber);
 
-            const response = await fetch(`https://api.voixup.fr/admin/agents?${params.toString()}`, {
+            const url = `https://api.voixup.fr/admin/agents?${
+                params.toString() ? `?${params.toString()}` : ""
+            }`;
+
+            const response = await fetch(url, {
                 method: "GET",
                 headers: {
                     "accept": "application/json",
