@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../../assets/image.png"
+import Logo from "../../../assets/image.png";
 import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
