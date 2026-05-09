@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminDashboard from "./admin-dash-Components/admin-dashboard"
-import Agents from './admin-dash-Components/tenantDetails/Agents';
+import AgentsPerTenant from './admin-dash-Components/tenantDetails/Agents';
 import CallRecords from './admin-dash-Components/tenantDetails/CallRecords';
 import Campaign from './admin-dash-Components/tenantDetails/Campaign';
 import SessionExpired from './SessionExpired';
@@ -35,7 +35,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<AdminDashboard />}/>
-        <Route path="/tenant/:id/agents" element={<Agents />} />
+        <Route path="/tenant/:id/agents" element={<AgentsPerTenant />} />
         <Route path="/tenant/:id/call-records" element={<CallRecords />} />
         <Route path="/tenant/:id/campaign" element={<Campaign />} />
         <Route path="/agents" element={<Agents />} />
