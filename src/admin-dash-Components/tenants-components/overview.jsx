@@ -11,7 +11,8 @@ export default function Overview({setShowModal, tenants}) {
             </div>
             <div>
                 <button className="py-2 px-4 bg-[#032ca6] text-white rounded-md font-semibold
-                cursor-pointer hover:bg-[#032ca6]/90 transition-colors duration-300"
+                cursor-pointer hover:bg-[#032ca6]/90 transition-colors duration-300 text-sm"
+                style={{fontFamily: "'DM Mono', monospace"}}
                 onClick={() => setShowModal(true)}>
                     <Plus size={16} className="inline mr-1" />
                     Add Tenant

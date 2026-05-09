@@ -67,7 +67,8 @@ export default function Agents() {
             <Sidebar />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1">
                 <div className="max-w-7xl mx-auto p-6">
-                    <h2 className="text-lg font-bold text-slate-800 mb-4">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4"
+                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                         Agents 
                     </h2>
 
@@ -133,8 +134,11 @@ export default function Agents() {
                                             className="text-center py-6"
                                         >
                                             <div className="flex items-center justify-center">
-                                                <svg className="circle" viewBox="25 25 50 50">
-                                                    <circle r="20" cy="50" cx="50"></circle>
+                                                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                                                viewBox="25 25 50 50">
+                                                    <circle
+                                                    className="loading-circle" 
+                                                    r="20" cy="50" cx="50"></circle>
                                                 </svg>
                                             </div>
                                         </td>
