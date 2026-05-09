@@ -96,18 +96,6 @@ export default function Tenants({tenants, setTenants}) {
 
     return (
     <div className="p-4">
-        {/* HEADER */}
-        <div className="flex tenant-title justify-start items-start gap-2 mt-4">
-            <h1 className=" mb-4 text-[17px] font-bold tracking-[-0.03em]"
-            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                All Tenants
-            </h1>
-            <p className="text-[10px] font-medium bg-[rgba(3,44,166,0.08)] border border-[rgba(3,44,166,0.14)]
-            text-[#032ca6] py-1 px-2 tracking-[-0.02em] rounded-[20px]"
-            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                {tenants.length} tenants
-            </p>
-        </div>
         {/* SEARCH & TABS */}
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
         <div className="flex items-center gap-2 pb-4 bg-[rgba(3,44,166,0.04)] border
