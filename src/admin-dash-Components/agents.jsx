@@ -133,7 +133,7 @@ export default function Agents() {
                                             className="text-center py-6"
                                         >
                                             <div className="flex items-center justify-center">
-                                                <svg className="circle-svg" viewBox="25 25 50 50">
+                                                <svg className="circle" viewBox="25 25 50 50">
                                                     <circle r="20" cy="50" cx="50"></circle>
                                                 </svg>
                                             </div>
@@ -142,7 +142,7 @@ export default function Agents() {
                                 ) : agents.length === 0 ? (
                                     <tr>
                                         <td
-                                            colSpan="4"
+                                            colSpan="5"
                                             className="text-center py-6 text-slate-500"
                                         >
                                             No agents found
