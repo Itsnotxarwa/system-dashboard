@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Building, Settings, Phone, KeyRound, ChartColumn, LogOut } from "lucide-react";
+import { Building, Phone, KeyRound, ChartColumn, LogOut, Bot } from "lucide-react";
 import Logo from "../assets/image.png";
 
 
@@ -7,7 +7,7 @@ export default function Sidebar({role}) {
 
     const main = [
         { name: "tenants", label: "Tenants", href: "/", icon: <Building size={20} /> },
-        { name: "configs", label: "Configs", href: "/configs", icon: <Settings size={20} /> },
+        { name: "Agents", label: "Agents", href: "/agents", icon: <Bot size={20} /> },
         { name: "sessions", label: "Sessions", href:"/sessions", icon: <Phone size={20} /> },
     ];
 
