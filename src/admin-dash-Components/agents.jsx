@@ -1,6 +1,6 @@
 import Sidebar from "./sidebar";
 import { useState, useEffect, useCallback } from "react";
-import { handleUnauthorized } from "../../utils/auth";
+import { handleUnauthorized } from "../utils/auth";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);
