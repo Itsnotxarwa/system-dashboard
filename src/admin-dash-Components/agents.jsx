@@ -93,8 +93,8 @@ export default function Agents() {
                         className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
                         w-65 text-[#0a1628] cursor-pointer">
                             <option value="">All types</option>
-                            <option value="active">inbound</option>
-                            <option value="inactive">outbound</option>
+                            <option value="inbound">inbound</option>
+                            <option value="outbound">outbound</option>
                         </select>
                     </div>
                     {/* Agents Table */}
