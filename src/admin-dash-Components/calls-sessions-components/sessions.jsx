@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import handleUnauthorized from "../../utils/auth";
+import {handleUnauthorized} from "../../utils/auth";
 
 export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [sessions, setSessions] = useState([]);
@@ -20,13 +20,13 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
 
             const params = new URLSearchParams();
 
-            if (tenantId) params.append("tenantId", tenantId);
-            if (agentId) params.append("agentId", agentId);
+            if (tenantId) params.append("tenant_id", tenantId);
+            if (agentId) params.append("agent_id", agentId);
             if (type) params.append("type", type);
             params.append("page", page);
-            params.append("limit", limit);
+            params.append("page_size", limit);
 
-            const url = `https://api.voixup.fr/admin/tenants/calls/sessions${params.toString()}`;
+            const url = `https://api.voixup.fr/admin/tenants/calls/sessions?${params.toString()}`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -162,7 +162,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {!loading ? (
+                                {loading ? (
                                     <tr>
                                         <td
                                             colSpan="5"
