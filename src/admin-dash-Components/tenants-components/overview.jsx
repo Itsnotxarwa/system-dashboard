@@ -6,7 +6,7 @@ export default function Overview({setShowModal, tenants}) {
     <div className="p-4">
         <div className="flex items-center justify-between mb-4">
             <div className="flex tenant-title justify-start items-start gap-2 mt-4">
-                <h1 className=" mb-4 text-2xl font-bold tracking-[-0.5px]"
+                <h1 className="text-2xl font-bold text-slate-800 mb-4"
                 style={{fontFamily: "'Cabinet', sans-serif"}}>Tenants</h1>
             </div>
             <div>

@@ -6,6 +6,7 @@ import Campaign from './admin-dash-Components/tenantDetails/Campaign';
 import SessionExpired from './SessionExpired';
 import { useState, useEffect } from 'react';
 import Agents from "./admin-dash-Components/agents";
+import CallsSessions from './admin-dash-Components/callsSessions';
 
 function App() {
   const [sessionValid, setSessionValid] = useState(true);
@@ -39,6 +40,7 @@ function App() {
         <Route path="/tenant/:id/call-records" element={<CallRecords />} />
         <Route path="/tenant/:id/campaign" element={<Campaign />} />
         <Route path="/agents" element={<Agents />} />
+        <Route path="/calls&sessions" element={<CallsSessions />} />
       </Routes>
     </Router>
     </>

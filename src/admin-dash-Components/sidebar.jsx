@@ -7,8 +7,8 @@ export default function Sidebar({role}) {
 
     const main = [
         { name: "tenants", label: "Tenants", href: "/", icon: <Building size={20} /> },
-        { name: "Agents", label: "Agents", href: "/agents", icon: <Bot size={20} /> },
-        { name: "sessions", label: "Sessions", href:"/sessions", icon: <Phone size={20} /> },
+        { name: "agents", label: "Agents", href: "/agents", icon: <Bot size={20} /> },
+        { name: "calls&sessions", label: "Calls & Sessions", href:"/calls&sessions", icon: <Phone size={20} /> },
     ];
 
     const system = [
