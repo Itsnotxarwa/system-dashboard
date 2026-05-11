@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import handleUnauthorized from "../../utils/auth";
 import KpiCards from "./kpiCards";
 import CallsBarChart from "./CallsBarChart";
-import CallSummary from "./CallSummary";
+import CallSummary from "./callsSummary";
 
 export default function Calls({range}) {
     const [calls, setCalls] = useState([]);
