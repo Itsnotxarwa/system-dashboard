@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import handleUnauthorized from "../../utils/auth";
+import {handleUnauthorized} from "../../utils/auth";
 import KpiCards from "./kpiCards";
 import CallsBarChart from "./CallsBarChart";
 import CallSummary from "./callsSummary";
