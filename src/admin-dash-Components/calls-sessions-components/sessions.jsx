@@ -73,7 +73,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const formatDate = (datetime) => datetime.split("T")[0];
 
     return (
-                <div className="p-6">
+                <div className="py-6">
                     <h2 className="text-2xl font-bold text-slate-800 mb-4"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                         Sessions
