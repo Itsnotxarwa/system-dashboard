@@ -1,4 +1,4 @@
-import Sidebar from "../sidebar";
+import Sidebar from "./sidebar";
 import { useState } from "react";
 import Sessions from "./calls-sessions-components/sessions";
 import SessionDrawer from "./calls-sessions-components/SessionDrawer";
