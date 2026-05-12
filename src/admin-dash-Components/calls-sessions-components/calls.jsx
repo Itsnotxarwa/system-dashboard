@@ -26,7 +26,6 @@ export default function Calls({range}) {
                 }
     
                 const data = await res.json();
-                console.log("Calls overview:", data);
                 setCalls(data);
             } catch (err) {
                 console.error(err)
