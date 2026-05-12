@@ -2,8 +2,7 @@ import { File, Paperclip, Plus, X, FileCheckCorner } from "lucide-react";
 import { useState } from "react";
 import { handleUnauthorized } from "../../../utils/auth";
 
-export default function CreateCampaign({tenant, onClose, onCancel, agents, handleDrop, handleDragOver, 
-    handleFileChange, file, setFile, setCampaigns}) {
+export default function CreateCampaign({tenant, onClose, onCancel, agents, setCampaigns}) {
     const [showSlot, setShowSlot] = useState(false);
     const [loading, setLoading] = useState(false)
     
@@ -17,12 +16,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
             start_time: "",
             end_time: "",
         }],
-        recipients: [{
-            id: "",
-            phone: "",
-            status: "",
-            call_attempts: "",
-        }]
+
     })
     const handleTimeSlotChange = (index, field, value) => {
         const updatedSlots = [...campaignData.time_slots];
@@ -72,33 +66,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                 throw new Error(data?.detail || "Creation failed");
             }
 
-            let newCampaign = data;
-
-         if (file) {
-    const uploadForm = new FormData();
-    uploadForm.append("file", file);
-
-    const uploadRes = await fetch(
-        `https://api.voixup.fr/tenants/${tenantId}/campaigns/${data.id}/recipients/upload`,
-        {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: uploadForm,
-        }
-    );
-
-    if (uploadRes.ok) {
-        const uploadData = await uploadRes.json();
-        newCampaign = {
-            ...data,
-            recipients: Array.from({ length: uploadData.valid_recipients || 0 }, (_, i) => ({ id: i }))
-        };
-    }
-}
-
-            setCampaigns(prev => [...prev, newCampaign]);
+            setCampaigns(prev => [...prev, data]);
             onClose();
             window.location.reload();
 
@@ -268,95 +236,9 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, handl
                             </div>
                         </div>
                     )}
-                    <div className="flex items-center gap-3 py-1">
-                        <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
-                        <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest">
-                            Recipients
-                        </span>
-                        <div className="flex-1 h-px bg-[rgba(3,44,166,.08)]"></div>
-                    </div>
 
-                    <div>
-                        <div className="flex items-center justify-between mb-2">
-                            <label className="text-[#9aabca] font-semibold text-xs">
-                                Upload Recipients {" "}
-                                <span className="text-[#9aabca] font-normal">(optional)</span>
-                            </label>
-                            <span className="text-[9px] px-2 py-0.5 rounded-md bg-[rgba(3,44,166,.06)]
-                            text-[#7a8bb5] border border-[rgba(3,44,166,.10)]">
-                                CSV 
-                            </span>
-                        </div>
-                        {/* DROP ZONE */}
-                        <div 
-                        onDrop={handleDrop}
-                        onDragOver={handleDragOver}
-                        className="border-dashed border-[rgba(3,44,166,.20)] rounded-xl bg-[rgba(3,44,166,.025)]
-                        text-center cursor-pointer p-[20px_16px] transition-all duration-200">
-                            <label className="cursor-pointer block">
-                                <input
-                                    type="file"
-                                    className="hidden"
-                                    onChange={handleFileChange}
-                                />
-                                {file ? (
-                                    <div className="flex justify-center items-center text-[#059669]">
-                                        <FileCheckCorner />
-                                    </div>
-                                ) : (
-                                    <div className="flex justify-center items-center mb-1.5">
-                                        <Paperclip />
-                                    </div>
-                                )}
-                                {file ? (
-                                    <div>
-                                    <p className="text-xs font-semibold text-[#059669] mb-1">
-                                        {file.name}
-                                    </p>
-                                    <p className="text-[11px] text-[#9aabca]">
-                                        {(file.size / 1024).toFixed(1) + " KB"}
-                                    </p>
-                                    </div>
-                                ) : (
-                                    <p className="text-xs font-semibold text-[#374151] mb-1">
-                                    Drop your file here or {" "}
-                                    <span className="text-[#032ca6]">
-                                        browse
-                                    </span>
-                                    </p>
-                                )}
-                            </label>
-                        </div>
 
-                        {/* FILE INFO */}
-                        {file &&
-                        <div className="mt-2 flex items-center justify-between px-3 py-2 rounded-lg
-                        bg-[rgba(5,150,105,.06)] border border-[rgba(5,150,105,.18)]">
-                            <div className="flex items-center gap-2">
-                                <div className="flex justify-center items-center text-[#059669]">
-                                    <File />
-                                </div>
-                                <div>
-                                    <div className="text-xs font-semibold text-[#059669]">
-                                        {file.name}
-                                    </div>
-                                    <div className="mt-0.5 text-[#9aabca] text-[11px]">
-                                        {(file.size / 1024).toFixed(1) + " KB"}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={() => setFile(null)}
-                                className="text-[16px] text-[#dc2626] bg-transparent border-none 
-                                cursor-pointer p-0 flex items-center justify-center"
-                            >
-                                <X />
-                            </button>
-                        </div>
-                        }
-                    </div>
-                    </div>
+                </div>
 
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t

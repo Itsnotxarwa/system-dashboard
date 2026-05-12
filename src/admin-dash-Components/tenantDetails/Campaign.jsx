@@ -12,7 +12,6 @@ export default function Campaign() {
     const [campaigns, setCampaigns] = useState([]);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [agents, setAgents] = useState([]);
-    const [file, setFile] = useState(null);
 
      {/* fetch tenants */}
     useEffect(() => {
@@ -112,26 +111,6 @@ export default function Campaign() {
         fetchAgents();
     },[id]);
 
-    const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type !== "text/csv") {
-            alert("Only CSV files allowed");
-            return;
-        }
-        setFile(selectedFile);
-    };
-
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const droppedFile = e.dataTransfer.files[0];
-        if (droppedFile) {
-            setFile(droppedFile);
-        }
-    };
-
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
 
     return(
         <div className="flex min-h-screen bg-white text-black">
@@ -147,7 +126,6 @@ export default function Campaign() {
                 campaigns={campaigns}
                 setCampaigns={setCampaigns}
                 updateStatus={updateStatus}
-                file={file}
                 />
             </main>
             {showCreateModal && 
@@ -157,12 +135,8 @@ export default function Campaign() {
             tenant={tenant}
             onClose={() => setShowCreateModal(false)} 
             onCancel={() => setShowCreateModal(false)} 
-            handleFileChange={handleFileChange}
-            handleDrop={handleDrop}
-            handleDragOver={handleDragOver}
-            file={file}
-            setFile={setFile}
-            />}
+            />
+            }
         </div>
     )
 }

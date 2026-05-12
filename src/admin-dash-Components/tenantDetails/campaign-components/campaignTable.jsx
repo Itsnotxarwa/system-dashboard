@@ -3,16 +3,16 @@ import { useRef, useState } from "react";
 import { handleUnauthorized } from "../../../utils/auth";
 import DeleteRecipients from "./DeleteRecipients";
 
-export default function CampaignTable({tenant, filteredcampaigns, updateStatus, campaigns, setCampaigns, handleDelete, 
+export default function CampaignTable({tenant, filteredcampaigns, campaigns, setCampaigns, handleDelete, 
     handleEdit, selectedCampaign, setSelectedCampaign }) {
     const [showDeleteRecs, setShowDeleteRecs] = useState(false);
 
-    const deleteRecipient = async (recipientId) => {
+    const deleteRecipients = async () => {
         try{
             const token = localStorage.getItem("token");
             const campaignId = selectedCampaign.id;
             const response = await fetch(
-                `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/recipients/${recipientId}`,
+                `https://api.voixup.fr/campaigns/${campaignId}/recipients`,
                 {
                     method: "DELETE",
                     headers: {
@@ -26,17 +26,15 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 return;
             }
             if (!response.ok) {
-                const errorText = await response.text(); 
-                console.error("Delete failed - status:", response.status, "body:", errorText);
-                throw new Error(errorText || "Delete failed");
+                throw new Error("Failed to delete recipients");
             }
 
             setSelectedCampaign(prev => ({
                 ...prev,
-                recipients: prev.recipients.filter(r => r.id !== recipientId)
+                recipients: []
             }));
-            const data = await response.json();
-            console.log(data);
+
+            console.log("All recipients deleted");
             
             
         } catch (err) {
@@ -87,104 +85,51 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
             setUploadingCampaignId(null);
         }
     }
-    {/* START */}
-    const startCampaign = async (campaignId, recipients) => {
-        if (!recipients || recipients.length === 0) {
-            alert("No recipients");
-            return;
-        }
+
+    const updateCampaignStatus = async (campaignId, status) => {
     try {
         const token = localStorage.getItem("token");
-        const tenantId = tenant?.id;
+
         const res = await fetch(
-            `https://api.voixup.fr/tenants/${tenantId}/campaigns/${campaignId}/start`,
+            `https://api.voixup.fr/campaigns/${campaignId}/status`,
             {
-                method: "POST",
+                method: "PATCH",
                 headers: {
+                    "Content-Type": "application/json",
                     accept: "application/json",
                     Authorization: `Bearer ${token}`,
                 },
+                body: JSON.stringify({
+                    status,
+                }),
             }
         );
+
         if (res.status === 401) {
             handleUnauthorized(401);
             return;
         }
-        
+
+        const data = await res.json();
+
         if (!res.ok) {
-            const err = await res.json();
-            console.error(err);
+            console.error(data);
+            alert(data.detail || "Failed to update status");
             return;
         }
 
-        const data = await res.json();
-        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
-        updateStatus(campaignId, data.status);
+        setCampaigns(prev =>
+            prev.map(c =>
+                c.id === campaignId
+                    ? { ...c, status: data.status || status }
+                    : c
+            )
+        );
 
     } catch (err) {
         console.error(err);
     }
-    };
-    {/* PAUSE */}
-    const pauseCampaign = async (campaignId) => {
-    try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/pause`,
-            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
-        );
-        if (res.status === 401) {
-            handleUnauthorized(401);
-            return;
-        }
-        if (!res.ok) throw new Error();
-
-        const data = await res.json();
-        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
-        updateStatus(campaignId, data.status);
-
-    } catch (err) { console.error(err); }
-    };
-
-    {/* RESUME */}
-    const resumeCampaign = async (campaignId) => {
-    try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/resume`,
-            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
-        );
-        if (!res.ok) throw new Error();
-
-        const data = await res.json();
-        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
-        updateStatus(campaignId, data.status);
-
-    } catch (err) { 
-        console.error(err);
-    }
-    };
-
-    {/* RESET */}
-    const resetCampaign = async (campaignId) => {
-    try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-            `https://api.voixup.fr/tenants/${tenant?.id}/campaigns/${campaignId}/reset`,
-            { method: "POST", headers: { accept: "application/json", Authorization: `Bearer ${token}` } }
-        );
-        if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
-        if (!res.ok) throw new Error();
-
-        const data = await res.json();
-        setCampaigns(prev => prev.map(c => c.id === campaignId ? {...c, status: data.status} : c ))
-        updateStatus(campaignId, data.status);
-        
-    } catch (err) { console.error(err); }
-    };
+};
 
     return(
         <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
@@ -303,7 +248,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                         <button 
                                         disabled={!c.recipients || c.recipients.length === 0}
                                         onClick={() => {
-                                            startCampaign(c.id, c.recipients)
+                                            updateCampaignStatus(c.id, "RUNNING")
                                         }}
                                         className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
                                         ${(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT")
@@ -320,7 +265,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     {c.status === "RUNNING" && (
                                         <button 
                                         onClick={() => {
-                                            pauseCampaign(c.id)
+                                            updateCampaignStatus(c.id, "PAUSED")
                                         }}
                                         className="bg-[rgba(245,158,11,.08)] border border-[rgba(245,158,11,.25)]
                                         text-[#d97706] flex items-center gap-1 text-xs cursor-pointer
@@ -333,7 +278,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     {c.status === "PAUSED" && (
                                         <button 
                                         onClick={() => {
-                                            resumeCampaign(c.id)
+                                            updateCampaignStatus(c.id, "RUNNING")
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
                                         border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
@@ -346,7 +291,7 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                                     {(c.status === "RUNNING" || c.status === "PAUSED" || c.status === "COMPLETED") && (
                                         <button 
                                         onClick={() => {
-                                            resetCampaign(c.id)
+                                            updateCampaignStatus(c.id, "DRAFT")
                                         }}
                                         className="bg-[rgba(3,44,166,.07)] text-[#032ca6] cursor-pointer
                                         border border-[rgba(3,44,166,.18)] flex items-center gap-1 text-xs
@@ -437,8 +382,8 @@ export default function CampaignTable({tenant, filteredcampaigns, updateStatus, 
                 <DeleteRecipients
                 selectedCampaign={selectedCampaign}
                 onCancel={() => setShowDeleteRecs(false)}
-                onConfirm={(recipientId) => {
-                    deleteRecipient(recipientId);
+                onConfirm={() => {
+                    deleteRecipients();
                 }}/>
             )}
         </div>
