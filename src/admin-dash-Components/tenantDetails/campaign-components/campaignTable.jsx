@@ -144,7 +144,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                 onChange={handleUploadChange}
             />
             {campaigns.length === 0 ? (
-                <div className="py-6 text-center text-xs text-slate-600 rounded-xl
+                <div className="py-6 text-center text-sm text-slate-600 rounded-xl
                 border-dashed border-[rgba(3,44,166,0.12)]">
                     No campaigns yet — click {" "}
                     <strong className="text-blue-700">+ Add Campaign</strong> 
@@ -201,12 +201,12 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                     {c.id}
                                 </div>
                             </td>
-                            <td className="p-[13px_20px] text-[#374151] text-xs">
+                            <td className="p-[13px_20px] text-[#374151] text-sm">
                                 {c.agent_id}
                             </td>
                             <td className="p-[13px_20px] text-center">
                                 <div className="flex justify-center items-center">
-                                <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
+                                <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
                                 ${c.status === "READY" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "RUNNING" ? "bg-[rgba(5,150,105,.08)] text-[#059669] border-[rgba(5,150,105,.20)]" : ""}
                                 ${c.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
@@ -228,18 +228,18 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                 </span>
                                 </div>
                             </td>
-                            <td className="p-[13px_20px] text-xs text-[#374151]">
+                            <td className="p-[13px_20px] text-sm text-[#374151]">
                                 {c.start_date ? new Date(c.start_date).toLocaleDateString("fr-FR", {
                                     year: "numeric",
                                     month: "short",
                                     day: "numeric",
                                 }) : ""}
                             </td>
-                            <td className="p-[13px_20px] text-xs font-semibold text-[#0a1628]"
+                            <td className="p-[13px_20px] text-sm font-semibold text-[#0a1628]"
                             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                 {c.batch_size}
                             </td>
-                            <td className="p-[13px_20px] text-xs text-[#7a8bb5] max-w-40">
+                            <td className="p-[13px_20px] text-sm text-[#7a8bb5] max-w-40">
                                 <div className="flex-nowrap overflow-hidden text-ellipsis">
                                     {c.time_slots?.map((slot, index) => (
                                         <div key={index}>
@@ -256,7 +256,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                         onClick={() => {
                                             updateCampaignStatus(c.id, "RUNNING")
                                         }}
-                                        className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
+                                        className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px]
                                         ${(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT")
                                             ? "bg-[rgba(5,150,105,.08)] text-[#059669] border border-[rgba(5,150,105,.25)]"
                                             : "bg-gray-100 text-gray-400 border"
@@ -274,7 +274,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                             updateCampaignStatus(c.id, "PAUSED")
                                         }}
                                         className="bg-[rgba(245,158,11,.08)] border border-[rgba(245,158,11,.25)]
-                                        text-[#d97706] flex items-center gap-1 text-xs cursor-pointer
+                                        text-[#d97706] flex items-center gap-1 text-sm cursor-pointer
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Pause size={12} />
                                             Pause
@@ -287,7 +287,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                             updateCampaignStatus(c.id, "RUNNING")
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
-                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
+                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-sm
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Play size={12} />
                                             Resume
@@ -300,7 +300,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                             updateCampaignStatus(c.id, "CANCELLED")
                                         }}
                                         className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
-                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
+                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-sm
                                         font-medium py-1 px-2.5 rounded-[20px]">
                                             <Play size={12} />
                                             Cancel
@@ -310,17 +310,17 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                             </td>
                             <td>
                                 {(!c.recipients || c.recipients.length === 0 || c.status === "DRAFT") ? (
-                                    <div className="flex items-center justify-center text-xs gap-1 font-medium
+                                    <div className="flex items-center justify-center text-sm gap-1 font-medium
                                     bg-[rgba(245,158,11,.08)] rounded-[20px] p-[3px_10px] text-[#d97706]
                                     border border-[rgba(245,158,11,.22)]">
                                         <TriangleAlert size={12} />
                                         No File
                                     </div>
                                 ) : (
-                                    <div className="flex items-center text-xs gap-1 font-medium">
+                                    <div className="flex items-center text-sm gap-1 font-medium">
                                         <File size={21} stroke="#9aabca" />
                                         <div>
-                                            <div className="text-xs font-semibold text-[#059669]">
+                                            <div className="text-sm font-semibold text-[#059669]">
                                                 {c.recipients?.length || 0}
                                             </div>
                                             <div className="text-[10px] text-[#9aabca]">
@@ -335,7 +335,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                     <button 
                                     onClick={() => handleEdit(c)}
                                     className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px]
-                                    text-xs p-[3px_10px] font-medium
+                                    text-sm p-[3px_10px] font-medium
                                     border-[rgba(3,44,166,.20)] flex items-center justify-center gap-1">
                                         <Edit size={12} />
                                         Edit
@@ -343,7 +343,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                     <button 
                                     onClick={() => handleDelete(c)}
                                     className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border rounded-[20px]
-                                    text-xs p-[3px_10px] font-medium
+                                    text-sm p-[3px_10px] font-medium
                                     border-[rgba(220,38,38,.16)] flex items-center justify-center gap-1">
                                         <Trash size={12} />
                                         Delete
@@ -354,7 +354,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                             handleUploadFile(c.id)
                                         }}
                                         className="bg-[rgba(3,44,166,.07)] text-[#032ca6] border rounded-[20px] gap-1 
-                                        border-[rgba(3,44,166,.20)] flex items-center justify-center text-xs p-[3px_10px] font-medium">
+                                        border-[rgba(3,44,166,.20)] flex items-center justify-center text-sm p-[3px_10px] font-medium">
                                             <FileUp size={12} />
                                             Upload
                                         </button>
@@ -365,7 +365,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                             setShowDeleteRecs(true);
                                         }}
                                         className="bg-[rgba(245,158,11,.06)] text-[#d97706] border rounded-[20px] gap-1 
-                                        border-[rgba(245,158,11,.22)] flex items-center justify-center text-xs
+                                        border-[rgba(245,158,11,.22)] flex items-center justify-center text-sm
                                         p-[3px_10px] font-medium">
                                             <Trash size={12} />
                                             Recipients

@@ -104,16 +104,6 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
                 </div>
                 )}
 
-                {campaigns.length === 0 ? null :(
-                <p className="text-[16px] text-slate-500 my-4"
-                style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                    Manage outbound call campaigns
-                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
-                        {campaigns?.length} campaigns
-                    </span>
-                </p>
-                )}
-
                 <CampaignTable 
                 tenant={tenant} 
                 filteredcampaigns={filteredCampaigns} 
