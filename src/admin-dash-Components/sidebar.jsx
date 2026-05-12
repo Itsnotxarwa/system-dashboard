@@ -5,6 +5,34 @@ import Logo from "../assets/image.png";
 
 export default function Sidebar({role}) {
 
+    const handleLogout = async () => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(
+            "https://api.voixup.fr/auth/logout",
+            {
+                method: "POST",
+                headers: {
+                    accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        if (!res.ok) {
+            console.error("Logout failed");
+        }
+
+    } catch (err) {
+        console.error(err);
+    } finally {
+        localStorage.removeItem("token");
+
+        window.location.href = "https://mazia-login.vercel.app/";
+    }
+};
+
     const main = [
         { name: "tenants", label: "Tenants", href: "/", icon: <Building size={20} /> },
         { name: "agents", label: "Agents", href: "/agents", icon: <Bot size={20} /> },
@@ -83,6 +111,7 @@ export default function Sidebar({role}) {
                             </p>
                         </div>
                         <button
+                        onClick={handleLogout}
                         className="w-7 h-7 flex items-center justify-center rounded-lg 
                         bg-white border border-gray-200 text-gray-300 cursor-pointer
                         hover:bg-red-50 hover:border-red-200 hover:text-red-400 
