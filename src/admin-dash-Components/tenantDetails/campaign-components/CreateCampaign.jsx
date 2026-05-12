@@ -36,21 +36,21 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, setCa
             const token = localStorage.getItem("token");
             const tenantId = tenant?.id;
 
-            const formData = new FormData();
-
-            formData.append("name", campaignData.name);
-            formData.append("agent_id", campaignData.agent_id);
-            formData.append("start_date", campaignData.start_date);
-            formData.append("batch_size", campaignData.batch_size);
-            formData.append("time_slots", JSON.stringify(campaignData.time_slots));
 
             const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaign`, {
                 method: "POST",
                 headers: {
                     accept: "application/json",
+                    "Content-Type": "application/json",
                     authorization: `Bearer ${token}`,
                 },
-                body: formData,
+                body: JSON.stringify({
+                    name: campaignData.name,
+                    agent_id: campaignData.agent_id,
+                    start_date: campaignData.start_date,
+                    batch_size: campaignData.batch_size,
+                    time_slots: campaignData.time_slots,
+                }),
             });
 
             if (res.status === 401) {
