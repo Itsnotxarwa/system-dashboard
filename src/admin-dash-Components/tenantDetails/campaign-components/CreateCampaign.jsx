@@ -73,7 +73,6 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
             onClose();
         } catch (error) {
             console.error(error);
-            // FIX: was error?.detail — Error objects use .message
             alert(`Failed: ${error?.message}`);
         } finally {
             setLoading(false);
@@ -87,7 +86,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
             shadow-[0_24px_80px_rgba(3,44,166,0.18)] w-full lg:max-w-md overflow-hidden
             animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both] max-h-[90vh]
             flex flex-col">
- 
+
                 {/* Header */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b shrink-0 border border-[rgba(3,44,166,0.08)]
                 bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
