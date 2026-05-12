@@ -212,6 +212,8 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                 ${c.status === "PAUSED" ? "bg-[rgba(245,158,11,.08)] text-[#d97706] border-[rgba(245,158,11,.20)]" : ""}
                                 ${c.status === "COMPLETED" ? "bg-[rgba(124,58,237,.08)] text-[#7c3aed] border-[rgba(3,44,166,.20)]" : ""}
                                 ${c.status === "DRAFT" ? "bg-[rgba(3,44,166,.08)] text-[#032ca6] border-[rgba(3,44,166,.20)]" : ""}
+                                ${c.status === "FAILED" ? "bg-[rgba(220,38,38,.08)] text-[#dc2626] border-[rgba(220,38,38,.20)]" : ""}
+                                ${c.status === "CANCELLED" ? "bg-[rgba(244,114,182,.08)] text-[#ec4899] border-[rgba(244,114,182,.20)]" : ""}
                                 `}>
                                     <span className={`w-1.5 h-1.5 shrink-0 rounded-full
                                     ${c.status === "READY" ? "bg-[#22c55e]" : ""}
@@ -219,6 +221,8 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                     ${c.status === "PAUSED" ? "bg-[#f59e0b]" : ""}
                                     ${c.status === "COMPLETED" ? "bg-[#a78bfa]" : ""}
                                     ${c.status === "DRAFT" ? "bg-[#6b8fef]" : ""}
+                                    ${c.status === "FAILED" ? "bg-[#ef4444]" : ""}
+                                    ${c.status === "CANCELLED" ? "bg-[#ec4899]" : ""}
                                     `}></span>
                                     {c?.status || ""}
                                 </span>
@@ -290,16 +294,16 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                                         </button>
                                     )}
 
-                                    {(c.status === "RUNNING" || c.status === "PAUSED" || c.status === "COMPLETED") && (
+                                    {(c.status === "READY" || c.status === "PAUSED" || c.status === "FAILED" || c.status === "RUNNING") && (
                                         <button 
                                         onClick={() => {
-                                            updateCampaignStatus(c.id, "DRAFT")
+                                            updateCampaignStatus(c.id, "CANCELLED")
                                         }}
-                                        className="bg-[rgba(3,44,166,.07)] text-[#032ca6] cursor-pointer
-                                        border border-[rgba(3,44,166,.18)] flex items-center gap-1 text-xs
+                                        className="bg-[rgba(5,150,105,.08)] text-[#059669] cursor-pointer
+                                        border border-[rgba(5,150,105,.25)] flex items-center gap-1 text-xs
                                         font-medium py-1 px-2.5 rounded-[20px]">
-                                            <RotateCcw size={12} />
-                                            Reset
+                                            <Play size={12} />
+                                            Cancel
                                         </button>
                                     )}
                                 </div>
