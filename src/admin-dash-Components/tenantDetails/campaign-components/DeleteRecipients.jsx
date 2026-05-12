@@ -30,19 +30,15 @@ export default function DeleteRecipients({selectedCampaign, onCancel, onConfirm 
                     >
                         No, keep it
                     </button>
-                    {selectedCampaign?.recipients?.map((r) => (
-                        <div key={r.id}>
-                        <button
-                        onClick={() => onConfirm(r.id)}
-                        className="flex-1 py-3 rounded-xl bg-[#d97706] hover:bg-orange-700 border border-[#d97706]
-                        text-white text-sm font-bold shadow-md shadow-orange-200 hover:shadow-orange-300 
-                        transition-all flex items-center justify-center gap-1.5"
-                        >
-                            <Trash2 size={16} />
-                            Yes, delete
-                        </button>
-                        </div>
-                    ))}
+                    <button
+                    onClick={onConfirm}
+                    className="flex-1 py-3 rounded-xl bg-[#d97706] hover:bg-orange-700 border border-[#d97706]
+                    text-white text-sm font-bold shadow-md shadow-orange-200 hover:shadow-orange-300 
+                    transition-all flex items-center justify-center gap-1.5"
+                    >
+                        <Trash2 size={16} />
+                        Yes, delete
+                    </button>
                 </div>
             </div>
         </div>
