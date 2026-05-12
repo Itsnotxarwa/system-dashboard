@@ -75,15 +75,14 @@ export default function Calls({range}) {
                             {range === "30" ? calls?.volume.calls_last_30_days : calls?.volume.calls_last_7_days} calls
                         </span>
                         }  
-
-                        {calls && 
-                            <CallsBarChart 
-                            last7Days={calls.daily_counts.last_7_days} 
-                            last30Days={calls.daily_counts.last_30_days}
-                            range={range}
-                            /> 
-                        }                 
                     </div>
+                    {calls && 
+                        <CallsBarChart 
+                        last7Days={calls.daily_counts.last_7_days} 
+                        last30Days={calls.daily_counts.last_30_days}
+                        range={range}
+                        /> 
+                    } 
                 </div>
 
                 {calls && 
