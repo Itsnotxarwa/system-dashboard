@@ -44,7 +44,7 @@ export default function CreateCampaign({tenant, onClose, onCancel, agents, setCa
             formData.append("batch_size", campaignData.batch_size);
             formData.append("time_slots", JSON.stringify(campaignData.time_slots));
 
-            const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaigns`, {
+            const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaign`, {
                 method: "POST",
                 headers: {
                     accept: "application/json",
