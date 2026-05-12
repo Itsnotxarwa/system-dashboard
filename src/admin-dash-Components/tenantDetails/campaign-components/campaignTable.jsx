@@ -90,6 +90,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
             );
 
             alert(`Uploaded successfully — ${data.valid_recipients} valid, ${data.invalid_recipients} invalid out of ${data.total_recipients} total`);
+            window.location.reload();
 
         } catch (err) {
             alert(`Failed to upload recipients: ${err.message}`);
