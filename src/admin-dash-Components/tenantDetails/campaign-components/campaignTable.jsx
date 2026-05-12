@@ -225,7 +225,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                     {/* Actions */}
                                     <td className="p-[13px_20px]">
                                         <div className="flex gap-1 flex-wrap">
-                                            {(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT") && (
+                                            {(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT" || c.status === "CANCELLED") && (
                                                 <button
                                                     disabled={!hasRecipients}
                                                     onClick={() => updateCampaignStatus(c.id, "RUNNING")}
