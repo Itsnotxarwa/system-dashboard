@@ -5,7 +5,7 @@ import CallsBarChart from "./CallsBarChart";
 import CallSummary from "./callsSummary";
 
 export default function Calls({range}) {
-    const [calls, setCalls] = useState([]);
+    const [calls, setCalls] = useState({});
 
     useEffect(() => {
             const fetchCalls = async () => {
@@ -30,7 +30,7 @@ export default function Calls({range}) {
                 setCalls(data);
             } catch (err) {
                 console.error(err)
-                setCalls([])
+                setCalls({})
             }
         }
             fetchCalls();
