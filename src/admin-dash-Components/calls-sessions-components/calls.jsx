@@ -5,7 +5,7 @@ import CallsBarChart from "./CallsBarChart";
 import CallSummary from "./callsSummary";
 
 export default function Calls({range}) {
-    const [calls, setCalls] = useState({});
+    const [calls, setCalls] = useState(null);
 
     useEffect(() => {
             const fetchCalls = async () => {
@@ -30,11 +30,24 @@ export default function Calls({range}) {
                 setCalls(data);
             } catch (err) {
                 console.error(err)
-                setCalls({})
+                setCalls(null);
             }
         }
             fetchCalls();
         },[]);
+
+        if (!calls) {
+            return (
+            <div className="flex items-center justify-center h-64">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+            );
+        }
 
     return(
         <div>
