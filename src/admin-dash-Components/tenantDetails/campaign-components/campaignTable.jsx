@@ -179,7 +179,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                     <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
                         <tr>
                             {["Campaign Name", "Agent", "Status", "Start Date", "Batch", "Time Slots", "Actions", "Recipients", ""].map((h, i) => (
-                                <th key={i} className="text-left px-5 py-3 text-[9px] font-medium tracking-widest uppercase text-slate-400">
+                                <th key={i} className="text-left px-5 py-3 text-xs font-medium tracking-widest uppercase text-slate-400">
                                     {h}
                                 </th>
                             ))}
@@ -225,7 +225,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                     {/* Actions */}
                                     <td className="p-[13px_20px]">
                                         <div className="flex gap-1 flex-wrap">
-                                            {(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT" || c.status === "CANCELLED") && (
+                                            {(c.status === "READY" || c.status === "PAUSED" || c.status === "DRAFT") && (
                                                 <button
                                                     disabled={!hasRecipients}
                                                     onClick={() => updateCampaignStatus(c.id, "RUNNING")}
@@ -271,7 +271,6 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                         </div>
                                     </td>
 
-                                    {/* Recipients indicator */}
                                     <td className="p-[13px_20px]">
                                         {!hasRecipients || c.status === "DRAFT" ? (
                                             <div className="flex items-center justify-center text-sm gap-1 font-medium
