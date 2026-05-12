@@ -26,7 +26,9 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
                 return;
             }
             if (!response.ok) {
-                throw new Error("Failed to delete recipients");
+                const errorData = await response.json();
+                console.log(errorData);
+                throw new Error(errorData.detail || "Request failed");
             }
 
             setSelectedCampaign(prev => ({
@@ -38,7 +40,7 @@ export default function CampaignTable({tenant, filteredcampaigns, campaigns, set
             
             
         } catch (err) {
-            console.log(`Failed: ${err?.detail}`)
+            console.error(err.message);
         }
     }
 
