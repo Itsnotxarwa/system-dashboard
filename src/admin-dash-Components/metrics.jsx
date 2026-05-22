@@ -96,7 +96,7 @@ export default function Metrics() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
                         <div>
-                        {/* filters */}
+                            {/* filters */}
                             <div className="flex items-center gap-4 mb-6 flex-wrap">
                                 <input type="text"
                                 placeholder="Tenant ID"
