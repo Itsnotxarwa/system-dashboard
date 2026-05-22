@@ -3,9 +3,11 @@ import Logo from "../assets/image.png";
 import { useCallback, useEffect, useState } from "react";
 import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
+import TenantsTable from "./metrics-components/TenantsTable";
 
 export default function Metrics() {
     const [metrics, setMetrics] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     //filters
     const [tenantId, setTenantId] = useState("");
@@ -16,6 +18,7 @@ export default function Metrics() {
 
     const fetchMetrics = useCallback(async() => {
         try{
+            setLoading(true);
 
             const params = new URLSearchParams();
             if(tenantId) params.append("tenantId", tenantId);
@@ -51,7 +54,9 @@ export default function Metrics() {
         } catch (error) {
             console.error("Error fetching metrics:", error);
             setMetrics([]);
-        } 
+        } finally {
+            setLoading(false);
+        }
     }, [tenantId, page, pageSize, token]);
 
     useEffect(() => {
@@ -127,6 +132,7 @@ export default function Metrics() {
                                     w-15 text-[#0a1628] text-center" />
                                 </div>
                             </div>
+                            <TenantsTable metrics={metrics} loading={loading} />
                         </div>
 
                     </div>
