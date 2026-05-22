@@ -49,7 +49,6 @@ export default function Agents() {
 
             const data = await response.json();
             setAgents(data);
-            console.log("agents:", data);
         } catch (error) {
             console.error("Error fetching agents:", error);
             setAgents([]);
