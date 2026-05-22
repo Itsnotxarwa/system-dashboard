@@ -102,36 +102,91 @@ export default function Metrics() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
                         <div>
                             {/* filters */}
-                            <div className="flex items-center gap-4 mb-6 flex-wrap">
-                                <input type="text"
-                                placeholder="Tenant ID"
-                                value={tenantId}
-                                onChange={(e) => setTenantId(e.target.value)}
-                                className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                w-65 text-[#0a1628]" />
-                                <div className="flex items-center gap-1.5">
-                                    <label className="text-sm text-[#0a1628]">
-                                        Page
-                                    </label>
-                                    <input 
-                                    type="number"
-                                    value={page}
-                                    onChange={(e) => setPage(Number(e.target.value))}
-                                    className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                    w-15 text-[#0a1628] text-center" />
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                    <label className="text-sm text-[#0a1628]">
-                                        Limit
-                                    </label>
-                                    <input 
-                                    value={pageSize}
-                                    onChange={(e) => setPageSize(Number(e.target.value))}
-                                    type="number"
-                                    className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                    w-15 text-[#0a1628] text-center" />
-                                </div>
-                            </div>
+<div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
+
+    {/* search */}
+    <input
+        type="text"
+        placeholder="Tenant ID"
+        value={tenantId}
+        onChange={(e) => {
+            setTenantId(e.target.value);
+            setPage(1);
+        }}
+        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px]
+        p-[7px_12px] bg-white w-65 text-[#0a1628]"
+    />
+
+    {/* pagination */}
+    <div className="flex items-center gap-3 flex-wrap">
+
+        {/* info */}
+        <span className="text-sm text-slate-500">
+            Showing {(page - 1) * pageSize + 1}
+            {" "}to{" "}
+            {Math.min(page * pageSize, metrics.length)}
+            {" "}of {metrics.length} tenants
+        </span>
+
+        {/* prev */}
+        <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="w-9 h-9 rounded-lg border border-[rgba(3,44,166,.14)]
+            bg-white flex items-center justify-center
+            disabled:opacity-40"
+        >
+            ←
+        </button>
+
+        {/* page numbers */}
+        {[...Array(5)].map((_, index) => {
+            const pageNumber = index + 1;
+
+            return (
+                <button
+                    key={pageNumber}
+                    onClick={() => setPage(pageNumber)}
+                    className={`w-9 h-9 rounded-lg text-sm border
+                    flex items-center justify-center
+                    ${
+                        page === pageNumber
+                            ? "bg-[#032ca6] text-white border-[#032ca6]"
+                            : "bg-white border-[rgba(3,44,166,.14)] text-[#0a1628]"
+                    }`}
+                >
+                    {pageNumber}
+                </button>
+            );
+        })}
+
+        {/* next */}
+        <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="w-9 h-9 rounded-lg border border-[rgba(3,44,166,.14)]
+            bg-white flex items-center justify-center"
+        >
+            →
+        </button>
+
+        {/* page size */}
+        <select
+            value={pageSize}
+            onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+            }}
+            className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px]
+            p-[7px_12px] bg-white text-[#0a1628]"
+        >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+        </select>
+
+    </div>
+</div>
                             <TenantsTable metrics={metrics} loading={loading} />
                         </div>
 
