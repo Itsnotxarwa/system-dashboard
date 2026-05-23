@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Building, Phone, KeyRound, ChartColumn, LogOut, Bot } from "lucide-react";
-import Logo from "../assets/image.png";
+import Logo from "../assets/image_logo.png";
+import Mazia from "../assets/mazia.png"
 
 
 export default function Sidebar({role}) {
@@ -47,67 +48,66 @@ export default function Sidebar({role}) {
 
 
     return(
-            <aside className="flex flex-col  w-55 px-6 h-screen
-            py-8 transition-all duration-300 ease-in-out justify-between">
-                <div>
-                <div className="flex items-center justify-start">
-                    <img src={Logo} alt="Mazia" className="w-30" />
+            <aside className="flex flex-col w-55 px-6 h-screen bg-[#161b22] shrink-0 border-r
+            border-[#21262d] fixed top-0 left-0 bottom-0 z-50 py-8">
+                <div className="flex items-center gap-2 px-4 py-4.5 border-b border-[#21262d]">
+                    <div className="w-7 h-7 flex items-center justify-center">
+                        <img src={Logo} alt="Mazia" className="w-7" />
+                        <img src={Mazia} alt="Mazia" className="w-7" />
+                    </div>
                 </div>
                 
-                <nav className="space-y-8 mt-12">
+                <nav className="flex-1 px-2 pt-3">
+                    <h3 className="text-xs font-semibold uppercase tracking-widest text-[#8b949e] px-2 pb-2">
+                        Main
+                    </h3>
                     <div className="space-y-2">
-                        <h3 className="uppercase text-xs font-semibold text-gray-500 tracking-wider">Main</h3>
-                        <div className="space-y-2">
-                            {main.map((link) => (
-                                <NavLink
-                                to={link.href}
-                                key={link.name}
-                                className={({ isActive }) => `flex items-start 
-                                justify-start text-left transition-all duration-300 transform cursor-pointer
-                                gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm
-                                ${isActive
-                                    ? "text-black font-medium bg-gray-100"
-                                    : "text-gray-500 hover:bg-gray-100 hover:scale-105"
-                                }`
-                                }
-                                >
-                                    {link.icon}
-                                    <span className="transition-all duration-300 ease-in-out">{link.label}</span>
-                                </NavLink>
-                            ))}
-                        </div>
+                        {main.map((link) => (
+                            <NavLink
+                            to={link.href}
+                            key={link.name}
+                            className={({ isActive }) => `flex items-start text-muted
+                            justify-start text-left transition-all duration-300 transform cursor-pointer
+                            gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm 
+                            ${isActive
+                                ? "text-[#58a6ff] font-medium bg-[rgba(88,166,255,.12)]"
+                                : "text-gray-500 hover:bg-[#21262d]hover:scale-105"
+                            }`
+                            }
+                            >
+                                {link.icon}
+                                <span className="transition-all duration-300 ease-in-out">{link.label}</span>
+                            </NavLink>
+                        ))}
                     </div>
-                    <div className="space-y-2">
-                        <h3 className="uppercase text-xs font-semibold text-gray-500 tracking-wider">System</h3>
-                        <div className="space-y-2">
-                            {system.map((link) => (
-                                <NavLink
-                                to={link.href}
-                                key={link.name}
-                                className={({ isActive }) => `flex items-start justify-start text-left transition-all duration-300 transform cursor-pointer
-                                gap-3 px-4 py-2 text-nowrap text-sm
-                                ${isActive
-                                    ? "text-black font-medium bg-gray-100"
-                                    : "text-gray-500 hover:bg-gray-100 hover:scale-105"
-                                }`
-                                }
-                                >
-                                    {link.icon}
-                                    <span className="transition-all duration-300 ease-in-out">{link.label}</span>
-                                </NavLink>
-                            ))}
-                        </div>
-                    </div>
+                    <h3 className="uppercase text-xs font-semibold text-[#8b949e] tracking-wider">
+                        System
+                    </h3>
+                    {system.map((link) => (
+                    <NavLink
+                    to={link.href}
+                        key={link.name}
+                        className={({ isActive }) => `flex items-start justify-start text-left transition-all duration-300 transform cursor-pointer
+                        gap-3 px-4 py-2 text-nowrap text-sm text-[#8b949e]
+                        ${isActive
+                            ? "text-[#58a6ff ] font-medium bg-[rgba(88,166,255,.12)]"
+                            : "text-[#e6edf3] hover:bg-[#21262d] hover:scale-105"
+                        }`
+                    }   
+                    >
+                            {link.icon}
+                            <span className="transition-all duration-300 ease-in-out">{link.label}</span>
+                        </NavLink>
+                    ))}
                 </nav>
-                </div>
                 
-                <div className="border-t border-gray-100 py-3">
-                    <div className="flex items-center gap-0.5 p-2.5 rounded-xl bg-gray-50 
-                    border border-gray-100 relative">
+                <div className="border-t border-[#21262d] py-3 px-2 flex items-center gap-2">
+                    <div className="flex items-center gap-0.5 p-2.5 rounded-xl bg-[#161b22] 
+                    border border-[#21262d] relative">
                         <div className="flex-1">
-                            <p className="hidden text-sm font-700 text-gray-900 leading-tight tracking-tight font-semibold">
+                            <p className="hidden text-sm font-700 text-[#e6edf3] leading-tight tracking-tight font-semibold">
                             </p>
-                            <p className="text-xs text-gray-400 mt-0.5 font-normal">
+                            <p className="text-xs text-[#8b949e] mt-0.5 font-normal">
                                 {role}
                             </p>
                         </div>

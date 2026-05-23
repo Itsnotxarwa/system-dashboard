@@ -108,7 +108,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen bg-white text-black">
+    <div className="flex min-h-screen bg-[#0d1117] text-white">
       <Sidebar role={role} />
       <main className="bg-[rgba(3,44,166,0.09)] flex-1">
         <div className="max-w-7xl mx-auto">
