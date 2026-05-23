@@ -10,7 +10,6 @@ export default function Metrics() {
     const [loading, setLoading] = useState(true);
 
     //filters
-    const [tenantId, setTenantId] = useState("");
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
@@ -21,11 +20,10 @@ export default function Metrics() {
             setLoading(true);
 
             const params = new URLSearchParams();
-            if(tenantId) params.append("tenantId", tenantId);
             params.append("page", page);
             params.append("pageSize", pageSize);
 
-            const url = `https://api.voixup.fr/admin/metrics/overview?${params.toString()}`;
+            const url = `https://api.voixup.fr/admin/tenants/metrics?${params.toString()}`;
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
@@ -57,7 +55,7 @@ export default function Metrics() {
         } finally {
             setLoading(false);
         }
-    }, [tenantId, page, pageSize, token]);
+    }, [page, pageSize, token]);
 
     useEffect(() => {
         fetchMetrics();
@@ -103,12 +101,6 @@ export default function Metrics() {
                         <div>
                             {/* filters */}
                             <div className="flex items-center gap-4 mb-6 flex-wrap">
-                                <input type="text"
-                                placeholder="Tenant ID"
-                                value={tenantId}
-                                onChange={(e) => setTenantId(e.target.value)}
-                                className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                w-65 text-[#0a1628]" />
                                 <div className="flex items-center gap-1.5">
                                     <label className="text-sm text-[#0a1628]">
                                         Page
