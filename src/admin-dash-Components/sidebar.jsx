@@ -51,7 +51,7 @@ export default function Sidebar({role}) {
             <aside className="flex flex-col w-55 px-6 h-screen bg-[#161b22] shrink-0 border-r
             border-[#21262d] fixed top-0 left-0 bottom-0 z-50 py-8">
                 <div className="flex items-center gap-2 px-4 py-4.5 border-b border-[#21262d]">
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center gap-2">
                         <img src={Logo} alt="Mazia" className="w-7" />
                         <img src={Mazia} alt="Mazia" className="w-14" />
                     </div>

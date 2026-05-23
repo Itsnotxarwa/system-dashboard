@@ -1,4 +1,4 @@
-import Logo from "../../assets/image.png";
+import Logo from "../../assets/image_logo.png";
 import { ArrowDownToLine, Plus } from "lucide-react";
 import KpiCards from "./kpiCards";
 import Mazia from "../../assets/mazia.png";
@@ -9,7 +9,7 @@ export default function Overview({setShowModal, tenants}) {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center gap-2">
                         <img src={Logo} alt="Mazia" className="w-3.5" />
                         <img src={Mazia} alt="Mazia" className="w-7" />
                     </div>
