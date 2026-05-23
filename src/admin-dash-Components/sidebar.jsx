@@ -66,7 +66,7 @@ export default function Sidebar({role}) {
                             <NavLink
                             to={link.href}
                             key={link.name}
-                            className={({ isActive }) => `flex items-start text-muted
+                            className={({ isActive }) => `flex items-start text-[#8b949e]
                             justify-start text-left transition-all duration-300 transform cursor-pointer
                             gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm 
                             ${isActive
