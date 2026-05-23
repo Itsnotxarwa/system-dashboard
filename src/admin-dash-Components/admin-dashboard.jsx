@@ -110,7 +110,7 @@ export default function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-[#0d1117] text-white">
       <Sidebar role={role} />
-      <main className="bg-[rgba(3,44,166,0.09)] flex-1">
+      <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
         <div className="max-w-7xl mx-auto">
             <Overview setShowModal={setShowModal} tenants={tenants} />
             <Tenants tenants={tenants} setTenants={setTenants} />
