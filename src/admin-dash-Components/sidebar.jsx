@@ -71,7 +71,7 @@ export default function Sidebar() {
                             gap-3 px-2 lg:px-4 py-2 text-nowrap text-sm 
                             ${isActive
                                 ? "text-[#58a6ff] font-medium bg-[rgba(88,166,255,.12)]"
-                                : "hover:bg-[#21262d] hover:scale-105 text-[#e6edf3]"
+                                : "hover:bg-[#21262d] hover:scale-105 hover:text-[#e6edf3]"
                             }`
                             }
                             >
@@ -91,7 +91,7 @@ export default function Sidebar() {
                         gap-3 px-4 py-2 text-nowrap text-sm text-[#8b949e]
                         ${isActive
                             ? "text-[#58a6ff] font-medium bg-[rgba(88,166,255,.12)]"
-                            : "hover:bg-[#21262d] hover:scale-105 text-[#e6edf3]"
+                            : "hover:bg-[#21262d] hover:scale-105 hover:text-[#e6edf3]"
                         }`
                     }   
                     >
