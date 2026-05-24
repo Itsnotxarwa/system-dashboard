@@ -53,12 +53,12 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                                 </span>
                             </div>
                         </td>
-                        <td className="px-4 py-4 text-[#8b949e] text-lg">{t.email}</td>
-                        <td className="px-4 py-4 text-[#8b949e] text-lg"
+                        <td className="px-4 py-4 text-[#8b949e] text-[16px]">{t.email}</td>
+                        <td className="px-4 py-4 text-[#8b949e] text-[16px]"
                         style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                             {t.phone}
                         </td>
-                        <td className="px-4 py-4 text-[#8b949e] text-lg"
+                        <td className="px-4 py-4 text-[#8b949e] text-[16px]"
                         style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
                         </td>
