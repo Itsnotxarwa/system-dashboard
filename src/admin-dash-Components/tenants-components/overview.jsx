@@ -9,7 +9,7 @@ export default function Overview({setShowModal, tenants}) {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-start gap-2">
                         <img src={Logo} alt="Mazia" className="w-3.5" />
                         <img src={Mazia} alt="Mazia" className="w-7" />
                     </div>

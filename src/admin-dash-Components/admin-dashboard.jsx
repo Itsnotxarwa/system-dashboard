@@ -17,16 +17,6 @@ export default function AdminDashboard() {
     return localStorage.getItem("token");
   });
 
-  const [role] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlRole = params.get("role");
-    if (urlRole) {
-      localStorage.setItem("role", urlRole);
-      return urlRole;
-    }
-    return localStorage.getItem("role");
-  });
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const userId = params.get("userId");
@@ -109,7 +99,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-[#0d1117] text-white">
-      <Sidebar role={role} />
+      <Sidebar />
       <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
         <div className="max-w-7xl mx-auto">
             <Overview setShowModal={setShowModal} tenants={tenants} />

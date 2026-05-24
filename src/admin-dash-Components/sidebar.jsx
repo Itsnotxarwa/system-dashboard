@@ -4,7 +4,7 @@ import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png"
 
 
-export default function Sidebar({role}) {
+export default function Sidebar() {
 
     const handleLogout = async () => {
     try {
@@ -102,21 +102,16 @@ export default function Sidebar({role}) {
                 </nav>
                 
                 <div className="border-t border-[#21262d] py-3 px-2">
-                    <div className="flex items-center gap-0.5 p-2.5 rounded-xl bg-[#161b22] 
-                    border border-[#21262d] relative">
+                    <div className="flex items-center gap-0.5 p-2.5 rounded-xl 
+                    relative">
                         <div className="flex-1">
-                            <p className="hidden text-sm font-700 text-[#e6edf3] leading-tight tracking-tight font-semibold">
-                            </p>
-                            <p className="text-xs text-[#8b949e] mt-0.5 font-normal">
-                                {role}
-                            </p>
                         </div>
                         <button
                         onClick={handleLogout}
                         className="w-7 h-7 flex items-center justify-center rounded-lg 
-                        bg-white border border-gray-200 text-gray-300 cursor-pointer
+                        bg-white border border-gray-200 text-gray-500 cursor-pointer
                         hover:bg-red-50 hover:border-red-200 hover:text-red-400 
-                        transition-all duration-300 shrink-0"
+                        transition-all duration-300 shrink-0 absolute right-2"
                         >
                             <LogOut size={14} />
                         </button>
