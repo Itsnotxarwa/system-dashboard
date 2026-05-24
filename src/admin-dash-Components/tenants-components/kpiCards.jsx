@@ -26,7 +26,8 @@ export default function KpiCards({tenants}) {
         value: tenants.length,
         desc: `+${tenantsThisMonth} this month`,
         background: "bg-[rgba(88,166,255,.15)]",
-        stroke: "#58a6ff"
+        stroke: "#58a6ff",
+        strokewidth: "1.7"
     },
     {
         title: "Active Tenants",
@@ -34,7 +35,8 @@ export default function KpiCards({tenants}) {
         value: activeTenants,
         desc: `${inactiveTenants} inactive tenant${inactiveTenants !== 1 ? "s" : ""}`,
         background: "bg-[rgba(63,185,80,.15)]",
-        stroke: "#3fb950"
+        stroke: "#3fb950",
+        strokewidth: "1.8"
     },
     {
         title: "Activation Rate",
@@ -42,7 +44,8 @@ export default function KpiCards({tenants}) {
         value: `${activationRate}%`,
         desc: "Overall tenant health",
         background: "bg-[rgba(57,211,187,.15)]",
-        stroke: "#39d3bb"
+        stroke: "#39d3bb",
+        strokewidth: "1.8"
     },
     {
         title: "New This Month",
@@ -50,7 +53,8 @@ export default function KpiCards({tenants}) {
         value: tenantsThisMonth,
         desc: "Tenant growth",
         background: "bg-[rgba(188,140,255,.15)]",
-        stroke: "#bc8cff"
+        stroke: "#bc8cff",
+        strokewidth: "1.7"
     }
     
 ]
@@ -66,7 +70,7 @@ export default function KpiCards({tenants}) {
                 rounded-xl p-4 shadow-md transition-all border border-[#21262d]
                 duration-300 hover:scale-[1.02] ${card.background}`}>
                     <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0">
-                        <Icon size={16} stroke={card.stroke} />
+                        <Icon size={16} stroke={card.stroke} strokeWidth={card.strokewidth} />
                     </div>
                     <div>
                         <p className="text-xs font-semibold uppercase tracking-widest text-[#8b949e] mb-1">

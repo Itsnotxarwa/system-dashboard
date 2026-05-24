@@ -5,36 +5,16 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
     const navigate = useNavigate();
     
     return(
-        <div className="bg-white rounded-2xl overflow-hidden mb-6 border border-[rgba(3,44,166,.09)] 
-        shadow-[0_2px_12px_rgba(3,44,166,.06)]">
+        <div className="bg-[#0d1117] border border-[#21262d] rounded-xl overflow-hidden">
             <table className="w-full border-collapse">
-                <thead className="bg-[rgba(3,44,166,.025)] border-b border-[rgba(3,44,166,.07)]">
-                    <tr>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">   
-                            Nom
-                        </th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            ID du compte
-                        </th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            Statut
-                        </th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            Email
-                        </th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            Téléphone
-                        </th>
-                        <th className="text-left p-[13px_20px] text-[9px] font-medium tracking-widest 
-                        uppercase text-slate-400">
-                            Créé le
-                        </th>
-                        <th></th>
+                <thead>
+                    <tr className="border-b border-border">
+                        {["Nom", "ID du Compte", "Statut", "Email", "Téléphone", "Créé le", ""].map((item) => (
+                            <th className="text-left px-5 py-3 text-xs font-medium tracking-widest 
+                        uppercase text-[#8b949e]">
+                                {item}
+                            </th>
+                        ))}
                     </tr>   
                 </thead>
                 <tbody>
@@ -44,12 +24,11 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                     onClick={() => {
                         navigate(`/tenant/${t.id}/agents`)
                     }}
-                    className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
-                    cursor-pointer">
-                        <td className="p-[13px_20px] flex gap-2 items-center">
+                    className="hover:bg-[rgba(255,255,255,.03)] border-b border-[#21262d] cursor-pointer transition-colors">
+                        <td className="px-5 py-4 flex gap-2 items-center">
                             <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white 
-                            text-[11px] font-black shrink-0 bg-linear-to-br from-[#0366a6] to-[#1e40af] 
-                            shadow-[0_6px_18px_rgba(3,44,166,.22)]">
+                            text-[11px] font-bold shrink-0 bg-linear-to-br from-[#1c50a0] to-[#3b6fbf]"
+                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                 {t?.name ? t.name
                                 .split(" ")
                                 .map(word => word.charAt(0).toUpperCase())
@@ -59,8 +38,11 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                             </div>
                             {t.name}
                         </td>
-                        <td className="p-[13px_20px]">{t.id}</td> 
-                        <td className="p-[13px_20px]">
+                        <td className="px-4 py-4 text-[#8b949e]"
+                        style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                            {t.id}
+                        </td> 
+                        <td className="px-4 py-4">
                             <div className="flex justify-center items-center">
                                 <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
                                     ${t.is_active ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" : "text-[#9ca3af] bg-[#9ca3af34] border-[#9ca3af34]"}`}>
@@ -71,14 +53,17 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                                 </span>
                             </div>
                         </td>
-                        <td className="p-[13px_20px]">{t.email}</td>
-                        <td className="p-[13px_20px]">{t.phone}</td>
-                        <td className="p-[13px_20px]">
+                        <td className="px-4 py-4 text-[#8b949e] text-sm">{t.email}</td>
+                        <td className="px-4 py-4 text-[#8b949e] text-xs"
+                        style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                            {t.phone}
+                        </td>
+                        <td className="px-4 py-4 text-[#8b949e] text-xs"
+                        style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
                         </td>
-                        <td className="p-[13px_20px] flex gap-2">
-                            <button className="bg-[rgba(3,44,166,.06)] text-[#032ca6] border border-[rgba(3,44,166,.14)]
-                            cursor-pointer"
+                        <td className="px-4 py-4 items-center gap-2 justify-end">
+                            <button className="text-[#58a6ff] hover:opacity-70 transition-opacity cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleEdit(t)
@@ -86,8 +71,7 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
                                 <Edit size={21} />
                             </button>
                             <button 
-                            className="bg-[rgba(220,38,38,.06)] text-[#dc2626] border border-[rgba(220,38,38,.16)]
-                            cursor-pointer"
+                            className="hover:opacity-70 transition-opacity cursor-pointer text-[#f85149]"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleDelete(t)

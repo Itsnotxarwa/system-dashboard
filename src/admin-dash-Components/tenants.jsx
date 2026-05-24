@@ -100,21 +100,14 @@ export default function Tenants({tenants, setTenants}) {
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
         <div className="flex items-center gap-2 pb-4 bg-[rgba(3,44,166,0.04)] border
         border-[rgba(3,44,166,0.14)] rounded-[10px] py-2 px-3.5 w-80">
-            <Search size={14} color="#9aabca" />
+            <Search size={14} color="#8b949e" />
             <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Rechercher des locataires par nom ou ID de compte"
-            className="text"
-            style={{
-                border: "none",
-                background: "transparent",
-                outline: "none",
-                fontSize: 12,
-                color: "#0a1628",
-                fontFamily: "'DM Mono', monospace",
-                width: "100%",
-            }}
+            className="w-full bg-[#161b22'] border border-[#30363d] rounded-md pl-9 pr-3 py-2 
+            text-[12.5px] text-[#e6edf3] font-mono transition-colors"
+            style={{fontFamily: "'IBM Plex Mono', 'monospace'",}}
             />
         </div>
         {/* TABS */}
@@ -169,8 +162,7 @@ export default function Tenants({tenants, setTenants}) {
             );
         })}
         </div>
-        <p className="text-[16px] text-slate-500 pb-4"
-        style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+        <p className="text-[12.5px] text-[#8b949e] mb-3">
             Click a tenant to view its agents and call records
         </p>
         <TenantsTable 
