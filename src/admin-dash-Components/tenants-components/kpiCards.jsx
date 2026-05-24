@@ -70,7 +70,7 @@ export default function KpiCards({tenants}) {
                 rounded-xl p-4 shadow-md transition-all border border-[#21262d]
                 duration-300 hover:scale-[1.02] ${card.background}`}>
                     <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0">
-                        <Icon size={16} stroke={card.stroke} strokeWidth={card.strokewidth} />
+                        <Icon size={24} stroke={card.stroke} strokeWidth={card.strokewidth} />
                     </div>
                     <div>
                         <p className="text-xs font-semibold uppercase tracking-widest text-[#8b949e] mb-1">
