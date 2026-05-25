@@ -4,6 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import { handleUnauthorized } from "../../utils/auth";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
+import KpiCards from "./metrics-components/kpiCards";
 
 export default function Metrics() {
         const {id} = useParams();
