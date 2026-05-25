@@ -4,7 +4,6 @@ import Mazia from "../assets/mazia.png";
 import { useCallback, useEffect, useState } from "react";
 import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
-import TenantsTable from "./metrics-components/TenantsTable";
 
 export default function Metrics() {
     const [metrics, setMetrics] = useState([]);
