@@ -52,7 +52,8 @@ export default function TenantSidebar({tenant}) {
                             : ""}
                         </div>
                         <div className="min-w-0">
-                            <div className="text-sm font-bold text-[#8b949e] truncate">
+                            <div className="text-sm font-bold text-[#8b949e] truncate"
+                            style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
                                 {tenant?.name || ""}
                             </div>
                             <div className="text-xs text-[#8b949e] truncate mt-0.5"

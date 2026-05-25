@@ -66,7 +66,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                         <img src={Logo} alt="Mazia" className="w-3.5" />
                         <img src={Mazia} alt="Mazia" className="w-7" />
                     </div>
-                    <span className="text-xs text-slate-400 tracking-widest uppercase">
+                    <span className="text-xs tracking-widest text-[#8b949e] uppercase">
                         {tenant?.name}
                     </span>
                 </div>
@@ -88,7 +88,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                             style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
                                 {tenant?.name || ""}
                             </h1>
-                            <div className="flex items-center gap-1.5 ml-2">
+                            <div className="flex items-center justify-center gap-1.5 ml-2">
                                 <span className={`w-1.5 h-1.5 rounded-full
                                     ${tenant?.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#6b7280] shadow-[0_0_5px_#6b7280]"}`}></span>
                                 <span className="text-[10px] text-slate-400">
