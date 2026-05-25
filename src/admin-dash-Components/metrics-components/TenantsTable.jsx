@@ -63,13 +63,13 @@ export default function TenantsTable({metrics, loading}) {
                                             {tenant.tenant_id}
                                         </td>
                                         <td className="p-[13px_20px]">
-                                            {tenant.sessions.total}
+                                            {tenant.session_count}
                                         </td>
                                         <td className="p-[13px_20px]">
-                                            {tenant.summary.ttft_p50 ? tenant.summary.ttft_p50.toFixed(2) + "s" : "N/A"}
+                                            {tenant.ttft_p50 ? tenant.ttft_p50.toFixed(2) + "s" : "N/A"}
                                         </td>
                                         <td className="p-[13px_20px]">
-                                            {tenant.summary.tps_p50 ? tenant.summary.tps_p50.toFixed(2) : "N/A"}
+                                            {tenant.tps_p50 ? tenant.tps_p50.toFixed(2) : "N/A"}
                                         </td>
                                     </tr>
                                 )

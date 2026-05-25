@@ -7,9 +7,31 @@ export default function Metrics() {
         const {id} = useParams();
 
         const [metrics, setMetrics] = useState([]);
+        const [tenant, setTenant] = useState(null);
         const [loading, setLoading] = useState(true);
-    
-    
+
+        useEffect(() => {
+        const fetchTenant = async () => {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
+                headers: {
+                accept: "application/json",
+                authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (res.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+
+            const data = await res.json();
+            setTenant(data);
+        }
+        fetchTenant();
+    }, [id]);
+
         useEffect(() => {
         const fetchMetrics = async() => {
             try{
@@ -65,7 +87,7 @@ export default function Metrics() {
         }
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
-            <TenantSidebar />
+            <TenantSidebar tenant={tenant} />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col ml-55"></main>
         </div>
     )

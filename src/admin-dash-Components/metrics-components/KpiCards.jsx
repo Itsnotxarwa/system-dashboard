@@ -3,10 +3,10 @@ import { Clock, MessageSquare, TrendingUp, Users, Zap } from "lucide-react";
 export default function KpiCards({metrics}) {
     if (!metrics) return null;
 
-    const totalSessions = metrics.reduce((sum, tenant) => sum + tenant.sessions.total, 0);
-    const totalTurns = metrics.reduce((sum, tenant) => sum + tenant.summary.total_turns, 0);
-    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.summary.ttft_p50, 0) / metrics.length;
-    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.summary.tps_p50, 0) / metrics.length;
+    const totalSessions = metrics.reduce((sum, tenant) => sum + tenant.session_count, 0);
+    const totalTurns = metrics.reduce((sum, tenant) => sum + tenant.total_turns, 0);
+    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.ttft_p50, 0) / metrics.length;
+    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.tps_p50, 0) / metrics.length;
 
     const cards = [
         {
