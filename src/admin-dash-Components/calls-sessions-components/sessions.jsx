@@ -74,57 +74,88 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
 
     return (
                 <div className="py-6">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-4"
+                    <h2 className="text-2xl font-bold text-[#8b949e] mb-4"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                         Sessions
                     </h2>
 
-                    {/* filters */}
-                    <div className="flex items-center gap-4 mb-6 flex-wrap">
-                        <input type="text"
-                        placeholder="Tenant ID"
-                        value={tenantId}
-                        onChange={(e) => setTenantId(e.target.value)}
-                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                        w-65 text-[#0a1628]" />
-                        <input type="text"
-                        placeholder="Agent ID"
-                        value={agentId}
-                        onChange={(e) => setAgentId(e.target.value)}
-                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                        w-65 text-[#0a1628]" />
-                        <select 
-                        value={type}
-                        onChange={(e) => setType(e.target.value)}
-                        className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                        w-65 text-[#0a1628] cursor-pointer">
-                            <option value="">All types</option>
-                            <option value="inbound">inbound</option>
-                            <option value="outbound">outbound</option>
-                        </select>
+                    {/* Filters */}
+                    <div className="flex items-center gap-3 py-6 flex-wrap">
+                        <div className="relative">
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input
+                            type="text"
+                            placeholder="Tenant ID"
+                            value={tenantId}
+                            onChange={(e) => setTenantId(e.target.value)}
+                            className="bg-[#161b22] border border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
+                            font-mono text-[12.5px] rounded-md pl-9 pr-3 py-2 w-64
+                            focus:outline-none focus:border-[#58a6ff] transition-colors"
+                            />
+                        </div>
+
+                        <div className="relative">
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input
+                            type="text"
+                            placeholder="Agent ID"
+                            value={agentId}
+                            onChange={(e) => setAgentId(e.target.value)}
+                            className="bg-[#161b22] border border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
+                            font-mono text-[12.5px] rounded-md pl-9 pr-3 py-2 w-64
+                            focus:outline-none focus:border-[#58a6ff] transition-colors"
+                            />
+                        </div>
+
+                        <div className="relative">
+                            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                            </svg>
+                            <select
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}
+                                className="bg-[#161b22] border border-[#30363d] text-[#e6edf3]
+                                font-mono text-[12.5px] rounded-md pl-9 pr-8 py-2 w-44
+                                focus:outline-none focus:border-[#58a6ff] transition-colors cursor-pointer appearance-none"
+                            >
+                                <option value="">All types</option>
+                                <option value="inbound">inbound</option>
+                                <option value="outbound">outbound</option>
+                            </select>
+                            <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </div>
+
                         <div className="flex items-center gap-1.5">
-                            <label className="text-sm text-[#0a1628]">
+                            <label className="text-[16px] text-[#0a1628]">
                                 Page
                             </label>
                             <input 
                             type="number"
                             value={page}
                             onChange={(e) => setPage(Number(e.target.value))}
-                            className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
+                            className="border border-[rgba(3,44,166,.14)] text-[16px] rounded-[9px] p-[7px_12px] bg-white
                             w-15 text-[#0a1628] text-center" />
                         </div>
                         <div className="flex items-center gap-1.5">
-                            <label className="text-sm text-[#0a1628]">
+                            <label className="text-[16px] text-[#0a1628]">
                                 limit
                             </label>
                             <input 
                             value={limit}
                             onChange={(e) => setLimit(Number(e.target.value))}
                             type="number"
-                            className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
+                            className="border border-[rgba(3,44,166,.14)] text-[16px] rounded-[9px] p-[7px_12px] bg-white
                             w-15 text-[#0a1628] text-center" />
                         </div>
                     </div>
+
+
 
                     {sessions.length === 0 && !loading && (
                         <div className="text-center text-gray-500 py-10">
@@ -134,31 +165,16 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
 
                     {/* Table */}
                     {sessions.length > 0 && (
-                    <div className="overflow-y-auto scroll bg-white rounded-lg shadow-md">
-                        <table className="w-full border-collapse text-sm roumded-lg">
-                            <thead className="sticky top-0 bg-[#fafafa]">
-                                <tr className="border-b border-[rgba(3,44,166,.07)]">
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        From
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        To
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        Type
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        Duration
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        Status
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        End Raison
-                                    </th>
-                                    <th className="text-left px-5 py-2.5 text-sm font-medium tracking-widest uppercase text-black">
-                                        Created at
-                                    </th>
+                    <div className="bg-[#0d1117] border border-[#21262d] rounded-xl overflow-hidden">
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr className="border-b border-[#21262d]">
+                                    {["From", "to", "type", "Duration", "Status", "End Raison", "Created at"].map((item) => (
+                                        <th className="text-left px-5 py-3 text-xs font-medium tracking-widest 
+                                        uppercase text-[#8b949e]">
+                                            {item}
+                                        </th>
+                                    ))}
                                 </tr>
                             </thead>
                             <tbody>
@@ -180,7 +196,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                     </tr>
                                 ) : sessions.length === 0 ? (
                                     <tr>
-                                        <td colSpan="7" className="text-center py-4 text-slate-800">
+                                        <td colSpan="7" className="text-center py-6 text-[#8b949e]">
                                             No call sessions found for this call.
                                         </td>
                                     </tr>
@@ -192,17 +208,18 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                         setSelectedSession(session);
                                         setOpenSessionDrawer(true);
                                     }}
-                                    className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
-                                    cursor-pointer`}>
-                                    <td className="px-5 py-2.5 text-sm text-slate-800">
+                                    className="hover:bg-[rgba(255,255,255,.03)] border-b border-[#21262d] cursor-pointer transition-colors">
+                                    <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                    style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                         {session.from_number}
                                     </td>
-                                    <td className="px-5 py-2.5 text-sm text-slate-800">
+                                    <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                    style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                         {session.to_number}
                                     </td>
-                                    <td className="px-5 py-2.5 text-sm text-slate-800 text-center">
+                                    <td className="px-4 py-4 text-[16px] text-[#8b949e] text-center">
                                         <div className="flex justify-center items-center">
-                                            <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px]
+                                            <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
                                             ${session.call_type === "outbound" ? "border text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
                                             : ""}
                                             ${session.call_type === "inbound" ? "border text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.020)]" 
@@ -211,12 +228,13 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-5 py-2.5 text-sm text-slate-800">
+                                    <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                    style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                         {formatDuration(session.duration_seconds)}
                                     </td>
-                                    <td className="px-5 py-2.5 text-sm text-slate-800 text-center">
+                                    <td className="px-4 py-4 text-[16px] text-[#8b949e] text-center">
                                         <div className="flex justify-center items-center">
-                                            <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
+                                            <span className={`flex items-center gap-1 text-[16px] font-medium py-1 px-2.5 rounded-[20px] border
                                             ${session.call_status === "ANSWERED" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" 
                                             : "text-[#dc2626] bg-[rgba(220,38,38,.08)] border-[rgba(220,38,38,.20)]"}`}>
                                             <span className={`w-1.5 h-1.5 shrink-0 rounded-full
@@ -226,10 +244,11 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                             </span>
                                         </div>
                                         </td>
-                                        <td className="px-5 py-2.5 text-sm text-slate-800">
+                                        <td className="px-4 py-4 text-[16px] text-[#8b949e]">
                                             {session.disconnect_reason}
                                         </td>
-                                        <td className="px-5 py-2.5 text-sm text-slate-800">
+                                        <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                        style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                             {formatDate(session.created_at)}
                                         </td>
                                     </tr>

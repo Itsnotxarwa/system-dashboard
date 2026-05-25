@@ -20,12 +20,10 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
     };
 
     return(
-        <div className=" rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
-        shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white
-        to-[rgba(3,44,166,0.04)]">
+        <div>
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3.5">
-                <span className="text-lg font-bold text-black flex items-center gap-2"
+                <span className="text-lg font-bold flex items-center gap-2"
                 style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
                     Call Sessions
                     <span className="text-xs font-normal px-2 py-0.5 rounded-full bg-[rgba(3,44,166,.08)] text-[#032ca6]">
@@ -72,37 +70,22 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
 
 
             {/* Table */}
-            <div className="overflow-y-auto scroll bg-white rounded-lg shadow-md">
-                <table className="w-full border-collapse text-xs roumded-lg">
-                    <thead className="sticky top-0 bg-[#fafafa]">
-                        <tr className="border-b border-[rgba(3,44,166,.07)]">
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                From
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                To
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                Type
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                Duration
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                Status
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                End Raison
-                            </th>
-                            <th className="text-left px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-black">
-                                Created at
-                            </th>
+            <div className="bg-[#0d1117] border border-[#21262d] rounded-xl overflow-hidden">
+                <table className="w-full border-collapse">
+                    <thead>
+                        <tr className="border-b border-[#21262d]">
+                            {["From", "to", "type", "Duration", "Status", "End Raison", "Created at"].map((item) => (
+                                <th className="text-left px-5 py-3 text-xs font-medium tracking-widest 
+                                uppercase text-[#8b949e]">
+                                    {item}
+                                </th>
+                            ))}
                         </tr>
                     </thead>
                     <tbody>
                         {callSessions?.length === 0 ? (
                             <tr>
-                                <td colSpan="7" className="text-center py-4 text-slate-800">
+                                <td colSpan="7" className="text-center py-6 text-[#8b949e]">
                                     No call sessions found for this call.
                                 </td>
                             </tr>
@@ -115,17 +98,18 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                 setSelectedSession(session);
                                 setOpenDrawer(true);
                             }}
-                            className={`border-b border-[rgba(3,44,166,.05)] hover:bg-[rgba(3,44,166,.02)] 
-                            cursor-pointer`}>
-                                <td className="px-5 py-2.5 text-xs text-slate-800">
+                            className="hover:bg-[rgba(255,255,255,.03)] border-b border-[#21262d] cursor-pointer transition-colors">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                     {session.from_number}
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                     {session.to_number}
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800 text-center">
-                                    <div className="flex justify-center items-center">
-                                        <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px]
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e] text-center">
+                                <div className="flex justify-center items-center">
+                                        <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px]
                                         ${session.call_type === "outbound" ? "border text-blue bg-[rgba(3,44,166,.08)] border-[rgba(3,44,166,.20)]" 
                                         : ""}
                                         ${session.call_type === "inbound" ? "border text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.020)]" 
@@ -134,12 +118,13 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                         </span>
                                     </div>
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                     {formatDuration(session.duration_seconds)}
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800 text-center">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e] text-center">
                                     <div className="flex justify-center items-center">
-                                        <span className={`flex items-center gap-1 text-sm font-medium py-1 px-2.5 rounded-[20px] border
+                                        <span className={`flex items-center gap-1 text-[16px] font-medium py-1 px-2.5 rounded-[20px] border
                                         ${session.call_status === "ANSWERED" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" 
                                         : "text-[#dc2626] bg-[rgba(220,38,38,.08)] border-[rgba(220,38,38,.20)]"}`}>
                                         <span className={`w-1.5 h-1.5 shrink-0 rounded-full
@@ -149,10 +134,11 @@ export default function CallSession({callSessions, setSelectedSession, setOpenDr
                                         </span>
                                     </div>
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e]">
                                     {session.disconnect_reason}
                                 </td>
-                                <td className="px-5 py-2.5 text-xs text-slate-800">
+                                <td className="px-4 py-4 text-[16px] text-[#8b949e]"
+                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                     {formatDate(session.created_at)}
                                 </td>
                             </tr>
