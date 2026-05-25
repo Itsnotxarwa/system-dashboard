@@ -5,8 +5,8 @@ export default function KpiCards({metrics}) {
 
     const totalSessions = metrics.reduce((sum, tenant) => sum + tenant.session_count, 0);
     const totalTurns = metrics.reduce((sum, tenant) => sum + tenant.total_turns, 0);
-    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.avg_ttft, 0) / metrics.length;
-    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.avg_tps, 0) / metrics.length;
+    const avgTTFT = (metrics.reduce((sum, tenant) => sum + tenant.avg_ttft, 0) / metrics.length).toFixed(2);
+    const avgTPS = (metrics.reduce((sum, tenant) => sum + tenant.avg_tps, 0) / metrics.length).toFixed(2);
 
     const cards = [
         {

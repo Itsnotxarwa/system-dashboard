@@ -166,7 +166,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                     <p className="text-[16px] text-slate-500 mt-0.5"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Click any row to view full agent details</p>
                 </div>
-                <div className="mb-6 flex gap-1 p-1 rounded-xl bg-[#161b22] border
+                <div className="mb-6 flex gap-1 p-1 max-w-60 rounded-xl bg-[#161b22] border
                     border-[#21262d]">
                     {["", "inbound", "outbound"].map((type) => (
                         <button 
