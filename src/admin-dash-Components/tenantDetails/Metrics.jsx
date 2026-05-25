@@ -15,7 +15,7 @@ export default function Metrics() {
             try{
                 setLoading(true);
                 const token = localStorage.getItem("token");
-                const response = await fetch(`https://api.voixup.fr/admin/tenants/${id}/metrics`, {
+                const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
