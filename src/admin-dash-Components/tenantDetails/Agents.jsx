@@ -11,6 +11,7 @@ export default function Agents() {
 
     const [tenant, setTenant] = useState(null);
     const [agents, setAgents] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [showAgentModal, setShowAgentModal] = useState(false);
     const [typeFilter, setTypeFilter] = useState("");
 
@@ -39,6 +40,7 @@ export default function Agents() {
     useEffect(() => {
         const fetchAgents = async () => {
             try {
+            setLoading(true);
             const token = localStorage.getItem("token");
             const params = new URLSearchParams();
 
@@ -75,6 +77,8 @@ export default function Agents() {
             } catch (err) {
             console.error(err);
             setAgents([]);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -93,6 +97,7 @@ export default function Agents() {
                 setShowAgentModal={setShowAgentModal}
                 typeFilter={typeFilter}
                 setTypeFilter={setTypeFilter}
+                loading={loading}
                 />
             </main>
 

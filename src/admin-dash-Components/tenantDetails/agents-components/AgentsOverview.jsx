@@ -7,7 +7,7 @@ import DeleteAgent from "./DeleteAgent";
 import EditModal from "./EditModal";
 import { handleUnauthorized } from "../../../utils/auth";
 
-export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter}) {
+export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter, loading}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
@@ -159,7 +159,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                     </div>                   
                 </div>
                 <div className="mb-6">
-                    <h1 className="text-2xl font-black tracking-tighter"
+                    <h1 className="text-2xl font-bold tracking-tighter"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                         Agents
                     </h1>
@@ -186,7 +186,8 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                 agents={agents} 
                 setSelectedAgent={setSelectedAgent} 
                 setShowAgentDetails={setShowAgentDetails}
-                typeFilter={typeFilter}  />
+                typeFilter={typeFilter}
+                loading={loading}  />
             </div>
             {showAgentDetails && (
                 <AgentDetails 

@@ -69,16 +69,13 @@ export default function AgentsTable({agents, loading}) {
                                                     </div>
                                                 </div>
                                             </td>
-
                                             <td className="px-4 py-4 text-[#8b949e] text-[16px]"
                                             style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                 {agent?.sip_number || ''}
                                             </td>
-
                                             <td className="px-4 py-4 capitalize text-[#8b949e] text-[16px]">
                                                 {agent.type}
                                             </td>
-
                                             <td className="px-4 py-4 text-center">
                                                 <div className="flex justify-center items-center">
                                                     <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
@@ -104,6 +101,6 @@ export default function AgentsTable({agents, loading}) {
                                 )}
                             </tbody>
                         </table>
-                    </div>
+        </div>
     )
 }
