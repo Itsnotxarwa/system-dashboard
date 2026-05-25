@@ -7,6 +7,7 @@ import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
 
 export default function Metrics() {
+    
         const {id} = useParams();
 
         const [metrics, setMetrics] = useState([]);
@@ -62,7 +63,7 @@ export default function Metrics() {
                 }
     
                 const data = await response.json();
-                setMetrics(data);
+                setMetrics([data]);
                 console.log("metrics:", data);
     
             } catch (error) {
