@@ -8,24 +8,14 @@ import TenantsTable from "./metrics-components/TenantsTable";
 
 export default function Metrics() {
     const [metrics, setMetrics] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-    //filters
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(20);
 
     const token = localStorage.getItem("token");
 
     const fetchMetrics = useCallback(async() => {
         try{
-            setLoading(true);
 
-            const params = new URLSearchParams();
-            params.append("page", page);
-            params.append("page_size", pageSize);
-
-            const url = `https://api.voixup.fr/admin/metrics/tenants?${params.toString()}`;
-            const response = await fetch(url, {
+            const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,10 +43,8 @@ export default function Metrics() {
         } catch (error) {
             console.error("Error fetching metrics:", error);
             setMetrics([]);
-        } finally {
-            setLoading(false);
         }
-    }, [page, pageSize, token]);
+    }, [token]);
 
     useEffect(() => {
         fetchMetrics();
@@ -100,38 +88,6 @@ export default function Metrics() {
                     {metrics && (
                         <KpiCards metrics={metrics} />
                     )}
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
-                        <div>
-                            {/* filters */}
-                            <div className="flex items-center gap-4 mb-6 flex-wrap">
-                                <div className="flex items-center gap-1.5">
-                                    <label className="text-sm text-[#0a1628]">
-                                        Page
-                                    </label>
-                                    <input 
-                                    type="number"
-                                    value={page}
-                                    onChange={(e) => setPage(Number(e.target.value))}
-                                    className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                    w-15 text-[#0a1628] text-center" />
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                    <label className="text-sm text-[#0a1628]">
-                                        Limit
-                                    </label>
-                                    <input 
-                                    value={pageSize}
-                                    onChange={(e) => setPageSize(Number(e.target.value))}
-                                    type="number"
-                                    className="border border-[rgba(3,44,166,.14)] text-sm rounded-[9px] p-[7px_12px] bg-white
-                                    w-15 text-[#0a1628] text-center" />
-                                </div>
-                            </div>
-                            <TenantsTable metrics={metrics} loading={loading} />
-                        </div>
-
-                    </div>
                 </div>
             </main>
         </div>

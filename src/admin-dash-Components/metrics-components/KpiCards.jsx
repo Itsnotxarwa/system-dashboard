@@ -51,7 +51,7 @@ export default function KpiCards({metrics}) {
         }
     ]
     return(
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 py-5">
             {cards.map((card, i) => {
                 const Icon = card.icon;
                 return(
