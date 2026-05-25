@@ -12,7 +12,6 @@ export default function Metrics() {
 
         const [metrics, setMetrics] = useState([]);
         const [tenant, setTenant] = useState(null);
-        const [loading, setLoading] = useState(true);
 
         useEffect(() => {
         const fetchTenant = async () => {
@@ -39,7 +38,6 @@ export default function Metrics() {
         useEffect(() => {
         const fetchMetrics = async() => {
             try{
-                setLoading(true);
                 const token = localStorage.getItem("token");
                 const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}`, {
                     method: "GET",
@@ -69,9 +67,7 @@ export default function Metrics() {
             } catch (error) {
                 console.error("Error fetching metrics:", error);
                 setMetrics([]);
-            } finally {
-                setLoading(false);
-            }
+            } 
         }
         fetchMetrics();
         },[id]);
