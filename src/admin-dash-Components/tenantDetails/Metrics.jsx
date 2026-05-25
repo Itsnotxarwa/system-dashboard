@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "./tenantSidebar";
 import { handleUnauthorized } from "../../utils/auth";
+import Logo from "../../assets/image_logo.png";
+import Mazia from "../../assets/mazia.png";
 
 export default function Metrics() {
         const {id} = useParams();
@@ -72,6 +74,20 @@ export default function Metrics() {
         fetchMetrics();
         },[id]);
 
+        if (!metrics) {
+        return (
+            <div className="flex items-center justify-center h-64">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+        )
+    }
+
+
     
         if (!metrics) {
             return (
@@ -88,7 +104,30 @@ export default function Metrics() {
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
             <TenantSidebar tenant={tenant} />
-            <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col ml-55"></main>
+            <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col ml-55">
+                <div className="max-w-7xl mx-auto p-6">
+                    {/* Header */}
+                    <div>
+                        <div className="flex items-center justify-start gap-2">
+                            <img src={Logo} alt="Mazia" className="w-3.5" />
+                            <img src={Mazia} alt="Mazia" className="w-7" />
+                        </div>
+                        <h1 className="text-2xl font-black tracking-tighter"
+                        style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                            Metrics Overview
+                        </h1> 
+                    </div>
+                
+                    <p className="text-[16px] text-slate-500 pb-4"
+                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                        Overview of tenant activity and performance.
+                    </p>
+
+                    {metrics && (
+                        <KpiCards metrics={metrics} />
+                    )}
+                </div>
+            </main>
         </div>
     )
 }

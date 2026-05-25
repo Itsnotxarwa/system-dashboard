@@ -84,7 +84,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                     </div>
                     <div className="flex-1">
                         <div className="flex items-center gap-3">
-                            <h1 className="text-xl font-black text-slate-900 tracking-tight" 
+                            <h1 className="text-xl font-black text-white tracking-tight" 
                             style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
                                 {tenant?.name || ""}
                             </h1>
