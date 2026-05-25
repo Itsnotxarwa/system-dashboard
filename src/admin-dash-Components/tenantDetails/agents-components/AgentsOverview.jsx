@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Logo from "../../../assets/image.png";
+import Logo from "../../../assets/image_logo.png";
+import Mazia from "../../../assets/mazia.png";
 import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
@@ -61,7 +62,10 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
             <div className="max-w-7xl mx-auto p-6 flex-1">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
-                    <img src={Logo} alt="Logo" className="w-14" />
+                    <div className="flex items-center justify-start gap-2">
+                        <img src={Logo} alt="Mazia" className="w-3.5" />
+                        <img src={Mazia} alt="Mazia" className="w-7" />
+                    </div>
                     <span className="text-xs text-slate-400 tracking-widest uppercase">
                         {tenant?.name}
                     </span>
@@ -155,8 +159,10 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                     </div>                   
                 </div>
                 <div className="mb-6">
-                    <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
-                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Agents</h1>
+                    <h1 className="text-2xl font-black tracking-tighter"
+                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                        Agents
+                    </h1>
                     <p className="text-[16px] text-slate-500 mt-0.5"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Click any row to view full agent details</p>
                 </div>

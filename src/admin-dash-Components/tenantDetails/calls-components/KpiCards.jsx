@@ -55,7 +55,7 @@ export default function KpiCards({ calls }) {
                         <p className="text-xs font-semibold uppercase tracking-widest text-[#8b949e] mb-1">
                             {card.title}
                         </p>
-                        <p className="text-[28px] font-semibold leading-none tracking-tight"
+                        <p className="text-[28px] font-semibold leading-none text-white tracking-tight"
                         style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                             {card.value}
                         </p>

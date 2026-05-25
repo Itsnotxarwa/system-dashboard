@@ -1,4 +1,5 @@
-import Logo from "../../../assets/image.png";
+import Logo from "../../../assets/image_logo.png";
+import Mazia from "../../../assets/mazia.png";
 import CampaignTable from "./campaignTable";
 import { useState } from "react";
 import EditCampaign from "./EditCampaign";
@@ -65,12 +66,15 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <img src={Logo} alt="Logo" className="w-14" />
+                            <div className="flex items-center justify-start gap-2">
+                                <img src={Logo} alt="Mazia" className="w-3.5" />
+                                <img src={Mazia} alt="Mazia" className="w-7" />
+                            </div>
                             <span className="text-xs text-slate-400 tracking-widest uppercase">
                                 {tenant?.name}
                             </span>
                         </div>
-                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
+                        <h1 className="text-2xl font-black tracking-tighter"
                         style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                             Campaigns Overview
                         </h1>

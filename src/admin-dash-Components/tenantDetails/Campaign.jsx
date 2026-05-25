@@ -113,7 +113,7 @@ export default function Campaign() {
 
 
     return(
-        <div className="flex min-h-screen bg-white text-black">
+        <div className="flex min-h-screen bg-[#0d1117] text-white">
             <TenantSidebar tenant={tenant} />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col min-h-screen">
                 <TopBar 
