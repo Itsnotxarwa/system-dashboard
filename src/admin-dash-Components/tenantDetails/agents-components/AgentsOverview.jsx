@@ -166,8 +166,8 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                     <p className="text-[16px] text-slate-500 mt-0.5"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>Click any row to view full agent details</p>
                 </div>
-                <div className="mb-6 flex gap-1 p-1 rounded-xl bg-[rgba(3,44,166,.05)] border
-                    border-[rgba(3,44,166,.10)]">
+                <div className="mb-6 flex gap-1 p-1 rounded-xl bg-[#161b22] border
+                    border-[#21262d]">
                     {["", "inbound", "outbound"].map((type) => (
                         <button 
                         key={type}                        
@@ -175,7 +175,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                         className={`px-3 py-1.5 text-xs transition-all rounded-xl ${
                         typeFilter === type
                             ? "bg-[#032ca6] text-white font-medium"
-                            : "text-slate-500 hover:bg-white"
+                            : "text-[#8b949e] hover:bg-white hover:text-[ #161b22]"
                         }`}
                         >
                             {type === "" ? "All" : type}
