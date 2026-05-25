@@ -21,7 +21,7 @@ export default function Metrics() {
 
             const params = new URLSearchParams();
             params.append("page", page);
-            params.append("pageSize", pageSize);
+            params.append("page_size", pageSize);
 
             const url = `https://api.voixup.fr/admin/tenants/metrics?${params.toString()}`;
             const response = await fetch(url, {

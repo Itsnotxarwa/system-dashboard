@@ -100,7 +100,7 @@ export default function Tenants({tenants, setTenants}) {
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
             <div className="flex items-center gap-2 pb-4 bg-[rgba(3,44,166,0.04)] border
             border-[rgba(3,44,166,0.14)] rounded-[10px] py-2 px-3.5 w-80 relative">
-                <Search size={14} color="#8b949e" className="absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search size={14} color="#8b949e" className="absolute left-12 top-50 -translate-y-50" />
                 <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}

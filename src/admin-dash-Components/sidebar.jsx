@@ -80,7 +80,7 @@ export default function Sidebar() {
                             </NavLink>
                         ))}
                     </div>
-                    <h3 className="uppercase text-xs font-semibold text-[#8b949e] tracking-wider">
+                    <h3 className="uppercase text-xs font-semibold text-[#8b949e] tracking-wider pt-3">
                         System
                     </h3>
                     {system.map((link) => (

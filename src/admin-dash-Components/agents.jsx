@@ -1,6 +1,8 @@
 import Sidebar from "./sidebar";
 import { useState, useEffect, useCallback } from "react";
 import { handleUnauthorized } from "../utils/auth";
+import Logo from "../assets/image_logo.png";
+import Mazia from "../assets/mazia.png";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);
@@ -66,10 +68,14 @@ export default function Agents() {
             <Sidebar />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
                 <div className="max-w-7xl mx-auto p-6">
-                    <h2 className="text-2xl font-bold text-slate-800 mb-4"
+                    <div className="flex items-center justify-start gap-2">
+                        <img src={Logo} alt="Mazia" className="w-3.5" />
+                        <img src={Mazia} alt="Mazia" className="w-7" />
+                    </div>
+                    <h1 className="text-2xl font-black tracking-tighter"
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                        Agents 
-                    </h2>
+                        Agents Overview
+                    </h1>
 
                     {/* Filters */}
                     <div className="flex items-center gap-4 mb-6 flex-wrap">
