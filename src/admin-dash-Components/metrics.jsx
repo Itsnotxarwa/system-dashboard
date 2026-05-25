@@ -1,5 +1,6 @@
 import Sidebar from "./sidebar";
-import Logo from "../assets/image.png";
+import Logo from "../assets/image_logo.png";
+import Mazia from "../assets/mazia.png";
 import { useCallback, useEffect, useState } from "react";
 import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
@@ -82,11 +83,14 @@ export default function Metrics() {
                 <div className="max-w-7xl mx-auto p-6">
                     {/* Header */}
                     <div>
-                        <img src={Logo} alt="Logo" className="w-14" />
-                        <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
+                        <div className="flex items-center justify-start gap-2">
+                            <img src={Logo} alt="Mazia" className="w-3.5" />
+                            <img src={Mazia} alt="Mazia" className="w-7" />
+                        </div>
+                        <h1 className="text-2xl font-black tracking-tighter"
                         style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                            Metrics 
-                        </h1>
+                            Metrics Overview
+                        </h1> 
                     </div>
 
                     <p className="text-[16px] text-slate-500 pb-4"

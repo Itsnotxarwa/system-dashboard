@@ -59,7 +59,7 @@ export default function AgentsTable({agents, loading}) {
                                                             .join("") 
                                                             : ""}
                                                         </div>
-                                                    <div className="text-[16px] px-4 py-4 font-bold text-[#0a1628]"
+                                                    <div className="text-[16px] px-4 py-4 font-bold text-white"
                                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                         {agent.name}
                                                     </div>

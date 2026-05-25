@@ -2,8 +2,9 @@ import Sidebar from "./sidebar";
 import { useState } from "react";
 import Sessions from "./calls-sessions-components/sessions";
 import SessionDrawer from "./calls-sessions-components/SessionDrawer";
-import Logo from "../assets/image.png";
+import Logo from "../assets/image_logo.png";
 import Calls from "./calls-sessions-components/calls";
+import Mazia from "../assets/mazia.png";
 
 export default function CallsSessions() {
     const [selectedSession, setSelectedSession] = useState(null);
@@ -19,10 +20,13 @@ export default function CallsSessions() {
                     {/* Header */}
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <img src={Logo} alt="Logo" className="w-14" />
-                            <h1 className="text-2xl font-black text-slate-900 tracking-tighter"
+                            <div className="flex items-center justify-start gap-2">
+                                <img src={Logo} alt="Mazia" className="w-3.5" />
+                                <img src={Mazia} alt="Mazia" className="w-7" />
+                            </div>
+                            <h1 className="text-2xl font-black tracking-tighter"
                             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                                Call Records & Analytics
+                                Call Records and Analytics
                             </h1>                            
                         </div>
                         <div className="flex gap-2">

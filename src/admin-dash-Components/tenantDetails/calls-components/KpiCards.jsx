@@ -8,25 +8,33 @@ export default function KpiCards({ calls }) {
             title: "Total Calls",
             icon: Phone,
             value: calls.volume.total_calls,
-            desc: calls.volume.calls_last_30_days + " last 30 days"
+            desc: calls.volume.calls_last_30_days + " last 30 days",
+            background: "bg-[rgba(88,166,255,.15)]",
+            stroke: "#58a6ff",
         },
         {
             title: "Answer Rate",
             icon: CheckCircle,
             value: calls.rates.answer_rate + "%",
             desc: calls.call_status.answered + " answered " + " - " + calls.call_status.voicemail + " voicemail",
+            background: "bg-[rgba(63,185,80,.15)]",
+            stroke: "#3fb950",
         },
         {
             title: "Avg Duration",
             icon: Clock,
             value: (calls.time.avg_duration_seconds / 60).toFixed(2),
             desc: "Total: " + (calls.time.total_duration_seconds / 60).toFixed(2),
+            background: "bg-[rgba(57,211,187,.15)]",
+            stroke: "#39d3bb",
         },
         {
             title: "Outbound",
             icon: Forward,
             value: calls.call_type.outbound,
             desc: "vs " + calls.call_type.inbound + " inbound",
+            background: "bg-[rgba(188,140,255,.15)]",
+            stroke: "#bc8cff",
         }
     ]
     return(
