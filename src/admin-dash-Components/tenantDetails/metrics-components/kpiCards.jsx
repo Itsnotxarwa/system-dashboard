@@ -5,8 +5,8 @@ export default function KpiCards({metrics}) {
 
     const totalSessions = metrics.reduce((sum, tenant) => sum + tenant.session_count, 0);
     const totalTurns = metrics.reduce((sum, tenant) => sum + tenant.total_turns, 0);
-    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.ttft_p50, 0) / metrics.length;
-    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.tps_p50, 0) / metrics.length;
+    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.avg_ttft, 0) / metrics.length;
+    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.avg_tps, 0) / metrics.length;
 
     const cards = [
         {
@@ -34,7 +34,7 @@ export default function KpiCards({metrics}) {
             stroke: "#F97316",
         },
         {
-            title: "Avg TTFT (p50)",
+            title: "Avg TTFT",
             icon: Zap,
             value: avgTTFT,
             desc: "Across all tenants",
@@ -42,7 +42,7 @@ export default function KpiCards({metrics}) {
             stroke: "#bc8cff",
         },
         {
-            title: "Avg TPS (p50)",
+            title: "Avg TPS",
             icon: Clock,
             value: avgTPS,
             desc: "Across all tenants",
