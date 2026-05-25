@@ -1,4 +1,4 @@
-import { MoveLeft, Target } from "lucide-react";
+import { ChartColumn, MoveLeft, Target } from "lucide-react";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
 import { NavLink, useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ export default function TenantSidebar({tenant}) {
         { name: "Agents", icon: Bot, href: "agents" },
         { name: "Call Records", icon: CassetteTape, href: "call-records" },
         { name: "Campaign", icon: Target, href: "campaign" },
+        { name: "Metrics", icon: ChartColumn, href: "metrics" },
     ];
 
     return(
