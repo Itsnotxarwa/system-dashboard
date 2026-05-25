@@ -8,7 +8,7 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete}
         <div className="bg-[#0d1117] border border-[#21262d] rounded-xl overflow-hidden">
             <table className="w-full border-collapse">
                 <thead>
-                    <tr className="border-b border-border">
+                    <tr className="border-b border-[#21262d]">
                         {["Nom", "ID du Compte", "Statut", "Email", "Téléphone", "Créé le", ""].map((item) => (
                             <th className="text-left px-5 py-3 text-xs font-medium tracking-widest 
                         uppercase text-[#8b949e]">

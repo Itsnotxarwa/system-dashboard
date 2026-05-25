@@ -102,7 +102,7 @@ export default function CallRecords() {
     return(
         <div className="flex min-h-screen bg-white text-black">
             <TenantSidebar tenant={tenant} />
-            <main className="bg-[rgba(3,44,166,.03)] flex-1 flex flex-col min-h-screen">
+            <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col min-h-screen">
                 <TopBar tenant={tenant} activeNav={{name: "Call Records"}} />
                 <CallsOverview 
                 calls={calls} 
