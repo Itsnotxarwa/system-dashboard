@@ -69,8 +69,8 @@ export default function Calls({range}) {
                             </div>
                         </div>
                         {calls &&
-                        <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,.07)]
-                        text-[#032ca6] border border-[rgba(3,44,166,.14)]">
+                        <span className="text-xs px-2.5 py-1 rounded-full font-medium
+                        bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
                             {range === "30" ? calls?.volume.calls_last_30_days : calls?.volume.calls_last_7_days} calls
                         </span>
                         }  

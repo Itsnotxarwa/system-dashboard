@@ -5,6 +5,7 @@ import { handleUnauthorized } from "../../utils/auth";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
+import TenantsList from "./metrics-components/TenantsList";
 
 export default function Metrics() {
     
@@ -124,6 +125,12 @@ export default function Metrics() {
                     {metrics && (
                         <KpiCards metrics={metrics} />
                     )}
+
+                    <div className="grid grid-cols-[380px_1fr] gap-4 mt-4">
+                        {metrics && (
+                            <TenantsList metrics={metrics} />
+                        )}
+                    </div>
                 </div>
             </main>
         </div>

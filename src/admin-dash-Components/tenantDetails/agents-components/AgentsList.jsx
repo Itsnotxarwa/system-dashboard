@@ -1,23 +1,16 @@
 export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails, typeFilter, loading}) {
     
     return (
-    <div className="overflow-x-auto bg-[#0d1117] border border-[#21262d] rounded-xl">
+    <div>
         {loading ? (
-        <tr>
-            <td
-                colSpan="5"
-                className="text-center py-6"
-            >
-                <div className="flex items-center justify-center">
-                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                    viewBox="25 25 50 50">
-                        <circle
-                        className="loading-circle" 
-                        r="20" cy="50" cx="50"></circle>
-                    </svg>
-                </div>
-            </td>
-        </tr>
+            <div className="flex items-center justify-center">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
         ) : agents.length === 0
         ? (
         <div className="py-6 text-center text-xs text-[#8b949e] rounded-xl
@@ -34,7 +27,8 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
         )
         :  
         (
-            <table className="w-full border-collapse">
+            <div className="overflow-x-auto bg-[#0d1117] border border-[#21262d] rounded-xl">
+                <table className="w-full border-collapse">
                 <thead>
                     <tr
                     className="bg-[rgba(3,44,166,0.05)] cursor-pointer">
@@ -121,6 +115,7 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                         )))}
                     </tbody>
                 </table>
+            </div>
         )
             }
         </div>
