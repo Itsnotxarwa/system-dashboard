@@ -5,7 +5,7 @@ import { handleUnauthorized } from "../../utils/auth";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
-import TenantsList from "./metrics-components/TenantsList";
+import SessionsTable from "./metrics-components/SessionsTable";
 
 export default function Metrics() {
     
@@ -108,8 +108,8 @@ export default function Metrics() {
                     }
     
                     const data = await response.json();
-                    setSessions(data);
-                    console.log("metrics:", data);
+                    setSessions([data]);
+                    console.log("sessions:", data);
                 } catch(err) {
                     console.error("Error fetching metrics:", err);
                     setSessions([]);
@@ -159,9 +159,21 @@ export default function Metrics() {
                         <KpiCards metrics={metrics} loading={loading} />
                     )}
 
-                    <div className="grid grid-cols-[380px_1fr] gap-4 mt-4">
-                        {metrics && (
-                            <TenantsList loading={loading} sessions={sessions} />
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h1 className="text-lg font-bold text-white"
+                            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                                Recent Sessions
+                            </h1>
+                            {sessions && (
+                                <span className="text-xs px-2.5 py-1 rounded-full font-medium
+                                bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
+                                    Total {sessions.total}
+                                </span>
+                            )}
+                        </div>
+                        {sessions && (
+                            <SessionsTable loading={loading} sessions={sessions} />
                         )}
                     </div>
                 </div>
