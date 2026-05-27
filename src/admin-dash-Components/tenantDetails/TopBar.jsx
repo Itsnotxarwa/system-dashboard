@@ -2,22 +2,22 @@ import { ChevronRight, Plus } from "lucide-react";
 
 export default function TopBar({tenant, activeNav, setShowAgentModal, setShowCreateModal}) {
     return(
-        <div className="h-14 bg-white border-b flex items-center px-7 py-2 gap-4 shrink-0
-        border-[rgba(3,44,166,.08)]">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
-                <a href="/" className="hover:text-slate-600">Tenants</a>
+        <div className="h-14 bg-[#161b22] border-b flex items-center px-7 py-2 gap-4 shrink-0
+        border-[#21262d]">
+            <div className="flex items-center gap-2 text-xs text-[#8b949e]">
+                <a href="/" className="hover:text-[#e6edf3] transition-colors">Tenants</a>
                 <ChevronRight size={14} />
-                <span className="text-slate-700 font-medium">{tenant?.name || ""}</span>
+                <span className="text-[#e6edf3] font-medium">{tenant?.name || ""}</span>
                 <ChevronRight size={14} />
-                <span className="text-slate-500">
+                <span className="text-[#8b949e]">
                     {activeNav.name}
                 </span>
             </div>
 
             <div className="flex items-center gap-1.5 ml-2">
                 <span className={`w-1.5 h-1.5 rounded-full
-                    ${tenant?.is_active ? "bg-[#22c55e] shadow-[0_0_5px_#22c55e]" : "bg-[#6b7280] shadow-[0_0_5px_#6b7280]"}`}></span>
-                <span className="text-[10px] text-slate-400">
+                    ${tenant?.is_active ? "bg-[#3fb950] shadow-[0_0_5px_#3fb950]" : "bg-[#8b949e] shadow-[0_0_5px_#8b949e]"}`}></span>
+                <span className="text-[10px] text-[#8b949e]">
                     {tenant?.is_active ? "Active" : "Inactive"}
                 </span>
             </div>
@@ -26,22 +26,24 @@ export default function TopBar({tenant, activeNav, setShowAgentModal, setShowCre
                 {activeNav.name === "Agents" && (
                 <button
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl 
-                text-xs font-bold text-white transition-all bg-[#032ca6]
-                border border-[#032ca6] shadow-[0_4px_14px_rgba(3,44,166,0.25)] cursor-pointer"
+                text-xs font-bold text-white transition-all
+                bg-linear-to-r from-[#1c50a0] to-[#58a6ff]
+                border border-[rgba(88,166,255,.25)] shadow-[0_4px_14px_rgba(88,166,255,0.2)] cursor-pointer"
                 onClick={() => {
                     setShowAgentModal(true)
                 }}>
-                    <Plus />
+                    <Plus size={15} />
                     Add Agent
                 </button>
                 )}
                 {activeNav.name === "Campaign" && (
                 <button
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl 
-                text-xs font-bold text-white transition-all bg-[#032ca6]
-                border border-[#032ca6] shadow-[0_4px_14px_rgba(3,44,166,0.25)] cursor-pointer"
+                text-xs font-bold text-white transition-all
+                bg-linear-to-r from-[#1c50a0] to-[#58a6ff]
+                border border-[rgba(88,166,255,.25)] shadow-[0_4px_14px_rgba(88,166,255,0.2)] cursor-pointer"
                 onClick={() => setShowCreateModal(true)}>
-                    <Plus />
+                    <Plus size={15} />
                     Add Campaign
                 </button>
                 )}
