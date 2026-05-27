@@ -1,6 +1,18 @@
 import { formatDistanceToNow } from "date-fns";
 
-export default function SessionsTable({sessions}) {
+export default function SessionsTable({sessions, loading}) {
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-64">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+        )
+    }
     return(
         <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <table className="w-full border-collapse">
@@ -29,7 +41,7 @@ export default function SessionsTable({sessions}) {
                             <td className="p-[7px_10px]"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                                 <span className="text-sm font-bold inline-block rounded-sm
-                                bg-[rgba(57,211,187,.12)] text-[#39d3bb]">
+                                bg-[rgba(57,211,187,.12)] text-[#39d3bb] p-[2px_7px]">
                                     {session.model_provider}
                                 </span>
                             </td>
