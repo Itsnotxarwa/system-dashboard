@@ -18,23 +18,23 @@ export default function SessionsTable({sessions}) {
                             <tr
                             key={i}>
                                 <td>
-                                    {sessions.items.room_name}
+                                    {session.items.room_name}
                                 </td>
                                 <td>
-                                    {sessions.items.model_name}
+                                    {session.items.model_name}
                                 </td>
                                 <td>
-                                    {sessions.items.turn_count}
+                                    {session.items.turn_count}
                                 </td>
                                 <td>
-                                    {sessions.items.avg_ttft}
+                                    {session.items.avg_ttft}
                                 </td>
                                 <td>
-                                    {sessions.items.avg_prompt_tokens}
+                                    {session.items.avg_prompt_tokens}
                                 </td>
                                 <td>
                                     {formatDistanceToNow(
-                                        new Date(sessions.items.last_active * 1000),
+                                        new Date(session.items.last_active * 1000),
                                         { addSuffix: true }
                                     )}
                                 </td>
