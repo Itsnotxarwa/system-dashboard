@@ -33,10 +33,11 @@ export default function SessionsTable({sessions}) {
                                     {session.items.avg_prompt_tokens}
                                 </td>
                                 <td>
-                                    {formatDistanceToNow(
-                                        new Date(session.items.last_active * 1000),
-                                        { addSuffix: true }
-                                    )}
+                                    {session.last_active && !isNaN(session.last_active)
+                                    ? formatDistanceToNow(new Date(Number(session.last_active) * 1000), {
+                                        addSuffix: true,
+                                    })
+                                    : "—"}                                         
                                 </td>
                             </tr>
                         ))}
