@@ -43,9 +43,9 @@ export default function CallsBarChart({ last7Days, last30Days, range }) {
                 month: "short",
                 })
                 } 
-                tick={{ dy: isSmallScreen ? 16 : 10, dx:-5, fontSize: 12, fill: "#a0b0e0" }} 
+                tick={{ dy: isSmallScreen ? 16 : 10, dx:-5, fontSize: 12, fill: "#8b949e" }} 
                 tickLine={false}
-                stroke="#a0b0e0" />
+                stroke="#30363d" />
                 <YAxis hide />
                 <Tooltip />
                 <Legend />
