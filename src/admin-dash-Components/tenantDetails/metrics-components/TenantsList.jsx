@@ -11,7 +11,9 @@ export default function TenantsList() {
                             </th>
                         ))}
                     </tr>
-                    <tbody></tbody>
+                    <tbody>
+
+                    </tbody>
                 </thead>
             </table>
         </div>

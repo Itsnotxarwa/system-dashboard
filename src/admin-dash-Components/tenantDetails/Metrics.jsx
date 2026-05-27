@@ -13,7 +13,10 @@ export default function Metrics() {
 
         const [metrics, setMetrics] = useState([]);
         const [tenant, setTenant] = useState(null);
+        const [sessions, setSessions] = useState([]);
+        const [loading, setLoading] = useState(false);
 
+        {/* fetch tenant */}
         useEffect(() => {
         const fetchTenant = async () => {
             const token = localStorage.getItem("token");
@@ -34,11 +37,13 @@ export default function Metrics() {
             setTenant(data);
         }
         fetchTenant();
-    }, [id]);
+        }, [id]);
 
+        {/* Get metrics */}
         useEffect(() => {
         const fetchMetrics = async() => {
             try{
+                setLoading(true);
                 const token = localStorage.getItem("token");
                 const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}`, {
                     method: "GET",
@@ -68,27 +73,55 @@ export default function Metrics() {
             } catch (error) {
                 console.error("Error fetching metrics:", error);
                 setMetrics([]);
-            } 
+            } finally {
+                setLoading(false);
+            }
         }
         fetchMetrics();
         },[id]);
 
-        if (!metrics) {
-        return (
-            <div className="flex items-center justify-center h-64">
-                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                viewBox="25 25 50 50">
-                    <circle
-                    className="loading-circle" 
-                    r="20" cy="50" cx="50"></circle>
-                </svg>
-            </div>
-        )
-    }
-
+        {/* Get tenant sessions */}
+        useEffect(() => {
+            const fetchSessions = async() => {
+                try{
+                    setLoading(true);
+                    const token = localStorage.getItem("token");
+                    const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}/sessions`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+                    if (response.status === 401) {
+                        handleUnauthorized(401);
+                        return;
+                    }
+    
+                    if (response.status === 404) {
+                        setSessions([]);
+                        return;
+                    }
+    
+                    if (!response.ok) {
+                        throw new Error(`Error fetching sessions: ${response.statusText}`);
+                    }
+    
+                    const data = await response.json();
+                    setSessions(data);
+                    console.log("metrics:", data);
+                } catch(err) {
+                    console.error("Error fetching metrics:", err);
+                    setSessions([]);
+                } finally {
+                    setLoading(false)
+                }
+            }
+            fetchSessions();
+        }, [id]);
 
     
-        if (!metrics) {
+        if (loading) {
             return (
                 <div className="flex items-center justify-center h-64">
                     <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
@@ -123,12 +156,12 @@ export default function Metrics() {
                     </p>
 
                     {metrics && (
-                        <KpiCards metrics={metrics} />
+                        <KpiCards metrics={metrics} loading={loading} />
                     )}
 
                     <div className="grid grid-cols-[380px_1fr] gap-4 mt-4">
                         {metrics && (
-                            <TenantsList metrics={metrics} />
+                            <TenantsList loading={loading} sessions={sessions} />
                         )}
                     </div>
                 </div>
