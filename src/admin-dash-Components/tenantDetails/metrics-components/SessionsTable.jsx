@@ -26,10 +26,12 @@ export default function SessionsTable({sessions}) {
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                                 {session.model_name}
                             </td>
-                            <td className="p-[7px_10px] text-sm font-bold inline-block rounded-sm
-                            bg-[rgba(57,211,187,.12)] text-[#39d3bb]"
+                            <td className="p-[7px_10px]"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
-                                {session.model_provider}
+                                <span className="text-sm font-bold inline-block rounded-sm
+                                bg-[rgba(57,211,187,.12)] text-[#39d3bb]">
+                                    {session.model_provider}
+                                </span>
                             </td>
                             <td className="p-[7px_10px] text-sm"
                             style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
