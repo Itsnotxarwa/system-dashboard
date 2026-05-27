@@ -168,7 +168,7 @@ export default function Metrics() {
                             {sessions && (
                                 <span className="text-xs px-2.5 py-1 rounded-full font-medium
                                 bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
-                                    Total {sessions.total}
+                                    {sessions.total} Total 
                                 </span>
                             )}
                         </div>

@@ -13,41 +13,42 @@ export default function SessionsTable({sessions}) {
                             </th>
                         ))}
                     </tr>
-                    <tbody>
-                        {sessions?.items?.map((session,i) => (
-                            <tr
-                            key={i}>
-                                <td className="p-[7px_10px] text-[16px] font-bold text-white">
-                                    {session.room_name}
-                                </td>
-                                <td className="p-[7px_10px] text-[16px] font-bold text-white"
-                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                    {session.model_name}
-                                </td>
-                                <td className="p-[7px_10px] text-[#8b949e] text-xs"
-                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                    {session.turn_count}
-                                </td>
-                                <td className="p-[7px_10px] text-[#8b949e] text-xs"
-                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                    {session.avg_ttft}
-                                </td>
-                                <td className="p-[7px_10px] text-[#8b949e] text-xs"
-                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                    {session.avg_prompt_tokens}
-                                </td>
-                                <td className="p-[7px_10px] text-[#8b949e] text-xs"
-                                style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                    {session.last_active && !isNaN(session.last_active)
-                                    ? formatDistanceToNow(new Date(Number(session.last_active) * 1000), {
-                                        addSuffix: true,
-                                    })
-                                    : "—"}                                         
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
                 </thead>
+                <tbody>
+                    {sessions?.items?.map((session,i) => (
+                        <tr
+                        key={i}>
+                            <td className="p-[7px_10px] text-xs font-bold text-[#58a6ff]"
+                            style={{fontFamily: "'IBM Plex Mono', monospace"}}>
+                                {session.room_name}
+                            </td>
+                            <td className="p-[7px_10px] text-xs text-[#8b949e] font-bold"
+                            style={{fontFamily: "'IBM Plex Mono', monospace"}}>
+                                {session.model_name}
+                            </td>
+                            <td className="p-[7px_10px] text-xs"
+                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                                {session.turn_count}
+                            </td>
+                            <td className="p-[7px_10px] text-xs"
+                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                                {session.avg_ttft}
+                            </td>
+                            <td className="p-[7px_10px] text-xs"
+                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                                {session.avg_prompt_tokens}
+                            </td>
+                            <td className="p-[7px_10px] text-[#8b949e] text-xs"
+                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
+                                {session.last_active && !isNaN(session.last_active)
+                                ? formatDistanceToNow(new Date(Number(session.last_active) * 1000), {
+                                    addSuffix: true,
+                                })
+                                : "—"}                                         
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     )
