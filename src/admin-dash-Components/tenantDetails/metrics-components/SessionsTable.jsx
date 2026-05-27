@@ -14,23 +14,23 @@ export default function SessionsTable({sessions}) {
                         ))}
                     </tr>
                     <tbody>
-                        {sessions.map((session,i) => (
+                        {sessions?.items?.map((session,i) => (
                             <tr
                             key={i}>
                                 <td>
-                                    {session.items.room_name}
+                                    {session.room_name}
                                 </td>
                                 <td>
-                                    {session.items.model_name}
+                                    {session.model_name}
                                 </td>
                                 <td>
-                                    {session.items.turn_count}
+                                    {session.turn_count}
                                 </td>
                                 <td>
-                                    {session.items.avg_ttft}
+                                    {session.avg_ttft}
                                 </td>
                                 <td>
-                                    {session.items.avg_prompt_tokens}
+                                    {session.avg_prompt_tokens}
                                 </td>
                                 <td>
                                     {session.last_active && !isNaN(session.last_active)

@@ -13,7 +13,7 @@ export default function Metrics() {
 
         const [metrics, setMetrics] = useState([]);
         const [tenant, setTenant] = useState(null);
-        const [sessions, setSessions] = useState([]);
+        const [sessions, setSessions] = useState(null);
         const [loading, setLoading] = useState(false);
 
         {/* fetch tenant */}
@@ -99,7 +99,7 @@ export default function Metrics() {
                     }
     
                     if (response.status === 404) {
-                        setSessions([]);
+                        setSessions(null);
                         return;
                     }
     
@@ -108,11 +108,11 @@ export default function Metrics() {
                     }
     
                     const data = await response.json();
-                    setSessions([data]);
+                    setSessions(data);
                     console.log("sessions:", data);
                 } catch(err) {
                     console.error("Error fetching metrics:", err);
-                    setSessions([]);
+                    setSessions(null);
                 } finally {
                     setLoading(false)
                 }
