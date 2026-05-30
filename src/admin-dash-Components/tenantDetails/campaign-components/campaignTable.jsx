@@ -108,7 +108,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
     };
 
     return (
-        <div className="bg-[#161b22] rounded-2xl overflow-hidden mb-6 border border-[#21262d] shadow-[0_2px_12px_rgba(0,0,0,.3)]">
+        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <input
                 ref={uploadInputRef}
                 type="file"

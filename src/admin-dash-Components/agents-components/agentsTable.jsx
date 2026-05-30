@@ -1,6 +1,6 @@
 export default function AgentsTable({agents, loading}) {
     return(
-        <div className="overflow-x-auto bg-[#0d1117] border border-[#21262d] rounded-xl">
+        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <table className="w-full border-collapse">
                 <thead>
                     <tr
