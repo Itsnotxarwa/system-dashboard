@@ -9,7 +9,6 @@ import { handleUnauthorized } from "../../../utils/auth";
 export default function AgentModal({selectedTenant, onClose, onCancel, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
-
     const [loading, setLoading] = useState(false);
 
     const [agentData, setAgentData] = useState({
@@ -19,36 +18,25 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
         system_prompt: "",
         greeting_message: "",
         end_call_message: "",
-        
         tools: [],
-        
         models_config: {
             llm: { provider: "", model_name: "" },
             stt: { provider: "", model_name: "", language: "" },
             tts: { provider: "", model_name: "", voice: "", language: "" }
         },
-
         voicemail: {
             leave_message: false,
             message: ""
         }
     });
 
-    
-
     const createAgent = async () => {
         if (loading) return;
         try {
             setLoading(true);
-
             const token = localStorage.getItem("token");
             const tenantId = selectedTenant?.id;
-
-            const payload = {
-                ...agentData,
-                tools: agentData.tools || []
-            };
-            
+            const payload = { ...agentData, tools: agentData.tools || [] };
             const response = await fetch(
                 `https://api.voixup.fr/admin/tenants/${tenantId}/agents`,
                 {
@@ -61,67 +49,56 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
                     body: JSON.stringify(payload)
                 }
             );
-
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
-            
+            if (response.status === 401) { handleUnauthorized(401); return; }
             const data = await response.json();
-            
             console.log(data);
-            
-            if (!response.ok) {
-                throw new Error(data?.detail || "Creation failed");
-            }
-
+            if (!response.ok) throw new Error(data?.detail || "Creation failed");
             setAgents(prev => [...prev, data]);
             onClose();
-            
         } catch (error) {
             console.error(error);
             alert("Error creating agent");
-        }finally {
-            setLoading(false)
+        } finally {
+            setLoading(false);
         }
-};
+    };
+
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center
-        bg-[rgba(10,22,40,0.38)] backdrop-blur-sm p-5">
-            <div className="bg-white/90 border border-[rgba(3,44,166,0.15)] rounded-3xl  
-            shadow-[0_24px_80px_rgba(3,44,166,0.18)] w-full lg:max-w-md overflow-hidden
+        bg-[rgba(0,0,0,0.6)] backdrop-blur-sm p-5">
+            <div className="bg-[#161b22] border border-[#30363d] rounded-3xl
+            shadow-[0_24px_80px_rgba(0,0,0,0.5)] w-full lg:max-w-md overflow-hidden
             animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both] max-h-[90vh]
             flex flex-col">
                 {/* Header */}
-                <div className="flex items-center gap-3 px-6 py-5 border-b shrink-0 border border-[rgba(3,44,166,0.08)]
-                bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
+                <div className="flex items-center gap-3 px-6 py-5 border-b border-[#21262d] shrink-0
+                bg-[#161b22]">
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-slate-900 text-base tracking-tight" 
-                        style={{fontFamily:"'Cabinet Grotesk',sans-serif;"}}>
+                        <div className="font-bold text-[#e6edf3] text-base tracking-tight"
+                        style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
                             Create Agent
                         </div>
-                        <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+                        <div className="text-[10px] text-[#8b949e] mt-0.5 truncate">
                             {selectedTenant?.name} - {selectedTenant?.id}
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,0.07)]
-                        text-[#032ca6] border border-[rgba(3,44,166,0.14)]">
+                        <span className="text-[10px] px-2.5 py-1 rounded-full font-medium
+                        bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
                             New Agent
                         </span>
-                        <button 
-                        onClick={onClose} 
-                        className="w-7.5 h-7.5 rounded-lg border border-[rgba(3,44,166,0.12)]
-                        bg-[rgba(3,44,166,0.04)] text-[#9aabca] cursor-pointer text-[16px] flex items-center
-                        justify-center" 
-                        >
+                        <button
+                        onClick={onClose}
+                        className="w-7.5 h-7.5 rounded-lg border border-[#30363d]
+                        bg-[rgba(255,255,255,.04)] text-[#8b949e] cursor-pointer flex items-center
+                        justify-center hover:text-[#e6edf3] transition-colors">
                             <X />
                         </button>
                     </div>
                 </div>
 
                 {/* TABS */}
-                <div className="flex border-b shrink-0 px-6 border border-[rgba(3,44,166,0.08)]">
+                <div className="flex border-b border-[#21262d] shrink-0 px-6">
                     {TABS.map((tab) => (
                         <button
                         key={tab}
@@ -133,8 +110,8 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
                             fontWeight: activeTab === tab ? 600 : 400,
                             background: "none",
                             border: "none",
-                            borderBottom: activeTab === tab ? "2px solid #032ca6" : "2px solid transparent",
-                            color: activeTab === tab ? "#032ca6" : "#9aabca",
+                            borderBottom: activeTab === tab ? "2px solid #58a6ff" : "2px solid transparent",
+                            color: activeTab === tab ? "#58a6ff" : "#8b949e",
                             cursor: "pointer",
                             marginBottom: -1,
                             transition: "all 0.15s",
@@ -146,50 +123,42 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
                 </div>
 
                 <div className="flex-1 px-6 py-5 overflow-y-auto">
-                    {/* BASIC INFO */}
                     {activeTab === "Basic Info" && (
-                        <BasicInfo 
-                        selectedTenant={selectedTenant}
-                        agentData={agentData} setAgentData={setAgentData}
-                        />
+                        <BasicInfo selectedTenant={selectedTenant} agentData={agentData} setAgentData={setAgentData} />
                     )}
-                    {/* MODELS CONFIG */}
                     {activeTab === "Models Config" && (
                         <ModelsConfig agentData={agentData} setAgentData={setAgentData} />
                     )}
-                    {/* Tools */}
                     {activeTab === "Tools" && (
                         <Tools agentData={agentData} setAgentData={setAgentData} />
                     )}
-                    {/* Voicemail */}
                     {activeTab === "Voicemail" && (
                         <VoiceMail agentData={agentData} setAgentData={setAgentData} />
                     )}
                 </div>
 
-                
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t
-                border-[rgba(3,44,166,0.08)] bg-[rgba(3,44,166,0.015)] shrink-0">
+                border-[#21262d] bg-[rgba(255,255,255,.02)] shrink-0">
                     <div className="flex gap-2.5">
-                        <button  
+                        <button
                         onClick={onCancel}
-                        className="cursor-pointer px-5 py-2.5 rounded-xl text-xs font-medium text-slate-500 
-                        hover:text-slate-700 transition-all border border-[rgba(3,44,166,0.13)]
-                        bg-[rgba(3,44,166,0.04)]">
+                        className="cursor-pointer px-5 py-2.5 rounded-xl text-xs font-medium text-[#8b949e]
+                        hover:text-[#e6edf3] transition-colors border border-[#30363d]
+                        bg-[rgba(255,255,255,.04)]">
                             Cancel
                         </button>
-                        <button 
-                        onClick={createAgent} 
+                        <button
+                        onClick={createAgent}
                         disabled={loading}
-                        className={`cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white 
-                        transition-all flex items-center gap-1.5 ${loading ? "opacity-50 cursor-not-allowed" : "bg-[#032ca6] border border-[#032ca6]"}`}
-                        style={{boxShadow:"0 4px 14px rgba(3,44,166,0.25)"}}>
+                        className={`cursor-pointer px-6 py-2.5 rounded-xl text-xs font-bold text-white
+                        transition-all flex items-center gap-1.5
+                        ${loading ? "opacity-50 cursor-not-allowed" : "bg-linear-to-r from-[#1c50a0] to-[#58a6ff] border border-[rgba(88,166,255,.25)] shadow-[0_4px_14px_rgba(88,166,255,.2)]"}`}>
                             {loading ? "Creating..." : "Create Agent"}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
