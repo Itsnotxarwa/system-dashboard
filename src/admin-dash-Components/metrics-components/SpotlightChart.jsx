@@ -37,7 +37,7 @@ export default function SpotlightChart({ spotlight, loading }) {
                 <div className="flex items-center gap-2">
                     <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
                     style={{background: "rgba(88,166,255,0.12)"}}>
-                        <ChartNoAxesColumn fill="#58a6ff" stroke="1.8" />
+                        <ChartNoAxesColumn stroke="#58a6ff" strokeWidth="1.8" />
                     </div>
                     <h2 className="text-[16px] font-semibold tracking-widest text-[#58a6ff] font-mono uppercase">
                     Spotlight Comparison
@@ -49,14 +49,14 @@ export default function SpotlightChart({ spotlight, loading }) {
                 </span>
             </div>
             {/* CHART */}
-            <div className="w-full bg-white p-4 rounded-lg shadow-md">
+            <div className="bg-[rgba(20,20,19,0.5)] rounded-xl p-4">
                 <ResponsiveContainer width="100%" height={180}>
                     <CartesianGrid
                         stroke="#8b949e"
                         strokeDasharray="3 3"
                         opacity={0.4}
                     />
-                    <BarChart data={data} barCategoryGap="40%">
+                    <BarChart data={data} barCategoryGap="60%">
                         <XAxis dataKey="name"  tickLine={false} />
                         <YAxis  tickLine={false} />
                         <Tooltip
@@ -71,7 +71,7 @@ export default function SpotlightChart({ spotlight, loading }) {
                         itemStyle={{ fontFamily: "monospace" }}
                         />
                         <Legend />
-                        <Bar dataKey="value" radius={[8, 8, 0, 0]}>
+                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                             {data.map((_, index) => (
                                 <Cell key={index} fill={COLORS[index]} />
                             ))}
