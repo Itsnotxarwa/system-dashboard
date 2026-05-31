@@ -15,7 +15,7 @@ export default function SpotlightChart({ spotlight, loading }) {
         },
     ];
 
-    const COLORS = ["#3fb950", "#f85149"];
+    const COLORS = ["#58a6ff", "#8b949e"];
 
     if (loading) {
         return (
@@ -71,7 +71,7 @@ export default function SpotlightChart({ spotlight, loading }) {
                         itemStyle={{ fontFamily: "monospace" }}
                         />
                         <Legend />
-                        <Bar dataKey="value" radius={[8, 8, 8, 8]} barSize={64}>
+                        <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                             {data.map((_, index) => (
                                 <Cell key={index} fill={COLORS[index]} />
                             ))}
