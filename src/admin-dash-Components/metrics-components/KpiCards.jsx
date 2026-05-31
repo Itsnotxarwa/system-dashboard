@@ -1,7 +1,8 @@
-import { Clock, MessageSquare, TrendingUp, Users, Zap } from "lucide-react";
+import { Clock, MessageSquare, TrendingUp, Users, Volume2, Zap } from "lucide-react";
+import { Activity } from "react";
 
-export default function KpiCards({metrics, loading}) {
-    if (!metrics) return null;
+export default function KpiCards({overview, loading}) {
+    if (!overview) return null;
 
     if (loading) {
         return (
@@ -16,51 +17,41 @@ export default function KpiCards({metrics, loading}) {
         )
     }
 
-    const totalSessions = metrics.reduce((sum, tenant) => sum + tenant.session_count, 0);
-    const totalTurns = metrics.reduce((sum, tenant) => sum + tenant.total_turns, 0);
-    const avgTTFT = metrics.reduce((sum, tenant) => sum + tenant.ttft_p50, 0) / metrics.length;
-    const avgTPS = metrics.reduce((sum, tenant) => sum + tenant.tps_p50, 0) / metrics.length;
-
     const cards = [
         {
             title: "Total Tenants",
             icon: Users,
-            value: metrics.length,
+            value: overview.total_tenants,
             desc: "Number of active tenants in the system",
-            background: "bg-[rgba(88,166,255,.15)]",
-            stroke: "#58a6ff",
+            color: "#58a6ff",
         },
         {
             title: "Total Sessions",
             icon: MessageSquare,
-            value: totalSessions,
+            value: overview.total_sessions,
             desc: "Across all tenants",
-            background: "bg-[rgba(63,185,80,.15)]",
-            stroke: "#3fb950",
+            color: "#3fb950",
         },
         {
-            title: "Total Turns",
+            title: "LLM Turns",
             icon: TrendingUp,
-            value: totalTurns,
-            desc: "Across all tenants",
-            background: "bg-[rgba(249, 115, 22, 0.12)]",
-            stroke: "#F97316",
+            value: overview.total_llm_turns,
+            desc: "Language model",
+            color: "#F97316",
         },
         {
-            title: "Avg TTFT (p50)",
-            icon: Zap,
-            value: avgTTFT,
-            desc: "Across all tenants",
-            background: "bg-[rgba(188,140,255,.15)]",
-            stroke: "#bc8cff",
+            title: "TTS Turns",
+            icon: Volume2,
+            value: overview.total_tts_turns,
+            desc: "Text-to-speech",
+            color: "#bc8cff",
         },
         {
-            title: "Avg TPS (p50)",
-            icon: Clock,
-            value: avgTPS,
-            desc: "Across all tenants",
-            background: "bg-[rgba(57,211,187,.15)]",
-            stroke: "#39d3bb"
+            title: "E2E Latency p50",
+            icon: Activity,
+            value: `${overview.e2e_latency?.p50}s`,
+            desc: `p90: ${overview.e2e_latency?.p90}s`,
+            color: "#39d3bb"
         }
     ]
 
@@ -71,12 +62,13 @@ export default function KpiCards({metrics, loading}) {
                 return(
                 <div 
                 key={i} 
-                className={`group relative bg-linear-to-br from-[#1c2230] to-[#161b22]  
+                className="group relative bg-linear-to-br from-[#1c2230] to-[#161b22]  
                 flex items-start gap-3 hover:border-[#30363d]
                 rounded-xl p-4 shadow-md transition-all border border-[#21262d]
-                duration-300 hover:scale-[1.02] ${card.background}`}>
+                duration-300 hover:scale-[1.02]"
+                style={{background: `${card.color}18`}}>
                     <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0">
-                        <Icon size={24} stroke={card.stroke} strokeWidth={card.strokewidth} />
+                        <Icon size={24} color={card.color} strokeWidth={1.8} />
                     </div>
                     <div>
                         <p className="text-xs font-semibold uppercase tracking-widest text-[#8b949e] mb-1">

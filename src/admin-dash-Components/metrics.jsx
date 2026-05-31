@@ -6,15 +6,15 @@ import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
 
 export default function Metrics() {
-    const [metrics, setMetrics] = useState([]);
+    const [overview, setOverview] = useState([]);
 
 
     const token = localStorage.getItem("token");
 
-    const fetchMetrics = useCallback(async() => {
+    const fetchOverview = useCallback(async() => {
         try{
 
-            const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants`, {
+            const response = await fetch(`https://api.voixup.fr/admin/metrics/overview`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -27,30 +27,30 @@ export default function Metrics() {
             }
 
             if (response.status === 404) {
-                setMetrics([]);
+                setOverview([]);
                 return;
             }
 
             if (!response.ok) {
-                throw new Error(`Error fetching metrics: ${response.statusText}`);
+                throw new Error(`Error fetching overview: ${response.statusText}`);
             }
 
             const data = await response.json();
-            setMetrics(data);
-            console.log("metrics:", data);
+            setOverview(data);
+            console.log("overview:", data);
 
         } catch (error) {
-            console.error("Error fetching metrics:", error);
-            setMetrics([]);
+            console.error("Error fetching overview:", error);
+            setOverview([]);
         }
     }, [token]);
 
     useEffect(() => {
-        fetchMetrics();
-    }, [fetchMetrics]
+        fetchOverview();
+    }, [fetchOverview]
     );
 
-    if (!metrics) {
+    if (!overview) {
         return (
             <div className="flex items-center justify-center h-64">
                 <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
@@ -84,8 +84,8 @@ export default function Metrics() {
                     style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                         Overview of tenant activity and performance.
                     </p>
-                    {metrics && (
-                        <KpiCards metrics={metrics} />
+                    {overview && (
+                        <KpiCards overview={overview} />
                     )}
                 </div>
             </main>
