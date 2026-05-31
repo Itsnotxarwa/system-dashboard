@@ -104,6 +104,7 @@ export default function Metrics() {
                         <Spotlight spotlight={overview?.spotlight} loading={loading} />
                     )}
 
+                    {/* Spotlight Chart */}
                     {overview && (
                         <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
                     )}
