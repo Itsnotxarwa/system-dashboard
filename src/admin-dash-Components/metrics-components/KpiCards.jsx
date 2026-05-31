@@ -64,9 +64,9 @@ export default function KpiCards({overview, loading}) {
                 className="group relative bg-linear-to-br from-[#1c2230] to-[#161b22]  
                 flex items-start gap-3 hover:border-[#30363d]
                 rounded-xl p-4 shadow-md transition-all border border-[#21262d]
-                duration-300 hover:scale-[1.02]"
-                style={{background: `${card.color}18`}}>
-                    <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0">
+                duration-300 hover:scale-[1.02]">
+                    <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
+                    style={{background: `${card.color}18`}}>
                         <Icon size={24} color={card.color} strokeWidth={1.8} />
                     </div>
                     <div>
@@ -77,7 +77,7 @@ export default function KpiCards({overview, loading}) {
                         style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                             {card.value}
                         </p>
-                        <p className="text-[11px] text-[#8b949e] mt-1.5">
+                        <p className="text-xs text-[#8b949e] mt-1.5">
                             {card.desc}
                         </p>
                     </div>

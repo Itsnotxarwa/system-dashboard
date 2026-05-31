@@ -37,8 +37,12 @@ export default function GlobalMetrics({ overview, loading }) {
                     <MetricCell label="TTFB" p50={tts_metrics?.ttfb_p50} p90={tts_metrics?.ttfb_p90} color="#bc8cff" />
                     <div className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-xl p-4 flex flex-col justify-center">
                         <p className="text-sm font-semibold uppercase tracking-tighter text-[#8b949e] mb-2">E2E Latency</p>
-                        <p className="font-mono text-lg font-semibold text-[#bc8cff]">{overview.e2e_latency?.p50}s</p>
-                        <p className="font-mono text-xs text-[#8b949e]">p90 {overview.e2e_latency?.p90}s</p>
+                        <p className="text-lg font-semibold text-[#bc8cff]" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+                            {overview.e2e_latency?.p50}s
+                        </p>
+                        <p className="text-xs text-[#8b949e]" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+                            p90 {overview.e2e_latency?.p90}s
+                        </p>
                     </div>
                 </div>
             </div>

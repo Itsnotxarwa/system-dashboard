@@ -5,13 +5,13 @@ export default function MetricCell({ label, p50, p90, unit = "s", color = "#58a6
             <div className="flex flex-col gap-1.5">
                 <div className="flex items-center justify-between">
                     <span className="text-sm text-[#8b949e]">p50</span>
-                    <span className="font-mono text-sm font-semibold" style={{ color }}>
+                    <span className="text-sm font-semibold" style={{ color, fontFamily: "'IBM Plex Mono', monospace" }}>
                         {p50 != null ? `${p50}${unit}` : "—"}
                     </span>
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-sm text-[#8b949e]">p90</span>
-                    <span className="font-mono text-sm text-[#8b949e]">
+                    <span className="text-sm font-semibold" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                         {p90 != null ? `${p90}${unit}` : "—"}
                     </span>
                 </div>
