@@ -40,7 +40,7 @@ export default function GlobalMetrics({ overview, loading }) {
                         <p className="text-lg font-semibold text-[#bc8cff]" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                             {overview.e2e_latency?.p50}s
                         </p>
-                        <p className="text-xs text-[#8b949e]" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+                        <p className="text-sm font-semibold" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                             p90 {overview.e2e_latency?.p90}s
                         </p>
                     </div>

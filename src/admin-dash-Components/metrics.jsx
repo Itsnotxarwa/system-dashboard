@@ -6,6 +6,7 @@ import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
 import GlobalMetrics from "./metrics-components/GlobalMetrics";
 import Spotlight from "./metrics-components/Spotlight";
+import SpotlightChart from "./metrics-components/SpotlightChart";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
@@ -100,7 +101,11 @@ export default function Metrics() {
                     )}
 
                     {overview && (
-                        <Spotlight spotlight={overview?.spotlight} />
+                        <Spotlight spotlight={overview?.spotlight} loading={loading} />
+                    )}
+
+                    {overview && (
+                        <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
                     )}
                 </div>
             </main>
