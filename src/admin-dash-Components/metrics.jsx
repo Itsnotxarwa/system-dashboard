@@ -8,12 +8,14 @@ import GlobalMetrics from "./metrics-components/GlobalMetrics";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     const token = localStorage.getItem("token");
 
     const fetchOverview = useCallback(async() => {
         try{
+            setLoading(true);
 
             const response = await fetch(`https://api.voixup.fr/admin/metrics/overview`, {
                 method: "GET",
@@ -38,11 +40,14 @@ export default function Metrics() {
 
             const data = await response.json();
             setOverview(data);
+            setLoading(false);
             console.log("overview:", data);
 
         } catch (error) {
             console.error("Error fetching overview:", error);
             setOverview([]);
+        } finally {
+            setLoading(false);
         }
     }, [token]);
 
@@ -86,11 +91,11 @@ export default function Metrics() {
                         Overview of tenant activity and performance.
                     </p>
                     {overview && (
-                        <KpiCards overview={overview} />
+                        <KpiCards overview={overview} loading={loading} />
                     )}
 
                     {overview && (
-                        <GlobalMetrics overview={overview} />
+                        <GlobalMetrics overview={overview} loading={loading} />
                     )}
                 </div>
             </main>

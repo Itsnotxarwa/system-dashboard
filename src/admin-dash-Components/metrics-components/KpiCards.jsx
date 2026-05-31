@@ -1,5 +1,4 @@
-import { Clock, MessageSquare, TrendingUp, Users, Volume2, Zap } from "lucide-react";
-import { Activity } from "react";
+import { MessageSquare, TrendingUp, Users, Volume2, Activity } from "lucide-react";
 
 export default function KpiCards({overview, loading}) {
     if (!overview) return null;

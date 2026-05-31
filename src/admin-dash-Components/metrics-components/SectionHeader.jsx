@@ -11,7 +11,7 @@ export default function SectionHeader(props) {
             <span className="text-[16px] font-semibold uppercase tracking-widest"
                 style={{ 
                     color, 
-                fontFamily: "'Cabinet', sans-serif" }}>{label}</span>
+                fontFamily: "'Cabinet Grotesk',sans-serif" }}>{label}</span>
         </div>
     );
 }
