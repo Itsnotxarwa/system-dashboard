@@ -2,21 +2,9 @@ import { Zap, Volume2, Mic } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import MetricCell from "./MetricCell";
 
-export default function GlobalMetrics({ overview, loading }) {
+export default function GlobalMetrics({ overview }) {
     if (!overview) return null;
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center h-64">
-                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                viewBox="25 25 50 50">
-                    <circle
-                    className="loading-circle" 
-                    r="20" cy="50" cx="50"></circle>
-                </svg>
-            </div>
-        )
-    }
     const { llm_metrics, tts_metrics, eou_metrics } = overview;
 
     return (
