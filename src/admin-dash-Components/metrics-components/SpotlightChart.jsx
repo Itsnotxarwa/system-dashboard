@@ -69,19 +69,7 @@ export default function SpotlightChart({ spotlight, loading }) {
                         labelStyle={{ fontFamily: "monospace" }}
                         itemStyle={{ fontFamily: "monospace" }}
                         />
-                        <Legend verticalAlign="left" align="center" wrapperStyle={{ marginBottom: 10 }} 
-                         payload={[
-    {
-      value: "Best E2E p50",
-      type: "square",
-      color: "#58a6ff",
-    },
-    {
-      value: "Worst E2E p50",
-      type: "square",
-      color: "#8b949e",
-    },
-  ]}/>
+                        <Legend  verticalAlign="top" align="left" wrapperStyle={{ marginBottom: 10 }} />
                         <Bar dataKey="value" name="E2E p50" radius={[4, 4, 0, 0]}>
                             {data.map((_, index) => (
                                 <Cell key={index} fill={COLORS[index]} />
