@@ -37,10 +37,10 @@ export default function SpotlightChart({ spotlight, loading }) {
                 <div className="flex items-center gap-2">
                     <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
                     style={{background: "rgba(88,166,255,0.12)"}}>
-                        <ChartNoAxesColumn stroke="#58a6ff" strokeWidth="1.8" />
+                        <ChartNoAxesColumn size={20} stroke="#58a6ff" strokeWidth="4" />
                     </div>
                     <h2 className="text-[16px] font-semibold tracking-widest text-[#58a6ff] font-mono uppercase">
-                    Spotlight Comparison
+                    E2E Latency 
                     </h2>
                 </div>
                 <span className="text-xs px-2.5 py-1 rounded-full font-medium
@@ -50,12 +50,12 @@ export default function SpotlightChart({ spotlight, loading }) {
             </div>
             {/* CHART */}
                 <ResponsiveContainer width="100%" height={180}>
-                    <CartesianGrid
+                    <BarChart data={data} barCategoryGap="80%">
+                        <CartesianGrid
                         stroke="#8b949e"
                         strokeDasharray="3 3"
                         opacity={0.5}
-                    />
-                    <BarChart data={data} barCategoryGap="80%">
+                        />
                         <XAxis dataKey="name"  tickLine={false} tick={{ dy: 10, dx:-5, fill: "#8b949e", fontFamily: "'IBM Plex Mono', monospace" }}  />
                         <YAxis  tickLine={false} tick={{dy: 10, dx: -5,  fill: "#8b949e" }} />
                         <Tooltip
@@ -69,7 +69,19 @@ export default function SpotlightChart({ spotlight, loading }) {
                         labelStyle={{ fontFamily: "monospace" }}
                         itemStyle={{ fontFamily: "monospace" }}
                         />
-                        <Legend />
+                        <Legend name="E2E p50" verticalAlign="top" align="center" wrapperStyle={{ marginBottom: 10 }} 
+                         payload={[
+    {
+      value: "Best E2E p50",
+      type: "square",
+      color: "#58a6ff",
+    },
+    {
+      value: "Worst E2E p50",
+      type: "square",
+      color: "#8b949e",
+    },
+  ]}/>
                         <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                             {data.map((_, index) => (
                                 <Cell key={index} fill={COLORS[index]} />
