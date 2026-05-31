@@ -30,7 +30,7 @@ export default function SpotlightChart({ spotlight, loading }) {
     }
 
     return (
-        <div className="bg-[#161b22] rounded-2xl p-5 border border-[#21262d]">
+        <div className="bg-[#161b22] rounded-2xl p-5 border border-[#21262d] mt-6">
             {/* HEADER */}
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
