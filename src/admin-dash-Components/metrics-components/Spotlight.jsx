@@ -1,4 +1,4 @@
-import { AlertTriangle, Star } from "@phosphor-icons/react";
+import { AlertTriangle, Star } from "lucide-react";
 
 export default function Spotlight({ spotlight }) {
     return (
