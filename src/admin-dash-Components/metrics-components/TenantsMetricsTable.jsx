@@ -31,7 +31,7 @@ export default function TenantsMetricsTable({ tenantsMetrics, loading }) {
                 <thead>
                     <tr className="border-b border-[#21262d]">
                         {["Tenant", "Sessions", "Turns", "LLM TTFT p50", "LLM TPS p50", "TTS TTFB p50", "E2E p50", "E2E p90"].map(h => (
-                            <th key={h} className="text-left text-sm font-medium text-[#8b949e] px-4 py-3 uppercase tracking-wider whitespace-nowrap">
+                            <th key={h} className="text-left text-[15px] font-medium text-[#8b949e] px-4 py-3 uppercase tracking-wider whitespace-nowrap">
                                 {h}
                             </th>
                         ))}
