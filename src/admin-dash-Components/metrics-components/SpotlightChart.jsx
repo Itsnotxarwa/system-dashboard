@@ -49,16 +49,15 @@ export default function SpotlightChart({ spotlight, loading }) {
                 </span>
             </div>
             {/* CHART */}
-            <div className="bg-[rgba(20,20,19,0.5)] rounded-xl p-4">
                 <ResponsiveContainer width="100%" height={180}>
                     <CartesianGrid
                         stroke="#8b949e"
                         strokeDasharray="3 3"
-                        opacity={0.4}
+                        opacity={0.5}
                     />
-                    <BarChart data={data} barCategoryGap="60%">
-                        <XAxis dataKey="name"  tickLine={false} />
-                        <YAxis  tickLine={false} />
+                    <BarChart data={data} barCategoryGap="80%">
+                        <XAxis dataKey="name"  tickLine={false} tick={{ dy: 10, dx:-5, fontSize: 12, fill: "#8b949e" }}  />
+                        <YAxis  tickLine={false} tick={{dy: 10, dx: -5, fontSize: 12, fill: "#8b949e" }} />
                         <Tooltip
                         contentStyle={{
                             backgroundColor: "#161b22",
@@ -78,7 +77,6 @@ export default function SpotlightChart({ spotlight, loading }) {
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
-            </div>
         </div>
     );
 }
