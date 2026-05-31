@@ -16,7 +16,7 @@ export default function TenantsMetricsTable({ tenantsMetrics, loading }) {
         )
     }
     return (
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden mt-6 mb-6">
             <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
                 <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
                 style={{background: "rgba(88,166,255,0.12)"}}>
