@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
 import GlobalMetrics from "./metrics-components/GlobalMetrics";
+import Spotlight from "./metrics-components/Spotlight";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
@@ -96,6 +97,10 @@ export default function Metrics() {
 
                     {overview && (
                         <GlobalMetrics overview={overview} loading={loading} />
+                    )}
+
+                    {overview && (
+                        <Spotlight spotlight={overview?.spotlight} />
                     )}
                 </div>
             </main>
