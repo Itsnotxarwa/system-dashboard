@@ -56,8 +56,8 @@ export default function SpotlightChart({ spotlight, loading }) {
                         opacity={0.5}
                     />
                     <BarChart data={data} barCategoryGap="80%">
-                        <XAxis dataKey="name"  tickLine={false} tick={{ dy: 10, dx:-5, fontSize: 12, fill: "#8b949e", fontFamily: "'IBM Plex Mono', monospace" }}  />
-                        <YAxis  tickLine={false} tick={{dy: 10, dx: -5, fontSize: 12, fill: "#8b949e" }} />
+                        <XAxis dataKey="name"  tickLine={false} tick={{ dy: 10, dx:-5, fill: "#8b949e", fontFamily: "'IBM Plex Mono', monospace" }}  />
+                        <YAxis  tickLine={false} tick={{dy: 10, dx: -5,  fill: "#8b949e" }} />
                         <Tooltip
                         contentStyle={{
                             backgroundColor: "#161b22",
