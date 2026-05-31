@@ -1,3 +1,5 @@
+import { AlertTriangle, Star } from "@phosphor-icons/react";
+
 export default function Spotlight({ spotlight }) {
     return (
         <div className="grid grid-cols-2 gap-4 mb-5">
