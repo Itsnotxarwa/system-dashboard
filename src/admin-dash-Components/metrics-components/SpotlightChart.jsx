@@ -1,4 +1,4 @@
-import { BarChart3 } from "lucide-react";
+import {  ChartNoAxesColumn } from "lucide-react";
 import { BarChart, Bar, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid } from "recharts";
 
 export default function SpotlightChart({ spotlight, loading }) {
@@ -31,42 +31,47 @@ export default function SpotlightChart({ spotlight, loading }) {
     }
 
     return (
-        <div className="bg-[#161b22] rounded-2xl p-5 border border-[#21262d]
-        shadow-[0_2px_8px_rgba(0,0,0,.4)] transition-all duration-300 hover:scale-[1.02]">
+        <div className="bg-[#161b22] rounded-2xl p-5 border border-[#21262d]">
             {/* HEADER */}
-            <div className="flex items-center gap-2 mb-3">
-                <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
-                style={{background: "rgba(88,166,255,0.12)"}}>
-                    <BarChart3 color="#58a6ff" stroke="1.8" />
+            <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
+                    style={{background: "rgba(88,166,255,0.12)"}}>
+                        <ChartNoAxesColumn fill="#58a6ff" stroke="1.8" />
+                    </div>
+                    <h2 className="text-[16px] font-semibold tracking-widest text-[#58a6ff] font-mono uppercase">
+                    Spotlight Comparison
+                    </h2>
                 </div>
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-[#e6edf3]">
-                Spotlight Comparison
-                </h2>
+                <span className="text-xs px-2.5 py-1 rounded-full font-medium
+                bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
+                    Best vs Worst tenants
+                </span>
             </div>
             {/* CHART */}
-            <div className="bg-[rgba(20,20,19,0.5)] rounded-xl p-4">
+            <div className="w-full bg-white p-4 rounded-lg shadow-md">
                 <ResponsiveContainer width="100%" height={180}>
                     <CartesianGrid
-                        stroke="#30363d"
+                        stroke="#8b949e"
                         strokeDasharray="3 3"
                         opacity={0.4}
                     />
                     <BarChart data={data} barCategoryGap="40%">
-                        <XAxis dataKey="name"  tick={false} />
-                        <YAxis  tick={false} />
+                        <XAxis dataKey="name"  tickLine={false} />
+                        <YAxis  tickLine={false} />
                         <Tooltip
                         contentStyle={{
                             backgroundColor: "#161b22",
                             border: "1px solid #21262d",
                             borderRadius: "10px",
-                            color: "#e6edf3",
+                            color: "#8b949e",
                             fontFamily: "monospace",
                         }}
                         labelStyle={{ fontFamily: "monospace" }}
                         itemStyle={{ fontFamily: "monospace" }}
                         />
                         <Legend />
-                        <Bar dataKey="value" radius={[8, 8, 8, 8]} barSize={18}>
+                        <Bar dataKey="value" radius={[8, 8, 8, 8]} barSize={64}>
                             {data.map((_, index) => (
                                 <Cell key={index} fill={COLORS[index]} />
                             ))}

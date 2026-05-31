@@ -7,9 +7,11 @@ import KpiCards from "./metrics-components/KpiCards";
 import GlobalMetrics from "./metrics-components/GlobalMetrics";
 import Spotlight from "./metrics-components/Spotlight";
 import SpotlightChart from "./metrics-components/SpotlightChart";
+import TenantsMetricsTable from "./metrics-components/TenantsMetricsTable";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
+    const [tenantsMetrics, setTenantsMetrics] = useState([]);
     const [loading, setLoading] = useState(true);
 
 
@@ -56,6 +58,49 @@ export default function Metrics() {
     useEffect(() => {
         fetchOverview();
     }, [fetchOverview]
+    );
+
+    const fetchTenantsMetrics = useCallback(async() => {
+        try{
+            setLoading(true);
+
+            const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+            if (response.status === 401) {
+                handleUnauthorized(401);
+                return;
+            }
+
+            if (response.status === 404) {
+                setTenantsMetrics([]);
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(`Error fetching tenants metrics: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            setTenantsMetrics(data);
+            setLoading(false);
+            console.log("tenants metrics:", data);
+
+        } catch (error) {
+            console.error("Error fetching tenants metrics:", error);
+            setTenantsMetrics([]);
+        } finally {
+            setLoading(false);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        fetchTenantsMetrics();
+    }, [fetchTenantsMetrics]
     );
 
     if (!overview) {
@@ -107,6 +152,10 @@ export default function Metrics() {
                     {/* Spotlight Chart */}
                     {overview && (
                         <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
+                    )}
+
+                    {tenantsMetrics && (
+                        <TenantsMetricsTable tenantsMetrics={tenantsMetrics} loading={loading} />
                     )}
                 </div>
             </main>
