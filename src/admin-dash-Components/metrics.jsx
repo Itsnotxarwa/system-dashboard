@@ -4,6 +4,7 @@ import Mazia from "../assets/mazia.png";
 import { useCallback, useEffect, useState } from "react";
 import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
+import GlobalMetrics from "./metrics-components/GlobalMetrics";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
@@ -86,6 +87,10 @@ export default function Metrics() {
                     </p>
                     {overview && (
                         <KpiCards overview={overview} />
+                    )}
+
+                    {overview && (
+                        <GlobalMetrics overview={overview} />
                     )}
                 </div>
             </main>
