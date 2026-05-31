@@ -20,7 +20,7 @@ export default function GlobalMetrics({ overview, loading }) {
     const { llm_metrics, tts_metrics, eou_metrics } = overview;
 
     return (
-        <div className="grid grid-cols-3 gap-4 mb-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
             {/* LLM */}
             <div className="bg-[#161b22] border border-[#21262d] rounded-xl p-5 transition-all duration-300 hover:scale-[1.02]">
                 <SectionHeader icon={Zap} label="LLM Metrics" color="#58a6ff" />
