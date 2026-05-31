@@ -15,7 +15,6 @@ export default function SpotlightChart({ spotlight, loading }) {
         },
     ];
 
-    const COLORS = ["#58a6ff", "#8b949e"];
 
     if (loading) {
         return (
@@ -50,6 +49,7 @@ export default function SpotlightChart({ spotlight, loading }) {
             </div>
             {/* CHART */}
                 <ResponsiveContainer width="100%" height={180}>
+                    <Legend  verticalAlign="top" align="left" wrapperStyle={{ marginBottom: 10 }} />
                     <BarChart data={data} barCategoryGap="80%">
                         <CartesianGrid
                         stroke="#8b949e"
@@ -69,10 +69,9 @@ export default function SpotlightChart({ spotlight, loading }) {
                         labelStyle={{ fontFamily: "monospace" }}
                         itemStyle={{ fontFamily: "monospace" }}
                         />
-                        <Legend  verticalAlign="top" align="left" wrapperStyle={{ marginBottom: 10 }} />
-                        <Bar dataKey="value" name="E2E p50" radius={[4, 4, 0, 0]}>
+                        <Bar dataKey="value" name="E2E p50" radius={[4, 4, 0, 0]} fill="#58a6ff">
                             {data.map((_, index) => (
-                                <Cell key={index} fill={COLORS[index]} />
+                                <Cell key={index} fill={index === 0 ? "#58a6ff" : "#8b949e"} />
                             ))}
                         </Bar>
                     </BarChart>
