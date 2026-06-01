@@ -18,7 +18,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
     }
 
     return(
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden w-4xl shrink-0">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden w-2xl shrink-0">
             {/* Head */}
             <div className="px-4 py-3 border-b border-[#21262d]">
                 <div className="flex items-start gap-2.5">
@@ -78,10 +78,13 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
 
                 {/* TTS */}
                 <div className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-lg p-3 mb-2">
-                    <p className="text-sm font-semibold uppercase tracking-widest text-[#bc8cff] mb-2">TTS metrics</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-[#bc8cff] flex gap-2 mb-2">TTS metrics
+                        <span className="text-xs font-mono text-[#8b949e] bg-[#21262d] px-1.5 py-0.5 rounded">
+                            {selectedTenant.tts_metrics?.total_turns} total turns
+                        </span>
+                    </p>
                     <div className="grid grid-cols-2 gap-2">
                     <MetricBlock label="TTFB" p50={selectedTenant.tts_metrics?.ttfb_p50} p90={selectedTenant.tts_metrics?.ttfb_p90} color="#bc8cff" />
-                    <MetricBlock label="TTS turns" value={selectedTenant.tts_metrics?.total_turns} color="#bc8cff" />
                     </div>
                 </div>
 
