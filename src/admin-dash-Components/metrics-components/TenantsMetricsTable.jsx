@@ -1,4 +1,4 @@
-import { Radio } from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function TenantsMetricsTable({ tenantsMetrics, selectedTenant, setSelectedTenant, loading }) {
     if (!tenantsMetrics) return null;
