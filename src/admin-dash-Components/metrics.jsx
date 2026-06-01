@@ -8,10 +8,12 @@ import GlobalMetrics from "./metrics-components/GlobalMetrics";
 import Spotlight from "./metrics-components/Spotlight";
 import SpotlightChart from "./metrics-components/SpotlightChart";
 import TenantsMetricsTable from "./metrics-components/TenantsMetricsTable";
+import TenantMetricsDetails from "./metrics-components/TenantMetricsDetails";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
     const [tenantsMetrics, setTenantsMetrics] = useState([]);
+    const [selectedTenant, setSelectedTenant] = useState(null);
     const [loading, setLoading] = useState(true);
 
 
@@ -154,9 +156,22 @@ export default function Metrics() {
                         <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
                     )}
 
-                    {tenantsMetrics && (
-                        <TenantsMetricsTable tenantsMetrics={tenantsMetrics} loading={loading} />
-                    )}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                        {tenantsMetrics && (
+                            <TenantsMetricsTable 
+                            tenantsMetrics={tenantsMetrics} 
+                            selectedTenant={selectedTenant}
+                            setSelectedTenant={setSelectedTenant}
+                            loading={loading} />
+                        )}
+
+                        {selectedTenant && (
+                            <TenantMetricsDetails 
+                            loading={loading}
+                            selectedTenant={selectedTenant} 
+                            onClose={() => setSelectedTenant(null)} />
+                        )}
+                    </div>
                 </div>
             </main>
         </div>

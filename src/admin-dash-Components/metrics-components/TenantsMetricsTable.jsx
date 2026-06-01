@@ -1,6 +1,6 @@
 import { Radio } from "lucide-react";
 
-export default function TenantsMetricsTable({ tenantsMetrics, loading }) {
+export default function TenantsMetricsTable({ tenantsMetrics, selectedTenant, setSelectedTenant, loading }) {
     if (!tenantsMetrics) return null;
 
     if (loading) {
@@ -18,19 +18,22 @@ export default function TenantsMetricsTable({ tenantsMetrics, loading }) {
     return (
         <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden mt-6 mb-6">
             <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
-                <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0"
-                style={{background: "rgba(88,166,255,0.12)"}}>
-                    <Radio size={14} stroke="#58a6ff" strokeWidth={1.8} />
+                <div className="relative">
+                    <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" />
+                    <input
+                        type="text"
+                        placeholder="Search tenants..."
+                        className="bg-[#0d1117] border border-[#30363d] rounded-md pl-8 pr-3 py-1.5
+                        text-[12px] text-[#e6edf3] placeholder-[#8b949e] font-mono outline-none
+                        focus:border-[#58a6ff] transition-colors w-52"
+                    />
                 </div>
-                <span className="text-[16px] font-semibold uppercase tracking-widest text-[#58a6ff]">
-                    Per-Tenant Breakdown
-                </span>
                 <span className="ml-auto text-[13px] text-[#8b949e] font-mono">{tenantsMetrics.length} tenants</span>
             </div>
             <table className="w-full border-collapse">
                 <thead>
                     <tr className="border-b border-[#21262d]">
-                        {["Tenant", "Sessions", "Turns", "LLM TTFT p50", "LLM TPS p50", "TTS TTFB p50", "E2E p50", "E2E p90"].map(h => (
+                        {["Tenant", "Sessions", "Turns"].map(h => (
                             <th key={h} className="text-left text-[15px] font-medium text-[#8b949e] px-4 py-3 uppercase tracking-wider whitespace-nowrap">
                                 {h}
                             </th>
@@ -40,18 +43,19 @@ export default function TenantsMetricsTable({ tenantsMetrics, loading }) {
                 <tbody>
                     {tenantsMetrics.map((t) => (
                         <tr key={t.tenant_id}
-                            className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer`}>
+                            className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer ${selectedTenant?.tenant_id === t.tenant_id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
+                            onClick={() => setSelectedTenant(t)}>
                             <td className="px-4 py-3">
                                 <p className="text-lg font-medium text-[#e6edf3]">{t.tenant_name}</p>
                                 <p className="font-mono text-xs text-[#8b949e] truncate max-w-35">{t.tenant_id}</p>
                             </td>
                             <td className="px-4 py-3 font-mono text-lg text-[#e6edf3]">{t.session_count}</td>
                             <td className="px-4 py-3 font-mono text-lg text-[#e6edf3]">{t.total_turns}</td>
-                            <td className="px-4 py-3 font-mono text-lg text-[#58a6ff]">{t.llm_metrics?.ttft_p50}s</td>
+                        {/* <td className="px-4 py-3 font-mono text-lg text-[#58a6ff]">{t.llm_metrics?.ttft_p50}s</td>
                             <td className="px-4 py-3 font-mono text-lg text-[#39d3bb]">{t.llm_metrics?.tps_p50}</td>
                             <td className="px-4 py-3 font-mono text-lg text-[#bc8cff]">{t.tts_metrics?.ttfb_p50}s</td>
                             <td className="px-4 py-3 font-mono text-lg text-[#3fb950]">{t.e2e_latency?.p50}s</td>
-                            <td className="px-4 py-3 font-mono text-lg text-[#d29922]">{t.e2e_latency?.p90}s</td>
+                            <td className="px-4 py-3 font-mono text-lg text-[#d29922]">{t.e2e_latency?.p90}s</td>*/} 
                         </tr>
                     ))}
                 </tbody>
