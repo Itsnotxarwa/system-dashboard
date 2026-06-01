@@ -156,7 +156,7 @@ export default function Metrics() {
                         <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
                     )}
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                    <div className="flex gap-3 items-start py-6">
                         {tenantsMetrics && (
                             <TenantsMetricsTable 
                             tenantsMetrics={tenantsMetrics} 
