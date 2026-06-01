@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Edit, Trash } from "lucide-react";
+import { Edit, Trash, Search } from "lucide-react";
 
 export default function TenantsTable({filteredTenants, handleEdit, handleDelete, search, setSearch}) {
     const navigate = useNavigate();

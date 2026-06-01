@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 import TenantsTable from "./tenants-components/TenantsTable";
