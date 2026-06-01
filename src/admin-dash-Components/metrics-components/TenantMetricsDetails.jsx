@@ -25,7 +25,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                     <div className="w-8 h-8 rounded-lg grid place-items-center text-sm font-bold text-white 
                     font-mono shrink-0"
                     style={{background:"linear-gradient(135deg,#1c50a0,#58a6ff)"}}>
-                        {selectedTenant.name ? selectedTenant.name
+                        {selectedTenant.tenant_name ? selectedTenant.tenant_name
                         .split(" ")
                         .map(word => word.charAt(0).toUpperCase())
                         .slice(0, 2)
@@ -34,7 +34,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="font-mono text-xs font-medium text-[#e6edf3] truncate">
-                            {selectedTenant.id}
+                            {selectedTenant.tenant_id}
                         </div>
                         <div className="text-lg text-[#8b949e] mt-0.5">
                             {selectedTenant.session_count} sessions · {selectedTenant.total_turns} turns
