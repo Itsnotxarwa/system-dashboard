@@ -18,7 +18,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
     }
 
     return(
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden shrink-0">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden w-4xl shrink-0">
             {/* Head */}
             <div className="px-4 py-3 border-b border-[#21262d]">
                 <div className="flex items-start gap-2.5">
