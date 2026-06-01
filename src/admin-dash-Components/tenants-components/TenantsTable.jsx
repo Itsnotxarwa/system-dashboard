@@ -1,11 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
 
-export default function TenantsTable({filteredTenants, handleEdit, handleDelete}) {
+export default function TenantsTable({filteredTenants, handleEdit, handleDelete, search, setSearch}) {
     const navigate = useNavigate();
     
     return(
-        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden flex-1 min-w-0">
+            {/* Head: Search bar and number of tenants */}
+            <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
+                {/* SEARCH  */}
+                <div className="relative">
+                    <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" />
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Search tenants..."
+                        className="bg-[#0d1117] border border-[#30363d] rounded-md pl-8 pr-3 py-1.5
+                        text-[12px] text-[#e6edf3] placeholder-[#8b949e] font-mono outline-none
+                        focus:border-[#58a6ff] transition-colors w-52"
+                    />
+                </div>
+                <span className="ml-auto text-[13px] text-[#8b949e] font-mono">{filteredTenants.length} tenants</span>
+            </div>
+
+            {/* Table of tenants */}
             <table className="w-full border-collapse">
                 <thead>
                     <tr className="border-b border-[#21262d]">

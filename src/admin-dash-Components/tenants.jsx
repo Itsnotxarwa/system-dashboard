@@ -7,7 +7,6 @@ import { handleUnauthorized } from "../utils/auth";
 
 export default function Tenants({tenants, setTenants, loading}) {
     const [search, setSearch] = useState("");    
-    const [filter, setFilter] = useState("All");
     
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -23,8 +22,7 @@ export default function Tenants({tenants, setTenants, loading}) {
     };
 
     const filteredTenants = tenants.filter(t => 
-        (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase())) &&
-        (filter === "All" || (filter === "Active" && t.is_active) || (filter === "Inactive" && !t.is_active))
+        (t.name.toLowerCase().includes(search.toLowerCase()) || t.id.toLowerCase().includes(search.toLowerCase()))
     );
 
     
@@ -95,90 +93,26 @@ export default function Tenants({tenants, setTenants, loading}) {
         }
 
         if (loading) {
-        return (
-            <div className="flex items-center justify-center h-64">
-                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                viewBox="25 25 50 50">
-                    <circle
-                    className="loading-circle" 
-                    r="20" cy="50" cx="50"></circle>
-                </svg>
-            </div>
-        )
-    }
+            return (
+                <div className="flex items-center justify-center h-64">
+                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                    viewBox="25 25 50 50">
+                        <circle
+                        className="loading-circle" 
+                        r="20" cy="50" cx="50"></circle>
+                    </svg>
+                </div>
+            )
+        }
 
     return (
     <div className="p-4">
-        {/* SEARCH & TABS */}
-        <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
-            <div className="relative">
-                <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" />
-                <input
-                    type="text"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search tenants..."
-                    className="bg-[#0d1117] border border-[#30363d] rounded-md pl-8 pr-3 py-1.5
-                    text-[12px] text-[#e6edf3] placeholder-[#8b949e] font-mono outline-none
-                    focus:border-[#58a6ff] transition-colors w-52"
-                />
-            </div>
-        {/* TABS */}
-        {["All", "Active", "Inactive"].map((f) => {
-            const active = filter === f;
-            const accentMap = {
-                All: { bg: "#032ca6", txt: "white", border: "#032ca6" },
-                Active: { bg: "#059669", txt: "white", border: "#059669" },
-                Inactive: { bg: "#6b7280", txt: "white", border: "#6b7280" },
-            };
-            return (
-            <button
-            key={f}
-            onClick={() => setFilter(f)}
-            style={{
-            padding: "8px 16px",
-            borderRadius: 10,
-            fontSize: 12,
-            fontFamily: "'DM Mono', monospace",
-            fontWeight: active ? 600 : 400,
-            cursor: "pointer",
-            border: active
-            ? `1px solid ${accentMap[f].border}`
-                : "1px solid rgba(3,44,166,0.12)",
-            background: active
-                ? accentMap[f].bg
-                : "rgba(3,44,166,0.03)",
-            color: active ? accentMap[f].txt : "#7a8bb5",
-            transition: "all 0.15s",
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            }}
-            >
-                {f !== "All" && (
-                    <span
-                    style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: active
-                        ? "rgba(255,255,255,0.7)"
-                        : f === "Active"
-                        ? "#22c55e"
-                        : "#d1d5db",
-                    flexShrink: 0,
-                    }}
-                />
-                )}
-                {f}
-            </button>
-            );
-        })}
-        </div>
         <p className="text-[12.5px] text-[#8b949e] mb-3">
             Click a tenant to view its agents and call records
         </p>
         <TenantsTable 
+        search={search}
+        setSearch={setSearch}
         filteredTenants={filteredTenants} 
         setSelectedTenant={selectedTenant}
         handleEdit={handleEdit}

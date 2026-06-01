@@ -1,6 +1,6 @@
 import { Users, CheckCircle } from "lucide-react";
 
-export default function KpiCards({tenants}) {
+export default function KpiCards({tenants, loading}) {
     const activeTenants = tenants.filter(t => t.is_active).length;
     const inactiveTenants = tenants.filter(t => !t.is_active).length;
 
@@ -58,6 +58,20 @@ export default function KpiCards({tenants}) {
     }
     
 ]
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-64">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+        )
+    }
+    
     return(
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {Cards.map((card, i) => {

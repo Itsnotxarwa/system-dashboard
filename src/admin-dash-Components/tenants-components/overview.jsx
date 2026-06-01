@@ -3,7 +3,8 @@ import { ArrowDownToLine, Plus } from "lucide-react";
 import KpiCards from "./kpiCards";
 import Mazia from "../../assets/mazia.png";
 
-export default function Overview({setShowModal, tenants}) {
+export default function Overview({setShowModal, tenants, loading}) {
+    
     return (
     <div className="p-4">
             {/* Header */}
@@ -29,7 +30,7 @@ export default function Overview({setShowModal, tenants}) {
             </div>
 
         <div className="py-2">
-            <KpiCards tenants={tenants} />
+            <KpiCards tenants={tenants} loading={loading} />
         </div>
     </div>
 )
