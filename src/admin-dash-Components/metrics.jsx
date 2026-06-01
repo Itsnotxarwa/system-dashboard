@@ -105,6 +105,12 @@ export default function Metrics() {
     }, [fetchTenantsMetrics]
     );
 
+    useEffect(() => {
+        if (tenantsMetrics?.length > 0) {
+        setSelectedTenant(tenantsMetrics[0]);
+        }      
+    }, [tenantsMetrics]);
+
     if (!overview) {
         return (
             <div className="flex items-center justify-center h-64">
