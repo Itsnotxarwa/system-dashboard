@@ -16,7 +16,8 @@ export default function TenantsMetricsTable({ tenantsMetrics, selectedTenant, se
         )
     }
     return (
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden mt-6 mb-6">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden mt-6 mb-6 flex-1 min-w-0">
+            {/* Head: Search bar and number of tenants */}
             <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
                 <div className="relative">
                     <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" />
@@ -30,7 +31,10 @@ export default function TenantsMetricsTable({ tenantsMetrics, selectedTenant, se
                 </div>
                 <span className="ml-auto text-[13px] text-[#8b949e] font-mono">{tenantsMetrics.length} tenants</span>
             </div>
-            <table className="w-full border-collapse">
+            
+            {/* Tenants table */}
+            <table className="w-full border-collapse"
+            style={{ tableLayout: "fixed" }}>
                 <thead>
                     <tr className="border-b border-[#21262d]">
                         {["Tenant", "Sessions", "Turns"].map(h => (

@@ -34,10 +34,10 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="font-mono text-xs font-medium text-[#e6edf3] truncate">
-                            {selectedTenant.tenant_id}
+                            {selectedTenant?.tenant_id}
                         </div>
                         <div className="text-lg text-[#8b949e] mt-0.5">
-                            {selectedTenant.session_count} sessions · {selectedTenant.total_turns} turns
+                            {selectedTenant?.session_count} sessions · {selectedTenant?.total_turns} turns
                         </div>
                     </div>
                     <button onClick={onClose}
@@ -53,15 +53,15 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                 {/* Summary row */}
                 <div className="grid grid-cols-3 gap-2 mb-3">
                     {[
-                    { label: "Sessions", value: selectedTenant.session_count,              color: "#e6edf3" },
-                    { label: "Turns",    value: selectedTenant.total_turns,                color: "#e6edf3" },
-                    { label: "E2E p50",  value: selectedTenant.e2e_latency?.p50.toFixed(2) + "s",  color: "#3fb950" },
+                    { label: "Sessions", value: selectedTenant?.session_count,              color: "#e6edf3" },
+                    { label: "Turns",    value: selectedTenant?.total_turns,                color: "#e6edf3" },
+                    { label: "E2E p50",  value: selectedTenant?.e2e_latency?.p50?.toFixed(2) + "s",  color: "#3fb950" },
                     ].map(c => (
                     <div key={c.label} className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-lg p-2.5">
-                        <div className="text-[9px] font-semibold uppercase tracking-widest text-[#8b949e] mb-1">{c.label}</div>
+                        <div className="text-sm font-semibold uppercase tracking-widest text-[#8b949e] mb-1">{c.label}</div>
                         <div className="font-mono text-base font-semibold leading-none" style={{ color: c.color }}>{c.value}</div>
                         {c.label === "E2E p50" && (
-                        <div className="font-mono text-[9px] text-[#8b949e] mt-1">p90 {selectedTenant.e2e_latency?.p90.toFixed(2)}s</div>
+                        <div className="font-mono text-sm text-[#8b949e] mt-1">p90 {selectedTenant?.e2e_latency?.p90?.toFixed(2)}s</div>
                         )}
                     </div>
                     ))}
@@ -69,7 +69,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
 
                 {/* LLM */}
                 <div className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-lg p-3 mb-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-widest text-[#58a6ff] mb-2">LLM metrics</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-[#58a6ff] mb-2">LLM metrics</p>
                     <div className="grid grid-cols-2 gap-2">
                     <MetricBlock label="TTFT" p50={selectedTenant.llm_metrics?.ttft_p50} p90={selectedTenant.llm_metrics?.ttft_p90} color="#58a6ff" />
                     <MetricBlock label="TPS"  p50={selectedTenant.llm_metrics?.tps_p50}  p90={selectedTenant.llm_metrics?.tps_p90}  unit="" color="#39d3bb" />
@@ -78,7 +78,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
 
                 {/* TTS */}
                 <div className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-lg p-3 mb-2">
-                    <p className="text-[9px] font-semibold uppercase tracking-widest text-[#bc8cff] mb-2">TTS metrics</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-[#bc8cff] mb-2">TTS metrics</p>
                     <div className="grid grid-cols-2 gap-2">
                     <MetricBlock label="TTFB" p50={selectedTenant.tts_metrics?.ttfb_p50} p90={selectedTenant.tts_metrics?.ttfb_p90} color="#bc8cff" />
                     <MetricBlock label="TTS turns" value={selectedTenant.tts_metrics?.total_turns} color="#bc8cff" />
@@ -87,7 +87,7 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
 
                 {/* EOU */}
                 <div className="bg-[rgba(255,255,255,.03)] border border-[#21262d] rounded-lg p-3">
-                    <p className="text-[9px] font-semibold uppercase tracking-widest text-[#F97316] mb-2">EOU metrics</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-[#F97316] mb-2">EOU metrics</p>
                     <div className="grid grid-cols-2 gap-2">
                     <MetricBlock label="Transcription" p50={selectedTenant.eou_metrics?.transcription_delay_p50}    p90={selectedTenant.eou_metrics?.transcription_delay_p90}    color="#F97316" />
                     <MetricBlock label="Utterance"     p50={selectedTenant.eou_metrics?.end_of_utterance_delay_p50} p90={selectedTenant.eou_metrics?.end_of_utterance_delay_p90} color="#d29922" />
