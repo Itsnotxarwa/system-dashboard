@@ -5,7 +5,7 @@ import DeleteModal from "./tenants-components/DeleteModal";
 import TenantsTable from "./tenants-components/TenantsTable";
 import { handleUnauthorized } from "../utils/auth";
 
-export default function Tenants({tenants, setTenants}) {
+export default function Tenants({tenants, setTenants, loading}) {
     const [search, setSearch] = useState("");    
     const [filter, setFilter] = useState("All");
     
@@ -94,20 +94,33 @@ export default function Tenants({tenants, setTenants}) {
             }
         }
 
+        if (loading) {
+        return (
+            <div className="flex items-center justify-center h-64">
+                <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                viewBox="25 25 50 50">
+                    <circle
+                    className="loading-circle" 
+                    r="20" cy="50" cx="50"></circle>
+                </svg>
+            </div>
+        )
+    }
+
     return (
     <div className="p-4">
         {/* SEARCH & TABS */}
         <div className="flex gap-2 items-center justify-start flex-wrap mb-4">
-            <div className="flex items-center gap-2 pb-4 bg-[rgba(3,44,166,0.04)] border
-            border-[rgba(3,44,166,0.14)] rounded-[10px] py-2 px-3.5 w-80 relative">
-                <Search size={14} color="#8b949e" className="absolute left-6 top-1/2 -translate-y-1/2" />
+            <div className="relative">
+                <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8b949e] pointer-events-none" />
                 <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Rechercher des locataires par nom ou ID de compte"
-                className="w-full bg-[#161b22'] border border-[#30363d] rounded-md pl-9 pr-3 py-2 
-                text-[12.5px] text-[#e6edf3] font-mono transition-colors"
-                style={{fontFamily: "'IBM Plex Mono', 'monospace'",}}
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search tenants..."
+                    className="bg-[#0d1117] border border-[#30363d] rounded-md pl-8 pr-3 py-1.5
+                    text-[12px] text-[#e6edf3] placeholder-[#8b949e] font-mono outline-none
+                    focus:border-[#58a6ff] transition-colors w-52"
                 />
             </div>
         {/* TABS */}

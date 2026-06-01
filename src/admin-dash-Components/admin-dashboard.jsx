@@ -30,13 +30,15 @@ export default function AdminDashboard() {
     phone: ""
   });
   const [tenants, setTenants] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   {/* GET TENANTS */}
     useEffect(() => {
         const fetchTenants = async () => {
             try {
                 const token = localStorage.getItem("token");
-                
+                setLoading(true);
+
                 const response = await fetch("https://api.voixup.fr/admin/tenants", {
                     headers: {
                         "accept": "application/json",
@@ -56,6 +58,8 @@ export default function AdminDashboard() {
             } catch (error) {
                 console.error(error);
                 setTenants([]);
+            } finally {
+                setLoading(false);
             }
         };
         
@@ -103,7 +107,7 @@ export default function AdminDashboard() {
       <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
         <div className="max-w-7xl mx-auto">
             <Overview setShowModal={setShowModal} tenants={tenants} />
-            <Tenants tenants={tenants} setTenants={setTenants} />
+            <Tenants loading={loading} tenants={tenants} setTenants={setTenants} />
         </div>
       </main>
       {showModal &&
