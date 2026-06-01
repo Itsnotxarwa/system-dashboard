@@ -33,11 +33,14 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                         : ""}
                     </div>
                     <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight">
+                            {selectedTenant?.tenant_name}
+                        </div>
                         <div className="font-mono text-xs font-medium text-[#e6edf3] truncate">
                             {selectedTenant?.tenant_id}
                         </div>
                         <div className="text-lg text-[#8b949e] mt-0.5">
-                            {selectedTenant?.session_count} sessions · {selectedTenant?.total_turns} turns
+                            {selectedTenant?.session_count} sessions - {selectedTenant?.total_turns} turns
                         </div>
                     </div>
                     <button onClick={onClose}
