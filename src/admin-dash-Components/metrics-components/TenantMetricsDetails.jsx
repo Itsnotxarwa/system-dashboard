@@ -25,7 +25,12 @@ export default function TenantMetricsDetails({selectedTenant, onClose, loading})
                     <div className="w-8 h-8 rounded-lg grid place-items-center text-sm font-bold text-white 
                     font-mono shrink-0"
                     style={{background:"linear-gradient(135deg,#1c50a0,#58a6ff)"}}>
-                        {selectedTenant.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)}
+                        {selectedTenant.name ? selectedTenant.name
+                        .split(" ")
+                        .map(word => word.charAt(0).toUpperCase())
+                        .slice(0, 2)
+                        .join("") 
+                        : ""}
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="font-mono text-xs font-medium text-[#e6edf3] truncate">
