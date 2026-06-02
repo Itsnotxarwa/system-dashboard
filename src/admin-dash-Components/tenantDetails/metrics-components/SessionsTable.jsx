@@ -18,7 +18,7 @@ export default function SessionsTable({sessions, loading}) {
             <table className="w-full border-collapse">
                 <thead>
                     <tr className="border-b border-[#394555]">
-                        {["Room Name", "Model", "Provider", "Turns", "Avg TTFT (s)", "Avg Prompt Tokens", "Last Active"].map((item) => (
+                        {["Room Name", "Total Turns", "LLM TTFT", "TTS TFTB", "Last Active"].map((item) => (
                             <th className="text-left p-[7px_10px] text-sm font-medium tracking-widest 
                             uppercase text-[#8b949e]">
                                 {item}
@@ -36,26 +36,18 @@ export default function SessionsTable({sessions, loading}) {
                             </td>
                             <td className="p-[7px_10px] text-sm text-[#8b949e] font-bold"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
-                                {session.model_name}
+                                {(session?.tts?.metrics?.turn_count || 0) + (session?.llm?.metrics?.turn_count || 0)}
                             </td>
                             <td className="p-[7px_10px]"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                                 <span className="text-sm font-bold inline-block rounded-sm
                                 bg-[rgba(57,211,187,.12)] text-[#39d3bb] p-[2px_7px]">
-                                    {session.model_provider}
+                                    {session?.llm?.metrics?.avg_ttft || ""}
                                 </span>
                             </td>
                             <td className="p-[7px_10px] text-sm"
                             style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                {session.turn_count}
-                            </td>
-                            <td className="p-[7px_10px] text-sm"
-                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                {session.avg_ttft}
-                            </td>
-                            <td className="p-[7px_10px] text-sm"
-                            style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
-                                {session.avg_prompt_tokens}
+                                {session?.tts?.metrics?.avg_ttfb || ""}
                             </td>
                             <td className="p-[7px_10px] text-[#8b949e] text-sm"
                             style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
@@ -63,7 +55,7 @@ export default function SessionsTable({sessions, loading}) {
                                 ? formatDistanceToNow(new Date(Number(session.last_active) * 1000), {
                                     addSuffix: true,
                                 })
-                                : "—"}                                         
+                                : ""}                                         
                             </td>
                         </tr>
                     ))}
