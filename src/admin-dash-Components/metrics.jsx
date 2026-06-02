@@ -157,11 +157,6 @@ export default function Metrics() {
                         <Spotlight spotlight={overview?.spotlight} loading={loading} />
                     )}
 
-                    {/* Spotlight Chart */}
-                    {overview && (
-                        <SpotlightChart spotlight={overview?.spotlight} loading={loading} />
-                    )}
-
                     <div className="flex gap-3 items-start py-6">
                         {tenantsMetrics && (
                             <TenantsMetricsTable 
