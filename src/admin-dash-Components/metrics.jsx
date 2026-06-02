@@ -6,7 +6,6 @@ import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
 import GlobalMetrics from "./metrics-components/GlobalMetrics";
 import Spotlight from "./metrics-components/Spotlight";
-import SpotlightChart from "./metrics-components/SpotlightChart";
 import TenantsMetricsTable from "./metrics-components/TenantsMetricsTable";
 import TenantMetricsDetails from "./metrics-components/TenantMetricsDetails";
 
