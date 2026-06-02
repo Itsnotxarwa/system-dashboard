@@ -14,7 +14,13 @@ export default function Metrics() {
         const [metrics, setMetrics] = useState([]);
         const [tenant, setTenant] = useState(null);
         const [sessions, setSessions] = useState(null);
+        const [totalSessions, setTotalSessions] = useState(0);
+        const [selectedSession, setSelectedSession] = useState(null);
         const [loading, setLoading] = useState(false);
+
+        //filters
+        const [page, setPage] = useState(1);
+        const [pageSize, setPageSize] = useState(20);
 
         {/* fetch tenant */}
         useEffect(() => {
@@ -85,13 +91,20 @@ export default function Metrics() {
             const fetchSessions = async() => {
                 try{
                     setLoading(true);
+
+                    const params = new URLSearchParams();
+
+                    if (page) params.append("page", page);
+                    if (pageSize) params.append("page_size", pageSize);
+
                     const token = localStorage.getItem("token");
-                    const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}/sessions`, {
+                    const response = await fetch(
+                        `https://api.voixup.fr/admin/metrics/tenants/${id}/sessions?${params.toString()}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
-                        }
+                        },
                     });
                     if (response.status === 401) {
                         handleUnauthorized(401);
@@ -109,6 +122,7 @@ export default function Metrics() {
     
                     const data = await response.json();
                     setSessions(data);
+                    setTotalSessions(data.total);
                     console.log("sessions:", data);
                 } catch(err) {
                     console.error("Error fetching metrics:", err);
@@ -118,7 +132,7 @@ export default function Metrics() {
                 }
             }
             fetchSessions();
-        }, [id]);
+        }, [id, page, pageSize]);
 
 
     return(
@@ -148,20 +162,17 @@ export default function Metrics() {
                     )}
 
                     <div>
-                        <div className="flex items-center justify-between mb-4">
-                            <h1 className="text-lg font-bold text-white"
-                            style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                                Recent Sessions
-                            </h1>
-                            {sessions && (
-                                <span className="text-xs px-2.5 py-1 rounded-full font-medium
-                                bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
-                                    {sessions.total} Total 
-                                </span>
-                            )}
-                        </div>
                         {sessions && (
-                            <SessionsTable loading={loading} sessions={sessions} />
+                            <SessionsTable 
+                            setPage={setPage}
+                            page={page}
+                            pageSize={pageSize}
+                            setPageSize={setPageSize}
+                            loading={loading} 
+                            sessions={sessions}
+                            totalSessions={totalSessions}
+                            selectedSession={selectedSession}
+                            setSelectedSession={setSelectedSession} />
                         )}
                     </div>
                 </div>

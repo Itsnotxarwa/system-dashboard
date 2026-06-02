@@ -1,6 +1,12 @@
 import { formatDistanceToNow } from "date-fns";
 
-export default function SessionsTable({sessions, loading}) {
+export default function SessionsTable({sessions, loading, selectedSession, setSelectedSession, totalSessions, page, setPage, pageSize, setPageSize}) {
+    const totalPages = Math.ceil(totalSessions / pageSize);
+    const startItem = (page - 1) * pageSize + 1;
+    const endItem = Math.min(page * pageSize, totalSessions);
+
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
@@ -14,10 +20,26 @@ export default function SessionsTable({sessions, loading}) {
         )
     }
     return(
-        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
-            <table className="w-full border-collapse">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden flex-1 min-w-0">
+            {/* Head */}
+            <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
+                <h1 className="text-lg font-bold text-white"
+                style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                    Recent Sessions
+                </h1>
+                {sessions && (
+                    <span className="text-xs px-2.5 py-1 rounded-full font-medium ml-auto font-mono
+                    bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
+                        {sessions.total} Total 
+                    </span>
+                )}
+            </div>
+
+            {/* Body */}
+            <table className="w-full border-collapse"
+            style={{ tableLayout: "fixed" }}>
                 <thead>
-                    <tr className="border-b border-[#394555]">
+                    <tr className="bborder-b border-[#21262d]">
                         {["Room Name", "Total Turns", "LLM TTFT", "TTS TFTB", "Last Active"].map((item) => (
                             <th className="text-left p-[7px_10px] text-sm font-medium tracking-widest 
                             uppercase text-[#8b949e]">
@@ -29,7 +51,10 @@ export default function SessionsTable({sessions, loading}) {
                 <tbody>
                     {sessions?.items?.map((session,i) => (
                         <tr
-                        key={i}>
+                        key={i}
+                        onClick={() => setSelectedSession(session)}
+                        className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer ${selectedSession === session ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
+                        >
                             <td className="p-[7px_10px] text-sm font-bold text-[#58a6ff]"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                                 {session.room_name}
@@ -61,6 +86,61 @@ export default function SessionsTable({sessions, loading}) {
                     ))}
                 </tbody>
             </table>
+
+            {/* Sessions pagination */}
+            <div className="flex items-center justify-between mt-4 px-4 py-3
+            bg-[#161b22] border-t border-[#21262d] rounded-xl">
+
+                <p className="text-sm text-[#8b949e]">
+                    Showing <span className="text-white font-medium">{startItem}-{endItem}</span> of{" "}
+                    <span className="text-white font-medium">{totalSessions}</span> sessions
+                </p>
+                
+                <div className="flex items-center gap-3">
+                    <button 
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                    className="w-7 h-7 grid place-items-center rounded-[5px] border border-[#30363d] text-[#8b949e] bg-transparent
+                    hover:bg-[#21262d] hover:text-[#e6edf3] transition-all duration-300 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    {pages.map((p) => (
+                        <button
+                            key={p}
+                            onClick={() => setPage(p)}
+                            className={`w-7 h-7 grid place-items-center rounded-[5px]
+                            border transition-all duration-300 cursor-pointer
+                            ${page === p
+                                ? "bg-[#58a6ff] text-black border-[#58a6ff]"
+                                : "border-[#30363d] text-[#8b949e] hover:bg-[#21262d] hover:text-[#e6edf3]"
+                            }`}
+                        >
+                            {p}
+                        </button>
+                    ))}
+                    <button 
+                    className="w-7 h-7 grid place-items-center rounded-[5px] border border-[#30363d] text-[#8b949e] bg-transparent
+                    hover:bg-[#21262d] hover:text-[#e6edf3] transition-all duration-300 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                    disabled={page === totalPages}
+                    onClick={() => setPage(page + 1)}>
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+
+                <select
+                    value={pageSize}
+                    onChange={(e) => {
+                    setPageSize(Number(e.target.value));
+                    setPage(1); // reset to first page (important)
+                    }}
+                    className="bg-[#0d1117] border border-[#30363d] rounded-md px-2 py-1 text-sm text-white"
+                >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                    <option value={20}>20</option>
+                </select>
+            </div>
         </div>
     )
 }
