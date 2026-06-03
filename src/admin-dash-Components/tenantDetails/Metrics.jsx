@@ -6,6 +6,7 @@ import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
 import SessionsTable from "./metrics-components/SessionsTable";
+import SessionDetails from "./metrics-components/SessionDetails";
 
 export default function Metrics() {
     
@@ -134,6 +135,32 @@ export default function Metrics() {
             fetchSessions();
         }, [id, page, pageSize]);
 
+        if (!metrics) {
+            return (
+                <div className="flex items-center justify-center h-64">
+                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                    viewBox="25 25 50 50">
+                        <circle
+                        className="loading-circle" 
+                        r="20" cy="50" cx="50"></circle>
+                    </svg>
+                </div>
+            )
+        }
+
+        if (!sessions) {
+            return (
+                <div className="flex items-center justify-center h-64">
+                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
+                    viewBox="25 25 50 50">
+                        <circle
+                        className="loading-circle" 
+                        r="20" cy="50" cx="50"></circle>
+                    </svg>
+                </div>
+            )
+        }
+
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
@@ -161,7 +188,7 @@ export default function Metrics() {
                         <KpiCards metrics={metrics} loading={loading} />
                     )}
 
-                    <div>
+                    <div className="flex gap-3 items-start py-6">
                         {sessions && (
                             <SessionsTable 
                             setPage={setPage}
@@ -173,6 +200,13 @@ export default function Metrics() {
                             totalSessions={totalSessions}
                             selectedSession={selectedSession}
                             setSelectedSession={setSelectedSession} />
+                        )}
+
+                        {selectedSession && (
+                            <SessionDetails 
+                            loading={loading}
+                            selectedSession={selectedSession}
+                            onClose={() => setSelectedSession(null)} />
                         )}
                     </div>
                 </div>

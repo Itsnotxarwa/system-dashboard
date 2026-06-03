@@ -40,10 +40,13 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
             style={{ tableLayout: "fixed" }}>
                 <thead>
                     <tr className="bborder-b border-[#21262d]">
-                        {["Room Name", "Total Turns", "LLM TTFT", "TTS TFTB", "Last Active"].map((item) => (
-                            <th className="text-left p-[7px_10px] text-sm font-medium tracking-widest 
+                        {["Room Name", "40%", "Total Turns", "15%", "LLM TTFT", "15%", "TTS TFTB", "15%", "Last Active", "15%"].map(([h,w]) => (
+                            <th 
+                            key={h}
+                            style={{width: w}}
+                            className="text-left p-[7px_10px] text-sm font-medium tracking-widest 
                             uppercase text-[#8b949e]">
-                                {item}
+                                {h}
                             </th>
                         ))}
                     </tr>
@@ -92,7 +95,7 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
             bg-[#161b22] border-t border-[#21262d] rounded-xl">
 
                 <p className="text-sm text-[#8b949e]">
-                    Showing <span className="text-white font-medium">{startItem}-{endItem}</span> of{" "}
+                    Showing <span className="text-white font-medium"> {" "} {startItem}-{endItem} {" "}</span> of{" "}
                     <span className="text-white font-medium">{totalSessions}</span> sessions
                 </p>
                 
@@ -131,7 +134,7 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
                     value={pageSize}
                     onChange={(e) => {
                     setPageSize(Number(e.target.value));
-                    setPage(1); // reset to first page (important)
+                    setPage(1); 
                     }}
                     className="bg-[#0d1117] border border-[#30363d] rounded-md px-2 py-1 text-sm text-white"
                 >
