@@ -126,7 +126,7 @@ export default function Metrics() {
                     setTotalSessions(data.total);
                     console.log("sessions:", data);
                 } catch(err) {
-                    console.error("Error fetching metrics:", err);
+                    console.error("Error fetching sessions:", err);
                     setSessions(null);
                 } finally {
                     setLoading(false)
@@ -134,32 +134,6 @@ export default function Metrics() {
             }
             fetchSessions();
         }, [id, page, pageSize]);
-
-        if (!metrics) {
-            return (
-                <div className="flex items-center justify-center h-64">
-                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                    viewBox="25 25 50 50">
-                        <circle
-                        className="loading-circle" 
-                        r="20" cy="50" cx="50"></circle>
-                    </svg>
-                </div>
-            )
-        }
-
-        if (!sessions) {
-            return (
-                <div className="flex items-center justify-center h-64">
-                    <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
-                    viewBox="25 25 50 50">
-                        <circle
-                        className="loading-circle" 
-                        r="20" cy="50" cx="50"></circle>
-                    </svg>
-                </div>
-            )
-        }
 
 
     return(
@@ -177,12 +151,11 @@ export default function Metrics() {
                         style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                             Metrics Overview
                         </h1> 
+                        <p className="text-[16px] text-slate-500 pb-4"
+                        style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
+                            Overview of tenant activity and performance.
+                        </p>
                     </div>
-                
-                    <p className="text-[16px] text-slate-500 pb-4"
-                    style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
-                        Overview of tenant activity and performance.
-                    </p>
 
                     {metrics && (
                         <KpiCards metrics={metrics} loading={loading} />
