@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from "date-fns";
 import { X } from "lucide-react"
 ;
 export default function SessionDetails({selectedSession, loading, onClose}) {
@@ -31,11 +32,15 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
                         : ""}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight">
+                        <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight font-mono">
                             {selectedSession?.room_name}
                         </div>
-                        <div className="text-lg text-[#8b949e] mt-0.5">
-                            {selectedSession?.last_active} 
+                        <div className="text-lg text-[#8b949e] mt-0.5 font-mono">
+                            {selectedSession?.last_active && !isNaN(selectedSession?.last_active)
+                            ? formatDistanceToNow(new Date(Number(selectedSession?.last_active) * 1000), {
+                                addSuffix: true,
+                            })
+                            : ""}  
                         </div>
                     </div>
                     <button onClick={onClose}
