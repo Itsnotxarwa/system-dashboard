@@ -1,3 +1,5 @@
+import { X } from "lucide-react"
+;
 export default function SessionDetails({selectedSession, loading, onClose}) {
     if (!selectedSession) return null;
 
