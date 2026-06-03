@@ -23,7 +23,7 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
                     <div className="w-8 h-8 rounded-lg grid place-items-center text-sm font-bold text-white 
                     font-mono shrink-0"
                     style={{background:"linear-gradient(135deg,#1c50a0,#58a6ff)"}}>
-                        {selectedSession?.items?.room_name ? selectedSession?.items?.room_name
+                        {selectedSession?.room_name ? selectedSession?.room_name
                         .split(" ")
                         .map(word => word.charAt(0).toUpperCase())
                         .slice(0, 2)
@@ -32,10 +32,10 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight">
-                            {selectedSession?.items?.room_name}
+                            {selectedSession?.room_name}
                         </div>
                         <div className="text-lg text-[#8b949e] mt-0.5">
-                            {selectedSession?.items?.last_active} 
+                            {selectedSession?.last_active} 
                         </div>
                     </div>
                     <button onClick={onClose}
