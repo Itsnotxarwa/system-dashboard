@@ -20,7 +20,7 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
         )
     }
     return(
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden flex-1 min-w-0">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl overflow-hidden flex-1 min-w-0 overflow-x-auto">
             {/* Head */}
             <div className="px-5 py-4 border-b border-[#21262d] flex items-center gap-2">
                 <h1 className="text-lg font-bold text-white"
@@ -64,7 +64,7 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
                         onClick={() => setSelectedSession(session)}
                         className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer ${selectedSession === session ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
                         >
-                            <td className="p-[7px_10px] text-sm font-bold text-[#58a6ff]"
+                            <td className="p-[7px_10px] text-sm font-bold text-[#58a6ff] wrap-break-word"
                             style={{fontFamily: "'IBM Plex Mono', monospace"}}>
                                 {session.room_name}
                             </td>
