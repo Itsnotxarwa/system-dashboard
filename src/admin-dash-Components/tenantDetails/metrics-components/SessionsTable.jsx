@@ -40,7 +40,13 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
             style={{ tableLayout: "fixed" }}>
                 <thead>
                     <tr className="bborder-b border-[#21262d]">
-                        {["Room Name", "40%", "Total Turns", "15%", "LLM TTFT", "15%", "TTS TFTB", "15%", "Last Active", "15%"].map(([h,w]) => (
+                        {[
+                            ["Room Name", "40%"], 
+                            ["Total Turns", "15%"], 
+                            ["LLM TTFT", "15%"], 
+                            ["TTS TFTB", "15%"], 
+                            ["Last Active", "15%"]
+                        ].map(([h,w]) => (
                             <th 
                             key={h}
                             style={{width: w}}
