@@ -135,6 +135,13 @@ export default function Metrics() {
             fetchSessions();
         }, [id, page, pageSize]);
 
+        {/* Set first session as selected by default */}
+        useEffect(() => {
+            if (sessions?.items?.length > 0 && !selectedSession) {
+                setSelectedSession(sessions.items[0]);
+            }
+        }, [sessions, selectedSession]);
+
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">

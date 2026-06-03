@@ -35,7 +35,8 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
                         <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight font-mono">
                             {selectedSession?.room_name}
                         </div>
-                        <div className="text-lg text-[#8b949e] mt-0.5 font-mono">
+                        <div className="text-sm text-[#8b949e] mt-0.5 font-mono">
+                            Last active: {" "}
                             {selectedSession?.last_active && !isNaN(selectedSession?.last_active)
                             ? formatDistanceToNow(new Date(Number(selectedSession?.last_active) * 1000), {
                                 addSuffix: true,

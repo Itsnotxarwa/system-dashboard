@@ -102,8 +102,9 @@ export default function Metrics() {
     useEffect(() => {
         fetchTenantsMetrics();
     }, [fetchTenantsMetrics]
-    );
+    ); 
 
+    {/* Set first tenant as selected by default */}
     useEffect(() => {
         if (tenantsMetrics?.length > 0) {
         setSelectedTenant(tenantsMetrics[0]);
