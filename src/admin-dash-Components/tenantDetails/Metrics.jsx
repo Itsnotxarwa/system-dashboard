@@ -137,10 +137,10 @@ export default function Metrics() {
 
         {/* Set first session as selected by default */}
         useEffect(() => {
-            if (sessions?.items?.length > 0 && !selectedSession) {
+            if (sessions?.items?.length > 0) {
                 setSelectedSession(sessions.items[0]);
             }
-        }, [sessions, selectedSession]);
+        }, [sessions]);
 
 
     return(
