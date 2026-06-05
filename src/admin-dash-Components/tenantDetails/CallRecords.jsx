@@ -102,6 +102,8 @@ export default function CallRecords() {
     } catch (err) {
         console.error(err);
         setCallSessions([]);
+    } finally {
+        setLoading(false);
     }
 }, [id, page, pageSize]);
 
