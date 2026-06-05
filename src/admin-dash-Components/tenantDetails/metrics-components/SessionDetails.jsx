@@ -7,7 +7,7 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
     if (!selectedSession) return null;
 
     const fmt = (v, unit = "s", dec = 2) => {
-        return v != null && v !== 0 ? `${Number(v).toFixed(dec)}${unit}` : "—";
+        return v != null && v !== 0 ? `${Number(v).toFixed(dec)}${unit}` : "0";
     };
 
     const ttftColor = (v) => {
@@ -36,7 +36,7 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
         )
     }
     return(
-        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden w-[320px] shrink-0">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-xl flex flex-col overflow-hidden w-full lg:w-[320px] shrink-0">
             {/* Head */}
             <div className="px-4 py-3 border-b border-[#21262d]">
                 <div className="flex items-start gap-2.5">
