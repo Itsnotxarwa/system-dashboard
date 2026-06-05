@@ -51,7 +51,7 @@ export default function SessionDetails({selectedSession, loading, onClose}) {
                         : ""}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight font-mono">
+                        <div className="font-semibold text-[#e6edf3] text-[16px] tracking-tight font-mono wrap-break-word">
                             {s?.room_name}
                         </div>
                         <div className="text-sm text-[#8b949e] mt-0.5 font-mono">
