@@ -1,4 +1,4 @@
-export default function AgentsTable({agents, loading}) {
+export default function AgentsTable({agents, loading, setSelectedAgent, setShowAgentDetails}) {
     return(
         <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <table className="w-full border-collapse">
@@ -43,6 +43,11 @@ export default function AgentsTable({agents, loading}) {
                                     agents.map((agent) => (
                                         <tr
                                         key={agent.id}
+                                        onClick={() => {
+                                            setSelectedAgent(agent)
+                                            setShowAgentDetails(true)
+                                        }
+                                        }
                                         className="hover:bg-[rgba(255,255,255,.03)] border-b border-[#21262d] cursor-pointer transition-colors"
                                         >
                                             <td className="px-4 py-4">

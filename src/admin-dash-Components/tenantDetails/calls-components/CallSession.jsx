@@ -1,6 +1,6 @@
 import { Bot, User } from "lucide-react";
 
-export default function CallSession({callSessions, page, setPage, pageSize, setPageSize, setSelectedSession, setOpenDrawer, selectedSession, loading}) {
+export default function CallSession({callSessions, page, setPage, pageSize, setPageSize, setSelectedSession, setOpenDrawer, loading}) {
 
     const formatDate = (datetime) => datetime.split("T")[0];
     const formatDuration = (seconds) => {
@@ -77,7 +77,7 @@ export default function CallSession({callSessions, page, setPage, pageSize, setP
                                 setSelectedSession(session);
                                 setOpenDrawer(true);
                             }}
-                            className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer ${selectedSession === session.id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}>
+                            className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer`}>
                                 <td className="px-4 py-4 text-[16px] text-[#8b949e]"
                                 style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                     {session.from_number}

@@ -4,9 +4,16 @@ import { handleUnauthorized } from "../utils/auth";
 import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png";
 import AgentsTable from "./agents-components/agentsTable";
+import AgentDetails from "./agents-components/AgentDetails";
+import EditAgent from "./agents-components/EditAgent";
+import DeleteAgent from "./agents-components/DeleteAgent";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);
+    const [selectedAgent, setSelectedAgent] = useState(null);
+    const [showAgentDetails, setShowAgentDetails] = useState(false);
+    const [showEditAgent, setShowEditAgent] = useState(false);
+    const [showDeleteAgent, setShowDeleteAgent] = useState(false);
     const [loading, setLoading] = useState(false);
 
     // filters
@@ -16,6 +23,7 @@ export default function Agents() {
 
     const token = localStorage.getItem("token");
 
+    {/* fetch Agents */}
     const fetchAgents = useCallback(async () => {
         try {
             setLoading(true);
@@ -63,6 +71,45 @@ export default function Agents() {
     useEffect(() => {
         fetchAgents();
     }, [fetchAgents]);
+
+    const deleteAgent = async (AgentId) => {
+        try{
+            const token = localStorage.getItem("token");
+            const response = await fetch(`
+                https://api.voixup.fr/admin/agents/${AgentId}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+
+        if (response.status === 401) {
+            handleUnauthorized(401);
+            return;
+        }
+
+        if (!response.ok) throw new Error("Delete failed");
+        setAgents(prev => prev.filter(t => t.id !== AgentId))
+
+        const data = await response.json();
+        console.log(data);
+
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
+
+    const handleEdit = (agent) => {
+        setSelectedAgent(agent);
+        setShowEditAgent(true);
+    };
+    const handleDelete = (agent) => {
+        setSelectedAgent(agent);
+        setShowDeleteAgent(true);
+    };
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
@@ -132,9 +179,39 @@ export default function Agents() {
                     </div>
                     
                     {/* Agents Table */}
-                    <AgentsTable loading={loading} agents={agents} />
+                    <AgentsTable 
+                    loading={loading} 
+                    agents={agents}
+                    setSelectedAgent={setSelectedAgent}
+                    setShowAgentDetails={setShowAgentDetails}
+                    />
                 </div>
             </main>
+            {showAgentDetails && (
+                <AgentDetails
+                selectedAgent={selectedAgent}
+                onClose={() => setShowAgentDetails(false)}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete} />
+            )}
+
+            {showEditAgent && (
+                <EditAgent
+                selectedAgent={selectedAgent}
+                onClose={() => setShowEditAgent(false)}
+                onCancel={() => setShowEditAgent(false)}
+                setAgents={setAgents} />
+            )}
+
+            {showDeleteAgent && (
+                <DeleteAgent
+                selectedAgent={selectedAgent}
+                onCancel={() => setShowDeleteAgent(false)}
+                onConfirm={(id) => {
+                deleteAgent(id);
+                setShowDeleteAgent(false);
+                }}  />
+            )}
         </div>
     )
 }

@@ -15,6 +15,7 @@ export default function Agents() {
     const [showAgentModal, setShowAgentModal] = useState(false);
     const [typeFilter, setTypeFilter] = useState("");
 
+    {/* fetch Tenant */}
     useEffect(() => {
         const fetchTenant = async () => {
             const token = localStorage.getItem("token");
@@ -37,6 +38,7 @@ export default function Agents() {
         fetchTenant();
     }, [id]);
 
+    {/* fetch Agents */}
     useEffect(() => {
         const fetchAgents = async () => {
             try {
