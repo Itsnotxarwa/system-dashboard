@@ -27,7 +27,7 @@ export default function SessionExpired() {
                 <div className="w-full h-px bg-[#21262d]"></div>
                 
                 <a
-                    href="https://mazia-login.vercel.app/" 
+                    href="http://auth.mazia.ai" 
                     className="w-full text-center bg-linear-to-r from-[#1c50a0] to-[#58a6ff] text-white text-sm 
                     font-semibold tracking-wide transition-all duration-150 py-2.5 px-6 z-50
                     rounded-lg hover:opacity-90 active:scale-[.98] shadow-[0_0_20px_rgba(88,166,255,.25)]"
