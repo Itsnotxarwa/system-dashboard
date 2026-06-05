@@ -11,6 +11,11 @@ export default function CallRecords() {
     const [tenant, setTenant] = useState(null);
     const [calls, setCalls] = useState(null);
     const [callSessions, setCallSessions] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    //filters 
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(20);
 
     {/* fetch tenants */}
     useEffect(() => {
@@ -66,12 +71,19 @@ export default function CallRecords() {
     },[id]);
 
     {/* fetch call sessions */}
-    const fetchCallSessions = useCallback(async (page = 1, limit = 20) => {
+    const fetchCallSessions = useCallback(async () => {
     try {
+        setLoading(true);
+
+        const params = new URLSearchParams();
+        
+        if (page) params.append("page", page);
+        if (pageSize) params.append("page_size", pageSize);
+
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-            `https://api.voixup.fr/admin/tenants/${id}/calls/sessions?page=${page}&limit=${limit}`,
+            `https://api.voixup.fr/admin/tenants/${id}/calls/sessions?${params.toString()}`,
             {
                 headers: {
                     accept: "application/json",
@@ -91,7 +103,7 @@ export default function CallRecords() {
         console.error(err);
         setCallSessions([]);
     }
-}, [id]);
+}, [id, page, pageSize]);
 
     useEffect(() => {
     (async () => {
@@ -108,7 +120,11 @@ export default function CallRecords() {
                 calls={calls} 
                 tenant={tenant}
                 callSessions={callSessions}
-                onChange={(page, limit) => fetchCallSessions(page, limit)}
+                page={page}
+                pageSize={pageSize}
+                setPage={setPage}
+                setPageSize={setPageSize}
+                loading={loading}
                 />
             </main>
         </div>

@@ -168,7 +168,7 @@ export default function Metrics() {
                         <KpiCards metrics={metrics} loading={loading} />
                     )}
 
-                    <div className="flex gap-3 items-start py-6">
+                    <div className="flex gap-3 items-start py-6 flex-col lg:flex-row">
                         {sessions && (
                             <SessionsTable 
                             setPage={setPage}

@@ -39,7 +39,7 @@ export default function SessionsTable({sessions, loading, selectedSession, setSe
             <table className="w-full border-collapse"
             style={{ tableLayout: "fixed" }}>
                 <thead>
-                    <tr className="bborder-b border-[#21262d]">
+                    <tr className="border-b border-[#21262d]">
                         {[
                             ["Room Name", "40%"], 
                             ["Total Turns", "15%"], 

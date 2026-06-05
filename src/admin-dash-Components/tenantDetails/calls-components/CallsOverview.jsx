@@ -7,12 +7,12 @@ import CallSummary from "./CallSummary";
 import CallSession from "./CallSession";
 import SessionDrawer from "./sessionDrawer";
 
-export default function CallsOverview({tenant, calls, callSessions, onChange}) {
+export default function CallsOverview({tenant, calls, callSessions, page, setPage, pageSize, setPageSize, loading}) {
     const [range, setRange] = useState("30");
     const [openDrawer, setOpenDrawer] = useState(false);
     const [selectedSession, setSelectedSession] = useState(null)
 
-        if (!calls) {
+        if (loading) {
             return (
             <div className="flex items-center justify-center h-64">
                 <svg className="w-[3.25em] origin-center animate-[spin_2s_linear_infinite]" 
@@ -67,24 +67,24 @@ export default function CallsOverview({tenant, calls, callSessions, onChange}) {
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
                 {/* Chart */}
-                <div className="col-span-3 bg-white rounded-2xl p-5 border border-[rgba(3,44,166,.09)]
-                shadow-[0_2px_8px_rgba(3,44,166,.05)] bg-linear-to-br from-white to-[rgba(3,44,166,0.04)]">
+                <div className="col-span-3 bg-[#161b22] rounded-2xl p-5 border border-[#21262d]
+                shadow-[0_2px_8px_rgba(0,0,0,.4)]">
                     <div className="flex items-center justify-between mb-4">
                         <div>
-                            <div className="text-lg font-bold text-slate-800"
+                            <div className="text-lg font-bold text-[#e6edf3]"
                             style={{fontFamily: "'Cabinet Grotesk',sans-serif"}}>
                                 Daily Call Volume
                             </div>
-                            <div className="text-xs text-slate-400 mt-0.5">
+                            <div className="text-xs text-[#8b949e] mt-0.5">
                                 Last {range} days
                             </div>
                         </div>
                         {calls &&
-                        <span className="text-xs px-2.5 py-1 rounded-full font-medium bg-[rgba(3,44,166,.07)]
-                        text-[#032ca6] border border-[rgba(3,44,166,.14)]">
+                        <span className="text-xs px-2.5 py-1 rounded-full font-medium
+                        bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.25)]">
                             {range === "30" ? calls?.volume.calls_last_30_days : calls?.volume.calls_last_7_days} calls
                         </span>
-}
+                        }  
                     </div>
                     {calls && 
                         <CallsBarChart 
@@ -106,7 +106,12 @@ export default function CallsOverview({tenant, calls, callSessions, onChange}) {
                     callSessions={callSessions} 
                     setOpenDrawer={setOpenDrawer} 
                     setSelectedSession={setSelectedSession}
-                    onChange={onChange} />
+                    page={page}
+                    pageSize={pageSize}
+                    setPage={setPage}
+                    setPageSize={setPageSize}
+                    loading={loading}
+                    selectedSession={selectedSession} />
                 </div>
             </div>
             {openDrawer && (
