@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import {handleUnauthorized} from "../../utils/auth";
+import Pagination from "../shared/pagination";
 
 export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [sessions, setSessions] = useState([]);
@@ -10,7 +11,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [agentId, setAgentId] = useState("");
     const [type, setType] = useState("");
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(20);
+    const [pageSize, setPageSize] = useState(20);
 
     const token = localStorage.getItem("token");
 
@@ -24,7 +25,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
             if (agentId) params.append("agent_id", agentId);
             if (type) params.append("type", type);
             params.append("page", page);
-            params.append("page_size", limit);
+            params.append("page_size", pageSize);
 
             const url = `https://api.voixup.fr/admin/tenants/calls/sessions?${params.toString()}`;
 
@@ -58,7 +59,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
         } finally {
             setLoading(false);
         }
-    },[token, tenantId, agentId, type, page, limit]);
+    },[token, tenantId, agentId, type, page, pageSize]);
 
     useEffect(() => {
         fetchSessions();
@@ -130,32 +131,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                 <polyline points="6 9 12 15 18 9"/>
                             </svg>
                         </div>
-
-                        <div className="flex items-center gap-1.5">
-                            <label className="text-[16px] text-[#0a1628]">
-                                Page
-                            </label>
-                            <input 
-                            type="number"
-                            value={page}
-                            onChange={(e) => setPage(Number(e.target.value))}
-                            className="border border-[rgba(3,44,166,.14)] text-[16px] rounded-[9px] p-[7px_12px] bg-white
-                            w-15 text-[#0a1628] text-center" />
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <label className="text-[16px] text-[#0a1628]">
-                                limit
-                            </label>
-                            <input 
-                            value={limit}
-                            onChange={(e) => setLimit(Number(e.target.value))}
-                            type="number"
-                            className="border border-[rgba(3,44,166,.14)] text-[16px] rounded-[9px] p-[7px_12px] bg-white
-                            w-15 text-[#0a1628] text-center" />
-                        </div>
                     </div>
-
-
 
                     {sessions.length === 0 && !loading && (
                         <div className="text-center text-gray-500 py-10">
@@ -163,10 +139,10 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                         </div>
                     )}
 
-                    {/* Table */}
-                    {sessions.length > 0 && (
                     <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
-                        <table className="w-full border-collapse">
+                    {/* Table */}
+                        {sessions.length > 0 && (
+                            <table className="w-full border-collapse">
                             <thead>
                                 <tr className="border-b border-[#21262d]">
                                     {["From", "to", "type", "Duration", "Status", "End Raison", "Created at"].map((item) => (
@@ -232,9 +208,9 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                         {formatDuration(session.duration_seconds)}
                                     </td>
-                                    <td className="px-4 py-4 text-[16px] text-[#8b949e] text-center">
+                                    <td className="px-4 py-4 text-xs text-[#8b949e] text-center">
                                         <div className="flex justify-center items-center">
-                                            <span className={`flex items-center gap-1 text-[16px] font-medium py-1 px-2.5 rounded-[20px] border
+                                            <span className={`flex items-center gap-1 text-xs font-medium py-1 px-2.5 rounded-[20px] border
                                             ${session.call_status === "ANSWERED" ? "text-[#059669] bg-[rgba(5,150,105,.08)] border-[rgba(5,150,105,.20)]" 
                                             : "text-[#dc2626] bg-[rgba(220,38,38,.08)] border-[rgba(220,38,38,.20)]"}`}>
                                             <span className={`w-1.5 h-1.5 shrink-0 rounded-full
@@ -255,9 +231,17 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                                     )
                                 ))}
                             </tbody>
-                        </table>
+                            </table>
+                        )}
+
+                        <Pagination
+                        page={page}
+                        setPage={setPage}
+                        pageSize={pageSize}
+                        setPageSize={setPageSize}
+                        total={sessions.length || 0}
+                        label={sessions} />
                     </div>
-                    )}
                 </div>
 
     )

@@ -1,3 +1,5 @@
+import PageSizeDropdown from "./PageSizeDropDown";
+
 export default function Pagination({ page, setPage, pageSize, setPageSize, total, label }) {
     const totalPages = Math.ceil(total / pageSize);
     const startItem = (page - 1) * pageSize + 1;
@@ -45,19 +47,11 @@ export default function Pagination({ page, setPage, pageSize, setPageSize, total
                 </button>
             </div>
 
-            <select
-                value={pageSize}
-                onChange={(e) => {
-                setPageSize(Number(e.target.value));
-                setPage(1); 
-                }}
-                className="bg-[#0d1117] border border-[#30363d] rounded-md px-2 py-1 text-sm text-white"
-            >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
-                <option value={20}>20</option>
-            </select>
+            <PageSizeDropdown 
+            setPage={setPage}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            />
         </div>
     )
 }
