@@ -48,7 +48,8 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
     ] : []
 
     return(
-        <div className="flex-col bg-[#161b22] border-l scroll overflow-y-auto w-120 shrink-0 border-[#21262d]
+        <div className="flex flex-col bg-[#161b22] border-l border-t border-b border-r border-[#21262d]
+        rounded-r-xl overflow-y-auto w-96 shrink-0 max-h-[calc(100vh-120px)]
         shadow-[-4px_0_24px_rgba(0,0,0,.4)]">
             {/* HEADER */}
             <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 border-b border-[#21262d] bg-[#161b22]">

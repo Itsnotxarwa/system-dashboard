@@ -46,12 +46,17 @@ export default function AgentsTable({agents, loading, setSelectedAgent, selected
                                         <tr
                                         key={agent.id}
                                         onClick={() => {
-                                            setSelectedAgent(agent)
-                                            setShowAgentDetails(true)
+                                            if (selectedAgent?.id === agent.id) {
+                                                setShowAgentDetails(false);
+                                                setSelectedAgent(null);
+                                            } else {
+                                                setSelectedAgent(agent);
+                                                setShowAgentDetails(true);
+                                            }
                                         }
                                         }
                                         className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer 
-                                            ${selectedAgent?.agent_id === agent.agent_id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
+                                            ${selectedAgent?.id === agent.id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
                                         >
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">
