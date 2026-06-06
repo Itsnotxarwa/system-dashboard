@@ -49,7 +49,7 @@ export default function AgentDetails({selectedAgent, onClose, handleDelete, hand
 
     return(
         <div className="flex-col bg-[#161b22] border-l scroll overflow-y-auto w-120 shrink-0 border-[#21262d]
-        shadow-[-4px_0_24px_rgba(0,0,0,.4)]">
+        shadow-[-4px_0_24px_rgba(0,0,0,.4)] ">
             {/* HEADER */}
             <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 border-b border-[#21262d] bg-[#161b22]">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-sm font-bold

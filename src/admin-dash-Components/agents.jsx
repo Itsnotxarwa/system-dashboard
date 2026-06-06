@@ -10,6 +10,7 @@ import DeleteAgent from "./agents-components/DeleteAgent";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);
+    const [total, setTotal] = useState(0);
     const [selectedAgent, setSelectedAgent] = useState(null);
     const [showAgentDetails, setShowAgentDetails] = useState(false);
     const [showEditAgent, setShowEditAgent] = useState(false);
@@ -20,6 +21,8 @@ export default function Agents() {
     const [tenantId, setTenantId] = useState("");
     const [type, setType] = useState("");
     const [sipNumber, setSipNumber] = useState("");
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(20);
 
     const token = localStorage.getItem("token");
 
@@ -33,6 +36,8 @@ export default function Agents() {
             if (tenantId) params.append("tenant_id", tenantId);
             if (type) params.append("type", type);
             if (sipNumber) params.append("sip_number", sipNumber);
+            params.append("page", page);
+            params.append("page_size", pageSize);
 
             const url = `https://api.voixup.fr/admin/agents?${params.toString()}`;
 
@@ -59,14 +64,15 @@ export default function Agents() {
             }
 
             const data = await response.json();
-            setAgents(data);
+            setAgents(data.agents || []);
+            setTotal(data.total || 0);
         } catch (error) {
             console.error("Error fetching agents:", error);
             setAgents([]);
         } finally {
             setLoading(false);
         }
-    }, [tenantId, type, sipNumber, token]);
+    }, [tenantId, type, sipNumber, token, page, pageSize]);
 
     useEffect(() => {
         fetchAgents();
