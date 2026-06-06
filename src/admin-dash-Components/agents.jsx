@@ -198,14 +198,14 @@ export default function Agents() {
                     total={total}
                     />
                 </div>
-                {showAgentDetails && (
-                    <AgentDetails
-                    selectedAgent={selectedAgent}
-                    onClose={() => setShowAgentDetails(false)}
-                    handleEdit={handleEdit}
-                    handleDelete={handleDelete} />
-                )}
             </main>
+            {showAgentDetails && (
+                <AgentDetails
+                selectedAgent={selectedAgent}
+                onClose={() => setShowAgentDetails(false)}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete} />
+            )}
 
             {showEditAgent && (
                 <EditAgent
