@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 import {handleUnauthorized} from "../../utils/auth";
-import Pagination from "../shared/pagination";
 
 export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [sessions, setSessions] = useState([]);
@@ -234,13 +233,6 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                             </table>
                         )}
 
-                        <Pagination
-                        page={page}
-                        setPage={setPage}
-                        pageSize={pageSize}
-                        setPageSize={setPageSize}
-                        total={sessions.length || 0}
-                        label={sessions} />
                     </div>
                 </div>
 
