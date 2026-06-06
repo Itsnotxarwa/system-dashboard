@@ -1,10 +1,9 @@
 import Pagination from "../shared/pagination"
 
-export default function AgentsTable({agents, loading, setSelectedAgent, setShowAgentDetails, page, setPage, pageSize, setPageSize, total}) {
+export default function AgentsTable({agents, loading, setSelectedAgent, selectedAgent, setShowAgentDetails, page, setPage, pageSize, setPageSize, total}) {
     return(
-        <div className="bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden flex-1 min-w-0">
-            <table className="w-full border-collapse"
-            style={{ tableLayout: "fixed" }}>
+        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
+            <table className="w-full border-collapse">
                 <thead>
                     <tr
                     className="border-b border-[#21262d]">
@@ -51,7 +50,8 @@ export default function AgentsTable({agents, loading, setSelectedAgent, setShowA
                                             setShowAgentDetails(true)
                                         }
                                         }
-                                        className="hover:bg-[rgba(255,255,255,.03)] border-b border-[#21262d] cursor-pointer transition-colors"
+                                        className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer 
+                                            ${selectedAgent?.tenant_id === agent.agent_id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
                                         >
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">
@@ -71,7 +71,7 @@ export default function AgentsTable({agents, loading, setSelectedAgent, setShowA
                                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                         {agent.name}
                                                     </div>
-                                                    <div className="px-4 py-4 text-[#8b949e] text-xs mt-0.5 truncate wrap-break-word"
+                                                    <div className="px-4 py-4 text-[#8b949e] text-xs mt-0.5"
                                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                         {agent.id.slice(0,20)}
                                                     </div>
