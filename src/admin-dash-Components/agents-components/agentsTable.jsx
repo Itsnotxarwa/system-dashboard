@@ -2,8 +2,9 @@ import Pagination from "../shared/pagination"
 
 export default function AgentsTable({agents, loading, setSelectedAgent, setShowAgentDetails, page, setPage, pageSize, setPageSize, total}) {
     return(
-        <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
-            <table className="w-full border-collapse">
+        <div className="bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden flex-1 min-w-0">
+            <table className="w-full border-collapse"
+            style={{ tableLayout: "fixed" }}>
                 <thead>
                     <tr
                     className="border-b border-[#21262d]">
@@ -70,7 +71,7 @@ export default function AgentsTable({agents, loading, setSelectedAgent, setShowA
                                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                         {agent.name}
                                                     </div>
-                                                    <div className="px-4 py-4 text-[#8b949e] text-xs mt-0.5"
+                                                    <div className="px-4 py-4 text-[#8b949e] text-xs mt-0.5 truncate wrap-break-word"
                                                     style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                                                         {agent.id.slice(0,20)}
                                                     </div>

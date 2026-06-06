@@ -184,27 +184,30 @@ export default function Agents() {
                         </div>
                     </div>
                     
+                    <div className="flex gap-3 items-start py-6">
                     {/* Agents Table */}
-                    <AgentsTable 
-                    loading={loading} 
-                    agents={agents}
-                    setSelectedAgent={setSelectedAgent}
-                    setShowAgentDetails={setShowAgentDetails}
-                    page={page}
-                    setPage={setPage}
-                    pageSize={pageSize}
-                    setPageSize={setPageSize}
-                    total={total}
-                    />
+                        <AgentsTable 
+                        loading={loading} 
+                        agents={agents}
+                        setSelectedAgent={setSelectedAgent}
+                        setShowAgentDetails={setShowAgentDetails}
+                        page={page}
+                        setPage={setPage}
+                        pageSize={pageSize}
+                        setPageSize={setPageSize}
+                        total={total}
+                        />
+
+                        {showAgentDetails && (
+                            <AgentDetails
+                            selectedAgent={selectedAgent}
+                            onClose={() => setShowAgentDetails(false)}
+                            handleEdit={handleEdit}
+                            handleDelete={handleDelete} />
+                        )}
+                    </div>
                 </div>
             </main>
-            {showAgentDetails && (
-                <AgentDetails
-                selectedAgent={selectedAgent}
-                onClose={() => setShowAgentDetails(false)}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete} />
-            )}
 
             {showEditAgent && (
                 <EditAgent
