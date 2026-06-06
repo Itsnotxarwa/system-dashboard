@@ -11,7 +11,7 @@ export default function Pagination({ page, setPage, pageSize, setPageSize, total
         <div className="flex items-center justify-between mt-4 px-4 py-3
         bg-[#161b22] border-t border-[#21262d] rounded-xl">
 
-            <p className="text-sm text-[#8b949e]">
+            <p className="text-sm text-[#8b949e] font-mono">
                 Showing <span className="text-white font-medium"> {" "} {startItem}-{endItem} {" "}</span> of{" "}
                 <span className="text-white font-medium">{total}</span> {label}
             </p>

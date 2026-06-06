@@ -11,26 +11,40 @@ import CallsSessions from './admin-dash-Components/callsSessions';
 import Metrics from './admin-dash-Components/metrics';
 
 function App() {
-  const [sessionValid, setSessionValid] = useState(true);
+  const [sessionValid, setSessionValid] = useState(null);
 
   useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            setSessionValid(false);
-            return;
-        }
+    const verifySession = async () => {
+      try {
+        const response = await fetch('https://api.voixup.fr/auth/login', {
+          method: 'GET',
+          credentials: 'include',
+          headers: { 'accept': 'application/json' }
+        });
 
-        try {
-            const payload = JSON.parse(atob(token.split(".")[1]));
-            if (payload.exp * 1000 < Date.now()) {
-                localStorage.removeItem("token");
-                setSessionValid(false);
-            }
-        } catch {
-            setSessionValid(false);
-        }
-    }, []);
+        if (response.ok) {
+          setSessionValid(true);
+        } else if (response.status === 401) {
+          // Access token expired — try refreshing
+          const refreshResponse = await fetch('https://api.voixup.fr/auth/refresh', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'accept': 'application/json' }
+          });
 
+          setSessionValid(refreshResponse.ok);
+        } else {
+          setSessionValid(false);
+        }
+      } catch {
+        setSessionValid(false);
+      }
+    };
+
+    verifySession();
+  }, []);
+
+    if (sessionValid === null) return null;  
     if (!sessionValid) return <SessionExpired />;
 
   return (
