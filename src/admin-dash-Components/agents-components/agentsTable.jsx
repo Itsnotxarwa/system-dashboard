@@ -1,4 +1,6 @@
-export default function AgentsTable({agents, loading, setSelectedAgent, setShowAgentDetails}) {
+import Pagination from "../shared/pagination"
+
+export default function AgentsTable({agents, loading, setSelectedAgent, setShowAgentDetails, page, setPage, pageSize, setPageSize, total}) {
     return(
         <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <table className="w-full border-collapse">
@@ -105,7 +107,15 @@ export default function AgentsTable({agents, loading, setSelectedAgent, setShowA
                                     ))
                                 )}
                             </tbody>
-                        </table>
+            </table>
+
+            <Pagination 
+            page={page} 
+            setPage={setPage} 
+            pageSize={pageSize} 
+            setPageSize={setPageSize} 
+            total={total}
+            label="agents" />
         </div>
     )
 }

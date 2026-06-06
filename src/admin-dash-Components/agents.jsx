@@ -190,6 +190,11 @@ export default function Agents() {
                     agents={agents}
                     setSelectedAgent={setSelectedAgent}
                     setShowAgentDetails={setShowAgentDetails}
+                    page={page}
+                    setPage={setPage}
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                    total={total}
                     />
                 </div>
             </main>
