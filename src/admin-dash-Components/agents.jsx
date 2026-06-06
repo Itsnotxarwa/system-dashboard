@@ -184,33 +184,28 @@ export default function Agents() {
                         </div>
                     </div>
                     
-                    <div className="flex gap-0 items-start">
-                        <div className={`flex-1 min-w-0 transition-all duration-300`}>
-                            {/* Agents Table */}
-                            <AgentsTable 
-                            loading={loading} 
-                            agents={agents}
-                            setSelectedAgent={setSelectedAgent}
-                            selectedAgent={selectedAgent}
-                            setShowAgentDetails={setShowAgentDetails}
-                            page={page}
-                            setPage={setPage}
-                            pageSize={pageSize}
-                            setPageSize={setPageSize}
-                            total={total}
-                            />
-                        </div>
-
-                        {showAgentDetails && selectedAgent && (
-                            <AgentDetails
-                            selectedAgent={selectedAgent}
-                            onClose={() => setShowAgentDetails(false)}
-                            handleEdit={handleEdit}
-                            handleDelete={handleDelete} />
-                        )}
-                    </div>
+                    {/* Agents Table */}
+                    <AgentsTable 
+                    loading={loading} 
+                    agents={agents}
+                    setSelectedAgent={setSelectedAgent}
+                    selectedAgent={selectedAgent}
+                    setShowAgentDetails={setShowAgentDetails}
+                    page={page}
+                    setPage={setPage}
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                    total={total}
+                    />
                 </div>
             </main>
+            {showAgentDetails && (
+                <AgentDetails
+                selectedAgent={selectedAgent}
+                onClose={() => setShowAgentDetails(false)}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete} />
+            )}
 
             {showEditAgent && (
                 <EditAgent
