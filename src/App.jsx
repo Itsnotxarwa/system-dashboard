@@ -14,37 +14,22 @@ function App() {
   const [sessionValid, setSessionValid] = useState(null);
 
   useEffect(() => {
-    const verifySession = async () => {
-      try {
-        const response = await fetch('https://api.voixup.fr/auth/login', {
-          method: 'GET',
-          credentials: 'include',
-          headers: { 'accept': 'application/json' }
-        });
+  const token = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('access_token='))
+    ?.split('=')[1];
 
-        if (response.ok) {
-          setSessionValid(true);
-        } else if (response.status === 401) {
-          // Access token expired — try refreshing
-          const refreshResponse = await fetch('https://api.voixup.fr/auth/refresh', {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'accept': 'application/json' }
-          });
+  if (!token) { setSessionValid(false); return; }
 
-          setSessionValid(refreshResponse.ok);
-        } else {
-          setSessionValid(false);
-        }
-      } catch {
-        setSessionValid(false);
-      }
-    };
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    setSessionValid(payload.exp * 1000 > Date.now());
+  } catch {
+    setSessionValid(false);
+  }
+}, []);
 
-    verifySession();
-  }, []);
-
-    if (sessionValid === null) return null;  
+    if (sessionValid === null) return null;
     if (!sessionValid) return <SessionExpired />;
 
   return (
