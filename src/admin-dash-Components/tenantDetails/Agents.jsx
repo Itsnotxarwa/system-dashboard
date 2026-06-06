@@ -11,6 +11,7 @@ export default function Agents() {
 
     const [tenant, setTenant] = useState(null);
     const [agents, setAgents] = useState([]);
+    const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [showAgentModal, setShowAgentModal] = useState(false);
     const [typeFilter, setTypeFilter] = useState("");
@@ -74,7 +75,8 @@ export default function Agents() {
             const data = await res.json();
             console.log(data)
 
-            setAgents(data);
+            setAgents(data.agents);
+            setTotal(data.total);
 
             } catch (err) {
             console.error(err);
@@ -95,6 +97,7 @@ export default function Agents() {
                 <AgentsOverview 
                 tenant={tenant} 
                 agents={agents} 
+                total={total}
                 setAgents={setAgents}
                 setShowAgentModal={setShowAgentModal}
                 typeFilter={typeFilter}
