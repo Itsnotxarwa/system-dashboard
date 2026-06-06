@@ -51,7 +51,7 @@ export default function AgentsTable({agents, loading, setSelectedAgent, selected
                                         }
                                         }
                                         className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer 
-                                            ${selectedAgent?.tenant_id === agent.agent_id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
+                                            ${selectedAgent?.agent_id === agent.agent_id ? 'bg-[rgba(88,166,255,0.12)]' : ''}`}
                                         >
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center gap-2">

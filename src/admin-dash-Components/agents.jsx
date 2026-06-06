@@ -198,7 +198,7 @@ export default function Agents() {
                     total={total}
                     />
                 </div>
-                    {showAgentDetails && (
+                {showAgentDetails && (
                     <AgentDetails
                     selectedAgent={selectedAgent}
                     onClose={() => setShowAgentDetails(false)}
