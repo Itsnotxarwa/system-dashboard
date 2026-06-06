@@ -15,7 +15,7 @@ export default function Metrics() {
         const [metrics, setMetrics] = useState([]);
         const [tenant, setTenant] = useState(null);
         const [sessions, setSessions] = useState(null);
-        const [totalSessions, setTotalSessions] = useState(0);
+        const [total, setTotal] = useState(0);
         const [selectedSession, setSelectedSession] = useState(null);
         const [loading, setLoading] = useState(false);
 
@@ -123,7 +123,7 @@ export default function Metrics() {
     
                     const data = await response.json();
                     setSessions(data);
-                    setTotalSessions(data.total);
+                    setTotal(data.total);
                     console.log("sessions:", data);
                 } catch(err) {
                     console.error("Error fetching sessions:", err);
@@ -177,7 +177,7 @@ export default function Metrics() {
                             setPageSize={setPageSize}
                             loading={loading} 
                             sessions={sessions}
-                            totalSessions={totalSessions}
+                            total={total}
                             selectedSession={selectedSession}
                             setSelectedSession={setSelectedSession} />
                         )}

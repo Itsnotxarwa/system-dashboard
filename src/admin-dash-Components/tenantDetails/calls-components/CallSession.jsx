@@ -1,4 +1,5 @@
 import { Bot, User } from "lucide-react";
+import Pagination from "../../shared/pagination";;
 
 export default function CallSession({callSessions, page, setPage, pageSize, setPageSize, setSelectedSession, setOpenDrawer, loading}) {
 
