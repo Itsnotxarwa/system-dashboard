@@ -32,6 +32,8 @@ function App() {
   checkAuth();
 }, []);
 
+console.log(document.cookie);
+
     if (sessionValid === null) return null;
     if (!sessionValid) return <SessionExpired />;
 
