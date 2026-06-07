@@ -14,19 +14,22 @@ function App() {
   const [sessionValid, setSessionValid] = useState(null);
 
   useEffect(() => {
-  const token = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('access_token='))
-    ?.split('=')[1];
+  const checkAuth = async () => {
+    try {
+      const response = await fetch(
+        "https://api.voixup.fr/auth/login",
+        {
+          credentials: "include",
+        }
+      );
 
-  if (!token) { setSessionValid(false); return; }
+      setSessionValid(response.ok);
+    } catch {
+      setSessionValid(false);
+    }
+  };
 
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    setSessionValid(payload.exp * 1000 > Date.now());
-  } catch {
-    setSessionValid(false);
-  }
+  checkAuth();
 }, []);
 
     if (sessionValid === null) return null;
