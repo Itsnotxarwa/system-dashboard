@@ -10,14 +10,13 @@ export default function Calls({range}) {
     useEffect(() => {
             const fetchCalls = async () => {
                 try {
-                const token = localStorage.getItem("token");
         
                 const res = await fetch(`https://api.voixup.fr/admin/tenants/calls/overview`,{
                     headers: 
                     {
                         accept: "application/json",
-                        Authorization: `Bearer ${token}`,
                     },
+                    credentials: "include"
                 });
     
                 if (res.status === 401) {

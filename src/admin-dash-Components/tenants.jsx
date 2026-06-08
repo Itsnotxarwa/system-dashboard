@@ -28,15 +28,14 @@ export default function Tenants({tenants, setTenants, loading}) {
     {/* UPDATE TENANT */}
     const resetPassword = async (tenantId, newPassword) => {
         try {
-            const token = localStorage.getItem("token");
             
             const response = await fetch(`
                 https://api.voixup.fr/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
                 `,{
                     method: "PATCH",
+                    credentials: "include",
                     headers: {
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`,
                     },
                 }
             );
@@ -63,15 +62,14 @@ export default function Tenants({tenants, setTenants, loading}) {
         {/* DELETE TENANTS */}
         const deleteTenant = async (tenantId) => {
             try{
-                const token = localStorage.getItem("token");
                 const response = await fetch(`
                     https://api.voixup.fr/admin/tenants/${tenantId}`,
                 {
                     method: "DELETE",
                     headers: {
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`,
                     },
+                    credentials: "include"
                 }
             );
 

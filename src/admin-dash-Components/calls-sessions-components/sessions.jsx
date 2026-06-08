@@ -12,7 +12,6 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
-    const token = localStorage.getItem("token");
 
     const fetchSessions = useCallback(async () => {
         try{
@@ -32,8 +31,8 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
                 method: "GET",
                 headers: {
                     "accept": "application/json",
-                    "authorization": `Bearer ${token}`
-                }
+                },
+                credentials: "include",
             });
 
             if (response.status === 401) {
@@ -58,7 +57,7 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
         } finally {
             setLoading(false);
         }
-    },[token, tenantId, agentId, type, page, pageSize]);
+    },[tenantId, agentId, type, page, pageSize]);
 
     useEffect(() => {
         fetchSessions();

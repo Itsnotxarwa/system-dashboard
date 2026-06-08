@@ -24,7 +24,6 @@ export default function Agents() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
-    const token = localStorage.getItem("token");
 
     {/* fetch Agents */}
     const fetchAgents = useCallback(async () => {
@@ -45,8 +44,8 @@ export default function Agents() {
                 method: "GET",
                 headers: {
                     "accept": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
+                },
+                credentials: "include"
             });
 
             if (response.status === 401) {
@@ -72,7 +71,7 @@ export default function Agents() {
         } finally {
             setLoading(false);
         }
-    }, [tenantId, type, sipNumber, token, page, pageSize]);
+    }, [tenantId, type, sipNumber, page, pageSize]);
 
     useEffect(() => {
         fetchAgents();
@@ -80,15 +79,14 @@ export default function Agents() {
 
     const deleteAgent = async (AgentId) => {
         try{
-            const token = localStorage.getItem("token");
             const response = await fetch(`
                 https://api.voixup.fr/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
                 headers: {
                     "accept": "application/json",
-                    "Authorization": `Bearer ${token}`,
                 },
+                credentials: "include"
             }
         );
 

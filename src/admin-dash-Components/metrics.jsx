@@ -16,7 +16,6 @@ export default function Metrics() {
     const [loading, setLoading] = useState(true);
 
 
-    const token = localStorage.getItem("token");
 
     const fetchOverview = useCallback(async() => {
         try{
@@ -26,8 +25,8 @@ export default function Metrics() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
+                },
+                credentials: "include",
             });
             if (response.status === 401) {
                 handleUnauthorized(401);
@@ -54,7 +53,7 @@ export default function Metrics() {
         } finally {
             setLoading(false);
         }
-    }, [token]);
+    }, []);
 
     useEffect(() => {
         fetchOverview();
@@ -69,8 +68,8 @@ export default function Metrics() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
+                },
+                credentials: "include",
             });
             if (response.status === 401) {
                 handleUnauthorized(401);
@@ -97,7 +96,7 @@ export default function Metrics() {
         } finally {
             setLoading(false);
         }
-    }, [token]);
+    }, []);
 
     useEffect(() => {
         fetchTenantsMetrics();

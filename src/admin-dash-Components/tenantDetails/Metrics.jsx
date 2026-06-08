@@ -26,13 +26,12 @@ export default function Metrics() {
         {/* fetch tenant */}
         useEffect(() => {
         const fetchTenant = async () => {
-            const token = localStorage.getItem("token");
 
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -51,13 +50,12 @@ export default function Metrics() {
         const fetchMetrics = async() => {
             try{
                 setLoading(true);
-                const token = localStorage.getItem("token");
                 const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
+                    },
+                    credentials: "include",
                 });
                 if (response.status === 401) {
                     handleUnauthorized(401);
@@ -98,14 +96,13 @@ export default function Metrics() {
                     if (page) params.append("page", page);
                     if (pageSize) params.append("page_size", pageSize);
 
-                    const token = localStorage.getItem("token");
                     const response = await fetch(
                         `https://api.voixup.fr/admin/metrics/tenants/${id}/sessions?${params.toString()}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
                         },
+                        credentials: "include",
                     });
                     if (response.status === 401) {
                         handleUnauthorized(401);

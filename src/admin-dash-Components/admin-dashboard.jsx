@@ -7,22 +7,6 @@ import { handleUnauthorized } from "../utils/auth";
 
 export default function AdminDashboard() {
 
-    const [token] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlToken = params.get("token");
-    if (urlToken) {
-      localStorage.setItem("token", urlToken);
-      return urlToken;
-    }
-    return localStorage.getItem("token");
-  });
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get("userId");
-    if (userId) localStorage.setItem("userId", userId);
-  }, []);
-
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -36,13 +20,12 @@ export default function AdminDashboard() {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                const token = localStorage.getItem("token");
                 setLoading(true);
 
                 const response = await fetch("https://api.voixup.fr/admin/tenants", {
-                    headers: {
+                  credentials: "include",
+                  headers: {
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`
                     }
                 });
 
@@ -71,10 +54,10 @@ export default function AdminDashboard() {
     try {
       const response = await fetch("https://api.voixup.fr/admin/tenants", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "accept": "application/json",
-          "Authorization": `Bearer ${token}`  
+          "accept": "application/json"
         },
         body: JSON.stringify(form)
       });
