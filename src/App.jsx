@@ -5,12 +5,36 @@ import CallRecords from './admin-dash-Components/tenantDetails/CallRecords';
 import Campaign from './admin-dash-Components/tenantDetails/Campaign';
 import MetricsPerTenant from './admin-dash-Components/tenantDetails/Metrics';
 import SessionExpired from './SessionExpired';
+import { useState, useEffect } from 'react';
 import Agents from "./admin-dash-Components/agents";
 import CallsSessions from './admin-dash-Components/callsSessions';
 import Metrics from './admin-dash-Components/metrics';
 
 function App() {
-  
+  const [sessionValid, setSessionValid] = useState(null);
+
+  useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (!token) return setSessionValid(false);
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const isExpired = payload.exp * 1000 < Date.now();
+
+    if (isExpired) {
+      localStorage.removeItem('token');   // clean it up
+      localStorage.removeItem('role');
+    }
+
+    setSessionValid(!isExpired);
+  } catch {
+    localStorage.removeItem('token');     // corrupt token, clean it up
+    setSessionValid(false);
+  }
+}, []);
+
+    if (sessionValid === null) return null;
+    if (!sessionValid) return <SessionExpired />;
 
   return (
     <>
