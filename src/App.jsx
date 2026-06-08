@@ -5,37 +5,12 @@ import CallRecords from './admin-dash-Components/tenantDetails/CallRecords';
 import Campaign from './admin-dash-Components/tenantDetails/Campaign';
 import MetricsPerTenant from './admin-dash-Components/tenantDetails/Metrics';
 import SessionExpired from './SessionExpired';
-import { useState, useEffect } from 'react';
 import Agents from "./admin-dash-Components/agents";
 import CallsSessions from './admin-dash-Components/callsSessions';
 import Metrics from './admin-dash-Components/metrics';
 
 function App() {
-  const [sessionValid, setSessionValid] = useState(null);
-
-  useEffect(() => {
-  const checkAuth = async () => {
-    try {
-      const response = await fetch(
-        "https://api.mazia.ai/auth/login",
-        {
-          credentials: "include",
-        }
-      );
-
-      setSessionValid(response.ok);
-    } catch {
-      setSessionValid(false);
-    }
-  };
-
-  checkAuth();
-}, []);
-
-console.log(document.cookie);
-
-    if (sessionValid === null) return null;
-    if (!sessionValid) return <SessionExpired />;
+  
 
   return (
     <>
