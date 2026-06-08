@@ -17,7 +17,7 @@ function App() {
   const checkAuth = async () => {
     try {
       const response = await fetch(
-        "https://api.voixup.fr/auth/login",
+        "https://api.mazia.ai/auth/login",
         {
           credentials: "include",
         }
