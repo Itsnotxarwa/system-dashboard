@@ -38,7 +38,7 @@ export default function Agents() {
             params.append("page", page);
             params.append("page_size", pageSize);
 
-            const url = `https://api.voixup.fr/admin/agents?${params.toString()}`;
+            const url = `https://api.mazia.ai/admin/agents?${params.toString()}`;
 
             const response = await fetch(url, {
                 method: "GET",
@@ -80,7 +80,7 @@ export default function Agents() {
     const deleteAgent = async (AgentId) => {
         try{
             const response = await fetch(`
-                https://api.voixup.fr/admin/agents/${AgentId}`,
+                https://api.mazia.ai/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
                 headers: {

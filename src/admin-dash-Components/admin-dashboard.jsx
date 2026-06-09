@@ -22,7 +22,7 @@ export default function AdminDashboard() {
             try {
                 setLoading(true);
 
-                const response = await fetch("https://api.voixup.fr/admin/tenants", {
+                const response = await fetch("https://api.mazia.ai/admin/tenants", {
                   credentials: "include",
                   headers: {
                         "accept": "application/json",
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("https://api.voixup.fr/admin/tenants", {
+      const response = await fetch("https://api.mazia.ai/admin/tenants", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -30,7 +30,7 @@ export default function Tenants({tenants, setTenants, loading}) {
         try {
             
             const response = await fetch(`
-                https://api.voixup.fr/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
+                https://api.mazia.ai/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
                 `,{
                     method: "PATCH",
                     credentials: "include",
@@ -63,7 +63,7 @@ export default function Tenants({tenants, setTenants, loading}) {
         const deleteTenant = async (tenantId) => {
             try{
                 const response = await fetch(`
-                    https://api.voixup.fr/admin/tenants/${tenantId}`,
+                    https://api.mazia.ai/admin/tenants/${tenantId}`,
                 {
                     method: "DELETE",
                     headers: {

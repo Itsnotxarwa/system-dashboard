@@ -21,7 +21,7 @@ export default function Metrics() {
         try{
             setLoading(true);
 
-            const response = await fetch(`https://api.voixup.fr/admin/metrics/overview`, {
+            const response = await fetch(`https://api.mazia.ai/admin/metrics/overview`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function Metrics() {
         try{
             setLoading(true);
 
-            const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants`, {
+            const response = await fetch(`https://api.mazia.ai/admin/metrics/tenants`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
