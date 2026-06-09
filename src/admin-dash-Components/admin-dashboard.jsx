@@ -3,7 +3,7 @@ import Overview from "./tenants-components/overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
 import CreateModal from "./tenants-components/createModal";
-import { apiFetch } from "./shared/ApiFetch";
+import apiFetch from "./shared/ApiFetch";
 
 export default function AdminDashboard() {
 

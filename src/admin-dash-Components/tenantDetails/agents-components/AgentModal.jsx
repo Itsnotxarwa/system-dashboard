@@ -4,7 +4,7 @@ import BasicInfo from "./basicInfo";
 import ModelsConfig from "./modelsConfig";
 import Tools from "./Tools";
 import VoiceMail from "./VoiceMail";
-import {apiFetch} from "../../shared/ApiFetch";
+import apiFetch from "../../shared/ApiFetch";
 
 export default function AgentModal({selectedTenant, onClose, onCancel, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];

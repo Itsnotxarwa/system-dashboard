@@ -1,6 +1,6 @@
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
-import {apiFetch} from "../../shared/ApiFetch";
+import apiFetch from "../../shared/ApiFetch";
 
 export default function CreateCampaign({ tenant, onClose, onCancel, agents, setCampaigns }) {
     const [loading, setLoading] = useState(false);

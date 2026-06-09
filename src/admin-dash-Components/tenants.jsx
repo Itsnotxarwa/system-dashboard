@@ -2,7 +2,7 @@ import { useState } from "react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 import TenantsTable from "./tenants-components/TenantsTable";
-import { apiFetch } from "./shared/ApiFetch";
+import apiFetch from "./shared/ApiFetch";
 
 export default function Tenants({tenants, setTenants, loading}) {
     const [search, setSearch] = useState("");    
