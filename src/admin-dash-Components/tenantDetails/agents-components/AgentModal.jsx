@@ -37,7 +37,7 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
             const tenantId = selectedTenant?.id;
             const payload = { ...agentData, tools: agentData.tools || [] };
             const response = await fetch(
-                `https://api.voixup.fr/admin/tenants/${tenantId}/agents`,
+                `https://api.mazia.ai/admin/tenants/${tenantId}/agents`,
                 {
                     method: "POST",
                     credentials: "include",

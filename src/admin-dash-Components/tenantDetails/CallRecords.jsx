@@ -21,7 +21,7 @@ export default function CallRecords() {
     useEffect(() => {
         const fetchTenant = async () => {
     
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
+            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
                 },
@@ -44,7 +44,7 @@ export default function CallRecords() {
         const fetchCalls = async () => {
             try {
     
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}/calls/overview`,{
+            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}/calls/overview`,{
                 headers: 
                 {
                     accept: "application/json",
@@ -80,7 +80,7 @@ export default function CallRecords() {
 
 
         const res = await fetch(
-            `https://api.voixup.fr/admin/tenants/${id}/calls/sessions?${params.toString()}`,
+            `https://api.mazia.ai/admin/tenants/${id}/calls/sessions?${params.toString()}`,
             {
                 headers: {
                     accept: "application/json",

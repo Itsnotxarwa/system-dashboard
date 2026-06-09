@@ -20,7 +20,7 @@ export default function Agents() {
     useEffect(() => {
         const fetchTenant = async () => {
 
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
+            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
                 },
@@ -47,7 +47,7 @@ export default function Agents() {
 
             if (typeFilter) params.append("type", typeFilter);
 
-            const url = `https://api.voixup.fr/admin/tenants/${id}/agents${
+            const url = `https://api.mazia.ai/admin/tenants/${id}/agents${
                 params.toString() ? `?${params.toString()}` : ""
             }`;
 

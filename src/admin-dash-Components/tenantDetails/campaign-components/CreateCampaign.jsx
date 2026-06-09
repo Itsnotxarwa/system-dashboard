@@ -40,7 +40,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
         try {
             setLoading(true);
             const tenantId = tenant?.id;
-            const res = await fetch(`https://api.voixup.fr/tenants/${tenantId}/campaign`, {
+            const res = await fetch(`https://api.mazia.ai/tenants/${tenantId}/campaign`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

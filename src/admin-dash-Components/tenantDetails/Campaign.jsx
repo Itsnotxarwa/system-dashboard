@@ -17,7 +17,7 @@ export default function Campaign() {
     useEffect(() => {
         const fetchTenant = async () => {
     
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
+            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
                 },
@@ -40,7 +40,7 @@ export default function Campaign() {
         const fetchCampaigns = async () => {
             try {
     
-            const res = await fetch(`https://api.voixup.fr/tenants/${id}/campaigns`,{
+            const res = await fetch(`https://api.mazia.ai/tenants/${id}/campaigns`,{
                 headers: {
                 accept: "application/json",
                 },
@@ -76,7 +76,7 @@ export default function Campaign() {
             try {
 
         const res = await fetch(
-            `https://api.voixup.fr/admin/tenants/${id}/agents`,
+            `https://api.mazia.ai/admin/tenants/${id}/agents`,
             {
                 headers: {
                 accept: "application/json",

@@ -21,7 +21,7 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
     const deleteAgent = async (AgentId) => {
         try{
             const response = await fetch(`
-                https://api.voixup.fr/admin/agents/${AgentId}`,
+                https://api.mazia.ai/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
                 credentials: "include",

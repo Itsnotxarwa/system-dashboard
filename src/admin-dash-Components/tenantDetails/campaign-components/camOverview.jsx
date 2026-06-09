@@ -29,7 +29,7 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
         try{
             console.log(tenant.id, campaignId)
             const response = await fetch(
-                `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/force`,
+                `https://api.mazia.ai/tenants/${tenant.id}/campaigns/${campaignId}/force`,
                 {
                     method: "DELETE",
                     headers: {

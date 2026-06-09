@@ -27,7 +27,7 @@ export default function Metrics() {
         useEffect(() => {
         const fetchTenant = async () => {
 
-            const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
+            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
                 },
@@ -50,7 +50,7 @@ export default function Metrics() {
         const fetchMetrics = async() => {
             try{
                 setLoading(true);
-                const response = await fetch(`https://api.voixup.fr/admin/metrics/tenants/${id}`, {
+                const response = await fetch(`https://api.mazia.ai/admin/metrics/tenants/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export default function Metrics() {
                     if (pageSize) params.append("page_size", pageSize);
 
                     const response = await fetch(
-                        `https://api.voixup.fr/admin/metrics/tenants/${id}/sessions?${params.toString()}`, {
+                        `https://api.mazia.ai/admin/metrics/tenants/${id}/sessions?${params.toString()}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",

@@ -11,7 +11,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
         try {
             const campaignId = selectedCampaign.id;
             const response = await fetch(
-                `https://api.voixup.fr/campaigns/${campaignId}/recipients`,
+                `https://api.mazia.ai/campaigns/${campaignId}/recipients`,
                 {
                     method: "DELETE",
                     headers: {
@@ -49,7 +49,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
             const formData = new FormData();
             formData.append("file", selectedFile);
             const res = await fetch(
-                `https://api.voixup.fr/campaigns/${uploadingCampaignId}/recipients`,
+                `https://api.mazia.ai/campaigns/${uploadingCampaignId}/recipients`,
                 {
                     method: "POST",
                     credentials: "include",
@@ -77,7 +77,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
 
     const updateCampaignStatus = async (campaignId, status) => {
         try {
-            const res = await fetch(`https://api.voixup.fr/campaigns/${campaignId}/status`, {
+            const res = await fetch(`https://api.mazia.ai/campaigns/${campaignId}/status`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: {
