@@ -87,7 +87,7 @@ export default function Metrics() {
     
                     if (!response.ok) {
                         const data = await response.json();
-                        alert(data?.detail || "Failed to fetch sessions");
+                        alert(data?.detail || "Failed to fetch metrics");
                         setSessions(null);
                         return;
                     }

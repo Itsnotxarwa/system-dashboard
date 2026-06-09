@@ -47,13 +47,13 @@ export default function Agents() {
 
         if (!res) return;
 
-        if (res.ok) {
             const data = await res.json();
-            alert(data?.detail || "Failed to fetch tenant metrics");
-            setAgents([]);
-            return;
-        }
-            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data?.detail || "Failed to fetch agents");
+                setAgents([]);
+                return;
+            }
 
             setAgents(data.agents);
             setTotal(data.total);

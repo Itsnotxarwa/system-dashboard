@@ -40,14 +40,15 @@ export default function CallRecords() {
 
             if (!res) return;
 
+
+            const data = await res.json();
+
             if (!res.ok) {
-                const data = await res.json();
                 alert(data?.detail || "Failed to fetch tenant metrics");
                 setCalls(null);
                 return;
             }
 
-            const data = await res.json();
             setCalls(data);
 
         } catch (err) {
