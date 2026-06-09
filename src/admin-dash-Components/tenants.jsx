@@ -2,7 +2,7 @@ import { useState } from "react";
 import EditModal from "./tenants-components/EditModal";
 import DeleteModal from "./tenants-components/DeleteModal";
 import TenantsTable from "./tenants-components/TenantsTable";
-import { handleUnauthorized } from "../utils/auth";
+import { apiFetch } from "./shared/ApiFetch";
 
 export default function Tenants({tenants, setTenants, loading}) {
     const [search, setSearch] = useState("");    
@@ -29,21 +29,12 @@ export default function Tenants({tenants, setTenants, loading}) {
     const resetPassword = async (tenantId, newPassword) => {
         try {
             
-            const response = await fetch(`
+            const response = await apiFetch(`
                 https://api.mazia.ai/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
                 `,{
                     method: "PATCH",
-                    credentials: "include",
-                    headers: {
-                        "accept": "application/json",
-                    },
                 }
             );
-
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
 
             if (!response.ok) throw new Error("Reset failed");
 
@@ -57,26 +48,17 @@ export default function Tenants({tenants, setTenants, loading}) {
             } catch (error) {
                 console.error(error);
             }
-        };
+    };
 
         {/* DELETE TENANTS */}
         const deleteTenant = async (tenantId) => {
             try{
-                const response = await fetch(`
+                const response = await apiFetch(`
                     https://api.mazia.ai/admin/tenants/${tenantId}`,
                 {
                     method: "DELETE",
-                    headers: {
-                        "accept": "application/json",
-                    },
-                    credentials: "include"
                 }
             );
-
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
 
             if (!response.ok) throw new Error("Delete failed");
             

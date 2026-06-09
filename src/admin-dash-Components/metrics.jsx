@@ -2,12 +2,12 @@ import Sidebar from "./sidebar";
 import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png";
 import { useCallback, useEffect, useState } from "react";
-import { handleUnauthorized } from "../utils/auth";
 import KpiCards from "./metrics-components/KpiCards";
 import GlobalMetrics from "./metrics-components/GlobalMetrics";
 import Spotlight from "./metrics-components/Spotlight";
 import TenantsMetricsTable from "./metrics-components/TenantsMetricsTable";
 import TenantMetricsDetails from "./metrics-components/TenantMetricsDetails";
+import apiFetch from "./shared/ApiFetch";
 
 export default function Metrics() {
     const [overview, setOverview] = useState([]);
@@ -21,17 +21,10 @@ export default function Metrics() {
         try{
             setLoading(true);
 
-            const response = await fetch(`https://api.mazia.ai/admin/metrics/overview`, {
+            const response = await apiFetch("https://api.mazia.ai/admin/metrics/overview", {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
             });
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+
 
             if (response.status === 404) {
                 setOverview([]);
@@ -64,17 +57,9 @@ export default function Metrics() {
         try{
             setLoading(true);
 
-            const response = await fetch(`https://api.mazia.ai/admin/metrics/tenants`, {
+            const response = await apiFetch(`https://api.mazia.ai/admin/metrics/tenants`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
             });
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
 
             if (response.status === 404) {
                 setTenantsMetrics([]);

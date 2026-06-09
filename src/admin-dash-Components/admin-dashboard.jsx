@@ -3,7 +3,7 @@ import Overview from "./tenants-components/overview";
 import Sidebar from "./sidebar";
 import Tenants from "./tenants";
 import CreateModal from "./tenants-components/createModal";
-import { handleUnauthorized } from "../utils/auth";
+import { apiFetch } from "./shared/ApiFetch";
 
 export default function AdminDashboard() {
 
@@ -22,17 +22,8 @@ export default function AdminDashboard() {
             try {
                 setLoading(true);
 
-                const response = await fetch("https://api.mazia.ai/admin/tenants", {
-                  credentials: "include",
-                  headers: {
-                        "accept": "application/json",
-                    }
-                });
-
-                if (response.status === 401) {
-                    handleUnauthorized(401);
-                    return;
-                }
+                const response = await apiFetch("https://api.mazia.ai/admin/tenants");
+                if (!response.ok) throw new Error("Failed to fetch tenants");
                 
                 const data = await response.json();
                 console.log("tenants:", data);
@@ -53,35 +44,28 @@ export default function AdminDashboard() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("https://api.mazia.ai/admin/tenants", {
+      const response = await apiFetch("https://api.mazia.ai/admin/tenants", {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "accept": "application/json"
         },
         body: JSON.stringify(form)
       });
-
-      if (response.status === 401) {
-          handleUnauthorized(401);
-          return;
-      }
-
-      const data = await response.json();
-      console.log(data);
 
       if (!response.ok) {
         alert(`Error: ${data?.detail || "Failed to create tenant"}`);
         return;
       }
 
+      const data = await response.json();
+      console.log(data);
+
       setTenants(prev => [...prev, data]);
       setCreatedTenant(data);
 
     } catch (error) {
       console.error(error);
-      alert(`Failed: ${error?.detail}`);
+      alert(`Failed: ${error?.message}`);
     }
   };
 

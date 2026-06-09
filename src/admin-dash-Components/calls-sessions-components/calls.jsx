@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import {handleUnauthorized} from "../../utils/auth";
 import KpiCards from "./kpiCards";
 import CallsBarChart from "./CallsBarChart";
 import CallSummary from "./callsSummary";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function Calls({range}) {
     const [calls, setCalls] = useState(null);
@@ -11,18 +11,7 @@ export default function Calls({range}) {
             const fetchCalls = async () => {
                 try {
         
-                const res = await fetch(`https://api.mazia.ai/admin/tenants/calls/overview`,{
-                    headers: 
-                    {
-                        accept: "application/json",
-                    },
-                    credentials: "include"
-                });
-    
-                if (res.status === 401) {
-                    handleUnauthorized(401);
-                    return;
-                }
+                const res = await apiFetch("https://api.mazia.ai/admin/tenants/calls/overview");
     
                 const data = await res.json();
                 setCalls(data);

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import {handleUnauthorized} from "../../utils/auth";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [sessions, setSessions] = useState([]);
@@ -27,18 +27,9 @@ export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
 
             const url = `https://api.mazia.ai/admin/tenants/calls/sessions?${params.toString()}`;
 
-            const response = await fetch(url, {
+            const response = await apiFetch(url, {
                 method: "GET",
-                headers: {
-                    "accept": "application/json",
-                },
-                credentials: "include",
             });
-
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
             
             if (response.status === 404) {
                 setSessions([]);

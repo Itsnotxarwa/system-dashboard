@@ -1,6 +1,7 @@
 import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
 import { handleUnauthorized } from "../../utils/auth";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function EditAgent({onClose, onCancel, selectedAgent, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools"];
@@ -52,10 +53,8 @@ export default function EditAgent({onClose, onCancel, selectedAgent, setAgents})
                 is_active: form.is_active, tools: form.tools || [], models_config: form.models_config,
                 voicemail: form.voicemail || { leave_message: false, message: "" }
             };
-            const res = await fetch(`https://api.mazia.ai/admin/agents/${form.id}/config`, {
+            const res = await apiFetch(`https://api.mazia.ai/admin/agents/${form.id}/config`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
                 body: JSON.stringify(payload),
             });
             if (res.status === 401) { handleUnauthorized(401); return; }

@@ -1,12 +1,12 @@
 import Sidebar from "./sidebar";
 import { useState, useEffect, useCallback } from "react";
-import { handleUnauthorized } from "../utils/auth";
 import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png";
 import AgentsTable from "./agents-components/agentsTable";
 import AgentDetails from "./agents-components/AgentDetails";
 import EditAgent from "./agents-components/EditAgent";
 import DeleteAgent from "./agents-components/DeleteAgent";
+import { apiFetch } from "./shared/ApiFetch";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);
@@ -40,18 +40,10 @@ export default function Agents() {
 
             const url = `https://api.mazia.ai/admin/agents?${params.toString()}`;
 
-            const response = await fetch(url, {
+            const response = await apiFetch(url, {
                 method: "GET",
-                headers: {
-                    "accept": "application/json",
-                },
-                credentials: "include"
             });
 
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
 
             if (response.status === 404) {
                 setAgents([]);
@@ -79,21 +71,12 @@ export default function Agents() {
 
     const deleteAgent = async (AgentId) => {
         try{
-            const response = await fetch(`
+            const response = await apiFetch(`
                 https://api.mazia.ai/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
-                headers: {
-                    "accept": "application/json",
-                },
-                credentials: "include"
             }
         );
-
-        if (response.status === 401) {
-            handleUnauthorized(401);
-            return;
-        }
 
         if (!response.ok) throw new Error("Delete failed");
         setAgents(prev => prev.filter(t => t.id !== AgentId))
