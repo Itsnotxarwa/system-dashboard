@@ -3,7 +3,7 @@ import TenantSidebar from "./tenantSidebar";
 import { useState, useEffect, useCallback  } from "react";
 import TopBar from "./TopBar";
 import CallsOverview from "./calls-components/CallsOverview";
-import { handleUnauthorized } from "../../utils/auth";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function CallRecords() {
     const {id} = useParams();
@@ -21,17 +21,9 @@ export default function CallRecords() {
     useEffect(() => {
         const fetchTenant = async () => {
     
-            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            });
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}`);
 
-            if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+            if (!res) return;
             
             const data = await res.json();
             setTenant(data);
@@ -44,22 +36,20 @@ export default function CallRecords() {
         const fetchCalls = async () => {
             try {
     
-            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}/calls/overview`,{
-                headers: 
-                {
-                    accept: "application/json",
-                },
-                credentials: "include",
-            });
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}/calls/overview`);
 
-            if (res.status === 401) {
-                handleUnauthorized(401);
+            if (!res) return;
+
+            if (!res.ok) {
+                const data = await res.json();
+                alert(data?.detail || "Failed to fetch tenant metrics");
+                setCalls(null);
                 return;
             }
 
             const data = await res.json();
-            console.log("calls:", data);
             setCalls(data);
+
         } catch (err) {
             console.error(err)
             setCalls(null)
@@ -79,18 +69,16 @@ export default function CallRecords() {
         if (pageSize) params.append("page_size", pageSize);
 
 
-        const res = await fetch(
-            `https://api.mazia.ai/admin/tenants/${id}/calls/sessions?${params.toString()}`,
-            {
-                headers: {
-                    accept: "application/json",
-                },
-                credentials: "include",
-            }
+        const res = await apiFetch(
+            `https://api.mazia.ai/admin/tenants/${id}/calls/sessions?${params.toString()}`
         );
 
-        if (res.status === 401) {
-            handleUnauthorized(401);
+        if (!res) return;
+
+        if (!res.ok) {
+            const data = await res.json();
+            alert(data?.detail || "Failed to fetch call sessions");
+            setCallSessions([]);
             return;
         }
 

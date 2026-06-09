@@ -4,7 +4,7 @@ import CampaignTable from "./campaignTable";
 import { useState } from "react";
 import EditCampaign from "./EditCampaign";
 import DeleteCampaign from "./DeleteCampaign";
-import { handleUnauthorized } from "../../../utils/auth";
+import { apiFetch } from "../../shared/ApiFetch";
 
 export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
 
@@ -28,20 +28,14 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
     const deleteCampaign = async (campaignId) => {
         try{
             console.log(tenant.id, campaignId)
-            const response = await fetch(
+            const response = await apiFetch(
                 `https://api.mazia.ai/tenants/${tenant.id}/campaigns/${campaignId}/force`,
                 {
                     method: "DELETE",
-                    headers: {
-                        "accept": "application/json",
-                    },
-                    credentials: "include",
-            }
+                }
             );
-            if (response.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+            if (!response) return;
+            
             if (!response.ok) {
                 const errorText = await response.text(); 
                 console.error("Delete failed - status:", response.status, "body:", errorText);

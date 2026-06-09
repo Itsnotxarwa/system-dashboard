@@ -1,7 +1,7 @@
 import { Edit, File, FileUp, Pause, Play, Trash, TriangleAlert, X } from "lucide-react";
 import { useRef, useState } from "react";
-import { handleUnauthorized } from "../../../utils/auth";
 import DeleteRecipients from "./DeleteRecipients";
+import { apiFetch } from "../../shared/ApiFetch";
 
 export default function CampaignTable({ filteredcampaigns, campaigns, setCampaigns, handleDelete,
     handleEdit, selectedCampaign, setSelectedCampaign }) {
@@ -10,17 +10,14 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
     const deleteRecipients = async () => {
         try {
             const campaignId = selectedCampaign.id;
-            const response = await fetch(
+            const response = await apiFetch(
                 `https://api.mazia.ai/campaigns/${campaignId}/recipients`,
                 {
                     method: "DELETE",
-                    headers: {
-                        "accept": "application/json",
-                    },
-                    credentials: "include",
                 }
             );
-            if (response.status === 401) { handleUnauthorized(401); return; }
+            if (!response) return;
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.detail || "Request failed");
@@ -48,16 +45,15 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
         try {
             const formData = new FormData();
             formData.append("file", selectedFile);
-            const res = await fetch(
+            const res = await apiFetch(
                 `https://api.mazia.ai/campaigns/${uploadingCampaignId}/recipients`,
                 {
                     method: "POST",
-                    credentials: "include",
-                    headers: { accept: "application/json" },
                     body: formData,
                 }
             );
-            if (res.status === 401) { handleUnauthorized(401); return; }
+            if (!res) return;
+
             if (!res.ok) throw new Error("Upload failed");
             const data = await res.json();
             setCampaigns(prev => prev.map(c =>
@@ -77,16 +73,11 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
 
     const updateCampaignStatus = async (campaignId, status) => {
         try {
-            const res = await fetch(`https://api.mazia.ai/campaigns/${campaignId}/status`, {
+            const res = await apiFetch(`https://api.mazia.ai/campaigns/${campaignId}/status`, {
                 method: "PATCH",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                    accept: "application/json",
-                },
                 body: JSON.stringify({ status }),
             });
-            if (res.status === 401) { handleUnauthorized(401); return; }
+            if (!res) return;
             const data = await res.json();
             if (!res.ok) { alert(data.detail || "Failed to update status"); return; }
             setCampaigns(prev => prev.map(c => c.id === campaignId ? { ...c, status: data.status || status } : c));

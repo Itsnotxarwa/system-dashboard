@@ -4,7 +4,7 @@ import BasicInfo from "./basicInfo";
 import ModelsConfig from "./modelsConfig";
 import Tools from "./Tools";
 import VoiceMail from "./VoiceMail";
-import { handleUnauthorized } from "../../../utils/auth";
+import {apiFetch} from "../../shared/ApiFetch";
 
 export default function AgentModal({selectedTenant, onClose, onCancel, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools", "Voicemail"];
@@ -36,19 +36,16 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
             setLoading(true);
             const tenantId = selectedTenant?.id;
             const payload = { ...agentData, tools: agentData.tools || [] };
-            const response = await fetch(
+            const response = await apiFetch(
                 `https://api.mazia.ai/admin/tenants/${tenantId}/agents`,
                 {
                     method: "POST",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "accept": "application/json",
-                    },
                     body: JSON.stringify(payload)
                 }
             );
-            if (response.status === 401) { handleUnauthorized(401); return; }
+
+            if (!response) return;
+
             const data = await response.json();
             console.log(data);
             if (!response.ok) throw new Error(data?.detail || "Creation failed");

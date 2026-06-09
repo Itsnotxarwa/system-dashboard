@@ -16,8 +16,8 @@ const apiFetch = async (url, options = {}) => {
         credentials: "include", 
         });
 
-        if (!refreshResponse.ok) {
-        window.location.href = "https://auth.mazia.ai/"; 
+        if (refreshResponse === 401) {
+        window.location.href = "/session-expired"; 
         return;
         }
 

@@ -1,6 +1,6 @@
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
-import { handleUnauthorized } from "../../../utils/auth";
+import {apiFetch} from "../../shared/ApiFetch";
 
 export default function CreateCampaign({ tenant, onClose, onCancel, agents, setCampaigns }) {
     const [loading, setLoading] = useState(false);
@@ -40,13 +40,8 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
         try {
             setLoading(true);
             const tenantId = tenant?.id;
-            const res = await fetch(`https://api.mazia.ai/tenants/${tenantId}/campaign`, {
+            const res = await apiFetch(`https://api.mazia.ai/tenants/${tenantId}/campaign`, {
                 method: "POST",
-                credentials: "include",
-                headers: {
-                    accept: "application/json",
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify({
                     name: campaignData.name,
                     agent_id: campaignData.agent_id,
@@ -55,7 +50,9 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                     time_slots: campaignData.time_slots,
                 }),
             });
-            if (res.status === 401) { handleUnauthorized(401); return; }
+            
+            if (!res) return;
+
             const data = await res.json();
             if (!res.ok) throw new Error(data?.detail || "Creation failed");
             setCampaigns(prev => [...prev, data]);

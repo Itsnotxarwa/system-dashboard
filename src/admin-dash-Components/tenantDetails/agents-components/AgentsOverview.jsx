@@ -5,7 +5,7 @@ import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
 import DeleteAgent from "./DeleteAgent";
 import EditModal from "./EditModal";
-import { handleUnauthorized } from "../../../utils/auth";
+import {apiFetch} from "../../shared/ApiFetch";
 
 export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter, loading, total}) {
     const totalAgents = agents?.length || 0;
@@ -20,21 +20,14 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
 
     const deleteAgent = async (AgentId) => {
         try{
-            const response = await fetch(`
+            const response = await apiFetch(`
                 https://api.mazia.ai/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
-                credentials: "include",
-                headers: {
-                    "accept": "application/json",
-                },
             }
         );
 
-        if (response.status === 401) {
-            handleUnauthorized(401);
-            return;
-        }
+        if (!response) return;
 
         if (!response.ok) throw new Error("Delete failed");
         setAgents(prev => prev.filter(t => t.id !== AgentId))

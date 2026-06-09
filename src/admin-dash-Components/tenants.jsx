@@ -29,47 +29,61 @@ export default function Tenants({tenants, setTenants, loading}) {
     const resetPassword = async (tenantId, newPassword) => {
         try {
             
-            const response = await apiFetch(`
-                https://api.mazia.ai/admin/tenants/${tenantId}/reset-password?new_password=${newPassword}
-                `,{
+            const response = await apiFetch(
+                `https://api.mazia.ai/admin/tenants/${tenantId}/reset-password`,{
                     method: "PATCH",
+                    body: JSON.stringify({ new_password: newPassword }),
                 }
             );
 
-            if (!response.ok) throw new Error("Reset failed");
+            if (!response) return;
 
             const data = await response.json();
-            console.log(data);
-            setTenants(prev => prev.map(t => t.id === tenantId ? {...t, password: newPassword} : t)); // add this
 
+            if (!response.ok) {
+                alert(data?.detail || "Reset failed");
+                return;
+            }
+
+            setTenants(prev => prev.map(t => t.id === tenantId ? {...t, password: newPassword} : t)); // add this
             setShowEditModal(false);
 
-
             } catch (error) {
+                alert("Network error, check your connection");
                 console.error(error);
             }
     };
 
-        {/* DELETE TENANTS */}
-        const deleteTenant = async (tenantId) => {
+    {/* DELETE TENANTS */}
+    const deleteTenant = async (tenantId) => {
             try{
-                const response = await apiFetch(`
-                    https://api.mazia.ai/admin/tenants/${tenantId}`,
+                const response = await apiFetch(
+                    `https://api.mazia.ai/admin/tenants/${tenantId}`,
                 {
                     method: "DELETE",
                 }
             );
 
-            if (!response.ok) throw new Error("Delete failed");
+            if (!response) return;
+
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data?.detail || "Failed to delete tenant");
+                return;
+            }
             
-            setTenants(prev => prev.filter(t => t.id !== tenantId));
+            if (response.status !== 204) {
             const data = await response.json();
-            console.log(data);
+            console.log("Delete response:", data);
+            }
+
+            setTenants(prev => prev.filter(t => t.id !== tenantId));
 
             } catch (error) {
+                alert("Network error, check your connection");
                 console.error(error);
             }
-        }
+    }
 
         if (loading) {
             return (

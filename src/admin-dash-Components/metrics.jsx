@@ -15,8 +15,6 @@ export default function Metrics() {
     const [selectedTenant, setSelectedTenant] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
-
     const fetchOverview = useCallback(async() => {
         try{
             setLoading(true);
@@ -25,24 +23,18 @@ export default function Metrics() {
                 method: "GET",
             });
 
+            if(!response) return;
 
-            if (response.status === 404) {
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data?.detail || "Failed to fetch overview");
                 setOverview([]);
                 return;
             }
 
-            if (!response.ok) {
-                throw new Error(`Error fetching overview: ${response.statusText}`);
-            }
-
             const data = await response.json();
             setOverview(data);
-            setLoading(false);
-            console.log("overview:", data);
 
-        } catch (error) {
-            console.error("Error fetching overview:", error);
-            setOverview([]);
         } finally {
             setLoading(false);
         }
@@ -61,19 +53,17 @@ export default function Metrics() {
                 method: "GET",
             });
 
-            if (response.status === 404) {
+            if (!response) return;
+
+            if (!response.ok) {
+                const data = await response.json();
+                alert(data?.detail || "Failed to fetch tenants metrics");
                 setTenantsMetrics([]);
                 return;
             }
 
-            if (!response.ok) {
-                throw new Error(`Error fetching tenants metrics: ${response.statusText}`);
-            }
-
             const data = await response.json();
             setTenantsMetrics(data);
-            setLoading(false);
-            console.log("tenants metrics:", data);
 
         } catch (error) {
             console.error("Error fetching tenants metrics:", error);

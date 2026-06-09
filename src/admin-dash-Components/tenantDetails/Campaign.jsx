@@ -4,7 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import TopBar from "./TopBar";
 import CampaignOverview from "./campaign-components/camOverview";
 import CreateCampaign from "./campaign-components/CreateCampaign";
-import { handleUnauthorized } from "../../utils/auth";
+import { apiFetch } from "../shared/ApiFetch";
 
 export default function Campaign() {
     const {id} = useParams();
@@ -17,17 +17,9 @@ export default function Campaign() {
     useEffect(() => {
         const fetchTenant = async () => {
     
-            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            });
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}`);
 
-            if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+            if (!res) return;
             
             const data = await res.json();
             setTenant(data);
@@ -40,21 +32,20 @@ export default function Campaign() {
         const fetchCampaigns = async () => {
             try {
     
-            const res = await fetch(`https://api.mazia.ai/tenants/${id}/campaigns`,{
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            });
+            const res = await apiFetch(`https://api.mazia.ai/tenants/${id}/campaigns`);
 
-            if (res.status === 401) {
-                handleUnauthorized(401);
+            if (!res) return;
+
+            if (res.ok) {
+                const data = await res.json();
+                alert(data?.detail || "Failed to fetch tenant metrics");
+                setCampaigns([]);
                 return;
             }
 
             const data = await res.json();
-            console.log("Campaigns:", data);
             setCampaigns(data);
+
         } catch (error) {
             console.error("Error fetching campaigns:", error);
             setCampaigns([]);
@@ -75,28 +66,19 @@ export default function Campaign() {
         const fetchAgents = async () => {
             try {
 
-        const res = await fetch(
-            `https://api.mazia.ai/admin/tenants/${id}/agents`,
-            {
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            }
-        );
+        const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}/agents`);
+            
 
-        if (res.status === 401) {
-            handleUnauthorized(401);
-            return;
-        }
+        if (!res) return;
         
-        if (res.status === 404) {
+        if (!res.ok) {
+            const data = await res.json();
+            alert(data?.detail || "Failed to fetch agents");
             setAgents([]);
             return;
         }
-            const data = await res.json();
-            console.log(data)
 
+            const data = await res.json();
             setAgents(data);
 
             } catch (err) {

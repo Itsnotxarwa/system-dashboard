@@ -4,7 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import AgentModal from "./agents-components/AgentModal";
 import TopBar from "./TopBar";
 import AgentsOverview from "./agents-components/AgentsOverview";
-import { handleUnauthorized } from "../../utils/auth";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function Agents() {
     const {id} = useParams();
@@ -20,17 +20,9 @@ export default function Agents() {
     useEffect(() => {
         const fetchTenant = async () => {
 
-            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            });
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}`);
 
-            if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+            if (!res) return;
 
             const data = await res.json();
             setTenant(data);
@@ -51,27 +43,17 @@ export default function Agents() {
                 params.toString() ? `?${params.toString()}` : ""
             }`;
 
-        const res = await fetch(
-            url,
-            {
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            }
-        );
+        const res = await apiFetch(url);
 
-        if (res.status === 401) {
-            handleUnauthorized(401);
-            return;
-        }
+        if (!res) return;
 
-        if (res.status === 404) {
+        if (res.ok) {
+            const data = await res.json();
+            alert(data?.detail || "Failed to fetch tenant metrics");
             setAgents([]);
             return;
         }
             const data = await res.json();
-            console.log(data)
 
             setAgents(data.agents);
             setTotal(data.total);

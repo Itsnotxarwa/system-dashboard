@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "./tenantSidebar";
-import { handleUnauthorized } from "../../utils/auth";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
 import SessionsTable from "./metrics-components/SessionsTable";
 import SessionDetails from "./metrics-components/SessionDetails";
+import {apiFetch} from "../shared/ApiFetch";
 
 export default function Metrics() {
     
@@ -27,17 +27,7 @@ export default function Metrics() {
         useEffect(() => {
         const fetchTenant = async () => {
 
-            const res = await fetch(`https://api.mazia.ai/admin/tenants/${id}`,{
-                headers: {
-                accept: "application/json",
-                },
-                credentials: "include",
-            });
-
-            if (res.status === 401) {
-                handleUnauthorized(401);
-                return;
-            }
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}`);
 
             const data = await res.json();
             setTenant(data);
@@ -50,30 +40,22 @@ export default function Metrics() {
         const fetchMetrics = async() => {
             try{
                 setLoading(true);
-                const response = await fetch(`https://api.mazia.ai/admin/metrics/tenants/${id}`, {
+                const response = await apiFetch(`https://api.mazia.ai/admin/metrics/tenants/${id}`, {
                     method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
+
                 });
-                if (response.status === 401) {
-                    handleUnauthorized(401);
-                    return;
-                }
+
+                if(!response) return;
     
-                if (response.status === 404) {
+                if (!response.ok) {
+                    const data = await response.json();
+                    alert(data?.detail || "Failed to fetch tenant metrics");
                     setMetrics([]);
                     return;
                 }
     
-                if (!response.ok) {
-                    throw new Error(`Error fetching metrics: ${response.statusText}`);
-                }
-    
                 const data = await response.json();
                 setMetrics([data]);
-                console.log("metrics:", data);
     
             } catch (error) {
                 console.error("Error fetching metrics:", error);
@@ -96,32 +78,24 @@ export default function Metrics() {
                     if (page) params.append("page", page);
                     if (pageSize) params.append("page_size", pageSize);
 
-                    const response = await fetch(
+                    const response = await apiFetch(
                         `https://api.mazia.ai/admin/metrics/tenants/${id}/sessions?${params.toString()}`, {
                         method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        credentials: "include",
                     });
-                    if (response.status === 401) {
-                        handleUnauthorized(401);
-                        return;
-                    }
-    
-                    if (response.status === 404) {
-                        setSessions(null);
-                        return;
-                    }
+                    
+                    if(!response) return;
     
                     if (!response.ok) {
-                        throw new Error(`Error fetching sessions: ${response.statusText}`);
+                        const data = await response.json();
+                        alert(data?.detail || "Failed to fetch sessions");
+                        setSessions(null);
+                        return;
                     }
     
                     const data = await response.json();
                     setSessions(data);
                     setTotal(data.total);
-                    console.log("sessions:", data);
+
                 } catch(err) {
                     console.error("Error fetching sessions:", err);
                     setSessions(null);
