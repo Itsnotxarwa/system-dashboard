@@ -16,7 +16,7 @@ const apiFetch = async (url, options = {}) => {
         credentials: "include", 
         });
 
-        if (refreshResponse === 401) {
+        if (refreshResponse.status === 401) {
         window.location.href = "/session-expired"; 
         return;
         }

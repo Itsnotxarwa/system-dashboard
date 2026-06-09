@@ -52,13 +52,12 @@ export default function AdminDashboard() {
         body: JSON.stringify(form)
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
         alert(`Error: ${data?.detail || "Failed to create tenant"}`);
         return;
       }
-
-      const data = await response.json();
-      console.log(data);
 
       setTenants(prev => [...prev, data]);
       setCreatedTenant(data);
