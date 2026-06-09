@@ -4,7 +4,7 @@ import CampaignTable from "./campaignTable";
 import { useState } from "react";
 import EditCampaign from "./EditCampaign";
 import DeleteCampaign from "./DeleteCampaign";
-import { apiFetch } from "../../shared/ApiFetch";
+import apiFetch from "../../shared/ApiFetch";
 
 export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
 

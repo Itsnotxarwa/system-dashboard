@@ -6,7 +6,7 @@ import AgentsTable from "./agents-components/agentsTable";
 import AgentDetails from "./agents-components/AgentDetails";
 import EditAgent from "./agents-components/EditAgent";
 import DeleteAgent from "./agents-components/DeleteAgent";
-import { apiFetch } from "./shared/ApiFetch";
+import apiFetch from "./shared/ApiFetch";
 
 export default function Agents() {
     const [agents, setAgents] = useState([]);

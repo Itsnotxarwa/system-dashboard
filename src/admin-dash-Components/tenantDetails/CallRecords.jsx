@@ -3,7 +3,7 @@ import TenantSidebar from "./tenantSidebar";
 import { useState, useEffect, useCallback  } from "react";
 import TopBar from "./TopBar";
 import CallsOverview from "./calls-components/CallsOverview";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function CallRecords() {
     const {id} = useParams();

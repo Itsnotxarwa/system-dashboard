@@ -6,7 +6,7 @@ import Mazia from "../../assets/mazia.png";
 import KpiCards from "./metrics-components/kpiCards";
 import SessionsTable from "./metrics-components/SessionsTable";
 import SessionDetails from "./metrics-components/SessionDetails";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function Metrics() {
     

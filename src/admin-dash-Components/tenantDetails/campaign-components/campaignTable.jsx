@@ -1,7 +1,7 @@
 import { Edit, File, FileUp, Pause, Play, Trash, TriangleAlert, X } from "lucide-react";
 import { useRef, useState } from "react";
 import DeleteRecipients from "./DeleteRecipients";
-import { apiFetch } from "../../shared/ApiFetch";
+import apiFetch from "../../shared/ApiFetch";
 
 export default function CampaignTable({ filteredcampaigns, campaigns, setCampaigns, handleDelete,
     handleEdit, selectedCampaign, setSelectedCampaign }) {

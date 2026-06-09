@@ -1,7 +1,6 @@
 import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
-import { handleUnauthorized } from "../../utils/auth";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function EditAgent({onClose, onCancel, selectedAgent, setAgents}) {
     const TABS = ["Basic Info", "Models Config", "Tools"];
@@ -57,7 +56,9 @@ export default function EditAgent({onClose, onCancel, selectedAgent, setAgents})
                 method: "PUT",
                 body: JSON.stringify(payload),
             });
-            if (res.status === 401) { handleUnauthorized(401); return; }
+            
+            if (!res) return;
+            
             const data = await res.json();
             if (!res.ok) throw new Error(data?.detail || "Update failed");
             setAgents(prev => prev.map(a => a.id === form.id ? {...a, ...data} : a));

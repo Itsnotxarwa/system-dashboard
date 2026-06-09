@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import KpiCards from "./kpiCards";
 import CallsBarChart from "./CallsBarChart";
 import CallSummary from "./callsSummary";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function Calls({range}) {
     const [calls, setCalls] = useState(null);

@@ -4,7 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import TopBar from "./TopBar";
 import CampaignOverview from "./campaign-components/camOverview";
 import CreateCampaign from "./campaign-components/CreateCampaign";
-import { apiFetch } from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function Campaign() {
     const {id} = useParams();

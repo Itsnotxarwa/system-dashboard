@@ -4,7 +4,7 @@ import TenantSidebar from "./tenantSidebar";
 import AgentModal from "./agents-components/AgentModal";
 import TopBar from "./TopBar";
 import AgentsOverview from "./agents-components/AgentsOverview";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function Agents() {
     const {id} = useParams();

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import {apiFetch} from "../shared/ApiFetch";
+import apiFetch from "../shared/ApiFetch";
 
 export default function Sessions({setSelectedSession, setOpenSessionDrawer }) {
     const [sessions, setSessions] = useState([]);
