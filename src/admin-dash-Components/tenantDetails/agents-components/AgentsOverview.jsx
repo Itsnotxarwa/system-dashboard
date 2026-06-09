@@ -20,14 +20,13 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
 
     const deleteAgent = async (AgentId) => {
         try{
-            const token = localStorage.getItem("token");
             const response = await fetch(`
                 https://api.voixup.fr/admin/agents/${AgentId}`,
             {
                 method: "DELETE",
+                credentials: "include",
                 headers: {
                     "accept": "application/json",
-                    "Authorization": `Bearer ${token}`,
                 },
             }
         );

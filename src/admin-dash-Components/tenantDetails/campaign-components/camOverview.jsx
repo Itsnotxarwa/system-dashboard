@@ -28,15 +28,14 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
     const deleteCampaign = async (campaignId) => {
         try{
             console.log(tenant.id, campaignId)
-            const token = localStorage.getItem("token");
             const response = await fetch(
                 `https://api.voixup.fr/tenants/${tenant.id}/campaigns/${campaignId}/force`,
                 {
                     method: "DELETE",
                     headers: {
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`,
                     },
+                    credentials: "include",
             }
             );
             if (response.status === 401) {

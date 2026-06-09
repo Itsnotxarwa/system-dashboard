@@ -48,6 +48,7 @@ export default function AdminDashboard() {
         
         fetchTenants();
     }, []);
+    
   const [createdTenant, setCreatedTenant] = useState(null);
 
   const handleSubmit = async () => {

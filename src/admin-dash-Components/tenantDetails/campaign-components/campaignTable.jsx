@@ -9,7 +9,6 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
 
     const deleteRecipients = async () => {
         try {
-            const token = localStorage.getItem("token");
             const campaignId = selectedCampaign.id;
             const response = await fetch(
                 `https://api.voixup.fr/campaigns/${campaignId}/recipients`,
@@ -17,8 +16,8 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                     method: "DELETE",
                     headers: {
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`,
                     },
+                    credentials: "include",
                 }
             );
             if (response.status === 401) { handleUnauthorized(401); return; }
@@ -47,14 +46,14 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
         const selectedFile = e.target.files[0];
         if (!selectedFile) return;
         try {
-            const token = localStorage.getItem("token");
             const formData = new FormData();
             formData.append("file", selectedFile);
             const res = await fetch(
                 `https://api.voixup.fr/campaigns/${uploadingCampaignId}/recipients`,
                 {
                     method: "POST",
-                    headers: { accept: "application/json", Authorization: `Bearer ${token}` },
+                    credentials: "include",
+                    headers: { accept: "application/json" },
                     body: formData,
                 }
             );
@@ -78,13 +77,12 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
 
     const updateCampaignStatus = async (campaignId, status) => {
         try {
-            const token = localStorage.getItem("token");
             const res = await fetch(`https://api.voixup.fr/campaigns/${campaignId}/status`, {
                 method: "PATCH",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                     accept: "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ status }),
             });

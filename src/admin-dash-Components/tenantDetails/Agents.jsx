@@ -19,13 +19,12 @@ export default function Agents() {
     {/* fetch Tenant */}
     useEffect(() => {
         const fetchTenant = async () => {
-            const token = localStorage.getItem("token");
 
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -44,7 +43,6 @@ export default function Agents() {
         const fetchAgents = async () => {
             try {
             setLoading(true);
-            const token = localStorage.getItem("token");
             const params = new URLSearchParams();
 
             if (typeFilter) params.append("type", typeFilter);
@@ -58,8 +56,8 @@ export default function Agents() {
             {
                 headers: {
                 accept: "application/json",
-                Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             }
         );
 

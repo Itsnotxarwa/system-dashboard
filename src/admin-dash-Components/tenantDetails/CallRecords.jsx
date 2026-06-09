@@ -20,13 +20,12 @@ export default function CallRecords() {
     {/* fetch tenants */}
     useEffect(() => {
         const fetchTenant = async () => {
-            const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -44,14 +43,13 @@ export default function CallRecords() {
     useEffect(() => {
         const fetchCalls = async () => {
             try {
-            const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}/calls/overview`,{
                 headers: 
                 {
                     accept: "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -80,15 +78,14 @@ export default function CallRecords() {
         if (page) params.append("page", page);
         if (pageSize) params.append("page_size", pageSize);
 
-        const token = localStorage.getItem("token");
 
         const res = await fetch(
             `https://api.voixup.fr/admin/tenants/${id}/calls/sessions?${params.toString()}`,
             {
                 headers: {
                     accept: "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             }
         );
 

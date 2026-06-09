@@ -34,17 +34,16 @@ export default function AgentModal({selectedTenant, onClose, onCancel, setAgents
         if (loading) return;
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
             const tenantId = selectedTenant?.id;
             const payload = { ...agentData, tools: agentData.tools || [] };
             const response = await fetch(
                 `https://api.voixup.fr/admin/tenants/${tenantId}/agents`,
                 {
                     method: "POST",
+                    credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
                         "accept": "application/json",
-                        "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify(payload)
                 }

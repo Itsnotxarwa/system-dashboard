@@ -16,13 +16,12 @@ export default function Campaign() {
      {/* fetch tenants */}
     useEffect(() => {
         const fetchTenant = async () => {
-            const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/admin/tenants/${id}`,{
                 headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -40,13 +39,12 @@ export default function Campaign() {
     useEffect(() => {
         const fetchCampaigns = async () => {
             try {
-            const token = localStorage.getItem("token");
     
             const res = await fetch(`https://api.voixup.fr/tenants/${id}/campaigns`,{
                 headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             });
 
             if (res.status === 401) {
@@ -76,15 +74,14 @@ export default function Campaign() {
     useEffect(() => {
         const fetchAgents = async () => {
             try {
-            const token = localStorage.getItem("token");
 
         const res = await fetch(
             `https://api.voixup.fr/admin/tenants/${id}/agents`,
             {
                 headers: {
                 accept: "application/json",
-                Authorization: `Bearer ${token}`,
                 },
+                credentials: "include",
             }
         );
 
