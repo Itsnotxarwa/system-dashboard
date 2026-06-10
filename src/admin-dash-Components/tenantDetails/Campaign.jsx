@@ -79,7 +79,7 @@ export default function Campaign() {
         }
 
             const data = await res.json();
-            setAgents(data);
+            setAgents(data.agents ?? []);
 
             } catch (err) {
             console.error(err);
