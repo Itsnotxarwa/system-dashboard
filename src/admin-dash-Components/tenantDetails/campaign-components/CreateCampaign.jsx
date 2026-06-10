@@ -4,7 +4,6 @@ import apiFetch from "../../shared/ApiFetch";
 
 export default function CreateCampaign({ tenant, onClose, onCancel, agents, setCampaigns }) {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
 
     const [campaignData, setCampaignData] = useState({
         name: "",
@@ -41,39 +40,33 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
         });
     };
 
+    const [errors, setErrors] = useState({
+        name: "",
+        agent_id: "",
+        start_date: "",
+        batch_size: "",
+        time_slots: "",
+    });
+
     const createCampaign = async () => {
         if (loading) return;
 
-        //validation
-        if (!campaignData.name.trim()) {
-            setError("Campaign name is required");
-            return;
-        }
-        if (!campaignData.agent_id) {
-            setError("Please select an agent");
-            return;
-        }
-        if (!campaignData.start_date) {
-            setError("Start date is required");
-            return;
-        }
-        if (!campaignData.batch_size || campaignData.batch_size < 1) {
-            setError("Batch size must be at least 1");
-            return;
-        }
-        if (campaignData.time_slots.length === 0) {
-            setError("At least one time slot is required");
-            return;
-        }
-        const hasEmptySlot = campaignData.time_slots.some(
-            slot => !slot.start_time || !slot.end_time
-        );
-        if (hasEmptySlot) {
-            setError("Please fill in all time slot start and end times");
-            return;
-        }
+         // validate all fields at once
+        const newErrors = {
+            name: !campaignData.name.trim() ? "Campaign name is required" : "",
+            agent_id: !campaignData.agent_id ? "Please select an agent" : "",
+            start_date: !campaignData.start_date ? "Start date is required" : "",
+            batch_size: (!campaignData.batch_size || campaignData.batch_size < 1) ? "Batch size must be at least 1" : "",
+            time_slots: campaignData.time_slots.length === 0
+                ? "At least one time slot is required"
+                : campaignData.time_slots.some(s => !s.start_time || !s.end_time)
+                ? "Please fill in all time slot times"
+                : "",
+        };
 
-        setError("");
+        setErrors(newErrors);
+
+        if (Object.values(newErrors).some(e => e !== "")) return;
 
         try {
             setLoading(true);
@@ -92,12 +85,17 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
             if (!res) return;
 
             const data = await res.json();
-            if (!res.ok) throw new Error(data?.detail || "Creation failed");
+
+            if (!res.ok) {
+                setErrors(prev => ({ ...prev, name: data?.detail || "Creation failed" }));
+                return;
+            }
+
             setCampaigns(prev => [...prev, data]);
             onClose();
         } catch (error) {
             console.error(error);
-            alert(`Failed: ${error?.message}`);
+            setErrors(prev => ({ ...prev, name: error?.message || "Something went wrong" }));
         } finally {
             setLoading(false);
         }
@@ -139,6 +137,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
 
                 {/* Form */}
                 <div className="overflow-y-auto scroll flex-1 px-6 py-5 space-y-4">
+                    {/* Name */}
                     <div>
                         <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
                             Campaign Name <span className="text-[#f85149]">*</span>
@@ -151,8 +150,10 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                             bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                             focus:border-[#58a6ff] transition-colors font-mono"
                         />
+                        {errors.name && <p className="mt-1 text-[10px] text-[#f85149]">{errors.name}</p>}
                     </div>
 
+                    {/* select an agent */}
                     <div>
                         <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
                             Agent <span className="text-[#f85149]">*</span>
@@ -172,8 +173,10 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                                     </option>
                                 ))}
                         </select>
+                        {errors.agent_id && <p className="mt-1 text-[10px] text-[#f85149]">{errors.agent_id}</p>}
                     </div>
 
+                    {/* Start date */}
                     <div>
                         <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
                             Start Date <span className="text-[#f85149]">*</span>
@@ -186,6 +189,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                             onChange={(e) => setCampaignData({ ...campaignData, start_date: e.target.value })}
                             type="date"
                         />
+                        {errors.start_date && <p className="mt-1 text-[10px] text-[#f85149]">{errors.start_date}</p>}
                     </div>
 
                     {/* Batch Size */}
@@ -201,6 +205,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                             onChange={(e) => setCampaignData({ ...campaignData, batch_size: Number(e.target.value) })}
                             type="number" min={1} max={500}
                         />
+                        {errors.batch_size && <p className="mt-1 text-[10px] text-[#f85149]">{errors.batch_size}</p>}
                     </div>
 
                     {/* Time Slots */}
@@ -224,6 +229,10 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                             border-[#30363d] rounded-xl">
                                 No time slots added yet
                             </p>
+                        )}
+
+                        {errors.time_slots && (
+                            <p className="mt-1 text-[10px] text-[#f85149]">{errors.time_slots}</p>
                         )}
 
                         <div className="space-y-2">
@@ -265,13 +274,6 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t
                 border-[#21262d] bg-[rgba(255,255,255,.02)] shrink-0">
-                    {/* Error message */}
-                    {error && (
-                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg
-                        bg-[rgba(248,81,73,.08)] border border-[rgba(248,81,73,.25)]">
-                            <span className="text-[#f85149] text-xs">{error}</span>
-                        </div>
-                    )}
                     <div className="flex gap-2.5">
                         <button
                             onClick={onCancel}
