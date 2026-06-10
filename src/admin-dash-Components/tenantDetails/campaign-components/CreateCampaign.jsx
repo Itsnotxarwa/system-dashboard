@@ -4,6 +4,7 @@ import apiFetch from "../../shared/ApiFetch";
 
 export default function CreateCampaign({ tenant, onClose, onCancel, agents, setCampaigns }) {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const [campaignData, setCampaignData] = useState({
         name: "",
@@ -14,6 +15,11 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
     });
 
     const addTimeSlot = () => {
+        if(campaignData.time_slots.length >= 2) {
+            alert("Maximum 2 time slots allowed");
+            return;
+        }
+
         setCampaignData(prev => ({
             ...prev,
             time_slots: [...prev.time_slots, { start_time: "", end_time: "" }],
@@ -37,6 +43,38 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
 
     const createCampaign = async () => {
         if (loading) return;
+
+        //validation
+        if (!campaignData.name.trim()) {
+            setError("Campaign name is required");
+            return;
+        }
+        if (!campaignData.agent_id) {
+            setError("Please select an agent");
+            return;
+        }
+        if (!campaignData.start_date) {
+            setError("Start date is required");
+            return;
+        }
+        if (!campaignData.batch_size || campaignData.batch_size < 1) {
+            setError("Batch size must be at least 1");
+            return;
+        }
+        if (campaignData.time_slots.length === 0) {
+            setError("At least one time slot is required");
+            return;
+        }
+        const hasEmptySlot = campaignData.time_slots.some(
+            slot => !slot.start_time || !slot.end_time
+        );
+        if (hasEmptySlot) {
+            setError("Please fill in all time slot start and end times");
+            return;
+        }
+
+        setError("");
+
         try {
             setLoading(true);
             const tenantId = tenant?.id;
@@ -150,6 +188,7 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                         />
                     </div>
 
+                    {/* Batch Size */}
                     <div>
                         <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
                             Batch Size <span className="text-[#f85149]">*</span>
@@ -173,7 +212,8 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                             <button
                                 className="text-[10px] px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1
                                 bg-[rgba(88,166,255,.12)] text-[#58a6ff] border border-[rgba(88,166,255,.2)]"
-                                onClick={addTimeSlot}>
+                                onClick={addTimeSlot}
+                                disabled={campaignData.time_slots.length >= 2}>
                                 <Plus size={12} />
                                 Add Slot
                             </button>
@@ -225,6 +265,13 @@ export default function CreateCampaign({ tenant, onClose, onCancel, agents, setC
                 {/* Footer */}
                 <div className="flex items-center justify-end px-6 py-4 border-t
                 border-[#21262d] bg-[rgba(255,255,255,.02)] shrink-0">
+                    {/* Error message */}
+                    {error && (
+                        <div className="flex items-center gap-2 px-3 py-2 rounded-lg
+                        bg-[rgba(248,81,73,.08)] border border-[rgba(248,81,73,.25)]">
+                            <span className="text-[#f85149] text-xs">{error}</span>
+                        </div>
+                    )}
                     <div className="flex gap-2.5">
                         <button
                             onClick={onCancel}
