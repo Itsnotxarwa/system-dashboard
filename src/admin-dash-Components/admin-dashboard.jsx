@@ -58,7 +58,11 @@ export default function AdminDashboard() {
         : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
         ? "Enter a valid email"
         : "",
-      phone: !form.phone.trim() ? "Phone is required" : "",
+      phone: !form.phone.trim()
+        ? "Phone is required"
+        : !/^\+?[0-9\s\-()]{7,15}$/.test(form.phone.trim())
+        ? "Enter a valid phone number"
+        : "",
     };
 
     setErrors(newErrors);
