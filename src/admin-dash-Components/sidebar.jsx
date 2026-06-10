@@ -2,22 +2,18 @@ import { NavLink } from "react-router-dom";
 import { Building, Phone, KeyRound, ChartColumn, LogOut, Bot } from "lucide-react";
 import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png"
+import apiFetch from "./shared/ApiFetch";
 
 
 export default function Sidebar() {
 
     const handleLogout = async () => {
     try {
-        const token = localStorage.getItem("token");
 
-        const res = await fetch(
+        const res = await apiFetch(
             "https://api.voixup.fr/auth/logout",
             {
                 method: "POST",
-                headers: {
-                    accept: "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
             }
         );
 
@@ -28,9 +24,7 @@ export default function Sidebar() {
     } catch (err) {
         console.error(err);
     } finally {
-        localStorage.removeItem("token");
-
-        window.location.href = "https://mazia-login.vercel.app/";
+        window.location.replace("https://auth.mazia.ai/")
     }
 };
 
