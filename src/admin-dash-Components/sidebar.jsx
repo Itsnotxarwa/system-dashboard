@@ -11,7 +11,7 @@ export default function Sidebar() {
     try {
 
         const res = await apiFetch(
-            "https://api.voixup.fr/auth/logout",
+            "https://api.mazia.ai/auth/logout",
             {
                 method: "POST",
             }

@@ -8,7 +8,7 @@ import SessionExpired from './SessionExpired';
 import Agents from "./admin-dash-Components/agents";
 import CallsSessions from './admin-dash-Components/callsSessions';
 import Metrics from './admin-dash-Components/metrics';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from "./ProtectedRoute"
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
         <Route path="/agents" element={<ProtectedRoute><Agents /></ProtectedRoute>} />
         <Route path="/calls&sessions" element={<ProtectedRoute><CallsSessions /></ProtectedRoute>} />
         <Route path="/metrics" element={<ProtectedRoute><Metrics /></ProtectedRoute>} />
-        <Route path="/session-expired" element={<ProtectedRoute><SessionExpired /></ProtectedRoute>} />
+        <Route path="/session-expired" element={<SessionExpired />} />
       </Routes>
     </Router>
     </>
