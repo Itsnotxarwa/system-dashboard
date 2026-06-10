@@ -99,7 +99,7 @@ export default function Tenants({tenants, setTenants, loading}) {
         }
 
     return (
-    <div className="p-4">
+    <div>
         <p className="text-[12.5px] text-[#8b949e] mb-3">
             Click a tenant to view its agents and call records
         </p>

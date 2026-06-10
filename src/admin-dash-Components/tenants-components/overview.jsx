@@ -6,7 +6,7 @@ import Mazia from "../../assets/mazia.png";
 export default function Overview({setShowModal, tenants, loading}) {
     
     return (
-    <div className="p-4">
+    <div>
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
