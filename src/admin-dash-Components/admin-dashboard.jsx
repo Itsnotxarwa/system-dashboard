@@ -13,6 +13,12 @@ export default function AdminDashboard() {
     email: "",
     phone: ""
   });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: ""
+  })
   const [tenants, setTenants] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +49,22 @@ export default function AdminDashboard() {
   const [createdTenant, setCreatedTenant] = useState(null);
 
   const handleSubmit = async () => {
+
+    // validation
+    const newErrors = {
+      name: !form.name.trim() ? "Name is required" : "",
+      email: !form.email.trim()
+        ? "Email is required"
+        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
+        ? "Enter a valid email"
+        : "",
+      phone: !form.phone.trim() ? "Phone is required" : "",
+    };
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some(e => e !== "")) return;
+
     try {
       const response = await apiFetch("https://api.mazia.ai/admin/tenants", {
         method: "POST",
@@ -79,6 +101,7 @@ export default function AdminDashboard() {
       </main>
       {showModal &&
         <CreateModal 
+        errors={errors}
         setShowModal={setShowModal} 
         form={form} 
         setForm={setForm} 

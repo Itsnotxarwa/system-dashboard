@@ -1,6 +1,7 @@
 import { Check, Key, Plus, X } from "lucide-react";
 
-export default function CreateModal({setShowModal, form, setForm, handleSubmit, createdTenant, setCreatedTenant}) {
+export default function CreateModal({setShowModal, form, setForm, handleSubmit, 
+    createdTenant, setCreatedTenant, errors}) {
     const handleClose = () => {
         setCreatedTenant(null);
         setShowModal(false);
@@ -90,6 +91,7 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit, 
                         bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                         focus:border-[#58a6ff] transition-colors font-mono"
                         />
+                        {errors.name && <p className="mt-1 text-[10px] text-[#f85149]">{errors.name}</p>}
                     </div>
 
                     {/* Email */}
@@ -106,6 +108,7 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit, 
                         bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                         focus:border-[#58a6ff] transition-colors font-mono"
                         />
+                        {errors.email && <p className="mt-1 text-[10px] text-[#f85149]">{errors.email}</p>}
                     </div>
 
                     {/* Phone */}
@@ -121,6 +124,7 @@ export default function CreateModal({setShowModal, form, setForm, handleSubmit, 
                         bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                         focus:border-[#58a6ff] transition-colors font-mono"
                         />
+                        {errors.phone && <p className="mt-1 text-[10px] text-[#f85149]">{errors.phone}</p>}
                     </div>
 
                     {/* Password */}
