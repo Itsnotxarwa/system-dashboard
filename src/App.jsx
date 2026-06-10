@@ -8,6 +8,7 @@ import SessionExpired from './SessionExpired';
 import Agents from "./admin-dash-Components/agents";
 import CallsSessions from './admin-dash-Components/callsSessions';
 import Metrics from './admin-dash-Components/metrics';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -15,15 +16,15 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route path="/" element={<AdminDashboard />}/>
-        <Route path="/tenant/:id/agents" element={<AgentsPerTenant />} />
-        <Route path="/tenant/:id/call-records" element={<CallRecords />} />
-        <Route path="/tenant/:id/campaign" element={<Campaign />} />
-        <Route path="/tenant/:id/metrics" element={<MetricsPerTenant />} />
-        <Route path="/agents" element={<Agents />} />
-        <Route path="/calls&sessions" element={<CallsSessions />} />
-        <Route path="/metrics" element={<Metrics />} />
-        <Route path="/session-expired" element={<SessionExpired />} />
+        <Route path="/" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}/>
+        <Route path="/tenant/:id/agents" element={<ProtectedRoute><AgentsPerTenant /></ProtectedRoute>} />
+        <Route path="/tenant/:id/call-records" element={<ProtectedRoute><CallRecords /></ProtectedRoute>} />
+        <Route path="/tenant/:id/campaign" element={<ProtectedRoute><Campaign /></ProtectedRoute>} />
+        <Route path="/tenant/:id/metrics" element={<ProtectedRoute><MetricsPerTenant /></ProtectedRoute>} />
+        <Route path="/agents" element={<ProtectedRoute><Agents /></ProtectedRoute>} />
+        <Route path="/calls&sessions" element={<ProtectedRoute><CallsSessions /></ProtectedRoute>} />
+        <Route path="/metrics" element={<ProtectedRoute><Metrics /></ProtectedRoute>} />
+        <Route path="/session-expired" element={<ProtectedRoute><SessionExpired /></ProtectedRoute>} />
       </Routes>
     </Router>
     </>
