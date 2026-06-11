@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { Building, Phone, KeyRound, ChartColumn, LogOut, Bot } from "lucide-react";
 import Logo from "../assets/image_logo.png";
 import Mazia from "../assets/mazia.png"
-import apiFetch from "./shared/ApiFetch";
 
 
 export default function Sidebar() {
@@ -10,10 +9,15 @@ export default function Sidebar() {
     const handleLogout = async () => {
     try {
 
-        const res = await apiFetch(
+        const res = await fetch(
             "https://api.mazia.ai/auth/logout",
             {
                 method: "POST",
+                redentials: "include",
+                headers: {
+                    "accept": "application/json",
+                    "Content-Type": "application/json",
+                },
             }
         );
 
