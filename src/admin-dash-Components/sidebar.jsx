@@ -8,7 +8,6 @@ export default function Sidebar() {
 
     const handleLogout = async () => {
     try {
-
         const res = await fetch(
             "https://api.mazia.ai/auth/logout",
             {
@@ -21,9 +20,8 @@ export default function Sidebar() {
             }
         );
 
-        if (!res.ok) {
-            console.error("Logout failed");
-        }
+        console.log("Logout status:", res.status);
+        console.log("Logout headers:", [...res.headers.entries()]);
 
     } catch (err) {
         console.error(err);
