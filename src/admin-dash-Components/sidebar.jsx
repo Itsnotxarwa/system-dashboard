@@ -25,9 +25,9 @@ export default function Sidebar() {
 
     } catch (err) {
         console.error(err);
-    } //finally {
-//window.location.replace("https://auth.mazia.ai/")
-   // }
+    } finally {
+        window.location.replace("https://auth.mazia.ai/")
+    }
 };
 
     const main = [
