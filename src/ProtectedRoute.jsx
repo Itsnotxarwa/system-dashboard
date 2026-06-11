@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children }) {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("https://api.mazia.ai/admin/tenants", {
+                const res = await fetch("https://api.mazia.ai/auth/me", {
                     credentials: "include",
                 });
 
