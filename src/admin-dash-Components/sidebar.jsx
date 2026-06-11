@@ -13,7 +13,7 @@ export default function Sidebar() {
             "https://api.mazia.ai/auth/logout",
             {
                 method: "POST",
-                redentials: "include",
+                credentials: "include",
                 headers: {
                     "accept": "application/json",
                     "Content-Type": "application/json",
