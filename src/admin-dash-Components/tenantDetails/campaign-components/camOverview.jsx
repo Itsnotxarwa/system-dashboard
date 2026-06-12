@@ -27,9 +27,8 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
 
     const deleteCampaign = async (campaignId) => {
         try{
-            console.log(tenant.id, campaignId)
             const response = await apiFetch(
-                `https://api.mazia.ai/tenants/${tenant.id}/campaigns/${campaignId}/force`,
+                `https://api.mazia.ai/campaigns/${campaignId}`,
                 {
                     method: "DELETE",
                 }
