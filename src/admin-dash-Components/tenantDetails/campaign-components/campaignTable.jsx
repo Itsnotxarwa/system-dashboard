@@ -45,10 +45,11 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
         try {
             const formData = new FormData();
             formData.append("file", selectedFile);
-            const res = await apiFetch(
+            const res = await fetch(
                 `https://api.mazia.ai/campaigns/${uploadingCampaignId}/recipients`,
                 {
                     method: "POST",
+                    credentials: "include", 
                     body: formData,
                 }
             );
