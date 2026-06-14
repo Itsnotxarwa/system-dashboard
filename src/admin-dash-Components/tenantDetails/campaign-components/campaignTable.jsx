@@ -245,6 +245,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                     <td className="p-[13px_20px]">
                                         <div className="flex gap-1 flex-wrap">
                                             <button
+                                                aria-label={`Edit ${c.name}`}
                                                 onClick={() => handleEdit(c)}
                                                 className="cursor-pointer bg-[rgba(88,166,255,.08)] text-[#58a6ff] border rounded-full
                                                 text-xs py-1 px-2.5 font-medium font-mono border-[rgba(88,166,255,.25)]
@@ -253,6 +254,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                                 Edit
                                             </button>
                                             <button
+                                                aria-label={`Delete campaign ${c.name}`}
                                                 onClick={() => handleDelete(c)}
                                                 className="cursor-pointer bg-[rgba(248,81,73,.08)] text-[#f85149] border rounded-full
                                                 text-xs py-1 px-2.5 font-medium font-mono border-[rgba(248,81,73,.25)]
@@ -262,6 +264,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                             </button>
                                             {!hasRecipients || c.status === "DRAFT" ? (
                                                 <button
+                                                    aria-label={`Upload recipients for ${c.name}`}
                                                     onClick={() => handleUploadFile(c.id)}
                                                     className="cursor-pointer bg-[rgba(88,166,255,.08)] text-[#58a6ff] border rounded-full
                                                     border-[rgba(88,166,255,.25)] flex items-center gap-1 text-xs py-1 px-2.5 font-medium font-mono
@@ -271,6 +274,7 @@ export default function CampaignTable({ filteredcampaigns, campaigns, setCampaig
                                                 </button>
                                             ) : (
                                                 <button
+                                                    aria-label={`Delete recipients for ${c.name}`}
                                                     onClick={() => { setSelectedCampaign(c); setShowDeleteRecs(true); }}
                                                     className="cursor-pointer bg-[rgba(210,153,34,.08)] text-[#d29922] border rounded-full
                                                     border-[rgba(210,153,34,.25)] flex items-center gap-1 text-xs py-1 px-2.5 font-medium font-mono

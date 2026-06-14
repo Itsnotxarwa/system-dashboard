@@ -29,7 +29,9 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete,
                 <thead>
                     <tr className="border-b border-[#21262d]">
                         {["Nom", "ID du Compte", "Statut", "Email", "Téléphone", "Créé le", ""].map((item) => (
-                            <th className="text-left px-5 py-3 text-xs font-medium tracking-widest 
+                            <th
+                            key={item} 
+                            className="text-left px-5 py-3 text-xs font-medium tracking-widest 
                         uppercase text-[#8b949e]">
                                 {item}
                             </th>
@@ -81,8 +83,10 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete,
                         style={{fontFamily: "'IBM Plex Mono', 'monospace'"}}>
                             {new Date(t.created_at).toLocaleDateString("fr-FR")}
                         </td>
-                        <td className="px-4 py-4 items-center gap-2 justify-end">
-                            <button className="text-[#58a6ff] hover:opacity-70 transition-opacity cursor-pointer"
+                        <td className="px-4 py-4 flex items-center gap-2 justify-end">
+                            <button 
+                            aria-label={`Edit ${t.name}`}
+                            className="text-[#58a6ff] hover:opacity-70 transition-opacity cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleEdit(t)
@@ -90,6 +94,7 @@ export default function TenantsTable({filteredTenants, handleEdit, handleDelete,
                                 <Edit size={21} />
                             </button>
                             <button 
+                            aria-label={`Delete tenant ${t.name}`}
                             className="hover:opacity-70 transition-opacity cursor-pointer text-[#f85149]"
                             onClick={(e) => {
                                 e.stopPropagation();
