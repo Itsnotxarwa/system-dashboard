@@ -1,4 +1,12 @@
 @import "tailwindcss";
+
+@layer base {
+  html, :host {
+    -webkit-text-size-adjust: 100%; 
+    text-size-adjust: 100%;         
+  }
+}
+
 body {
     font-family: "Syne", sans-serif;
 }
