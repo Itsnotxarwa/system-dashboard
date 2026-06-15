@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import apiFetch from "./admin-dash-Components/shared/ApiFetch";
 
 export default function ProtectedRoute({ children }) {
     const [checking, setChecking] = useState(true);
@@ -7,17 +8,14 @@ export default function ProtectedRoute({ children }) {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("https://api.mazia.ai/auth/me", {
+                const res = await apiFetch("https://api.mazia.ai/auth/me", {
                     method: "GET",
-                    credentials: "include",
                 });
 
-                if (res.status === 401) {
-                    window.location.replace("https://auth.mazia.ai/");
-                    return;
+                if (res && res.ok) {
+                    setAuthorized(true);
                 }
-
-                setAuthorized(true);
+                
             } catch {
                 window.location.replace("https://auth.mazia.ai/");
             } finally {
