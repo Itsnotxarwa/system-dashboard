@@ -8,6 +8,7 @@ export default function ProtectedRoute({ children }) {
         const checkAuth = async () => {
             try {
                 const res = await fetch("https://api.mazia.ai/auth/me", {
+                    method: "GET",
                     credentials: "include",
                 });
 
