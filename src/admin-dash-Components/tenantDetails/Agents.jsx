@@ -57,6 +57,7 @@ export default function Agents() {
 
             setAgents(data.agents);
             setTotal(data.total);
+            console.log("Fetched agents:", data.agents);
 
             } catch (err) {
             console.error(err);

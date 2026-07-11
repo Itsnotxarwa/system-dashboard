@@ -5,7 +5,7 @@ import TenantSidebar from "../tenantSidebar";
 
 export default function Agent() {
     const { id, agentId } = useParams();
-    
+
     const [agent, setAgent] = useState(null);
 
     useEffect(() => {
@@ -36,7 +36,9 @@ export default function Agent() {
                         .join("") 
                         : ""}
                     </div>
+                    
                     <div className="flex-1">
+                        {/* Name + Status */}
                         <div className="flex items-center gap-3">
                             <h1 className="text-xl font-black text-white tracking-tight" 
                             style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
@@ -50,6 +52,7 @@ export default function Agent() {
                                 </span>
                             </div>
                         </div>
+                        {/* Id */}
                         <div className="flex items-center gap-3 mt-1">
                             <span className="text-[10px] text-slate-400 font-mono">
                                 {agent?.id}
