@@ -107,13 +107,12 @@ export default function Agent() {
                                 </div>
                                 {/* Type / Number / Id */}
                                 <div className="flex items-center gap-3 mt-1">
-                                <span className="text-[10px] text-slate-400 font-mono">
+                                <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1.5">
                                     <Phone size={12} />
                                     {agent?.type || ''}
                                 </span>
                                 <div className="h-4 w-px bg-[#30363d]" />
                                 <span className="text-[10px] text-slate-400 font-mono">
-                                    <Phone size={12} />
                                     {agent?.sip_number || ''}
                                 </span>
                                 <div className="h-4 w-px bg-[#30363d]" />
