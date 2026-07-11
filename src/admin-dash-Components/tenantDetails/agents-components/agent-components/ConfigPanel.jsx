@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ConfigMenu from "./ConfigMenu";
 import Prompt from "./Prompt";
+import Models from "./Models";
 
 export default function ConfigPanel({agent}) {
     const [section, setSection] = useState("Prompt");
@@ -11,7 +12,7 @@ export default function ConfigPanel({agent}) {
 
             <div className="flex-1 border-t border-[#30363d]">
                 {section === "Prompt" && <Prompt agent={agent} />}
-                {section === "Models" && <div>Models Content</div>}
+                {section === "Models" && <Models agent={agent} />}
                 {section === "Tools" && <div>Tools Content</div>}
                 {section === "Voice" && <div>Voice Content</div>}
             </div>
