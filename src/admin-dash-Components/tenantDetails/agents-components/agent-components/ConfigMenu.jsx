@@ -1,10 +1,10 @@
-import { Columns3Cog, SquareTerminal, PencilSparkles, Mic } from "lucide-react"
+import { Columns3Cog, SquareTerminal, Mic, Wrench } from "lucide-react"
 
 export default function ConfigMenu({section, setSection}) {
     const configItems = [
         {key: "Prompt", label: "Prompt", icon: SquareTerminal},
         {key: "Models", label: "Models", icon: Columns3Cog},
-        {key: "Tools", label: "Tools", icon: PencilSparkles},
+        {key: "Tools", label: "Tools", icon: Wrench},
         {key: "Voice", label: "Voice", icon: Mic},
     ]
     return(
