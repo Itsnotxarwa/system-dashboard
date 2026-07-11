@@ -148,7 +148,7 @@ export default function Agent() {
                     </div>
 
                     <div className="py-4">
-                        <ConfigPanel />
+                        <ConfigPanel agent={agent} />
                     </div>
                 </div>
             </main>
