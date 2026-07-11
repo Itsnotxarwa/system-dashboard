@@ -59,7 +59,6 @@ export default function Prompt({agent}) {
                                         return (
                                             <div
                                             key={index}
-                                            className="rounded-xl border border-[#30363d] bg-[#0d1117] p-4"
                                             >
                                                 <h3 className="text-[#58a6ff] font-semibold text-sm mb-3">
                                                     {title}
