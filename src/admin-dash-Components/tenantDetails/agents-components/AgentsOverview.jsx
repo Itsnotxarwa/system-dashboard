@@ -1,52 +1,17 @@
-import { useState } from "react";
 import Logo from "../../../assets/image_logo.png";
 import Mazia from "../../../assets/mazia.png";
 import AgentsList from "./AgentsList";
 import AgentDetails from "./AgentDetails";
-import DeleteAgent from "./DeleteAgent";
-import EditModal from "./EditModal";
-import apiFetch from "../../shared/ApiFetch";
 
-export default function AgentsOverview({tenant, agents, setAgents, typeFilter, setTypeFilter, loading, total}) {
+export default function AgentsOverview({tenant, agents, typeFilter, setTypeFilter, loading, total}) {
     const totalAgents = agents?.length || 0;
     const activeAgents = agents?.filter(
         (a) => a.is_active === true
     ).length || 0;
     const inactiveAgents = totalAgents - activeAgents;
-    const [selectedAgent, setSelectedAgent] = useState(null);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteAgent, setShowDeleteAgent] = useState(false);
 
-    const deleteAgent = async (AgentId) => {
-        try{
-            const response = await apiFetch(`
-                https://api.mazia.ai/admin/agents/${AgentId}`,
-            {
-                method: "DELETE",
-            }
-        );
 
-        if (!response) return;
-
-        if (!response.ok) throw new Error("Delete failed");
-        setAgents(prev => prev.filter(t => t.id !== AgentId))
-
-        const data = await response.json();
-        console.log(data);
-
-        } catch (err) {
-            console.log(`Failed: ${err?.detail}`)
-        }
-    }
-
-    const handleEdit = (agent) => {
-        setSelectedAgent(agent);
-        setShowEditModal(true);
-    };
-    const handleDelete = (agent) => {
-        setSelectedAgent(agent);
-        setShowDeleteAgent(true);
-    };
+    
 
     return(
         <div className="min-h-screen flex">
@@ -176,27 +141,10 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                 <AgentsList 
                 total={total}
                 agents={agents} 
-                setSelectedAgent={setSelectedAgent} 
                 typeFilter={typeFilter}
                 loading={loading}  />
             </div>
-            {showEditModal && (
-                <EditModal
-                selectedAgent={selectedAgent}
-                onClose={() => setShowEditModal(false)}
-                onCancel={() => setShowEditModal(false)}
-                setAgents={setAgents} />
-            )}
-            {showDeleteAgent && (
-                <DeleteAgent
-                selectedAgent={selectedAgent}
-                onCancel={() => setShowDeleteAgent(false)}
-                onConfirm={(id) => {
-                deleteAgent(id);
-                setShowDeleteAgent(false);
-                }} 
-                />
-            )}
+            
         </div>
     )
 }

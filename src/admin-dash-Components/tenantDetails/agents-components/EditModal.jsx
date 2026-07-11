@@ -2,7 +2,7 @@ import { Edit, Cpu, Mic, Volume2, X, Plus } from "lucide-react";
 import { useState } from "react";
 import apiFetch from "../../shared/ApiFetch";
 
-export default function EditModal({onClose, onCancel, selectedAgent, setAgents}) {
+export default function EditModal({onClose, onCancel, selectedAgent, onUpdated,}) {
     const TABS = ["Basic Info", "Models Config", "Tools"];
     const [activeTab, setActiveTab] = useState(TABS[0]);
     const [showFull, setShowFull] = useState(false);
@@ -60,7 +60,7 @@ export default function EditModal({onClose, onCancel, selectedAgent, setAgents})
 
             const data = await res.json();
             if (!res.ok) throw new Error(data?.detail || "Update failed");
-            setAgents(prev => prev.map(a => a.id === form.id ? {...a, ...data} : a));
+            onUpdated?.(data);
             onClose();
         } catch (err) {
             console.error(`Failed: ${err?.detail}`);

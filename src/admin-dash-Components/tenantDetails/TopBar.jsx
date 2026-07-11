@@ -1,6 +1,6 @@
 import { ChevronRight, Plus } from "lucide-react";
 
-export default function TopBar({tenant, activeNav, setShowAgentModal, setShowCreateModal}) {
+export default function TopBar({tenant, activeNav, activeItem, setShowAgentModal, setShowCreateModal}) {
     return(
         <div className="h-14 bg-[#161b22] border-b flex items-center px-7 py-2 gap-4 shrink-0
         border-[#21262d]">
@@ -12,6 +12,14 @@ export default function TopBar({tenant, activeNav, setShowAgentModal, setShowCre
                 <span className="text-[#8b949e]">
                     {activeNav.name}
                 </span>
+                {activeItem && (
+                    <>
+                        <ChevronRight size={14} />
+                        <span className="text-[#e6edf3] font-medium">
+                            {activeItem}
+                        </span>
+                    </>
+                )}
             </div>
 
             <div className="flex items-center gap-1.5 ml-2">
