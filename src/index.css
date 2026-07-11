@@ -7,10 +7,6 @@
   }
 }
 
-body {
-    font-family: "Syne", sans-serif;
-}
-
 :root {
     --bg:        #0d1117;
     --surface:   #161b22;
