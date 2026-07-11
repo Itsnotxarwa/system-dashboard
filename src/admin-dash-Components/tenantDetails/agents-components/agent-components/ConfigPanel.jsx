@@ -9,7 +9,7 @@ export default function ConfigPanel({agent}) {
         <div className="flex flex-1 overflow-hidden">
             <ConfigMenu section={section} setSection={setSection} />
 
-            <div className="flex-1 p-6">
+            <div className="flex-1">
                 {section === "Prompt" && <Prompt agent={agent} />}
                 {section === "Models" && <div>Models Content</div>}
                 {section === "Tools" && <div>Tools Content</div>}
