@@ -4,7 +4,7 @@ import Mazia from "../../assets/mazia.png";
 import { NavLink, useParams } from "react-router-dom";
 import { Bot, CassetteTape } from "lucide-react";
 
-export default function TenantSidebar({tenant, label = "Tenants"}) {
+export default function TenantSidebar({tenant, label = ""}) {
     const {id} = useParams();
     const navigation =[
         { name: "Agents", icon: Bot, href: "agents" },
