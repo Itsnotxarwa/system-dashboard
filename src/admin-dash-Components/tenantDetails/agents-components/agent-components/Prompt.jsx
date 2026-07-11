@@ -11,7 +11,7 @@ export default function Prompt({agent}) {
                     <p className="text-sm text-[#8b949e]">Configure the messages and instructions that guide your agent.</p>
                 </div>
 
-                <div className="h-1 w-full bg-[#30363d]" />
+                <div className="h-px w-full bg-[#30363d]" mb-5 />
 
                 {/* Greeting */}
                 <div className="mb-6">
