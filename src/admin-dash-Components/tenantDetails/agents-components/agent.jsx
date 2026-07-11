@@ -72,7 +72,7 @@ export default function Agent() {
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
-            <TenantSidebar tenant={tenant} />
+            <TenantSidebar tenant={tenant} label="Agents" />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem={agent?.name} />
                 <div className="max-w-7xl mx-auto p-6 flex-1">
@@ -144,6 +144,10 @@ export default function Agent() {
                                 Delete
                             </button>
                         </div>
+                    </div>
+
+                    <div className="py-4">
+                        <ConfigPanel />
                     </div>
                 </div>
             </main>
