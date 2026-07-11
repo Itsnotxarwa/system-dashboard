@@ -10,7 +10,8 @@ export default function ConfigMenu({section, setSection}) {
     return(
         <div className="w-52 h-1/2 shrink-0 border border-[#30363d] overflow-hidden py-6 px-2">
             {configItems.map(item => (
-                <div key={item.key}>
+                <div key={item.key}
+                className="space-y-2">
                     <button
                     onClick={() => {
                         setSection(item.key);
