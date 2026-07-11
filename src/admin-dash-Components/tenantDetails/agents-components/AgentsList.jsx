@@ -59,7 +59,7 @@ export default function AgentsList({agents, typeFilter, loading}) {
                         agents.map((a, i) => (
                         <tr 
                         key={i}
-                        onClick={() => navigate(`/tenant/${id}/agent/${a.id}`)}
+                        onClick={() => navigate(`/tenant/${id}/agents/${a.id}`)}
                         className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
                         cursor-pointer">
                             <td className="px-4 py-4">
