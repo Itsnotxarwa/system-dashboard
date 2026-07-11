@@ -7,6 +7,7 @@ import { Phone, Edit, Trash } from "lucide-react";
 import EditModal from "./EditModal";
 import DeleteAgent from "./DeleteAgent";
 import { useNavigate } from "react-router-dom";
+import ConfigPanel from "./agent-components/ConfigPanel";
 
 export default function Agent() {
     const { id, agentId } = useParams();
