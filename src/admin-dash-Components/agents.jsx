@@ -12,7 +12,6 @@ export default function Agents() {
     const [agents, setAgents] = useState([]);
     const [total, setTotal] = useState(0);
     const [selectedAgent, setSelectedAgent] = useState(null);
-    const [showAgentDetails, setShowAgentDetails] = useState(false);
     const [showEditAgent, setShowEditAgent] = useState(false);
     const [showDeleteAgent, setShowDeleteAgent] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -171,7 +170,6 @@ export default function Agents() {
                     agents={agents}
                     setSelectedAgent={setSelectedAgent}
                     selectedAgent={selectedAgent}
-                    setShowAgentDetails={setShowAgentDetails}
                     page={page}
                     setPage={setPage}
                     pageSize={pageSize}
@@ -180,13 +178,6 @@ export default function Agents() {
                     />
                 </div>
             </main>
-            {showAgentDetails && (
-                <AgentDetails
-                selectedAgent={selectedAgent}
-                onClose={() => setShowAgentDetails(false)}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete} />
-            )}
 
             {showEditAgent && (
                 <EditAgent

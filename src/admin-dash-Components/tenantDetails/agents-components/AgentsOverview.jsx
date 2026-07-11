@@ -13,7 +13,6 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
         (a) => a.is_active === true
     ).length || 0;
     const inactiveAgents = totalAgents - activeAgents;
-    const [showAgentDetails, setShowAgentDetails] = useState(false);
     const [selectedAgent, setSelectedAgent] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteAgent, setShowDeleteAgent] = useState(false);
@@ -178,19 +177,9 @@ export default function AgentsOverview({tenant, agents, setAgents, typeFilter, s
                 total={total}
                 agents={agents} 
                 setSelectedAgent={setSelectedAgent} 
-                setShowAgentDetails={setShowAgentDetails}
                 typeFilter={typeFilter}
                 loading={loading}  />
             </div>
-            {showAgentDetails && (
-                <AgentDetails 
-                setShowDeleteAgent={setShowDeleteAgent}
-                setShowEditModal={setShowEditModal}
-                onClose={() => setShowAgentDetails(false)} 
-                selectedAgent={selectedAgent}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete} />
-            )}
             {showEditModal && (
                 <EditModal
                 selectedAgent={selectedAgent}

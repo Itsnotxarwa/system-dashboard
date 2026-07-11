@@ -1,5 +1,10 @@
-export default function AgentsList({agents, setSelectedAgent, setShowAgentDetails, typeFilter, loading}) {
+import { useNavigate, useParams } from "react-router-dom";
+
+export default function AgentsList({agents, typeFilter, loading}) {
+    const navigate = useNavigate();
     
+    const { id } = useParams();
+
     return (
     <div>
         {loading ? (
@@ -54,10 +59,7 @@ export default function AgentsList({agents, setSelectedAgent, setShowAgentDetail
                         agents.map((a, i) => (
                         <tr 
                         key={i}
-                        onClick={() => {
-                            setSelectedAgent(a);
-                            setShowAgentDetails(true);
-                        }} 
+                        onClick={() => navigate(`/tenant/${id}/agent/${a.id}`)}
                         className="border-t border-[rgba(3,44,166,0.06)] hover:bg-[rgba(3,44,166,.02)]
                         cursor-pointer">
                             <td className="px-4 py-4">

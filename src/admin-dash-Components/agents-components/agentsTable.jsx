@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Pagination from "../shared/pagination"
 
-export default function AgentsTable({agents, loading, setSelectedAgent, selectedAgent, setShowAgentDetails, page, setPage, pageSize, setPageSize, total}) {
+export default function AgentsTable({agents, loading, selectedAgent, page, setPage, pageSize, setPageSize, total}) {
+    const navigate = useNavigate();
+
     return(
         <div className="flex flex-col bg-[#161b22] border border-[#21262d] rounded-[10px] overflow-hidden">
             <table className="w-full border-collapse">
@@ -46,13 +49,7 @@ export default function AgentsTable({agents, loading, setSelectedAgent, selected
                                         <tr
                                         key={agent.id}
                                         onClick={() => {
-                                            if (selectedAgent?.id === agent.id) {
-                                                setShowAgentDetails(false);
-                                                setSelectedAgent(null);
-                                            } else {
-                                                setSelectedAgent(agent);
-                                                setShowAgentDetails(true);
-                                            }
+                                            navigate(`/agent/${agent.id}`);
                                         }
                                         }
                                         className={`border-b border-[#21262d] last:border-0 hover:bg-[rgba(255,255,255,.02)] transition-colors cursor-pointer 
