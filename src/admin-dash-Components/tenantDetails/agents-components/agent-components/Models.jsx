@@ -1,3 +1,5 @@
+import { Cpu, Mic, Volume2 } from "lucide-react";
+
 export default function Models({agent}) {
     const models = agent?.models_config || [];
 
