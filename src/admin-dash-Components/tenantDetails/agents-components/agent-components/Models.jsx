@@ -5,39 +5,39 @@ export default function Models({models, handleModelChange, isEditing}) {
     const mc = models;
     const modelCards = mc ? [
         {
-            key: "LLM",
+            key: "llm",
             icon: <Cpu size={14} />,
             label: "Language Model (LLM)",
             fields: [
-                { label: "Provider", value: mc?.llm?.provider || "" },
-                { label: "Model Name", value: mc?.llm?.model_name || "" }
+                { key: "provider", label: "Provider", value: mc?.llm?.provider || "" },
+                { key: "model_name", label: "Model Name", value: mc?.llm?.model_name || "" }
             ],
             style: "bg-[rgba(88,166,255,.12)] border-[rgba(88,166,255,.25)] text-[#58a6ff]",
             background: "bg-[#0d1117]",
             border: "border-[#21262d]"
         },
         {
-            key: "STT",
+            key: "stt",
             icon: <Mic size={14} />,
             label: "Speech-to-Text (STT)",
             fields: [
-                { label: "Provider", value: mc?.stt?.provider || "" },
-                { label: "Model Name", value: mc?.stt?.model_name || "" },
-                { label: "Language", value: mc?.stt?.language || "" }
+                { key: "provider", label: "Provider", value: mc?.stt?.provider || "" },
+                { key: "model_name", label: "Model Name", value: mc?.stt?.model_name || "" },
+                { key: "language", label: "Language", value: mc?.stt?.language || "" }
             ],
             style: "bg-[rgba(63,185,80,.12)] border-[rgba(63,185,80,.25)] text-[#3fb950]",
             background: "bg-[#0d1117]",
             border: "border-[#21262d]"
         },
         {
-            key: "TTS",
+            key: "tts",
             icon: <Volume2 size={14} />,
             label: "Text-to-Speech (TTS)",
             fields: [
-                { label: "Provider", value: mc?.tts?.provider || "" },
-                { label: "Model Name", value: mc?.tts?.model_name || "" },
-                { label: "Language", value: mc?.tts?.language || "" },
-                { label: "Voice", value: mc?.tts?.voice || "" }
+                { key: "provider", label: "Provider", value: mc?.tts?.provider || "" },
+                { key: "model_name", label: "Model Name", value: mc?.tts?.model_name || "" },
+                { key: "language", label: "Language", value: mc?.tts?.language || "" },
+                { key: "voice", label: "Voice", value: mc?.tts?.voice || "" }
             ],
             style: "bg-[rgba(188,140,255,.12)] border-[rgba(188,140,255,.25)] text-[#bc8cff]",
             background: "bg-[#0d1117]",
@@ -61,7 +61,7 @@ export default function Models({models, handleModelChange, isEditing}) {
                     ) : (
                         isEditing ? (
                             <div>
-                                {models.map((model) => (
+                                {modelCards.map((model) => (
                         <div key={model.key}
                         className="mb-5 p-4 rounded-xl bg-[rgba(255,255,255,.03)] border border-[#21262d]">
                             <div className="flex items-center gap-2 mb-3">

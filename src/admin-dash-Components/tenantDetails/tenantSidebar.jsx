@@ -32,7 +32,7 @@ export default function TenantSidebar({tenant, label = ""}) {
                     onClick={() => navigate(-1)}
                     className="group w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs 
                     text-[#e6edf3] hover:opacity-90 transition-all group border border-[#30363d] 
-                    bg-[#161b22]">
+                    bg-[#161b22] cursor-pointer">
                         <MoveLeft />
                         Back to {label}
                     </button>
