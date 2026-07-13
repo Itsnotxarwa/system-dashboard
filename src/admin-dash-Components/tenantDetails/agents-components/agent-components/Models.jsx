@@ -56,7 +56,7 @@ export default function Models({models, handleModelChange, isEditing}) {
                 <div className="h-px w-full bg-[#30363d] mb-5" />
 
                 <div className="mb-6">
-                    {!models.length ? (
+                    {!models || models.length === 0 ? (
                         <div className="text-xs text-[#8b949e] italic font-mono">No models configured</div>
                     ) : (
                         isEditing ? (
