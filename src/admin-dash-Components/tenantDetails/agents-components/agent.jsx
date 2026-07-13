@@ -23,6 +23,7 @@ export default function Agent() {
 
     const [loading, setLoading] = useState(false);
 
+    const [saving, setSaving] = useState(false); 
 
 
     {/* fetch Tenant */}
@@ -39,15 +40,21 @@ export default function Agent() {
 
     useEffect(() => {
         const fetchAgent = async () => {
-            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}/agents/${agentId}`);
-            if (!res) return;
+            try {
+                setLoading(true);
+                const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}/agents/${agentId}`);
+                if (!res) return;
+                
+                const data = await res.json();
+                setAgent(data);
+        } finally {
+            setLoading(false);
+        }
 
-            const data = await res.json();
-            setAgent(data);
-        };
+    };
 
-        fetchAgent();
-    }, [id, agentId]);
+    fetchAgent();
+}, [id, agentId]);
 
     const deleteAgent = async (AgentId) => {
         try{
@@ -114,8 +121,7 @@ export default function Agent() {
 
     const handleSubmit = async () => {
         try {
-            setLoading(true);
-
+            setSaving(true);
             const payload = {
                 name: form.name, sip_number: form.sip_number, system_prompt: form.system_prompt,
                 greeting_message: form.greeting_message, end_call_message: form.end_call_message || "",
@@ -135,6 +141,8 @@ export default function Agent() {
                 `https://api.mazia.ai/admin/tenants/${id}/agents/${agentId}`
             );
 
+            if (!refreshed) return;
+
             const updated = await refreshed.json(); 
 
             setAgent(updated);
@@ -142,7 +150,7 @@ export default function Agent() {
         } catch (err) {
             console.error(`Failed: ${err?.detail}`);
         } finally {
-            setLoading(false);
+            setSaving(false);
         }
     };
 
@@ -215,16 +223,18 @@ export default function Agent() {
                         <div className="flex items-center justify-end gap-2 pb-1">
                             <button
                             onClick={handleEditClick}
-                            disabled={loading}
+                            disabled={saving}
                             className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-semibold
-                            transition-all flex items-center gap-1.5 font-mono
+                            transition-all flex items-center gap-1.5 font-mono disabled:opacity-50
+                            disabled:cursor-not-allowed
                             text-[#58a6ff] bg-[rgba(88,166,255,.08)] border border-[rgba(88,166,255,.25)]
                             hover:bg-[rgba(88,166,255,.15)]">
-                                {loading ? <Loader2 size={12} className="animate-spin" /> : isEditing ? <Save size={12} /> : <Edit size={12} />}
-                                {loading ? "Saving ..." : isEditing ? "Save" : "Edit"}
+                                {saving ? <Loader2 size={12} className="animate-spin" /> : isEditing ? <Save size={12} /> : <Edit size={12} />}
+                                {saving ? "Saving ..." : isEditing ? "Save" : "Edit"}
                             </button>
                             <button
                             onClick={handleDelete}
+                            disabled={saving}
                             className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-semibold transition-all
                             flex items-center gap-1.5 font-mono
                             border border-[rgba(248,81,73,.25)] bg-[rgba(248,81,73,.08)]
