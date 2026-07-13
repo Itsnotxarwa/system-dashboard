@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import TenantSidebar from "../tenantSidebar";
 import TopBar from "../TopBar";
 import { Phone, Edit, Trash, Save, Loader2 } from "lucide-react";
-import EditModal from "./EditModal";
 import DeleteAgent from "./DeleteAgent";
 import { useNavigate } from "react-router-dom";
 import ConfigPanel from "./agent-components/ConfigPanel";
