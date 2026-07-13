@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react"
+import { Plus, X } from "lucide-react"
 
 export default function Tools({tools, updateTool, addTool, removeTool, isEditing}) {
     return(
