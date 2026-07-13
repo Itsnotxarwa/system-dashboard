@@ -1,7 +1,7 @@
-export default function Prompt({agent}) {
-    const greeting = agent?.greeting_message || "";
+export default function Prompt({form, setForm, isEditing}) {
+    const greeting = form?.greeting_message || "";
 
-    const systemPrompt = agent?.system_prompt || "";
+    const systemPrompt = form?.system_prompt || "";
 
     const sections = systemPrompt
     ? systemPrompt.split("\n# ")
@@ -27,12 +27,29 @@ export default function Prompt({agent}) {
                     <div className="flex-1">
                         {!greeting ? (
                         <div className="text-xs text-[#8b949e] italic font-mono">No greeting message</div>
-                    ) : (
-                        <div className="p-3 rounded-[10px] bg-[rgba(63,185,80,.06)] border border-[rgba(63,185,80,.15)]
-                        italic text-[#e6edf3] text-xs leading-relaxed font-mono">
-                            {greeting}
-                        </div>
-                    )}
+                        ) : (
+                            isEditing ? (
+                                <textarea
+                                    value={form.greeting_message || ""}
+                                    onChange={(e) =>
+                                        setForm(prev => ({
+                                            ...prev,
+                                            greeting_message: e.target.value
+                                        }))
+                                    }
+                                    className="w-full p-3 rounded-[10px] bg-[#0d1117] border border-[#21262d]
+                                    text-[#e6edf3] text-xs leading-relaxed font-mono resize-none focus:outline-none focus:ring-1 focus:ring-[#58a6ff]"
+                                    rows={5}
+                                    maxLength={500}
+                                />
+                            ) : (
+                                <div className="p-3 rounded-[10px] bg-[rgba(63,185,80,.06)] border border-[rgba(63,185,80,.15)]
+                                italic text-[#e6edf3] text-xs leading-relaxed font-mono">
+                                    {greeting}
+                                </div>
+                            )
+                        
+                        )}
                         <p className="text-right text-xs text-[#8b949e] mt-1">{greeting.length || 0} / 500</p>
                     </div>
                 </div>
@@ -49,6 +66,21 @@ export default function Prompt({agent}) {
                             {!systemPrompt ? (
                                 <div className="text-xs text-[#8b949e] italic font-mono">No system prompt</div>
                             ) : (
+                                isEditing ? (
+                                    <textarea
+                                        value={form.system_prompt || ""}
+                                        onChange={(e) =>
+                                            setForm(prev => ({
+                                                ...prev,
+                                                system_prompt: e.target.value
+                                            }))
+                                        }
+                                        className="w-full p-3 rounded-[10px] bg-[#0d1117] border border-[#21262d]
+                                        text-[#e6edf3] text-xs leading-relaxed font-mono resize-none focus:outline-none focus:ring-1 focus:ring-[#58a6ff]"
+                                        rows={10}
+                                        maxLength={500}
+                                    />
+                                ) : (
                                 <div className="p-3 rounded-[10px] bg-[rgba(63,185,80,.06)] border border-[rgba(63,185,80,.15)]
                                 italic text-[#e6edf3] text-xs leading-relaxed font-mono">
                                     {sections.map((section, index) => {
@@ -71,6 +103,7 @@ export default function Prompt({agent}) {
                                         );
                                     })}
                                 </div>
+                                )
                             )}
                             <p className="text-right text-xs text-[#8b949e] mt-1">{systemPrompt.length || 0} / 500</p>
                         </div>

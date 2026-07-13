@@ -1,9 +1,8 @@
 import { Cpu, Mic, Volume2 } from "lucide-react";
 
-export default function Models({agent}) {
-    const models = agent?.models_config || [];
+export default function Models({models, handleModelChange, isEditing}) {
 
-    const mc = agent?.models_config;
+    const mc = models;
     const modelCards = mc ? [
         {
             key: "LLM",
@@ -60,6 +59,35 @@ export default function Models({agent}) {
                     {!models.length ? (
                         <div className="text-xs text-[#8b949e] italic font-mono">No models configured</div>
                     ) : (
+                        isEditing ? (
+                            <div>
+                                {models.map((model) => (
+                        <div key={model.key}
+                        className="mb-5 p-4 rounded-xl bg-[rgba(255,255,255,.03)] border border-[#21262d]">
+                            <div className="flex items-center gap-2 mb-3">
+                                <span className="text-[#8b949e]">{model.icon}</span>
+                                <span className="text-sm font-bold text-[#e6edf3]">{model.label}</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-3">
+                                {model.fields.map((field) => (
+                                    <div key={field.key}>
+                                        <label className="block text-xs font-medium text-[#8b949e] uppercase tracking-wider mb-1.5">
+                                            {field.label} <span className="text-[#f85149]">*</span>
+                                        </label>
+                                        <input
+                                        value={models?.[model.key]?.[field.key] || ""}
+                                        onChange={(e) => handleModelChange(model.key, field.key, e.target.value)}
+                                        className="w-full px-3 py-2 text-sm border rounded-md outline-none
+                                        bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
+                                        focus:border-[#58a6ff] transition-colors font-mono"
+                                        placeholder={field.label} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                            </div>
+                        ) : (
                         <div className="space-y-2.5">
                             {modelCards.filter(card => card.fields.some(f => f.value !== "")).map((card) => (
                                 <div key={card.key} className={`py-3 px-3.5 rounded-xl ${card.background} border ${card.border}`}>
@@ -85,6 +113,7 @@ export default function Models({agent}) {
                                 </div>
                             ))}
                         </div>
+                        )
                     )}
                 </div>
             </div>

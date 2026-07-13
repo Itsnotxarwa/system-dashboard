@@ -3,7 +3,7 @@ import apiFetch from "../../shared/ApiFetch";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "../tenantSidebar";
 import TopBar from "../TopBar";
-import { Phone, Edit, Trash } from "lucide-react";
+import { Phone, Edit, Trash, Save } from "lucide-react";
 import EditModal from "./EditModal";
 import DeleteAgent from "./DeleteAgent";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +16,11 @@ export default function Agent() {
     const [agent, setAgent] = useState(null);
     const [tenant, setTenant] = useState(null);
 
-    const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteAgent, setShowDeleteAgent] = useState(false);
+
+    const [isEditing, setIsEditing] = useState(false);
+
+
 
     {/* fetch Tenant */}
     useEffect(() => {
@@ -64,12 +67,87 @@ export default function Agent() {
         }
     }
 
-    const handleEdit = () => {
-        setShowEditModal(true);
-    };
     const handleDelete = () => {
         setShowDeleteAgent(true);
     };
+
+    const [form, setForm] = useState(null);
+
+    useEffect(() => {
+        if (agent) {
+            setForm({
+                ...agent,
+                tools: agent.tools || [],
+                voicemail: agent.voicemail || {
+                    leave_message: false,
+                    message: "",
+                },
+            })
+        }
+    }, [agent]); 
+
+    const handleModelChange = (model, key, value) => {
+        setForm((prev) => ({
+            ...prev,
+            models_config: { ...(prev.models_config || {}), [model]: { ...(prev.models_config?.[model] || {}), [key]: value } }
+        }));
+    };
+
+    if (!form) return null;
+
+    const addTool = () => {
+        setForm(prev => ({ ...prev, tools: [...(prev.tools || []), { name: "", url: "", provider: "custom", is_enabled: true }] }));
+    };
+
+    const updateTool = (index, key, value) => {
+        const updated = [...form.tools];
+        updated[index][key] = value;
+        setForm(prev => ({ ...prev, tools: updated }));
+    };
+
+    const removeTool = (index) => {
+        setForm(prev => ({ ...prev, tools: prev.tools.filter((_, i) => i !== index) }));
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const payload = {
+                name: form.name, sip_number: form.sip_number, system_prompt: form.system_prompt,
+                greeting_message: form.greeting_message, end_call_message: form.end_call_message || "",
+                is_active: form.is_active, tools: form.tools || [], models_config: form.models_config,
+                voicemail: form.voicemail || { leave_message: false, message: "" }
+            };
+            const res = await apiFetch(`https://api.mazia.ai/admin/agents/${form.id}/config`, {
+                method: "PUT",
+                body: JSON.stringify(payload),
+            });
+            if (!res) return;
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.detail || "Update failed");
+
+            const refreshed = await apiFetch(
+                `https://api.mazia.ai/admin/tenants/${id}/agents/${agentId}`
+            );
+
+            const updated = await refreshed.json(); 
+
+            setAgent(updated);
+            setIsEditing(false);
+        } catch (err) {
+            console.error(`Failed: ${err?.detail}`);
+        }
+    };
+
+    const handleEditClick = async () => {
+        if (isEditing) {
+            await handleSubmit();
+        } else {
+            setIsEditing(true);
+        }
+    };
+
+    
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
@@ -127,13 +205,13 @@ export default function Agent() {
                         {/* ACTIONS */}
                         <div className="flex items-center justify-end gap-2 pb-1">
                             <button
-                            onClick={handleEdit}
+                            onClick={handleEditClick}
                             className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-semibold
                             transition-all flex items-center gap-1.5 font-mono
                             text-[#58a6ff] bg-[rgba(88,166,255,.08)] border border-[rgba(88,166,255,.25)]
                             hover:bg-[rgba(88,166,255,.15)]">
-                                <Edit size={12} />
-                                Edit
+                                {isEditing ? <Save size={12} /> : <Edit size={12} />}
+                                {isEditing ? "Save" : "Edit"}
                             </button>
                             <button
                             onClick={handleDelete}
@@ -148,20 +226,21 @@ export default function Agent() {
                     </div>
 
                     <div className="py-4">
-                        <ConfigPanel agent={agent} />
+                        <ConfigPanel 
+                        agent={agent}
+                        isEditing={isEditing}
+                        form={form}
+                        setForm={setForm}
+                        handleModelChange={handleModelChange}
+                        updateTool={updateTool}
+                        addTool={addTool}
+                        removeTool={removeTool}
+                        />
                     </div>
                 </div>
             </main>
 
-            {showEditModal && (
-                <EditModal
-                selectedAgent={agent}
-                onClose={() => setShowEditModal(false)}
-                onCancel={() => setShowEditModal(false)}
-                onUpdated={(updatedAgent) => {
-                    setAgent(updatedAgent);
-                }} />
-            )}
+
             {showDeleteAgent && (
                 <DeleteAgent
                 selectedAgent={agent}
