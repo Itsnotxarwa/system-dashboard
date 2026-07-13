@@ -1,7 +1,7 @@
 import { ChartColumn, MoveLeft, Target } from "lucide-react";
 import Logo from "../../assets/image_logo.png";
 import Mazia from "../../assets/mazia.png";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import { Bot, CassetteTape } from "lucide-react";
 
 export default function TenantSidebar({tenant, label = ""}) {
@@ -12,6 +12,8 @@ export default function TenantSidebar({tenant, label = ""}) {
         { name: "Campaign", icon: Target, href: "campaign" },
         { name: "Metrics", icon: ChartColumn, href: "metrics" },
     ];
+
+    const navigate = useNavigate();
 
     return(
         <aside className="flex flex-col w-55 px-6 h-screen bg-[#161b22] shrink-0 border-r
@@ -26,14 +28,14 @@ export default function TenantSidebar({tenant, label = ""}) {
 
                 {/* BACK TO TENANTS */}
                 <div className="border-b border-[#21262d] py-4">
-                    <a 
-                    href="/"
+                    <button 
+                    onClick={() => navigate(-1)}
                     className="group w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs 
                     text-[#e6edf3] hover:opacity-90 transition-all group border border-[#30363d] 
                     bg-[#161b22]">
                         <MoveLeft />
                         Back to {label}
-                    </a>
+                    </button>
                 </div>
             
                 {/* TENANT INFO */}
