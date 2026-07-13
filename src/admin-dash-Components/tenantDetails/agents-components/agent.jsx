@@ -154,9 +154,9 @@ export default function Agent() {
         }
     };
 
-    loading && <Loading />
-
-    
+    if (loading) {
+        return <Loading />;
+    }
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
