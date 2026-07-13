@@ -16,7 +16,7 @@ export default function ConfigPanel({isEditing, form, setForm, handleModelChange
                 {section === "Prompt" && <Prompt form={form} setForm={setForm} isEditing={isEditing} />}
                 {section === "Models" && <Models  models={form?.models_config} handleModelChange={handleModelChange} isEditing={isEditing} />}
                 {section === "Tools" && <Tools tools={form?.tools} updateTool={updateTool} addTool={addTool} removeTool={removeTool} isEditing={isEditing} />}
-                {section === "Voice" && <Voice form={form}  />}
+                {section === "Voice" && <Voice form={form} setForm={setForm} isEditing={isEditing}  />}
             </div>
         </div>
     )
