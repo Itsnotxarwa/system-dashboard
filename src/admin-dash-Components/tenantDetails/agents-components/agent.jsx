@@ -3,11 +3,12 @@ import apiFetch from "../../shared/ApiFetch";
 import { useParams } from "react-router-dom";
 import TenantSidebar from "../tenantSidebar";
 import TopBar from "../TopBar";
-import { Phone, Edit, Trash, Save } from "lucide-react";
+import { Phone, Edit, Trash, Save, Loader2 } from "lucide-react";
 import EditModal from "./EditModal";
 import DeleteAgent from "./DeleteAgent";
 import { useNavigate } from "react-router-dom";
 import ConfigPanel from "./agent-components/ConfigPanel";
+import Loading from "../../shared/Loading";
 
 export default function Agent() {
     const { id, agentId } = useParams();
@@ -19,6 +20,8 @@ export default function Agent() {
     const [showDeleteAgent, setShowDeleteAgent] = useState(false);
 
     const [isEditing, setIsEditing] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
 
 
@@ -111,6 +114,8 @@ export default function Agent() {
 
     const handleSubmit = async () => {
         try {
+            setLoading(true);
+
             const payload = {
                 name: form.name, sip_number: form.sip_number, system_prompt: form.system_prompt,
                 greeting_message: form.greeting_message, end_call_message: form.end_call_message || "",
@@ -136,6 +141,8 @@ export default function Agent() {
             setIsEditing(false);
         } catch (err) {
             console.error(`Failed: ${err?.detail}`);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -146,6 +153,8 @@ export default function Agent() {
             setIsEditing(true);
         }
     };
+
+    loading && <Loading />
 
     
 
@@ -206,12 +215,13 @@ export default function Agent() {
                         <div className="flex items-center justify-end gap-2 pb-1">
                             <button
                             onClick={handleEditClick}
+                            disabled={loading}
                             className="cursor-pointer px-6 py-2.5 rounded-xl text-xs font-semibold
                             transition-all flex items-center gap-1.5 font-mono
                             text-[#58a6ff] bg-[rgba(88,166,255,.08)] border border-[rgba(88,166,255,.25)]
                             hover:bg-[rgba(88,166,255,.15)]">
-                                {isEditing ? <Save size={12} /> : <Edit size={12} />}
-                                {isEditing ? "Save" : "Edit"}
+                                {loading ? <Loader2 size={12} className="animate-spin" /> : isEditing ? <Save size={12} /> : <Edit size={12} />}
+                                {loading ? "Saving ..." : isEditing ? "Save" : "Edit"}
                             </button>
                             <button
                             onClick={handleDelete}

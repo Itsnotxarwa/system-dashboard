@@ -1,3 +1,5 @@
+import { Plus } from "lucide-react"
+
 export default function Tools({tools, updateTool, addTool, removeTool, isEditing}) {
     return(
         <div className="flex-1 overflow-y-auto flex flex-col">
