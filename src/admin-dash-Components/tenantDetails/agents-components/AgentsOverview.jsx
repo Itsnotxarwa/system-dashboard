@@ -1,7 +1,6 @@
 import Logo from "../../../assets/image_logo.png";
 import Mazia from "../../../assets/mazia.png";
 import AgentsList from "./AgentsList";
-import AgentDetails from "./AgentDetails";
 
 export default function AgentsOverview({tenant, agents, typeFilter, setTypeFilter, loading, total}) {
     const totalAgents = agents?.length || 0;
