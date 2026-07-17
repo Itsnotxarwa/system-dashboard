@@ -45,6 +45,8 @@ export default function Actions() {
         fetchAgent();
     }, [id, agentId]);
 
+    const activeItem = agent?.name;
+
     useEffect(() => {
         if (!agentId) return;
 
@@ -78,9 +80,9 @@ export default function Actions() {
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
-            <TenantSidebar tenant={tenant} label="Agents" activeItem={agent?.name} activeSubPage="Actions" />
+            <TenantSidebar tenant={tenant} label="Agents" />
             <main className="bg-[#0d1117] flex-1 ml-55">
-                <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem="Actions" showAddAgent={false} />
+                <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem={activeItem} activeSubPage="Actions" showAddAgent={false} />
                 <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">
                     <div className="flex-1 overflow-y-auto flex flex-col">
                         <div className="flex-1 p-6">
