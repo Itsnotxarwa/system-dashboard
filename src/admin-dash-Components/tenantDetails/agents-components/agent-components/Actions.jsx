@@ -9,7 +9,7 @@ import TenantSidebar from "../../tenantSidebar";
 import TopBar from "../../TopBar";
 
 export default function Actions() {
-    const { tenantId, agentId } = useParams();
+    const { id, agentId } = useParams();
     const [tenant, setTenant] = useState(null);
 
     const [callTransferActions, setCallTransferActions] = useState([]);
@@ -18,13 +18,14 @@ export default function Actions() {
     {/* fetch Tenant */}
     useEffect(() => {
         const fetchTenant = async () => {
-            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${tenantId}`);
+            const res = await apiFetch(`https://api.mazia.ai/admin/tenants/${id}`);
             if (!res) return;  
             const data = await res.json();
             setTenant(data);
+            console.log("Fetched tenant:", data);
         }   
         fetchTenant();
-    }, [tenantId]);
+    }, [id]);
 
     useEffect(() => {
         if (!agentId) return;
