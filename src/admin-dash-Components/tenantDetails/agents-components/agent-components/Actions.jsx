@@ -85,10 +85,16 @@ export default function Actions() {
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem={activeItem} activeSubPage="Actions" showAddAgent={false} />
                 <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">
                     <div className="flex-1 overflow-y-auto flex flex-col">
-                        <div className="flex-1 p-6">
-                            <div className="mb-5">
-                                <p className="text-[16px] text-white mb-0.5 font-bold">Actions</p>
-                                <p className="text-sm text-[#8b949e]">Configure the actions performed by your agent during the conversation.</p>
+                        <div className="flex-1">
+                            <div className="mb-5 flex items-center gap-2">
+                                <button className="flex items-center justify-center w-[3em] h-[3em] bg-[#eeeeee4b]
+                                rounded-full transition-all cursor-pointer duration-200 hover:shadow-[9px_9px_33px_#d1d1d1] hover:translate-y-0.5">
+                                    <ArrowLeft className="mr-1.25 ml-1.25 transition-all duration-300 ease-in hover:translate-x-1.25" />
+                                </button>
+                                <div>
+                                    <p className="text-[16px] text-white mb-0.5 font-bold">Actions</p>
+                                    <p className="text-sm text-[#8b949e]">Configure the actions performed by your agent during the conversation.</p>
+                                </div>
                             </div>
 
                             <div className="h-px w-full bg-[#30363d] mb-5" />
