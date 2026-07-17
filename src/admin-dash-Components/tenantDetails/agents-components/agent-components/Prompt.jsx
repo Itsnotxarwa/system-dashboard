@@ -37,8 +37,9 @@ export default function Prompt({form, setForm, isEditing}) {
                                             greeting_message: e.target.value
                                         }))
                                     }
-                                    className="w-full p-3 rounded-[10px] bg-[#0d1117] border border-[#21262d] h-full
+                                    className="w-full p-3 rounded-[10px] bg-[#0d1117] border border-[#21262d] 
                                     text-[#e6edf3] text-xs leading-relaxed font-mono resize-none focus:outline-none focus:ring-1 focus:ring-[#58a6ff]"
+                                    rows={3}
                                 />
                             ) : (
                                 <div className="p-3 rounded-[10px] bg-[rgba(63,185,80,.06)] border border-[rgba(63,185,80,.15)]
@@ -75,6 +76,7 @@ export default function Prompt({form, setForm, isEditing}) {
                                         }
                                         className="w-full p-3 rounded-[10px] bg-[#0d1117] border border-[#21262d] h-full
                                         text-[#e6edf3] text-xs leading-relaxed font-mono resize-none focus:outline-none focus:ring-1 focus:ring-[#58a6ff]"
+                                        rows={8}
                                     />
                                 ) : (
                                 <div className="p-3 rounded-[10px] bg-[rgba(63,185,80,.06)] border border-[rgba(63,185,80,.15)]
