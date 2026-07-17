@@ -31,17 +31,18 @@ export default function Actions() {
     useEffect(() => {
         const fetchAgent = async () => {
             const res = await apiFetch(
-                `https://api.mazia.ai/admin/agents/${agentId}`
+                `https://api.mazia.ai/admin/tenants/${id}/agents/${agentId}`
             );
 
             if (!res) return;
 
             const data = await res.json();
             setAgent(data);
+            console.log("Fetched agent:", data);
         };
 
         fetchAgent();
-    }, [agentId]);
+    }, [id, agentId]);
 
     useEffect(() => {
         if (!agentId) return;
