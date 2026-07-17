@@ -11,6 +11,7 @@ import TopBar from "../../TopBar";
 export default function Actions() {
     const { id, agentId } = useParams();
     const [tenant, setTenant] = useState(null);
+    const [agent, setAgent] = useState(null);
 
     const [callTransferActions, setCallTransferActions] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -26,6 +27,21 @@ export default function Actions() {
         }   
         fetchTenant();
     }, [id]);
+
+    useEffect(() => {
+        const fetchAgent = async () => {
+            const res = await apiFetch(
+                `https://api.mazia.ai/admin/agents/${agentId}`
+            );
+
+            if (!res) return;
+
+            const data = await res.json();
+            setAgent(data);
+        };
+
+        fetchAgent();
+    }, [agentId]);
 
     useEffect(() => {
         if (!agentId) return;
@@ -60,7 +76,7 @@ export default function Actions() {
 
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
-            <TenantSidebar tenant={tenant} label="Agents" activeSubPage="Actions" />
+            <TenantSidebar tenant={tenant} label="Agents" activeItem={agent?.name} activeSubPage="Actions" />
             <main className="bg-[#0d1117] flex-1 ml-55">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem="Actions" showAddAgent={false} />
                 <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">
