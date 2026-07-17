@@ -39,6 +39,7 @@ export default function Actions() {
             const data = await res.json();
             setAgent(data);
             console.log("Fetched agent:", data);
+            console.log(data.name)
         };
 
         fetchAgent();
