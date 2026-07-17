@@ -1,3 +1,5 @@
+import { ChevronDown, Pencil, Trash2 } from "lucide-react";
+
 export default function ActionRow({ icon, iconBg, name, description }) {
     return(
         <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-[#30363d] transition-colors">
