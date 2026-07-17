@@ -25,6 +25,7 @@ export default function Actions() {
 
                 const data = await res.json();
                 setCallTransferActions(data);
+                console.log("Fetched call transfer actions:", data);
             } catch (error) {
                 console.error("Error fetching call transfer actions:", error);
             } finally {

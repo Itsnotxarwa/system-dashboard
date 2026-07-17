@@ -19,11 +19,11 @@ export default function ConfigMenu({section, setSection}) {
                     }}
                     className={`w-full flex items-start gap-3 px-4 py-2 text-sm font-medium transition-all duration-300 overflow-hidden text-left cursor-pointer
                     ${section===item.key ? "text-[#58a6ff] font-medium bg-[rgba(88,166,255,.12)]" : "hover:bg-[#21262d] hover:scale-100 hover:text-[#e6edf3]"}`}>
-                        <div className="flex items-center justify-center">
+                        <div className="flex h-5 w-5 items-center justify-center">
                             <item.icon size={13} stroke={section===item.key ? "#58a6ff" : "currentColor"} />
                         </div>
                         <span className="flex-1 text-left">{item.label}</span>
-                        <div className="ml-auto flex items-center justify-center">
+                        <div className="h-5 w-5 flex items-center justify-center">
                             <ChevronRight size={12} stroke={section===item.key ? "#58a6ff" : "currentColor"} />
                         </div>
                     </button>
