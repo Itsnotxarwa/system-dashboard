@@ -10,8 +10,6 @@ export default function AgentsOverview({tenant, agents, typeFilter, setTypeFilte
     const inactiveAgents = totalAgents - activeAgents;
 
 
-    
-
     return(
         <div className="min-h-screen flex">
             <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">

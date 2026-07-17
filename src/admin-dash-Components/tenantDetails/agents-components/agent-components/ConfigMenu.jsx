@@ -1,6 +1,10 @@
-import { Columns3Cog, SquareTerminal, Mic, Wrench, ChevronRight, Zap} from "lucide-react"
+import { Columns3Cog, SquareTerminal, Mic, Wrench, ChevronRight, Zap} from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ConfigMenu({section, setSection}) {
+    const { id, agentId } = useParams();
+    const navigate = useNavigate();
+
     const configItems = [
         {key: "Prompt", label: "Prompt", icon: SquareTerminal},
         {key: "Models", label: "Models", icon: Columns3Cog},
@@ -15,7 +19,13 @@ export default function ConfigMenu({section, setSection}) {
                 >
                     <button
                     onClick={() => {
-                        setSection(item.key);
+                        if (item.key === "Actions") {
+                            navigate(
+                                `/tenant/${id}/agents/${agentId}/call_transfer_actions`
+                            );
+                        } else {
+                            setSection(item.key);
+                        }
                     }}
                     className={`w-full flex items-start gap-3 px-4 py-2 text-sm font-medium transition-all duration-300 overflow-hidden text-left cursor-pointer
                     ${section===item.key ? "text-[#58a6ff] font-medium bg-[rgba(88,166,255,.12)]" : "hover:bg-[#21262d] hover:scale-100 hover:text-[#e6edf3]"}`}>
