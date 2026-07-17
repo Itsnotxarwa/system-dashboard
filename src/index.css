@@ -7,6 +7,10 @@
   }
 }
 
+textarea {
+  field-sizing: content;
+}
+
 :root {
     --bg:        #0d1117;
     --surface:   #161b22;
