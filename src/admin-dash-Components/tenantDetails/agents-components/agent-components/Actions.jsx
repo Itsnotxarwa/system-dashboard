@@ -64,7 +64,7 @@ export default function Actions() {
                             Workflows that run before each conversation to enrich the conversation context. 
                             Only one published workflow and one restricted workflow can be enabled at a time.
                         </p>
-                        <EmptyActionBox addLabel="Ajouter une action" />
+                        <EmptyActionBox addLabel="Add an action" />
                     </div>
 
                     {/* During call */}
@@ -110,7 +110,7 @@ export default function Actions() {
                         <p className="text-xs text-slate-500 mb-3">
                             Workflows exécutés à la fin de la conversation pour finaliser le traitement.
                         </p>
-                        <EmptyActionBox addLabel="Ajouter une action" />
+                        <EmptyActionBox addLabel="Add an action" />
                     </div>
                 </div>
 
