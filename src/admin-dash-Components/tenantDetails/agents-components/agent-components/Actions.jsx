@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import apiFetch from "../../../shared/ApiFetch";
 import Loading from "../../../shared/Loading";
-import { Info, PhoneOff, Plus, Repeat } from "lucide-react";
+import { Info, PhoneOff, Plus, ArrowLeft } from "lucide-react";
 import EmptyActionBox from "./actions-components/EmptyActionBox";
 import ActionRow from "./actions-components/ActionRow";
 import TenantSidebar from "../../tenantSidebar";
