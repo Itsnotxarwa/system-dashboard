@@ -27,35 +27,60 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                 {/*Form */}
                 <div className="px-6 py-6.5">
                     <div className="flex flex-col gap-4">
-                        {/* Name */}
-                        <div>
-                            <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider 
-                            uppercase">
-                                Name <span className="text-[#f85149]">*</span>
-                            </label>
-                            <input
-                            value={form.name}
-                            onChange={(e) => setForm({...form, name: e.target.value})}
-                            className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                            bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
-                            focus:border-[#58a6ff] transition-colors font-mono"
-                            />
-                        </div>
+                        {/* Action Details */}
+<div className="mb-4">
+    <div className="text-sm font-semibold text-[#e6edf3]">
+        Action Details
+    </div>
+    <div className="text-xs text-[#8b949e] mt-1">
+        Name and description displayed in the actions list.
+    </div>
+</div>
 
-                        {/* description */}
-                        <div>
-                            <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider 
-                            uppercase">
-                                Description <span className="text-[#f85149]">*</span>
-                            </label>
-                            <input
-                            value={form.description}
-                            onChange={(e) => setForm({...form, description: e.target.value})}
-                            className="w-full px-3 py-2 text-sm border rounded-md outline-none 
-                            bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
-                            focus:border-[#58a6ff] transition-colors font-mono"
-                            />
-                        </div>
+{/* Name */}
+<div className="mb-4">
+    <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
+        Action Name <span className="text-[#f85149]">*</span>
+    </label>
+
+    <input
+        value={form.name}
+        onChange={(e) =>
+            setForm(prev => ({
+                ...prev,
+                name: e.target.value,
+            }))
+        }
+        placeholder="e.g. Transfer to Support"
+        className="w-full px-3 py-2 text-sm border rounded-md outline-none
+        bg-[#0d1117] border-[#30363d] text-[#e6edf3]
+        placeholder-[#8b949e] focus:border-[#58a6ff]
+        transition-colors font-mono"
+    />
+</div>
+
+{/* Description */}
+<div>
+    <label className="block mb-1.5 text-[10px] text-[#8b949e] tracking-wider uppercase">
+        Description
+    </label>
+
+    <textarea
+        rows={3}
+        value={form.description}
+        onChange={(e) =>
+            setForm(prev => ({
+                ...prev,
+                description: e.target.value,
+            }))
+        }
+        placeholder="Describe when this transfer action should be used."
+        className="w-full px-3 py-2 text-sm border rounded-md outline-none
+        bg-[#0d1117] border-[#30363d] text-[#e6edf3]
+        placeholder-[#8b949e] resize-none
+        focus:border-[#58a6ff] transition-colors font-mono"
+    />
+</div>
 
                         <div className="h-px bg-[#8b949e] my-6" />
 
@@ -65,7 +90,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             title="Announce Before Transfer"
                             subtitle="Inform the caller before executing the transfer."
                         />
-                        <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 mb-4">
+                        <div className="flex items-center justify-between bg-white/2 border border-white/5 rounded-xl px-4 py-3 mb-4">
                             <div>
                                 <div className="text-sm text-slate-200">Announce Before Transfer</div>
                                 <div className="text-xs text-slate-500 mt-0.5">
@@ -117,7 +142,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
     subtitle="Inform the caller before executing the transfer."
 />
 
-<div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3">
+<div className="flex items-center justify-between bg-white/2 border border-white/5 rounded-xl px-4 py-3">
     <div>
         <div className="text-sm text-slate-200">
             Announce Before Transfer
@@ -170,7 +195,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
     subtitle="Limit transfers to specific business hours."
 />
 
-<div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3">
+<div className="flex items-center justify-between bg-white/2 border border-white/5 rounded-xl px-4 py-3">
     <div>
         <div className="text-sm text-slate-200">
             Restrict to Schedule
