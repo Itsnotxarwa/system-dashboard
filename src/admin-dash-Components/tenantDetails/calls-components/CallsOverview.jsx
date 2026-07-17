@@ -27,7 +27,7 @@ export default function CallsOverview({tenant, calls, callSessions, page, setPag
     
     return(
         <div className="min-h-screen">
-            <div className="max-w-7xl mx-auto p-6">
+            <div className="max-w-7xl mx-auto p-6 bg-[#0d1117] flex-1">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                     <div>

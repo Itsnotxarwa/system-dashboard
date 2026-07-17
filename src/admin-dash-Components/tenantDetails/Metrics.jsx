@@ -117,8 +117,8 @@ export default function Metrics() {
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
             <TenantSidebar tenant={tenant} label="tenants" />
-            <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col ml-55">
-                <div className="max-w-7xl mx-auto p-6">
+            <main className="flex-1 flex flex-col ml-55">
+                <div className="max-w-7xl mx-auto p-6 bg-[#0d1117]">
                     {/* Header */}
                     <div>
                         <div className="flex items-center justify-start gap-2">

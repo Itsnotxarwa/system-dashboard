@@ -88,20 +88,11 @@ export default function Agents() {
         }
     }
 
-    const handleEdit = (agent) => {
-        setSelectedAgent(agent);
-        setShowEditAgent(true);
-    };
-    const handleDelete = (agent) => {
-        setSelectedAgent(agent);
-        setShowDeleteAgent(true);
-    };
-
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
             <Sidebar />
-            <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
-                <div className="max-w-7xl mx-auto p-6">
+            <main className="flex-1 ml-55">
+                <div className="max-w-7xl mx-auto p-6 bg-[#0d1117] ">
                     <div className="flex items-center justify-start gap-2">
                         <img src={Logo} alt="Mazia" className="w-3.5" />
                         <img src={Mazia} alt="Mazia" className="w-7" />

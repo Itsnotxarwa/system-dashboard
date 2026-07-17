@@ -170,7 +170,7 @@ export default function Agent() {
             <TenantSidebar tenant={tenant} label="Agents" />
             <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
                 <TopBar tenant={tenant} activeNav={{name: "Agents"}} activeItem={agent?.name} showAddAgent={false} />
-                <div className="max-w-7xl mx-auto p-6 flex-1">
+                <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="w-12 h-12 rounded-2xl flex items-center 

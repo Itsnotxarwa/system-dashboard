@@ -15,8 +15,8 @@ export default function CallsSessions() {
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
             <Sidebar />
-            <main className="bg-[rgba(3,44,166,0.09)] flex-1 ml-55">
-                <div className="max-w-7xl mx-auto p-6">
+            <main className="flex-1 ml-55">
+                <div className="max-w-7xl mx-auto p-6 bg-[#0d1117] ">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-6">
                         <div>

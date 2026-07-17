@@ -94,7 +94,7 @@ export default function Campaign() {
     return(
         <div className="flex min-h-screen bg-[#0d1117] text-white">
             <TenantSidebar tenant={tenant} label="tenants" />
-            <main className="bg-[rgba(3,44,166,0.09)] flex-1 flex flex-col min-h-screen ml-55">
+            <main className="flex-1 flex flex-col min-h-screen ml-55">
                 <TopBar 
                 tenant={tenant} 
                 activeNav={{name: "Campaign"}} 

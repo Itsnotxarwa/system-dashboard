@@ -4,6 +4,7 @@ import Prompt from "./Prompt";
 import Models from "./Models";
 import Tools from "./Tools";
 import Voice from "./Voice";
+import Actions from "./Actions";
 
 export default function ConfigPanel({isEditing, form, setForm, handleModelChange, updateTool, addTool, removeTool}) {
     const [section, setSection] = useState("Prompt");
@@ -17,6 +18,7 @@ export default function ConfigPanel({isEditing, form, setForm, handleModelChange
                 {section === "Models" && <Models  models={form?.models_config} handleModelChange={handleModelChange} isEditing={isEditing} />}
                 {section === "Tools" && <Tools tools={form?.tools} updateTool={updateTool} addTool={addTool} removeTool={removeTool} isEditing={isEditing} />}
                 {section === "Voice" && <Voice form={form} setForm={setForm} isEditing={isEditing}  />}
+                {section === "Actions" && <Actions />}
             </div>
         </div>
     )

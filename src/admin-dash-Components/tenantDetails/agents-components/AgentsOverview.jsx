@@ -14,7 +14,7 @@ export default function AgentsOverview({tenant, agents, typeFilter, setTypeFilte
 
     return(
         <div className="min-h-screen flex">
-            <div className="max-w-7xl mx-auto p-6 flex-1">
+            <div className="max-w-7xl mx-auto p-6 flex-1 bg-[#0d1117]">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
                     <div className="flex items-center justify-start gap-2">

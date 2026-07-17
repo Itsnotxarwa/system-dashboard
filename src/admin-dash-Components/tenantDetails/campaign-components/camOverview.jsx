@@ -53,7 +53,7 @@ export default function CampaignOverview({tenant, campaigns, setCampaigns }) {
 
     return(
         <div className="min-h-screen">
-            <div className="max-w-7xl mx-auto p-6">
+            <div className="max-w-7xl mx-auto p-6 bg-[#0d1117] flex-1">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                     <div>
