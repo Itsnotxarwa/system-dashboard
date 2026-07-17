@@ -6,7 +6,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
             <div className={`flex-col fixed top-0 right-0 h-full z-50 bg-[#161b22] border-l scroll overflow-y-auto w-120 shrink-0 border-[#21262d]
                 shadow-[-4px_0_24px_rgba(0,0,0,.4)] ${open ? "translate-x-0" : "translate-x-full"}`}>
                 {/* HEADER */}
-                <div className="flex items-center gap-3 px-6 py-5 border-b border-[#21262d] shrink-0">
+                <div className="flex items-center gap-3 px-6 py-5 border-b border-[#8b949e] shrink-0">
                     <div className="flex-1 min-w-0">
                         <div className="font-bold text-[#e6edf3] text-base tracking-tight"
                         style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
