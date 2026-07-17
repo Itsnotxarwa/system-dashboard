@@ -1,5 +1,6 @@
 import { Info, PhoneOff, Plus, Repeat } from "lucide-react";
 import ActionRow from "./ActionRow";
+import EmptyActionBox from "./EmptyActionBox";
 
 export default function ActionDuringCall({setOpenCreateCallTransfer, callTransferActions}) {
     return(

@@ -8,6 +8,7 @@ import TopBar from "../../TopBar";
 import CreateCallTransfer from "./actions-components/CreateCallTransfer";
 import ActionDuringCall from "./actions-components/ActionDuringCall";
 
+
 export default function Actions() {
     const { id, agentId } = useParams();
     const [tenant, setTenant] = useState(null);
