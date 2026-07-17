@@ -35,7 +35,16 @@ export default function Actions() {
         
         schedule_days: [],
 
-        numbers: [],
+        numbers: [
+            {
+                country_code: "+33",
+                phone_number: "",
+                description: "",
+                message: "",
+                source: "manual",
+                display_order: 0,
+            },
+        ],
     });
 
     useEffect(() => {
@@ -206,6 +215,7 @@ if (!res.ok) {
                                 <ActionDuringCall 
                                 setOpenCreateCallTransfer={setOpenCreateCallTransfer}
                                 callTransferActions={callTransferActions}
+                                open={openCreateCallTransfer}
                                 />
 
                                 {/* Post-call */}

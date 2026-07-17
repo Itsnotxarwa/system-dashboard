@@ -2,11 +2,9 @@ import SectionHeader from "./SectionHeader";
 import { X, Volume2 } from "lucide-react";
 export default function CreateCallTransfer({onClose, onCancel, handleSubmit, submitting, form, setForm}) {
     return(
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.6)]
-        backdrop-blur-sm p-5">
-            <div className="bg-[#161b22] border border-[#30363d] rounded-3xl
-            shadow-[0_24px_80px_rgba(0,0,0,0.5)] w-full lg:max-w-md overflow-hidden
-            animate-[popIn_0.22s_cubic-bezier(0.34,1.56,0.64,1)_both] max-h-[90vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className={`flex-col fixed top-0 right-0 h-full z-50 bg-[#161b22] border-l scroll overflow-y-auto w-120 shrink-0 border-[#21262d]
+                shadow-[-4px_0_24px_rgba(0,0,0,.4)] ${open ? "translate-x-0" : "translate-x-full"}`}>
                 {/* HEADER */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b border-[#21262d] shrink-0">
                     <div className="flex-1 min-w-0">
@@ -38,7 +36,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             <input
                             value={form.name}
                             onChange={(e) => setForm({...form, name: e.target.value})}
-                            placeholder="e.g. Mazia Agency"
                             className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                             bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                             focus:border-[#58a6ff] transition-colors font-mono"
@@ -54,7 +51,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             <input
                             value={form.description}
                             onChange={(e) => setForm({...form, description: e.target.value})}
-                            placeholder="e.g. Mazia Agency"
                             className="w-full px-3 py-2 text-sm border rounded-md outline-none 
                             bg-[#0d1117] border-[#30363d] text-[#e6edf3] placeholder-[#8b949e]
                             focus:border-[#58a6ff] transition-colors font-mono"
@@ -63,7 +59,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
 
                         <div className="h-px bg-[#8b949e] my-6" />
 
-                        
                         {/*before_execution */}
                         <SectionHeader
                             icon={<Volume2 size={14} />}
@@ -113,6 +108,206 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                 />
                             </div>
                         )}
+
+                        <div className="h-px bg-[#8b949e] my-6" />
+
+<SectionHeader
+    icon={<Volume2 size={14} />}
+    title="Announce Before Transfer"
+    subtitle="Inform the caller before executing the transfer."
+/>
+
+<div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3">
+    <div>
+        <div className="text-sm text-slate-200">
+            Announce Before Transfer
+        </div>
+        <div className="text-xs text-slate-500 mt-0.5">
+            The agent informs the caller before transferring the call.
+        </div>
+    </div>
+
+    <input
+        type="checkbox"
+        checked={form.say_before_execution}
+        onChange={(e)=>
+            setForm(prev=>({
+                ...prev,
+                say_before_execution:e.target.checked
+            }))
+        }
+    />
+</div>
+
+{form.say_before_execution && (
+    <div>
+        <label className="block mt-4 mb-2 text-[10px] uppercase tracking-wider text-[#8b949e]">
+            Announcement Message
+        </label>
+
+        <textarea
+            rows={3}
+            value={form.before_execution_message}
+            onChange={(e)=>
+                setForm(prev=>({
+                    ...prev,
+                    before_execution_message:e.target.value
+                }))
+            }
+            placeholder="I'll transfer you to one of our agents. Please hold."
+            className="w-full px-3 py-2 text-sm rounded-md border
+            bg-[#0d1117] border-[#30363d] text-[#e6edf3]
+            placeholder-[#8b949e] resize-none
+            focus:border-[#58a6ff] outline-none"
+        />
+    </div>
+)}
+
+<div className="h-px bg-[#8b949e] my-6" />
+
+<SectionHeader
+    title="Transfer Availability"
+    subtitle="Limit transfers to specific business hours."
+/>
+
+<div className="flex items-center justify-between bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3">
+    <div>
+        <div className="text-sm text-slate-200">
+            Restrict to Schedule
+        </div>
+
+        <div className="text-xs text-slate-500 mt-0.5">
+            Transfers will only happen during configured hours.
+        </div>
+    </div>
+
+    <input
+        type="checkbox"
+        checked={form.restrict_to_schedule}
+        onChange={(e)=>
+            setForm(prev=>({
+                ...prev,
+                restrict_to_schedule:e.target.checked
+            }))
+        }
+    />
+</div>
+
+<div className="mt-4">
+    <label className="block mb-2 text-[10px] uppercase tracking-wider text-[#8b949e]">
+        Maximum Ring Duration (seconds)
+    </label>
+
+    <input
+        type="number"
+        min={1}
+        value={form.max_ring_duration_seconds}
+        onChange={(e)=>
+            setForm(prev=>({
+                ...prev,
+                max_ring_duration_seconds:Number(e.target.value)
+            }))
+        }
+        className="w-full px-3 py-2 rounded-md border
+        bg-[#0d1117] border-[#30363d] text-[#e6edf3]
+        focus:border-[#58a6ff] outline-none"
+    />
+</div>
+
+<div className="h-px bg-[#8b949e] my-6" />
+
+<SectionHeader
+    title="Transfer Numbers"
+    subtitle="Numbers that the call can be transferred to."
+/>
+
+{form.numbers.map((number,index)=>(
+<div
+key={index}
+className="border border-[#30363d] rounded-xl p-4 space-y-3 mb-4"
+>
+
+<input
+placeholder="Country Code"
+value={number.country_code}
+onChange={(e)=>{
+const updated=[...form.numbers];
+updated[index].country_code=e.target.value;
+setForm({...form,numbers:updated});
+}}
+className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+/>
+
+<input
+placeholder="Phone Number"
+value={number.phone_number}
+onChange={(e)=>{
+const updated=[...form.numbers];
+updated[index].phone_number=e.target.value;
+setForm({...form,numbers:updated});
+}}
+className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+/>
+
+<input
+placeholder="Description"
+value={number.description}
+onChange={(e)=>{
+const updated=[...form.numbers];
+updated[index].description=e.target.value;
+setForm({...form,numbers:updated});
+}}
+className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+/>
+
+<input
+placeholder="Announcement Message"
+value={number.message}
+onChange={(e)=>{
+const updated=[...form.numbers];
+updated[index].message=e.target.value;
+setForm({...form,numbers:updated});
+}}
+className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+/>
+
+<button
+type="button"
+onClick={()=>{
+const updated=form.numbers.filter((_,i)=>i!==index);
+setForm({...form,numbers:updated});
+}}
+className="text-red-400 text-sm"
+>
+Remove Number
+</button>
+
+</div>
+))}
+
+<button
+type="button"
+onClick={()=>
+setForm(prev=>({
+...prev,
+numbers:[
+...prev.numbers,
+{
+country_code:"+33",
+phone_number:"",
+description:"",
+message:"",
+source:"manual",
+display_order:prev.numbers.length
+}
+]
+}))
+}
+className="px-4 py-2 rounded-lg border border-[#58a6ff]
+text-[#58a6ff] hover:bg-[#58a6ff]/10"
+>
++ Add Number
+</button>
                     </div>
                 </div>
 
