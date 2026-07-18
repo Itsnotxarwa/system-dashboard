@@ -136,9 +136,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
 
                         <div className="h-px bg-[#8b949e] my-6" />
 
-
-                        <div className="h-px bg-[#8b949e] my-6" />
-
                         <SectionHeader
                             title="Transfer Availability"
                             subtitle="Limit transfers to specific business hours."
