@@ -113,17 +113,8 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                     </div>
 
                 {/*Form */}
-                <div className="px-6 py-6.5">
+                <div className="px-4 py-4.5">
                     <div className="flex flex-col gap-4">
-                        {/* Action Details */}
-                        <div className="mb-4">
-                            <div className="text-sm font-semibold text-[#e6edf3]">
-                                Action Details
-                            </div>
-                            <div className="text-xs text-[#8b949e] mt-1">
-                                Name and description displayed in the actions list.
-                            </div>
-                        </div>
 
                         {/* Name */}
                         <div className="mb-4">
@@ -187,8 +178,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                         Should the agent say something before execution?
                                     </span>
                                 </div>
-                            </div>
-                            {/*Toggle */}
+                                {/*Toggle */}
                             <div
                             onClick={() => setForm(prev => ({
                                 ...prev,
@@ -205,6 +195,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                             : "translate-x-0.5"
                                     }`}
                                 />
+                            </div>
                             </div>
 
                             {form.say_before_execution && (
