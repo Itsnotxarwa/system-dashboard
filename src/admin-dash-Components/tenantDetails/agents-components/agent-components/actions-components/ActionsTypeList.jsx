@@ -70,7 +70,7 @@ export default function ActionsTypeList({onClose, open, setOpen, setOpenCreateCa
                             className={`cursor-pointer flex items-start gap-3 text-left px-4 py-3.5 rounded-xl border transition-colors ${
                                 isActive
                                 ? "bg-[#161b22] border-[#58a6ff]/50"
-                                : "bg-[#161b22] border-transparent hover:border-[#58a6ff]/50"
+                                : "bg-[#161b22] border-transparent hover:border-[#30363d]"
                             }`}
                             >
                                 <div

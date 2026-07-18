@@ -479,8 +479,8 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-end px-6 py-4 border-t
-                border-[#21262d] bg-[rgba(255,255,255,.02)] shrink-0">
+                <div className="flex items-center justify-end px-4 py-4 border-t
+                border-[#21262d] shrink-0">
                     <div className="flex gap-2.5">
                         <button onClick={onCancel}
                         className="cursor-pointer px-5 py-2.5 rounded-xl text-sm font-medium text-[#8b949e]
