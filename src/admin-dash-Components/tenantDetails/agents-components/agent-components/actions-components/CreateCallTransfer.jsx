@@ -274,10 +274,10 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             ]
                             }))
                             }
-                            className="px-4 py-2 rounded-lg border border-[#58a6ff]
+                            className="px-4 flex items-center gap-2 py-2 rounded-lg border border-[#58a6ff]
                             text-[#58a6ff] hover:bg-[#58a6ff]/10"
                             >
-                                <Plus size={12} />
+                                <Plus />
                                 Add Number
                             </button>
                     </div>
