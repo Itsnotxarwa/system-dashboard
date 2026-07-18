@@ -164,7 +164,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         <div className="h-px bg-[#8b949e] my-6" />
 
                         {/*before_execution */}
-                        <div className="mb-6">
+                        <div>
                             <div className="text-sm font-semibold text-white mb-1">
                                 Message before execution
                             </div>
@@ -227,7 +227,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         <div className="h-px bg-[#8b949e] my-6" />
 
                         {/* Restrict Schedule */}
-                        <div className="mb-6">
+                        <div>
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm font-semibold text-white">Restrict the transfer to time slots</span>
                                 <input
@@ -332,7 +332,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         <div className="h-px bg-[#8b949e] my-6" />
 
                         {/* Ring duration */}
-                        <div className="mb-6">
+                        <div>
                             <label className="text-xs font-semibold text-white mb-1.5 block leading-relaxed">
                                 Maximum ring duration (in seconds) before interrupting the transfer and resuming the call
                             </label>
