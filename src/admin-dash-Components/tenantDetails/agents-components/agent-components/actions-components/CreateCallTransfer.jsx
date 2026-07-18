@@ -2,6 +2,16 @@ import { useState, useEffect } from "react";
 import { X, Volume2, Plus, Repeat, Info, Trash2 } from "lucide-react";
 import TimeInput from "./InputTime";
 
+    const DAY_MAP = {
+        mon: 1,
+        tue: 2,
+        wed: 3,
+        thu: 4,
+        fri: 5,
+        sat: 6,
+        sun: 7,
+    };
+
 export default function CreateCallTransfer({onClose, onCancel, handleSubmit, submitting, form, setForm}) {
     const DAYS = [
         { key: "mon", label: "M", full: "Monday" },
@@ -12,6 +22,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
         { key: "sat", label: "S", full: "Saturday" },
         { key: "sun", label: "S", full: "Sunday" },
     ];
+
 
     const [activeDays, setActiveDays] = useState([]);
     const [ranges, setRanges] = useState({});
@@ -61,7 +72,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
 
     useEffect(() => {
     const schedule = activeDays.map(day => ({
-        day_of_week: day,
+        day_of_week: DAY_MAP[day],
         time_slots: (ranges[day] || []).map((r, index) => ({
             slot_index: index + 1,
             start_time: `${r.start}:00`,
