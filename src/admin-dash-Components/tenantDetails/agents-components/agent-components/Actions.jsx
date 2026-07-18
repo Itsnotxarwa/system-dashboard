@@ -7,6 +7,7 @@ import TenantSidebar from "../../tenantSidebar";
 import TopBar from "../../TopBar";
 import CreateCallTransfer from "./actions-components/CreateCallTransfer";
 import ActionDuringCall from "./actions-components/ActionDuringCall";
+import ActionsTypeList from "./actions-components/ActionsTypeList";
 
 
 export default function Actions() {
@@ -21,6 +22,7 @@ export default function Actions() {
     const navigate = useNavigate();
 
     const [openCreateCallTransfer, setOpenCreateCallTransfer] = useState(false);
+    const [openActionsTypeList, setOpenActionsTypeList] = useState(false);
 
     const [form, setForm] = useState({
         name: "",
@@ -213,9 +215,8 @@ if (!res.ok) {
 
                                 {/* During call */}
                                 <ActionDuringCall 
-                                setOpenCreateCallTransfer={setOpenCreateCallTransfer}
                                 callTransferActions={callTransferActions}
-                                open={openCreateCallTransfer}
+                                setOpenActionsTypeList={setOpenActionsTypeList}
                                 />
 
                                 {/* Post-call */}
@@ -234,6 +235,13 @@ if (!res.ok) {
                     </div>
                 </div>
             </main>
+            {openActionsTypeList && (
+                <ActionsTypeList
+                onClose={() => setOpenActionsTypeList(false)}
+                open={openActionsTypeList}
+                setOpen={setOpenActionsTypeList}
+                setOpenCreateCallTransfer={setOpenCreateCallTransfer} />
+            )}
             {openCreateCallTransfer && (
                 <CreateCallTransfer
                 onClose={() => setOpenCreateCallTransfer(false)}
@@ -242,6 +250,7 @@ if (!res.ok) {
                 setForm={setForm}
                 handleSubmit={handleSubmit}
                 submitting={submitting}
+                open={openCreateCallTransfer}
                 />
             )}
         </div>
