@@ -1,6 +1,81 @@
+import { useState, useEffect } from "react";
 import SectionHeader from "./SectionHeader";
-import { X, Volume2, Plus } from "lucide-react";
+import { X, Volume2, Plus, Repeat, Info, Trash2 } from "lucide-react";
+import TimeInput from "./InputTime";
+
 export default function CreateCallTransfer({onClose, onCancel, handleSubmit, submitting, form, setForm}) {
+    const DAYS = [
+        { key: "mon", label: "M", full: "Monday" },
+        { key: "tue", label: "T", full: "Tuesday" },
+        { key: "wed", label: "W", full: "Wednesday" },
+        { key: "thu", label: "T", full: "Thursday" },
+        { key: "fri", label: "F", full: "Friday" },
+        { key: "sat", label: "S", full: "Saturday" },
+        { key: "sun", label: "S", full: "Sunday" },
+    ];
+
+    const [activeDays, setActiveDays] = useState([]);
+    const [ranges, setRanges] = useState({});
+
+    const toggleDay = (day) => {
+        if (activeDays.includes(day)) {
+            setActiveDays(activeDays.filter(d => d !== day));
+
+            const updated = { ...ranges };
+            delete updated[day];
+            setRanges(updated);
+        } else {
+            setActiveDays([...activeDays, day]);
+            setRanges({
+                ...ranges,
+                [day]: [{ start: "09:00", end: "17:00" }],
+            });
+        }
+    };
+
+    const addRange = (day) => {
+        setRanges({
+            ...ranges,
+            [day]: [
+                ...(ranges[day] || []),
+                { start: "09:00", end: "17:00" },
+            ],
+        });
+    };
+
+    const removeRange = (day, index) => {
+        setRanges({
+            ...ranges,
+            [day]: ranges[day].filter((_, i) => i !== index),
+        });
+    };
+
+    const updateRange = (day, index, field, value) => {
+        const updated = [...ranges[day]];
+        updated[index][field] = value;
+
+        setRanges({
+            ...ranges,
+            [day]: updated,
+        });
+    };
+
+    useEffect(() => {
+    const schedule = activeDays.map(day => ({
+        day_of_week: day,
+        time_slots: (ranges[day] || []).map((r, index) => ({
+            slot_index: index + 1,
+            start_time: `${r.start}:00`,
+            end_time: `${r.end}:00`,
+        })),
+    }));
+
+    setForm(prev => ({
+        ...prev,
+        schedule_days: schedule,
+    }));
+}, [activeDays, ranges, setForm]);
+
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div className={`flex-col fixed top-0 right-0 h-full z-50 bg-[#161b22] border-l scroll overflow-y-auto w-120 shrink-0 border-[#21262d]
@@ -8,21 +83,34 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                 {/* HEADER */}
                 <div className="flex items-center gap-3 px-6 py-5 border-b border-[#8b949e] shrink-0">
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-[#e6edf3] text-base tracking-tight"
-                        style={{fontFamily:"'Cabinet Grotesk',sans-serif"}}>
-                            Add Call Action
+                        <div className="font-bold text-[#e6edf3] text-base tracking-tight">
+                            Add an Action
                         </div>
                         <div className="text-xs text-[#8b949e] mt-0.5">
-                            During Call Actions are executed during the conversation to handle requests in real time.
+                            During the Call 
                         </div>
                     </div>
                     <button onClick={onClose}
-                    className="w-7.5 h-7.5 rounded-lg border border-[#30363d]
+                    className="w-7 h-7 rounded-lg border border-[#30363d]
                     bg-[rgba(255,255,255,.04)] text-[#8b949e] cursor-pointer flex items-center
                     justify-center hover:text-[#e6edf3] transition-colors">
-                        <X />
+                        <X size={18}/>
                     </button>
                 </div>
+
+                <div className="flex-1 overflow-y-auto px-6 py-5">
+
+                    <div className="flex items-start gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-lg bg-[#39d3bb] flex items-center justify-center shrink-0">
+                            <Repeat size={18} className="text-white" />
+                        </div>
+                        <div>
+                            <div className="text-sm font-semibold text-white">Call Transfer</div>
+                            <div className="text-xs text-[#8b949e] mt-0.5 leading-relaxed">
+                            Transfers the call to another number from a list of chosen numbers.
+                            </div>
+                        </div>
+                    </div>
 
                 {/*Form */}
                 <div className="px-6 py-6.5">
@@ -51,7 +139,7 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                         name: e.target.value,
                                     }))
                                 }
-                                placeholder="e.g. Transfer to Support"
+                                placeholder="Transfer"
                                 className="w-full px-3 py-2 text-sm border rounded-md outline-none
                                 bg-[#0d1117] border-[#30363d] text-[#e6edf3]
                                 placeholder-[#8b949e] focus:border-[#58a6ff]
@@ -85,36 +173,46 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         <div className="h-px bg-[#8b949e] my-6" />
 
                         {/*before_execution */}
-                        <SectionHeader
-                            icon={<Volume2 size={14} />}
-                            title="Announce Before Transfer"
-                            subtitle="Inform the caller before executing the transfer."
-                        />
-                        <div className="flex items-center justify-between bg-white/2 border border-white/5 rounded-xl px-4 py-3 mb-4">
-                            <div>
-                                <div className="text-sm text-slate-200">Announce Before Transfer</div>
-                                <div className="text-xs text-slate-500 mt-0.5">
-                                    The agent informs the caller before transferring the call.
+                        <div className="mb-6">
+                            <div className="text-sm font-semibold text-white mb-1">
+                                Message before execution
+                            </div>
+                            <p className="text-xs text-[#8b949e] mb-3 leading-relaxed">
+                                Configure the message spoken by the agent before executing the action.
+                            </p>
+
+                            <div className="flex items-center justify-between bg-[#161b22] border border-[#21262d] rounded-xl px-4 py-3 mb-3">
+                                <div className="flex items-center gap-1.5">
+                                    <span className="text-xs text-[#e6edf3]">
+                                        Should the agent say something before execution?
+                                    </span>
                                 </div>
                             </div>
-                            <input
-                                type="checkbox"
-                                checked={form.say_before_execution}
-                                onChange={(e) =>
-                                    setForm(prev => ({
-                                        ...prev,
-                                        say_before_execution: e.target.checked,
-                                    }))
-                                }
-                                className="h-4 w-4 cursor-pointer"
-                            />
-                        </div>
+                            {/*Toggle */}
+                            <div
+                            onClick={() => setForm(prev => ({
+                                ...prev,
+                                say_before_execution: !prev.say_before_execution,
+                            }))}
+                            className={`w-10 h-5 rounded-full cursor-pointer transition-all relative shrink-0 ${
+                                form.say_before_execution ? "bg-[#58a6ff]" : "bg-[#30363d]"
+                            }`}
+                            >
+                                <div
+                                    className={`w-4 h-4 rounded-full bg-white absolute top-0.5 shadow transition-all ${
+                                        form.say_before_execution
+                                            ? "translate-x-5"
+                                            : "translate-x-0.5"
+                                    }`}
+                                />
+                            </div>
 
-                        {form.say_before_execution && (
+                            {form.say_before_execution && (
                             <div>
-                                <label className="block mb-1.5 text-[10px] text-[#8b949e] uppercase tracking-wider">
-                                    Announcement Message
-                                </label>
+                                <div className="flex items-center gap-1 mb-1.5">
+                                    <label className="text-xs text-[#8b949e]">Example message to say before execution</label>
+                                    <Info size={11} className="text-[#484f58]" />
+                                </div>
 
                                 <textarea
                                     value={form.before_execution_message}
@@ -132,27 +230,16 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                     focus:border-[#58a6ff] transition-colors font-mono"
                                 />
                             </div>
-                        )}
+                            )}
+                        </div>
 
                         <div className="h-px bg-[#8b949e] my-6" />
 
-                        <SectionHeader
-                            title="Transfer Availability"
-                            subtitle="Limit transfers to specific business hours."
-                        />
-
-                        <div className="flex items-center justify-between bg-white/2 border border-white/5 rounded-xl px-4 py-3">
-                            <div>
-                                <div className="text-sm text-slate-200">
-                                    Restrict to Schedule
-                                </div>
-
-                                <div className="text-xs text-slate-500 mt-0.5">
-                                    Transfers will only happen during configured hours.
-                                </div>
-                            </div>
-
-                            <input
+                        {/* Restrict Schedule */}
+                        <div className="mb-6">
+                            <div className="flex items-center justify-between mb-3">
+                                <span className="text-sm font-semibold text-white">Restrict the transfer to time slots</span>
+                                <input
                                 type="checkbox"
                                 checked={form.restrict_to_schedule}
                                 onChange={(e)=>
@@ -161,12 +248,102 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                         restrict_to_schedule:e.target.checked
                                     }))
                                 }
-                            />
+                                />
+                            </div>
+
+                            {form.restrict_to_schedule && (
+                                <>
+                                    <div className="mb-4">
+                                        <div className="text-xs text-[#8b949e] mb-2">
+                                            Available Days
+                                        </div>
+
+                                        <div className="flex items-center gap-2">
+                                            {DAYS.map((d) => (
+                                                <button
+                                                    type="button"
+                                                    key={d.key}
+                                                    onClick={() => toggleDay(d.key)}
+                                                    className={`w-9 h-9 rounded-full text-xs font-semibold transition-colors ${
+                                                        activeDays.includes(d.key)
+                                                            ? "bg-[#58a6ff] text-white"
+                                                            : "bg-[#161b22] border border-[#21262d] text-[#8b949e] hover:bg-[#1c2128]"
+                                                    }`}
+                                                >
+                                                    {d.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    
+                                    {DAYS.filter((d) => activeDays.includes(d.key)).map((d) => (
+                                        <div key={d.key} className="mb-4">
+
+                                            <div className="text-sm text-[#e6edf3] mb-2">
+                                                {d.full}
+                                            </div>
+
+                                            <div className="flex flex-col gap-2">
+                                                {(ranges[d.key] || []).map((rg, idx) => (
+                                                    <div key={idx} className="flex items-end gap-2">
+
+                                                        <div className="flex-1">
+                                                            <div className="text-[10px] text-[#8b949e] mb-1">
+                                                                Start Time
+                                                            </div>
+
+                                                            <TimeInput
+                                                                value={rg.start}
+                                                                onChange={(v) =>
+                                                                    updateRange(d.key, idx, "start", v)
+                                                                }
+                                                            />
+                                                        </div>
+
+                                                        <div className="flex-1">
+                                                            <div className="text-[10px] text-[#8b949e] mb-1">
+                                                                End Time
+                                                            </div>
+
+                                                            <TimeInput
+                                                                value={rg.end}
+                                                                onChange={(v) =>
+                                                                    updateRange(d.key, idx, "end", v)
+                                                                }
+                                                            />
+                                                        </div>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removeRange(d.key, idx)}
+                                                            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-500/10 text-[#f85149]"
+                                                        >
+                                                            <Trash2 size={14} />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={() => addRange(d.key)}
+                                                className="flex items-center gap-1.5 text-xs text-[#58a6ff] hover:text-[#79b8ff] mt-2"
+                                            >
+                                                <Plus size={12} />
+                                                Add Time Range
+                                            </button>
+                                        </div>
+                                    ))}
+                                </>
+                                )}
                         </div>
 
-                        <div className="mt-4">
-                            <label className="block mb-2 text-[10px] uppercase tracking-wider text-[#8b949e]">
-                                Maximum Ring Duration (seconds)
+                        <div className="h-px bg-[#8b949e] my-6" />
+
+                        {/* Ring duration */}
+                        <div className="mb-6">
+                            <label className="text-xs font-semibold text-white mb-1.5 block leading-relaxed">
+                                Maximum ring duration (in seconds) before interrupting the transfer and resuming the call
                             </label>
 
                             <input
@@ -303,6 +480,8 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             {submitting ? "Creating..." : "Create"}
                         </button>
                     </div>
+                </div>
+           
                 </div>
             </div>
         </div>
