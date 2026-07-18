@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import SectionHeader from "./SectionHeader";
 import { X, Volume2, Plus, Repeat, Info, Trash2 } from "lucide-react";
 import TimeInput from "./InputTime";
 
@@ -355,16 +354,17 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         
                         <div className="h-px bg-[#8b949e] my-6" />
 
-                        <SectionHeader
-                            title="Transfer Numbers"
-                            subtitle="Numbers that the call can be transferred to."
-                        />
+                        <div>
+                            <div className="text-sm font-semibold text-white mb-3">
+                                Add a transfer number manually 
+                            </div>
 
-                        {form.numbers.map((number,index)=>(
-                        <div
-                        key={index}
-                        className="border border-[#30363d] rounded-xl p-4 space-y-3 mb-4"
-                        >
+                            <div>
+                                {form.numbers.map((number,index)=>(
+                                    <div
+                                    key={index}
+                                    className="border border-[#30363d] rounded-xl p-4 space-y-3 mb-4"
+                                    >
 
                         <input
                         placeholder="Country Code"
@@ -399,16 +399,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
                         />
 
-                        <input
-                        placeholder="Announcement Message"
-                        value={number.message}
-                        onChange={(e)=>{
-                        const updated=[...form.numbers];
-                        updated[index].message=e.target.value;
-                        setForm({...form,numbers:updated});
-                        }}
-                        className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                        />
 
                         <button
                         type="button"
@@ -422,7 +412,44 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         </button>
 
                         </div>
-                        ))}
+                                ))}
+                            </div>
+
+                            <div className="flex flex-col gap-2 mb-6">
+  {form.numbers.map((number, index) => (
+    <div
+      key={index}
+      className="flex items-center justify-between bg-[#161b22] border border-[#21262d] rounded-xl px-4 py-3"
+    >
+      <div className="flex items-center gap-3 flex-1">
+        <div>
+          <div className="text-xs text-[#e6edf3] flex items-center gap-1">
+            <span>{number.country_code}</span>
+            <span>{number.phone_number}</span>
+          </div>
+
+          {number.description && (
+            <div className="text-[11px] text-[#8b949e] mt-0.5">
+              {number.description}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => {
+          const updated = form.numbers.filter((_, i) => i !== index);
+          setForm({ ...form, numbers: updated });
+        }}
+        className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-red-500/10 text-[#f85149]"
+      >
+        <Trash2 size={13} />
+      </button>
+    </div>
+  ))}
+</div>
+                        </div>
 
                             <button
                             type="button"
