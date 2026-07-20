@@ -1,5 +1,5 @@
 import { allCountries } from "../../../../data/countries";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 export default function AddNumber({form, setForm}) {
@@ -9,7 +9,7 @@ export default function AddNumber({form, setForm}) {
         description: "",
     });
     const [selectedCountry, setSelectedCountry] = useState(allCountries[0]);
-    const [openDropdown, setOpenDropdown] = useState(null);
+    const [openDropdown, setOpenDropdown] = useState(false);
 
     const addNumber = () => {
         if (!newNumber.phone_number.trim()) return;
@@ -35,6 +35,7 @@ export default function AddNumber({form, setForm}) {
         });
 
         setSelectedCountry(allCountries[0]);
+        setOpenDropdown(false);
     };
     return(
         <div>
@@ -42,30 +43,36 @@ export default function AddNumber({form, setForm}) {
                 Add a transfer number manually 
             </div>
         
-            <div className="relative mb-2">
-                <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
-                    <div
-                        className="text-sm outline-none rounded-lg h-full text-[#e6edf3] cursor-pointer flex 
-                        items-center justify-between"
-                        onClick={() => setOpenDropdown(!openDropdown)}
-                        >
-                            <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
-                            <ChevronDown size={14} />
+            <div className="relative">
+                <div className="relative mb-2">
+                    <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
+                        <div
+                            className="text-sm outline-none rounded-lg h-full text-[#e6edf3] cursor-pointer flex 
+                            items-center justify-between"
+                            onClick={() => setOpenDropdown(prev => !prev)}
+                            >
+                                <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
+                                <ChevronDown size={14} />
+                        </div>
                     </div>
-                </div>
         
-                <input
-                    type="tel"
-                    placeholder="189317006"
-                    value={newNumber.phone_number}
-                    onChange={(e)=> {
-                        setNewNumber(prev => ({
-                            ...prev,
-                            phone_number: e.target.value
-                        }))
-                    }}
-                    className="w-full px-3 py-2 pl-18 rounded-md bg-[#0d1117] border border-[#30363d]"
+                    <input
+                        type="tel"
+                        placeholder="189317006"
+                        value={newNumber.phone_number}
+                        onChange={(e)=> {
+                            let value = e.target.value.replace(/\D/g, "");
+                            if (value.startsWith("0")) {
+                                value = value.slice(1);
+                            }
+                            setNewNumber(prev => ({
+                                ...prev,
+                                phone_number: e.target.value
+                            }))
+                        }}
+                        className="w-full px-3 py-2 pl-18 rounded-md bg-[#0d1117] border border-[#30363d]"
                     />
+                </div>
             </div>
         
             {/* Dropdown menu */}
@@ -81,7 +88,7 @@ export default function AddNumber({form, setForm}) {
                                     country_code: `+${c.code}`,
                                 }));
                                 setSelectedCountry(c);
-                                setOpenDropdown(null);
+                                setOpenDropdown(false);
                             }}
                             
                         >
@@ -114,7 +121,7 @@ export default function AddNumber({form, setForm}) {
         
         
             <div className="flex flex-col gap-2 mb-6">
-                {form.numbers.map((number, index) => (
+                {form.numbers.filter(number => number.phone_number).map((number, index) => (
                     <div
                     key={index}
                     className="flex items-center justify-between bg-[#161b22] border border-[#21262d] rounded-xl px-4 py-3"
