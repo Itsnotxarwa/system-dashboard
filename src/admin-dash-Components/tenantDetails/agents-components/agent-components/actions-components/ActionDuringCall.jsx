@@ -6,10 +6,10 @@ export default function ActionDuringCall({ callTransferActions, setOpenActionsTy
     return(
         <div className="mb-8">
             <div className="flex items-center gap-1.5 mb-1">
-                <h2 className="text-sm font-semibold text-slate-100">Actions During Call</h2>
+                <h2 className="text-[15px] font-semibold text-slate-100">Actions During Call</h2>
                 <Info size={13} className="text-[#8b949e]" />
             </div>
-            <p className="text-xs text-slate-500 mb-3">
+            <p className="text-[13px] text-slate-500 mb-3">
                 Actions executed during the conversation to handle requests in real time.
             </p>
             <div className="flex flex-col gap-2 mb-3">
@@ -19,7 +19,7 @@ export default function ActionDuringCall({ callTransferActions, setOpenActionsTy
                     addLabel="Add an action" />
                 ) : (
                     callTransferActions?.map((action, index) => (
-                        <div>
+                        <div className="space-y-4">
                             <ActionRow
                                 key={index}
                                 icon={ 

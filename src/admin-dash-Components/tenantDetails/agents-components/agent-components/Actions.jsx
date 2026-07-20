@@ -199,7 +199,7 @@ if (!res.ok) {
 
                             <div className="h-px w-full bg-[#30363d] mb-5" />
 
-                            <div className="px-8 py-6">
+                            <div className="px-4 py-6">
                                 {/* Pre-call */}
                                 {/* <div className="mb-8">
                                     <div className="flex items-center gap-1.5 mb-1">
