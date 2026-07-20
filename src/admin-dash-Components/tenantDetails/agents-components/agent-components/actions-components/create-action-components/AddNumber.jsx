@@ -11,6 +11,8 @@ export default function AddNumber({form, setForm}) {
     const [selectedCountry, setSelectedCountry] = useState(allCountries[0]);
     const [openDropdown, setOpenDropdown] = useState(false);
 
+    const [showForm, setShowForm] = useState(true);
+
     const addNumber = () => {
         if (!newNumber.phone_number.trim()) return;
         
@@ -36,13 +38,16 @@ export default function AddNumber({form, setForm}) {
 
         setSelectedCountry(allCountries[0]);
         setOpenDropdown(false);
+        setShowForm(false);
     };
     return(
         <div>
             <div className="text-sm font-semibold text-white mb-3">
                 Add a transfer number manually 
             </div>
-        
+
+            {showForm && (
+            <>
             <div className="relative">
                 <div className="relative mb-2">
                     <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
@@ -118,6 +123,8 @@ export default function AddNumber({form, setForm}) {
                 <Plus size={12} />
                 Add Number
             </button>
+            </>
+            )}
         
         
             <div className="flex flex-col gap-2 mb-6">
