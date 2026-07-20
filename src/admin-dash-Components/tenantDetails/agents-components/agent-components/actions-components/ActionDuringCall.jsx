@@ -2,7 +2,7 @@ import { Info, PhoneOff, Plus, Repeat } from "lucide-react";
 import ActionRow from "./ActionRow";
 import EmptyActionBox from "./EmptyActionBox";
 
-export default function ActionDuringCall({ callTransferActions, setOpenActionsTypeList}) {
+export default function ActionDuringCall({ callTransferActions, setOpenActionsTypeList, handleOpenDelete}) {
     return(
         <div className="mb-8">
             <div className="flex items-center gap-1.5 mb-1">
@@ -36,6 +36,7 @@ export default function ActionDuringCall({ callTransferActions, setOpenActionsTy
                                 }
                                 name={action?.name || ""}
                                 description={action?.description || ""}
+                                onDelete={() => handleOpenDelete(action)}
                             />
                             <div className="flex justify-center">
                                 <button 

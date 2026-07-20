@@ -8,6 +8,7 @@ import TopBar from "../../TopBar";
 import CreateCallTransfer from "./actions-components/CreateCallTransfer";
 import ActionDuringCall from "./actions-components/ActionDuringCall";
 import ActionsTypeList from "./actions-components/ActionsTypeList";
+import DeleteAction from "./actions-components/DeleteAction";
 
 
 export default function Actions() {
@@ -23,6 +24,9 @@ export default function Actions() {
 
     const [openCreateCallTransfer, setOpenCreateCallTransfer] = useState(false);
     const [openActionsTypeList, setOpenActionsTypeList] = useState(false);
+
+    const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [selectedAction, setSelectedAction] = useState(null);
 
     const [form, setForm] = useState({
         name: "",
@@ -56,6 +60,7 @@ export default function Actions() {
         }));
     }, [agentId]);
 
+    {/* handle submit */}
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -74,16 +79,16 @@ export default function Actions() {
         );
 
         if (!res) {
-    throw new Error("No response from server");
-}
+            throw new Error("No response from server");
+        }
 
-if (!res.ok) {
-    const errorData = await res.json();
+        if (!res.ok) {
+            const errorData = await res.json();
 
-    throw new Error(
-        errorData.detail || "Failed to create call transfer action"
-    );
-}
+            throw new Error(
+                errorData.detail || "Failed to create call transfer action"
+            );
+        }
 
         const data = await res.json();
         console.log("Created call transfer action:", data);
@@ -109,7 +114,7 @@ if (!res.ok) {
     } finally {
         setSubmitting(false);
     }
-};
+    };
 
     {/* fetch Tenant */}
     useEffect(() => {
@@ -171,6 +176,43 @@ if (!res.ok) {
         fetchCallTransferActions();
     }, [agentId]);
 
+    {/* Delete Call Transfer Action */}
+    const deleteCallTransferAction = async(actionId) => {
+        try{
+            const response = await apiFetch(`https://api.mazia.ai/admin/agents/${agentId}/call_transfer_actions/${actionId}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (!response) return;
+            
+            if (!response.ok) {
+                const errorText = await response.text(); 
+                console.error("Delete failed - status:", response.status, "body:", errorText);
+                throw new Error(errorText || "Delete failed");
+            }
+
+            setCallTransferActions(prev => prev.filter(a => a.id !== actionId));
+
+        } catch (err) {
+            console.log(`Failed: ${err?.detail}`)
+        }
+    }
+
+    const handleOpenDelete = (action) => {
+        setSelectedAction(action);
+        setOpenDeleteModal(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!selectedAction) return;
+
+        await deleteCallTransferAction(selectedAction.id);
+
+        setOpenDeleteModal(false);
+        setSelectedAction(null);
+    };
+
     if (loading) {
         return <Loading />;
     }
@@ -217,6 +259,7 @@ if (!res.ok) {
                                 <ActionDuringCall 
                                 callTransferActions={callTransferActions}
                                 setOpenActionsTypeList={setOpenActionsTypeList}
+                                handleOpenDelete={handleOpenDelete}
                                 />
 
                                 {/* Post-call */}
@@ -252,6 +295,16 @@ if (!res.ok) {
                 submitting={submitting}
                 open={openCreateCallTransfer}
                 />
+            )}
+
+            {openDeleteModal && (
+                <DeleteAction
+                onClose={() => {
+                    setOpenDeleteModal(false);
+                    setSelectedAction(null);
+                }}
+                onConfirm={handleConfirmDelete}
+                actionName={selectedAction?.name} />
             )}
         </div>
     )
