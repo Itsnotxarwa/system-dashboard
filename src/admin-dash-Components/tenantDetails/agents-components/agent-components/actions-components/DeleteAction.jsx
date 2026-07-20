@@ -26,7 +26,7 @@ export default function DeleteAction({ actionName, onConfirm, onClose }) {
                         <TriangleAlert />
                     </span>
                     <p class="text-[11px] text-red-700 leading-relaxed">
-                        All sessions, configs and data associated with this tenant will be permanently removed.
+                        All sessions, configs and data associated with this action will be permanently removed.
                     </p>
         </div>
 

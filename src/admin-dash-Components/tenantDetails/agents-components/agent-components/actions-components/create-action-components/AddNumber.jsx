@@ -78,11 +78,10 @@ export default function AddNumber({form, setForm}) {
                         className="w-full px-3 py-2 pl-18 rounded-md bg-[#0d1117] border border-[#30363d]"
                     />
                 </div>
-            </div>
-        
-            {/* Dropdown menu */}
-            {openDropdown  && (
-                <ul className="absolute z-50 mt-1 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
+
+                {/* Dropdown menu */}
+                {openDropdown  && (
+                <ul className="absolute z-50 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
                     {allCountries.map((c) => (
                         <li
                         key={c.code}
@@ -101,7 +100,8 @@ export default function AddNumber({form, setForm}) {
                         </li>
                     ))}
                 </ul>
-            )}
+                )}
+            </div>
         
             <input
             placeholder="Description"
