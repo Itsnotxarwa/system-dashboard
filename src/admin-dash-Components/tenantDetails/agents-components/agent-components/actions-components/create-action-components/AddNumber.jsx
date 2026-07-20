@@ -81,7 +81,7 @@ export default function AddNumber({form, setForm}) {
 
                 {/* Dropdown menu */}
                 {openDropdown  && (
-                <ul className="absolute z-50 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
+                <ul className="absolute z-50 w-full max-h-56 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
                     {allCountries.map((c) => (
                         <li
                         key={c.code}
