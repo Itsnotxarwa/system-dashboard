@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { X, Volume2, Plus, Repeat, Info, Trash2 } from "lucide-react";
+import { X, Volume2, Plus, Repeat, Info, Trash2, ChevronDown } from "lucide-react";
 import TimeInput from "./InputTime";
+import { allCountries } from "../../../data/countries";
 
     const DAY_MAP = {
         mon: 1,
@@ -84,7 +85,10 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
         ...prev,
         schedule_days: schedule,
     }));
-}, [activeDays, ranges, setForm]);
+    }, [activeDays, ranges, setForm]);
+
+    const [selectedCountry, setSelectedCountry] = useState(allCountries[0]);
+    const [openDropdown, setOpenDropdown] = useState(null);
 
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -365,19 +369,66 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                         
                         <div className="h-px bg-[#8b949e] my-6" />
 
+                        {/* Add Phone Number */}
                         <div>
                             <div className="text-sm font-semibold text-white mb-3">
                                 Add a transfer number manually 
                             </div>
 
-                            <div>
-                                {form.numbers.map((number,index)=>(
-                                    <div
-                                    key={index}
-                                    className="border border-[#30363d] rounded-xl p-4 space-y-3 mb-4"
-                                    >
+                            {form.numbers.map((number,index)=>(
+                                <div
+                                key={index}>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
+                                            <div
+                                                className="text-sm outline-none rounded-lg h-full text-[#e6edf3] cursor-pointer flex 
+                                                items-center justify-between"
+                                                onClick={() => setOpenDropdown(!openDropdown)}
+                                                >
+                                                    <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
+                                                    <ChevronDown size={14} />
+                                            </div>
+                                        </div>
 
-                        <input
+                                        <input
+                                            type="tel"
+                                            placeholder="189317006"
+                                            value={number.phone_number}
+                                            onChange={(e)=>{
+                                                const updated=[...form.numbers];
+                                                updated[index].phone_number=e.target.value;
+                                                setForm({...form,numbers:updated});
+                                            }}
+                                            className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+                                            />
+                                    </div>
+
+                                    {/* Dropdown menu */}
+                                    {openDropdown === index && (
+                                        <ul className="absolute z-50 mt-1 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
+                                            {allCountries.map((c) => (
+                                                <li
+                                                key={c.code}
+                                                className="px-3 py-2 text-sm text-[#e6edf3] hover:bg-[#21262d] cursor-pointer"
+                                                onClick={() => {
+                                                    const updated = [...form.numbers];
+                                                    updated[index].country_code = `+${c.code}`;
+                                                    setForm({
+                                                        ...form,
+                                                        numbers: updated,
+                                                    });
+
+                                                    setSelectedCountry(c);
+                                                    setOpenDropdown(null);
+                                                    }}
+                                                >
+                                                    <span>{c.country} (+{c.code})</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+
+                    {/*    <input
                         placeholder="Country Code"
                         value={number.country_code}
                         onChange={(e)=>{
@@ -386,18 +437,8 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                             setForm({...form,numbers:updated});
                         }}
                         className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                        />
+                        /> */}
 
-                        <input
-                        placeholder="Phone Number"
-                        value={number.phone_number}
-                        onChange={(e)=>{
-                        const updated=[...form.numbers];
-                        updated[index].phone_number=e.target.value;
-                        setForm({...form,numbers:updated});
-                        }}
-                        className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                        />
 
                         <input
                         placeholder="Description"
@@ -424,7 +465,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
 
                         </div>
                                 ))}
-                            </div>
 
                             <div className="flex flex-col gap-2 mb-6">
   {form.numbers.map((number, index) => (
@@ -461,31 +501,6 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
   ))}
 </div>
                         </div>
-
-                            <button
-                            type="button"
-                            onClick={()=>
-                            setForm(prev=>({
-                            ...prev,
-                            numbers:[
-                            ...prev.numbers,
-                            {
-                            country_code:"+33",
-                            phone_number:"",
-                            description:"",
-                            message:"",
-                            source:"manual",
-                            display_order:prev.numbers.length
-                            }
-                            ]
-                            }))
-                            }
-                            className="px-4 flex items-center gap-2 py-2 rounded-lg border border-[#58a6ff]
-                            text-[#58a6ff] hover:bg-[#58a6ff]/10"
-                            >
-                                <Plus />
-                                Add Number
-                            </button>
                     </div>
                 </div>
 
