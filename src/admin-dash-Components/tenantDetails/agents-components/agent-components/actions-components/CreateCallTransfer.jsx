@@ -87,8 +87,34 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
     }));
     }, [activeDays, ranges, setForm]);
 
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [description, setDescription] = useState("");
     const [selectedCountry, setSelectedCountry] = useState(allCountries[0]);
     const [openDropdown, setOpenDropdown] = useState(null);
+
+    const addNumber = () => {
+        if (!phoneNumber.trim()) return;
+        
+        setForm(prev => ({
+            ...prev,
+            
+            numbers: [
+                ...prev.numbers,
+                {
+                    country_code: `+${selectedCountry.code}`,
+                    phone_number: phoneNumber,
+                    description,
+                    message: "",
+                    source: "manual",
+                    display_order: prev.numbers.length,
+                },
+            ],
+        }));
+
+        setPhoneNumber("");
+        setDescription("");
+        setSelectedCountry(allCountries[0]);
+    };
 
     return(
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -375,131 +401,104 @@ export default function CreateCallTransfer({onClose, onCancel, handleSubmit, sub
                                 Add a transfer number manually 
                             </div>
 
-                            {form.numbers.map((number,index)=>(
-                                <div
-                                key={index}>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
-                                            <div
-                                                className="text-sm outline-none rounded-lg h-full text-[#e6edf3] cursor-pointer flex 
-                                                items-center justify-between"
-                                                onClick={() => setOpenDropdown(!openDropdown)}
-                                                >
-                                                    <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
-                                                    <ChevronDown size={14} />
-                                            </div>
-                                        </div>
-
-                                        <input
-                                            type="tel"
-                                            placeholder="189317006"
-                                            value={number.phone_number}
-                                            onChange={(e)=>{
-                                                const updated=[...form.numbers];
-                                                updated[index].phone_number=e.target.value;
-                                                setForm({...form,numbers:updated});
-                                            }}
-                                            className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                                            />
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-3 my-auto h-6 flex items-center border-r pr-2">
+                                    <div
+                                        className="text-sm outline-none rounded-lg h-full text-[#e6edf3] cursor-pointer flex 
+                                        items-center justify-between"
+                                        onClick={() => setOpenDropdown(!openDropdown)}
+                                        >
+                                            <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
+                                            <ChevronDown size={14} />
                                     </div>
+                                </div>
 
-                                    {/* Dropdown menu */}
-                                    {openDropdown === index && (
-                                        <ul className="absolute z-50 mt-1 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
-                                            {allCountries.map((c) => (
-                                                <li
-                                                key={c.code}
-                                                className="px-3 py-2 text-sm text-[#e6edf3] hover:bg-[#21262d] cursor-pointer"
-                                                onClick={() => {
-                                                    const updated = [...form.numbers];
-                                                    updated[index].country_code = `+${c.code}`;
-                                                    setForm({
-                                                        ...form,
-                                                        numbers: updated,
-                                                    });
+                                <input
+                                    type="tel"
+                                    placeholder="189317006"
+                                    value={phoneNumber}
+                                    onChange={(e)=> {
+                                        let value = e.target.value.replace(/\D/g, "");
+                                        if (value.startsWith("0")) value = value.slice(1);
+                                        setPhoneNumber(value)
+                                    }}
+                                    className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+                                    />
+                            </div>
 
-                                                    setSelectedCountry(c);
-                                                    setOpenDropdown(null);
-                                                    }}
-                                                >
-                                                    <span>{c.country} (+{c.code})</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
+                            {/* Dropdown menu */}
+                            {openDropdown  && (
+                                <ul className="absolute z-50 mt-1 w-full max-h-60 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
+                                    {allCountries.map((c) => (
+                                        <li
+                                        key={c.code}
+                                        className="px-3 py-2 text-sm text-[#e6edf3] hover:bg-[#21262d] cursor-pointer"
+                                        onClick={() => {
+                                            setSelectedCountry(c);
+                                            setOpenDropdown(null);
+                                            }}
+                                        >
+                                            <span>{c.country} (+{c.code})</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
 
-                    {/*    <input
-                        placeholder="Country Code"
-                        value={number.country_code}
-                        onChange={(e)=>{
-                            const updated=[...form.numbers];
-                            updated[index].country_code=e.target.value;
-                            setForm({...form,numbers:updated});
-                        }}
-                        className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                        /> */}
+                            <input
+                            placeholder="Description"
+                            value={description}
+                            onChange={(e)=> setDescription(e.target.value)}
+                            className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
+                            />
 
+                            <button
+                            type="button"
+                            onClick={addNumber}
+                            className="cursor-pointer flex items-center gap-1.5 text-[13px] px-6 py-2.5 rounded-lg 
+                            text-[#58a6ff] hover:bg-[rgba(88,166,255,.08)] border border-[rgba(88,166,255,.25)]
+                            transition-colors font-mono"
+                            >
+                                <Plus size={12} />
+                                Add Number
+                            </button>
 
-                        <input
-                        placeholder="Description"
-                        value={number.description}
-                        onChange={(e)=>{
-                        const updated=[...form.numbers];
-                        updated[index].description=e.target.value;
-                        setForm({...form,numbers:updated});
-                        }}
-                        className="w-full px-3 py-2 rounded-md bg-[#0d1117] border border-[#30363d]"
-                        />
-
-
-                        <button
-                        type="button"
-                        onClick={()=>{
-                        const updated=form.numbers.filter((_,i)=>i!==index);
-                        setForm({...form,numbers:updated});
-                        }}
-                        className="text-red-400 text-sm"
-                        >
-                        Remove Number
-                        </button>
-
-                        </div>
-                                ))}
 
                             <div className="flex flex-col gap-2 mb-6">
-  {form.numbers.map((number, index) => (
-    <div
-      key={index}
-      className="flex items-center justify-between bg-[#161b22] border border-[#21262d] rounded-xl px-4 py-3"
-    >
-      <div className="flex items-center gap-3 flex-1">
-        <div>
-          <div className="text-xs text-[#e6edf3] flex items-center gap-1">
-            <span>{number.country_code}</span>
-            <span>{number.phone_number}</span>
-          </div>
+                                {form.numbers.map((number, index) => (
+                                    <div
+                                    key={index}
+                                    className="flex items-center justify-between bg-[#161b22] border border-[#21262d] rounded-xl px-4 py-3"
+                                    >
+                                    <div className="flex items-center gap-3 flex-1">
+                                        <div>
+                                            <div className="text-xs text-[#e6edf3] flex items-center gap-1">
+                                            <span>{number.country_code}</span>
+                                            <span>{number.phone_number}</span>
+                                            </div>
 
-          {number.description && (
-            <div className="text-[11px] text-[#8b949e] mt-0.5">
-              {number.description}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => {
-          const updated = form.numbers.filter((_, i) => i !== index);
-          setForm({ ...form, numbers: updated });
-        }}
-        className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-red-500/10 text-[#f85149]"
-      >
-        <Trash2 size={13} />
-      </button>
-    </div>
-  ))}
-</div>
+                                            {number.description && (
+                                            <div className="text-[11px] text-[#8b949e] mt-0.5">
+                                                {number.description}
+                                            </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                        setForm(prev=>({
+                                            ...prev,
+                                            numbers: prev.numbers.filter((_,i)=>i!==index)
+                                        }));
+                                        }}
+                                        className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-red-500/10 text-[#f85149]"
+                                    >
+                                        <Trash2 size={13} />
+                                    </button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
