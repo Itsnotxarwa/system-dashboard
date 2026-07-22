@@ -5,7 +5,7 @@ export default function ActionRow({ icon, iconBg, name, description, onDelete })
     return(
         <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-[#30363d] transition-colors">
             <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${iconBg}`}>{icon}</div>
+                <div className={`w-9 h-9 shrink-0 rounded-lg flex items-center justify-center ${iconBg}`}>{icon}</div>
                 <div>
                     <div className="text-sm text-[#e6edf3;] font-medium">{name}</div>
                     <div className="text-xs text-[#8b949e]">{description}</div>
