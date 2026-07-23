@@ -40,6 +40,14 @@ export default function AddNumber({form, setForm}) {
         setOpenDropdown(false);
         setShowForm(false);
     };
+
+    const isoToFlag = (iso) =>
+        iso
+        .toUpperCase()
+        .replace(/./g, (char) =>
+            String.fromCodePoint(127397 + char.charCodeAt(0))
+        );
+
     return(
         <div>
             <div className="text-sm font-semibold text-white mb-3">
@@ -56,7 +64,7 @@ export default function AddNumber({form, setForm}) {
                             items-center justify-between"
                             onClick={() => setOpenDropdown(prev => !prev)}
                             >
-                                <span>{selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
+                                <span>{isoToFlag(selectedCountry.iso)} {selectedCountry ? `+${selectedCountry.code}` : " +33"}</span>
                                 <ChevronDown size={14} />
                         </div>
                     </div>
@@ -84,7 +92,7 @@ export default function AddNumber({form, setForm}) {
                 <ul className="absolute z-50 w-full max-h-56 overflow-auto bg-[#161b22] border border-[#30363d] rounded-md shadow-lg">
                     {allCountries.map((c) => (
                         <li
-                        key={c.code}
+                        key={c.iso}
                         className="px-3 py-2 text-sm text-[#e6edf3] hover:bg-[#21262d] cursor-pointer"
                         onClick={() => {
                                 setNewNumber(prev => ({
@@ -96,7 +104,7 @@ export default function AddNumber({form, setForm}) {
                             }}
                             
                         >
-                            <span>{c.country} (+{c.code})</span>
+                            <span>{isoToFlag(c.iso)} {c.country} (+{c.code})</span>
                         </li>
                     ))}
                 </ul>
